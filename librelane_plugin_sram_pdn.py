@@ -57,12 +57,12 @@ import types as _types
 
 import librelane.steps.netgen as _netgen
 
-_BAD_ESCAPE = _re.compile(r'\(\|[^"\/bfnrtu])')
+_BAD_ESCAPE = _re.compile(r'\\(\\|[^"\\/bfnrtu])')
 
 
 def _repair_escapes(s):
     return _BAD_ESCAPE.sub(
-        lambda m: '\\' if m.group(1) == '\' else '\\' + m.group(1), s
+        lambda m: '\\\\' if m.group(1) == '\\' else '\\\\' + m.group(1), s
     )
 
 
