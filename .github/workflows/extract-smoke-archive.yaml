@@ -1,0 +1,72 @@
+name: Restore smoke-test files from ZIP
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Restore only the six missing project files
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          import zipfile
+
+          required = [
+              'LICENSE',
+              'odb_sram_stripes.py',
+              'macro/RM_IHPSG13_1P_256x32_c2_bm_bist/RM_IHPSG13_1P_256x32_c2_bm_bist.lef',
+              '.github/workflows/test.yaml',
+              '.github/workflows/gds.yaml',
+              '.github/workflows/docs.yaml',
+          ]
+          pending = {}
+          with zipfile.ZipFile('tickertape-sram-smoke.zip') as archive:
+              entries = [entry for entry in archive.infolist() if not entry.is_dir()]
+              for target in required:
+                  if pathlib.Path(target).exists():
+                      raise SystemExit(f'Refusing to overwrite existing file: {target}')
+                  matches = [entry for entry in entries if entry.filename == target or entry.filename.endswith('/' + target)]
+                  if len(matches) != 1:
+                      raise SystemExit(f'Expected exactly one archive entry for {target}; found {len(matches)}')
+                  entry = matches[0]
+                  if entry.file_size > 5000000:
+                      raise SystemExit(f'Archive entry too large: {entry.filename}')
+                  content = archive.read(entry)
+                  content.decode('utf-8')
+                  pending[target] = content
+          for target, content in pending.items():
+              path = pathlib.Path(target)
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_bytes(content)
+              print(f'Restored {target}: {len(content)} bytes')
+          PY
+
+      - name: Check Python syntax without running project code
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import pathlib
+          for name in ['odb_sram_stripes.py', 'librelane_plugin_sram_pdn.py']:
+              compile(pathlib.Path(name).read_text(), name, 'exec')
+              print(f'Syntax OK: {name}')
+          PY
+
+      - name: Commit restored files to main
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- LICENSE odb_sram_stripes.py macro/RM_IHPSG13_1P_256x32_c2_bm_bist/RM_IHPSG13_1P_256x32_c2_bm_bist.lef .github/workflows/test.yaml .github/workflows/gds.yaml .github/workflows/docs.yaml
+          git commit -m 'Restore six smoke-test files from uploaded ZIP'
+          git push origin HEAD:main
