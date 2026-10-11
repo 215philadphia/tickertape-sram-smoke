@@ -1,0 +1,128 @@
+name: Collect smoke-test results
+on:
+  workflow_dispatch:
+    inputs:
+      commit_sha:
+        description: Commit whose runs should be collected
+        required: true
+        default: '9ec9676ee6260b1e2f4e0e3f0a52e170afe811cb'
+permissions:
+  actions: read
+  contents: write
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      TARGET_SHA: ${{ inputs.commit_sha }}
+    steps:
+      - name: Collect statuses, log excerpts, and text reports
+        shell: bash
+        run: |
+          mkdir publish
+          python3 - <<'PY'
+          import io, json, os, pathlib, re, subprocess, zipfile
+          root = pathlib.Path('publish')
+          repo = os.environ['REPO']
+          sha = os.environ['TARGET_SHA']
+          if not re.fullmatch(r'[0-9a-fA-F]{40}', sha):
+              raise SystemExit('Provide a full 40-character commit SHA')
+          def api(endpoint):
+              return subprocess.check_output(['gh', 'api', endpoint], timeout=90)
+          def data(endpoint):
+              return json.loads(api(endpoint))
+          def pages(endpoint, key):
+              rows = []
+              for page in range(1, 21):
+                  sep = '&' if '?' in endpoint else '?'
+                  batch = data(f'{endpoint}{sep}per_page=100&page={page}')[key]
+                  rows.extend(batch)
+                  if len(batch) < 100:
+                      break
+              return rows
+          def save(path, text):
+              text = text.replace(os.environ['GH_TOKEN'], '[REDACTED_TOKEN]')
+              dest = root / path
+              dest.parent.mkdir(parents=True, exist_ok=True)
+              dest.write_text(text, encoding='utf-8')
+          summary = [f'# Smoke-test results for {sha}', '', 'Logs are excerpts; artifact reports may be truncated. Missing reports are not passing signoff.', '']
+          runs = pages(f'repos/{repo}/actions/runs?head_sha={sha}', 'workflow_runs')
+          selected = {}
+          for run in sorted(runs, key=lambda r: r['id'], reverse=True):
+              if run['name'] in ('gds', 'test', 'docs'):
+                  selected.setdefault(run['name'], run)
+          if not selected:
+              summary.append('No matching gds, test, or docs runs found for this commit.')
+          for name, run in selected.items():
+              rid = run['id']
+              attempt = run.get('run_attempt', 1)
+              summary.extend([f'## {name}', f'Run: {run["html_url"]}', f'Attempt: {attempt}; status: {run["status"]}; conclusion: {run.get("conclusion")}', ''])
+              try:
+                  jobs = pages(f'repos/{repo}/actions/runs/{rid}/attempts/{attempt}/jobs', 'jobs')
+                  save(f'{name}/jobs.json', json.dumps(jobs, indent=2))
+                  for job in jobs:
+                      summary.append(f'- {job["name"]}: {job["status"]} / {job.get("conclusion")}')
+                      for step in job.get('steps', []):
+                          if step.get('conclusion') not in (None, 'success', 'skipped'):
+                              summary.append(f'  - Step {step["name"]}: {step.get("conclusion")}')
+              except Exception as exc:
+                  summary.append(f'Job collection error: {exc}')
+              try:
+                  raw = api(f'repos/{repo}/actions/runs/{rid}/attempts/{attempt}/logs')
+                  if len(raw) > 50000000:
+                      raise ValueError('Log ZIP exceeds 50 MB limit')
+                  with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+                      for index, entry in enumerate(archive.infolist()):
+                          if entry.is_dir() or entry.file_size > 10000000:
+                              continue
+                          text = archive.read(entry).decode('utf-8', errors='replace')
+                          lines = text.splitlines()
+                          hits = [line for line in lines if re.search(r'error|fail|slack|LVS|DRC|utilization|cell.area', line, re.I)]
+                          excerpt = '\n'.join(hits[:200] + ['--- LAST 200 LINES ---'] + lines[-200:])
+                          save(f'{name}/logs/{index:03d}.txt', f'Original log: {entry.filename}\n' + excerpt[:60000])
+              except Exception as exc:
+                  summary.append(f'Log collection error: {exc}')
+              try:
+                  artifacts = pages(f'repos/{repo}/actions/runs/{rid}/artifacts', 'artifacts')
+                  save(f'{name}/artifacts.json', json.dumps(artifacts, indent=2))
+                  count = 0
+                  total = 0
+                  for artifact in artifacts:
+                      summary.append(f'- Artifact: {artifact["name"]}; expired: {artifact["expired"]}')
+                      if artifact['expired'] or artifact['size_in_bytes'] > 50000000:
+                          continue
+                      try:
+                          raw = api(f'repos/{repo}/actions/artifacts/{artifact["id"]}/zip')
+                          with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+                              for entry in archive.infolist():
+                                  suffix = pathlib.PurePosixPath(entry.filename).suffix.lower()
+                                  if entry.is_dir() or suffix not in ('.xml', '.json', '.rpt', '.txt', '.log', '.csv', '.md') or entry.file_size > 5000000:
+                                      continue
+                                  if count >= 100 or total >= 5000000:
+                                      break
+                                  text = archive.read(entry).decode('utf-8', errors='replace')[:100000]
+                                  save(f'{name}/reports/{count:03d}.txt', f'Artifact: {artifact["name"]}\nOriginal path: {entry.filename}\n\n' + text)
+                                  count += 1
+                                  total += len(text)
+                      except Exception as exc:
+                          summary.append(f'Artifact download error for {artifact["name"]}: {exc}')
+              except Exception as exc:
+                  summary.append(f'Artifact collection error: {exc}')
+              summary.append('')
+          save('SUMMARY.md', '\n'.join(summary) + '\n')
+          PY
+      - name: Publish to a new results-only branch
+        shell: bash
+        run: |
+          gh auth setup-git
+          branch="smoke-results-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git -C publish init
+          git -C publish checkout -b "$branch"
+          git -C publish config user.name 'github-actions[bot]'
+          git -C publish config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C publish add .
+          git -C publish commit -m "Collect smoke-test results for $TARGET_SHA"
+          git -C publish remote add origin "https://github.com/$REPO.git"
+          git -C publish push origin "$branch"
+          echo "Results branch: $branch" >> "$GITHUB_STEP_SUMMARY"
