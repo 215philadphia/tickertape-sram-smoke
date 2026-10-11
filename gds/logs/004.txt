@@ -1,0 +1,220 @@
+Original log: 2_viewer.txt
+2026-10-10T22:26:38.6375168Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:40.8994972Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:40.9247279Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:40.9737029Z   if-no-files-found: error
+2026-10-10T22:26:43.1691493Z   error_count: 10
+2026-10-10T22:26:44.2540992Z ##[error]Creating Pages deployment failed
+2026-10-10T22:26:44.4463374Z ##[error]HttpError: Not Found
+2026-10-10T22:26:44.4553788Z ##[error]Error: Failed to create deployment (status: 404) with build version 9ec9676ee6260b1e2f4e0e3f0a52e170afe811cb. Request ID D840:27CBB4:134C51F:16B3351:6ACABBA3 Ensure GitHub Pages has been enabled: https://github.com/215philadphia/tickertape-sram-smoke/settings/pages
+2026-10-10T22:26:44.4991178Z ##[end-action id=__TinyTapeout_tt-gds-action.deployment;outcome=failure;conclusion=failure;duration_ms=1334]
+2026-10-10T22:26:44.4995387Z ##[start-action display=Check for failure;id=__TinyTapeout_tt-gds-action.__run_4]
+2026-10-10T22:26:44.5018099Z ##[group]Run echo "Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part"
+2026-10-10T22:26:44.5019349Z [36;1mecho "Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part"[0m
+2026-10-10T22:26:44.5021265Z [36;1m# Error[0m
+2026-10-10T22:26:44.5021914Z [36;1mFailed to deploy to GitHub Pages. [Click here for instructions how to fix](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part).[0m
+2026-10-10T22:26:44.5084775Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:44.5168566Z Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part
+2026-10-10T22:26:44.5186302Z ##[error]Process completed with exit code 1.
+2026-10-10T22:26:44.5201321Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_4;outcome=failure;conclusion=failure;duration_ms=20]
+--- LAST 200 LINES ---
+2026-10-10T22:26:36.7847559Z ##[start-action display=Download GDS artifact;id=__TinyTapeout_tt-gds-action.__actions_download-artifact]
+2026-10-10T22:26:36.7962798Z ##[group]Run actions/download-artifact@v7
+2026-10-10T22:26:36.7963337Z with:
+2026-10-10T22:26:36.7963736Z   name: tt_submission
+2026-10-10T22:26:36.7964179Z   merge-multiple: false
+2026-10-10T22:26:36.7964676Z   repository: 215philadphia/tickertape-sram-smoke
+2026-10-10T22:26:36.7965235Z   run-id: 38090696386
+2026-10-10T22:26:36.7965660Z ##[endgroup]
+2026-10-10T22:26:36.9624599Z Downloading single artifact
+2026-10-10T22:26:37.2417229Z Preparing to download the following artifacts:
+2026-10-10T22:26:37.2419355Z - tt_submission (ID: 11684610878, Size: 1305323, Expected Digest: sha256:e3efa19c60da8f975fbc8c6ffc7c0fb694a6b3e8b866362713e25da9a8246ecc)
+2026-10-10T22:26:37.7727252Z Redirecting to blob download url: https://productionresultssa5.blob.core.windows.net/actions-results/fb257845-d29f-8b27-ad6f-a486d6f2c415/workflow-job-run-61372cf7-cb7b-55b6-bef4-8b4a8948f1a9/artifacts/a6af0e44e710fc652ee9cedf71e70f3e4b8573b2544ca1bf1bfd1d234fbf113f.zip
+2026-10-10T22:26:37.7732014Z Starting download of artifact to: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-10-10T22:26:38.0557755Z (node:1958) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-10T22:26:38.0561359Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-10T22:26:38.5931116Z SHA256 digest of downloaded artifact is e3efa19c60da8f975fbc8c6ffc7c0fb694a6b3e8b866362713e25da9a8246ecc
+2026-10-10T22:26:38.5932903Z Artifact download completed successfully.
+2026-10-10T22:26:38.5933784Z Total of 1 artifact(s) downloaded
+2026-10-10T22:26:38.5934603Z Download artifact has finished successfully
+2026-10-10T22:26:38.6075921Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_download-artifact;outcome=success;conclusion=success;duration_ms=1822]
+2026-10-10T22:26:38.6080480Z ##[start-action display=Read PDK information from submission;id=__TinyTapeout_tt-gds-action.__run]
+2026-10-10T22:26:38.6121155Z ##[group]Run PDK=$(jq -r '.PDK' pdk.json)
+2026-10-10T22:26:38.6121635Z [36;1mPDK=$(jq -r '.PDK' pdk.json)[0m
+2026-10-10T22:26:38.6122033Z [36;1mecho "PDK=$PDK" >> $GITHUB_ENV[0m
+2026-10-10T22:26:38.6375168Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:38.6375688Z ##[endgroup]
+2026-10-10T22:26:38.6532236Z ##[end-action id=__TinyTapeout_tt-gds-action.__run;outcome=success;conclusion=success;duration_ms=45]
+2026-10-10T22:26:38.6535210Z ##[start-action display=Download gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_download-artifact_2]
+2026-10-10T22:26:38.6599773Z ##[group]Run actions/download-artifact@v7
+2026-10-10T22:26:38.6600217Z with:
+2026-10-10T22:26:38.6600512Z   name: gds_render
+2026-10-10T22:26:38.6600779Z   path: gh-pages
+2026-10-10T22:26:38.6601054Z   merge-multiple: false
+2026-10-10T22:26:38.6601397Z   repository: 215philadphia/tickertape-sram-smoke
+2026-10-10T22:26:38.6601797Z   run-id: 38090696386
+2026-10-10T22:26:38.6602053Z env:
+2026-10-10T22:26:38.6602292Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:38.6602564Z ##[endgroup]
+2026-10-10T22:26:38.8519904Z Downloading single artifact
+2026-10-10T22:26:39.1293562Z Preparing to download the following artifacts:
+2026-10-10T22:26:39.1294939Z - gds_render (ID: 11684481057, Size: 4402483, Expected Digest: sha256:4f1ec46457372a2115ffa4e48f47619465a4ca09581744e34f12d5f63ac1107c)
+2026-10-10T22:26:39.6519036Z Redirecting to blob download url: https://productionresultssa5.blob.core.windows.net/actions-results/fb257845-d29f-8b27-ad6f-a486d6f2c415/workflow-job-run-61372cf7-cb7b-55b6-bef4-8b4a8948f1a9/artifacts/0e1a954b7b3f8d2236a31cdc1b2300f4a72eac2eb8cf449a0d14714be17507f8.zip
+2026-10-10T22:26:39.6524474Z Starting download of artifact to: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/gh-pages
+2026-10-10T22:26:39.9756347Z (node:1975) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-10T22:26:39.9759229Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-10T22:26:40.8809966Z SHA256 digest of downloaded artifact is 4f1ec46457372a2115ffa4e48f47619465a4ca09581744e34f12d5f63ac1107c
+2026-10-10T22:26:40.8815981Z Artifact download completed successfully.
+2026-10-10T22:26:40.8822155Z Total of 1 artifact(s) downloaded
+2026-10-10T22:26:40.8823316Z Download artifact has finished successfully
+2026-10-10T22:26:40.8908525Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_download-artifact_2;outcome=success;conclusion=success;duration_ms=2237]
+2026-10-10T22:26:40.8912472Z ##[start-action display=Copy OAS And GDSII;id=__TinyTapeout_tt-gds-action.__run_2]
+2026-10-10T22:26:40.8932772Z ##[group]Run cp tt_submission/*.gds gh-pages/tinytapeout.gds
+2026-10-10T22:26:40.8933272Z [36;1mcp tt_submission/*.gds gh-pages/tinytapeout.gds[0m
+2026-10-10T22:26:40.8933691Z [36;1mcp tt_submission/*.oas gh-pages/tinytapeout.oas[0m
+2026-10-10T22:26:40.8994972Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:40.8995348Z env:
+2026-10-10T22:26:40.8995563Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:40.8995818Z ##[endgroup]
+2026-10-10T22:26:40.9136650Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_2;outcome=success;conclusion=success;duration_ms=22]
+2026-10-10T22:26:40.9141286Z ##[start-action display=Generate an HTML page that redirects to viewer;id=__TinyTapeout_tt-gds-action.__run_3]
+2026-10-10T22:26:40.9182828Z ##[group]Run cat << EOF >> gh-pages/index.html
+2026-10-10T22:26:40.9183239Z [36;1mcat << EOF >> gh-pages/index.html[0m
+2026-10-10T22:26:40.9183555Z [36;1m  <!DOCTYPE html>[0m
+2026-10-10T22:26:40.9183809Z [36;1m  <html lang="en">[0m
+2026-10-10T22:26:40.9184074Z [36;1m  <head>[0m
+2026-10-10T22:26:40.9184298Z [36;1m    <meta charset="UTF-8">[0m
+2026-10-10T22:26:40.9184658Z [36;1m    <meta http-equiv="X-UA-Compatible" content="IE=edge">[0m
+2026-10-10T22:26:40.9185153Z [36;1m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[0m
+2026-10-10T22:26:40.9185607Z [36;1m    <title>Redirecting to 3D Viewer...</title>[0m
+2026-10-10T22:26:40.9185942Z [36;1m  </head>[0m
+2026-10-10T22:26:40.9186177Z [36;1m  <body>[0m
+2026-10-10T22:26:40.9186426Z [36;1m    <script>[0m
+2026-10-10T22:26:40.9187084Z [36;1m      location.href = "https://gds-viewer.tinytapeout.com/?pdk=ihp-sg13cmos5l&model=" + encodeURIComponent(location.href + '/tinytapeout.oas');[0m
+2026-10-10T22:26:40.9187762Z [36;1m    </script>[0m
+2026-10-10T22:26:40.9187997Z [36;1m  </body>[0m
+2026-10-10T22:26:40.9188210Z [36;1m  </html>[0m
+2026-10-10T22:26:40.9188419Z [36;1mEOF[0m
+2026-10-10T22:26:40.9247279Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:40.9247736Z env:
+2026-10-10T22:26:40.9247990Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:40.9248227Z ##[endgroup]
+2026-10-10T22:26:40.9347077Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_3;outcome=success;conclusion=success;duration_ms=20]
+2026-10-10T22:26:40.9349386Z ##[start-action display=Upload artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact]
+2026-10-10T22:26:40.9426609Z ##[group]Run actions/upload-pages-artifact@v5
+2026-10-10T22:26:40.9426947Z with:
+2026-10-10T22:26:40.9427168Z   path: gh-pages
+2026-10-10T22:26:40.9427401Z   name: github-pages
+2026-10-10T22:26:40.9427635Z   retention-days: 1
+2026-10-10T22:26:40.9427870Z   include-hidden-files: false
+2026-10-10T22:26:40.9428115Z env:
+2026-10-10T22:26:40.9428318Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:40.9428540Z ##[endgroup]
+2026-10-10T22:26:40.9435065Z ##[start-action display=Archive artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run]
+2026-10-10T22:26:40.9474867Z ##[group]Run echo ::group::Archive artifact
+2026-10-10T22:26:40.9475238Z [36;1mecho ::group::Archive artifact[0m
+2026-10-10T22:26:40.9475519Z [36;1mtar \[0m
+2026-10-10T22:26:40.9475786Z [36;1m  --dereference --hard-dereference \[0m
+2026-10-10T22:26:40.9476118Z [36;1m  --directory "$INPUT_PATH" \[0m
+2026-10-10T22:26:40.9476436Z [36;1m  -cvf "$RUNNER_TEMP/artifact.tar" \[0m
+2026-10-10T22:26:40.9476746Z [36;1m  --exclude=.git \[0m
+2026-10-10T22:26:40.9477009Z [36;1m  --exclude=.github \[0m
+2026-10-10T22:26:40.9477285Z [36;1m  --exclude=.[^/]* \[0m
+2026-10-10T22:26:40.9477529Z [36;1m  .[0m
+2026-10-10T22:26:40.9477743Z [36;1mecho ::endgroup::[0m
+2026-10-10T22:26:40.9501340Z shell: /usr/bin/sh -e {0}
+2026-10-10T22:26:40.9501607Z env:
+2026-10-10T22:26:40.9501818Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:40.9502075Z   INPUT_PATH: gh-pages
+2026-10-10T22:26:40.9502313Z ##[endgroup]
+2026-10-10T22:26:40.9541811Z ##[group]Archive artifact
+2026-10-10T22:26:40.9553672Z ./
+2026-10-10T22:26:40.9554394Z ./gds_render.png
+2026-10-10T22:26:40.9592837Z ./tinytapeout.oas
+2026-10-10T22:26:40.9610472Z ./index.html
+2026-10-10T22:26:40.9611196Z ./tinytapeout.gds
+2026-10-10T22:26:40.9642288Z ##[endgroup]
+2026-10-10T22:26:40.9650535Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run;outcome=success;conclusion=success;duration_ms=21]
+2026-10-10T22:26:40.9654017Z ##[start-action display=Archive artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run_2]
+2026-10-10T22:26:40.9659467Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-10T22:26:40.9663133Z ##[start-action display=Archive artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run_3]
+2026-10-10T22:26:40.9667130Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-10T22:26:40.9669397Z ##[start-action display=Upload artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.upload-artifact]
+2026-10-10T22:26:40.9734344Z ##[group]Run actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f
+2026-10-10T22:26:40.9735100Z with:
+2026-10-10T22:26:40.9735472Z   name: github-pages
+2026-10-10T22:26:40.9735980Z   path: /home/runner/work/_temp/artifact.tar
+2026-10-10T22:26:40.9736612Z   retention-days: 1
+2026-10-10T22:26:40.9737029Z   if-no-files-found: error
+2026-10-10T22:26:40.9737533Z   compression-level: 6
+2026-10-10T22:26:40.9737868Z   overwrite: false
+2026-10-10T22:26:40.9738109Z   include-hidden-files: false
+2026-10-10T22:26:40.9738369Z   archive: true
+2026-10-10T22:26:40.9738587Z env:
+2026-10-10T22:26:40.9738791Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:40.9739031Z ##[endgroup]
+2026-10-10T22:26:41.1272040Z With the provided path, there will be 1 file uploaded
+2026-10-10T22:26:41.1310464Z Artifact name is valid!
+2026-10-10T22:26:41.1330160Z Root directory input is valid!
+2026-10-10T22:26:41.5088587Z Uploading artifact: github-pages.zip
+2026-10-10T22:26:41.5138247Z Beginning upload of artifact content to blob storage
+2026-10-10T22:26:42.6421392Z Uploaded bytes 5012618
+2026-10-10T22:26:42.7165329Z Finished uploading artifact content to blob storage!
+2026-10-10T22:26:42.7168480Z SHA256 digest of uploaded artifact is 7d15592a9dc39fba45c00dc9d3300be78f8dd7aefc094ac4492c4e21a22e672c
+2026-10-10T22:26:42.7170067Z Finalizing artifact upload
+2026-10-10T22:26:43.1470623Z Artifact github-pages successfully finalized. Artifact ID 11684725646
+2026-10-10T22:26:43.1490708Z Artifact github-pages has been successfully uploaded! Final size is 5012618 bytes. Artifact ID is 11684725646
+2026-10-10T22:26:43.1506750Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/38090696386/artifacts/11684725646
+2026-10-10T22:26:43.1613208Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact.upload-artifact;outcome=success;conclusion=success;duration_ms=2194]
+2026-10-10T22:26:43.1647184Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-pages-artifact;outcome=success;conclusion=success;duration_ms=2229]
+2026-10-10T22:26:43.1649870Z ##[start-action display=Deploy to GitHub Pages;id=__TinyTapeout_tt-gds-action.deployment]
+2026-10-10T22:26:43.1688251Z ##[group]Run actions/deploy-pages@v5
+2026-10-10T22:26:43.1688530Z with:
+2026-10-10T22:26:43.1691056Z   token: ***
+2026-10-10T22:26:43.1691279Z   timeout: 600000
+2026-10-10T22:26:43.1691493Z   error_count: 10
+2026-10-10T22:26:43.1691721Z   reporting_interval: 5000
+2026-10-10T22:26:43.1692004Z   artifact_name: github-pages
+2026-10-10T22:26:43.1692270Z   preview: false
+2026-10-10T22:26:43.1692479Z env:
+2026-10-10T22:26:43.1692689Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:43.1692915Z ##[endgroup]
+2026-10-10T22:26:43.3762206Z (node:2006) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-10T22:26:43.3763596Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-10T22:26:43.6325172Z Fetching artifact metadata for "github-pages" in this workflow run
+2026-10-10T22:26:43.9062012Z Found 4 artifact(s)
+2026-10-10T22:26:43.9077687Z Creating Pages deployment with payload:
+2026-10-10T22:26:43.9078529Z {
+2026-10-10T22:26:43.9079383Z 	"artifact_id": 11684725646,
+2026-10-10T22:26:43.9080980Z 	"pages_build_version": "9ec9676ee6260b1e2f4e0e3f0a52e170afe811cb",
+2026-10-10T22:26:43.9179962Z 	"oidc_token": "***"
+2026-10-10T22:26:43.9180700Z }
+2026-10-10T22:26:44.2540992Z ##[error]Creating Pages deployment failed
+2026-10-10T22:26:44.4463374Z ##[error]HttpError: Not Found
+    at /home/runner/work/_actions/actions/deploy-pages/v5/node_modules/@octokit/request/dist-node/index.js:124:1
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at createPagesDeployment (/home/runner/work/_actions/actions/deploy-pages/v5/src/internal/api-client.js:125:1)
+    at Deployment.create (/home/runner/work/_actions/actions/deploy-pages/v5/src/internal/deployment.js:82:1)
+    at main (/home/runner/work/_actions/actions/deploy-pages/v5/src/index.js:30:1)
+2026-10-10T22:26:44.4553788Z ##[error]Error: Failed to create deployment (status: 404) with build version 9ec9676ee6260b1e2f4e0e3f0a52e170afe811cb. Request ID D840:27CBB4:134C51F:16B3351:6ACABBA3 Ensure GitHub Pages has been enabled: https://github.com/215philadphia/tickertape-sram-smoke/settings/pages
+2026-10-10T22:26:44.4991178Z ##[end-action id=__TinyTapeout_tt-gds-action.deployment;outcome=failure;conclusion=failure;duration_ms=1334]
+2026-10-10T22:26:44.4995387Z ##[start-action display=Check for failure;id=__TinyTapeout_tt-gds-action.__run_4]
+2026-10-10T22:26:44.5018099Z ##[group]Run echo "Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part"
+2026-10-10T22:26:44.5019349Z [36;1mecho "Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part"[0m
+2026-10-10T22:26:44.5020707Z [36;1m[0m
+2026-10-10T22:26:44.5020955Z [36;1mcat << EOF >> $GITHUB_STEP_SUMMARY[0m
+2026-10-10T22:26:44.5021265Z [36;1m# Error[0m
+2026-10-10T22:26:44.5021914Z [36;1mFailed to deploy to GitHub Pages. [Click here for instructions how to fix](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part).[0m
+2026-10-10T22:26:44.5022613Z [36;1mEOF[0m
+2026-10-10T22:26:44.5022822Z [36;1m[0m
+2026-10-10T22:26:44.5023018Z [36;1mexit 1[0m
+2026-10-10T22:26:44.5084775Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-10T22:26:44.5085153Z env:
+2026-10-10T22:26:44.5085370Z   PDK: ihp-sg13cmos5l
+2026-10-10T22:26:44.5085613Z ##[endgroup]
+2026-10-10T22:26:44.5168566Z Failed to deploy to GitHub Pages, please follow the link to troubleshoot: https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part
+2026-10-10T22:26:44.5186302Z ##[error]Process completed with exit code 1.
+2026-10-10T22:26:44.5201321Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_4;outcome=failure;conclusion=failure;duration_ms=20]
+2026-10-10T22:26:44.5203835Z ##[start-action display=Display preview in workflow summary;id=__TinyTapeout_tt-gds-action.__run_5]
+2026-10-10T22:26:44.5206162Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-10T22:26:44.5312379Z Cleaning up orphan processes
