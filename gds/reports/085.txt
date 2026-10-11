@@ -1,0 +1,1406 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/12-openroad-staprepnr/nom_fast_1p32V_m40C/sta.log
+
++ define_corners nom_fast_1p32V_m40C
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading cell library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/lib/sg13cmos5l_stdcell_fast_1p32V_m40C.lib'…
+Reading cell library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/lib/sg13cmos5l_io_fast_1p32V_3p6V_m40C.lib'…
+Reading cell library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C.lib'…
+Reading top-level netlist at '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/06-yosys-synthesis/tt_um_tickertape_sram_smoke.nl.v'…
+Linking design 'tt_um_tickertape_sram_smoke' from netlist…
+Reading design constraints file at '/nix/store/6a08ghhhzl5a07nr0ly762yh1ah6m5bj-python3-3.13.13-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 4.0
+[INFO] Setting input delay to: 4.0
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5.0%
+%OL_CREATE_REPORT min.rpt
+
+===========================================================================
+report_checks -path_delay min (Hold)
+============================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+Startpoint: _631_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _631_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015572    0.047275    0.167555    0.167555 ^ _631_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[4] (net)
+                      0.047275    0.000000    0.167555 ^ _356_/A (sg13cmos5l_inv_1)
+     2    0.006173    0.023570    0.028790    0.196345 v _356_/Y (sg13cmos5l_inv_1)
+                                                         _034_ (net)
+                      0.023570    0.000000    0.196345 v _480_/A1 (sg13cmos5l_o21ai_1)
+     1    0.004890    0.025470    0.061993    0.258338 ^ _480_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[4] (net)
+                      0.033961    0.000000    0.258338 ^ sram0/A_ADDR[4] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.258338   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.620251    0.870251   library hold time
+                                              0.870251   data required time
+---------------------------------------------------------------------------------------------
+                                              0.870251   data required time
+                                             -0.258338   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.611913   slack (VIOLATED)
+
+
+Startpoint: _629_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _629_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015163    0.046276    0.166823    0.166823 ^ _629_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[2] (net)
+                      0.046276    0.000000    0.166823 ^ _354_/A (sg13cmos5l_inv_1)
+     2    0.006173    0.023392    0.028561    0.195384 v _354_/Y (sg13cmos5l_inv_1)
+                                                         _032_ (net)
+                      0.023392    0.000000    0.195384 v _476_/A1 (sg13cmos5l_o21ai_1)
+     1    0.006215    0.029516    0.067658    0.263042 ^ _476_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[2] (net)
+                      0.039355    0.000000    0.263042 ^ sram0/A_ADDR[2] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.263042   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.615479    0.865479   library hold time
+                                              0.865479   data required time
+---------------------------------------------------------------------------------------------
+                                              0.865479   data required time
+                                             -0.263042   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.602437   slack (VIOLATED)
+
+
+Startpoint: _661_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _661_/CLK (sg13cmos5l_dfrbpq_1)
+    13    0.037222    0.082152    0.195540    0.195540 v _661_/Q (sg13cmos5l_dfrbpq_1)
+                                                         ctl_s2[1] (net)
+                      0.082152    0.000000    0.195540 v _474_/A2 (sg13cmos5l_o21ai_1)
+     1    0.004830    0.025275    0.074935    0.270475 ^ _474_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[1] (net)
+                      0.033700    0.000000    0.270475 ^ sram0/A_ADDR[1] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.270475   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.620482    0.870482   library hold time
+                                              0.870482   data required time
+---------------------------------------------------------------------------------------------
+                                              0.870482   data required time
+                                             -0.270475   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.600006   slack (VIOLATED)
+
+
+Startpoint: _661_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _661_/CLK (sg13cmos5l_dfrbpq_1)
+    13    0.037222    0.082152    0.195540    0.195540 v _661_/Q (sg13cmos5l_dfrbpq_1)
+                                                         ctl_s2[1] (net)
+                      0.082152    0.000000    0.195540 v _472_/A2 (sg13cmos5l_o21ai_1)
+     1    0.005940    0.028687    0.080146    0.275686 ^ _472_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[0] (net)
+                      0.038249    0.000000    0.275686 ^ sram0/A_ADDR[0] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.275686   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.616458    0.866458   library hold time
+                                              0.866458   data required time
+---------------------------------------------------------------------------------------------
+                                              0.866458   data required time
+                                             -0.275686   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.590771   slack (VIOLATED)
+
+
+Startpoint: _630_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _630_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015572    0.047275    0.167555    0.167555 ^ _630_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[3] (net)
+                      0.047275    0.000000    0.167555 ^ _355_/A (sg13cmos5l_inv_1)
+     2    0.006173    0.023570    0.028790    0.196345 v _355_/Y (sg13cmos5l_inv_1)
+                                                         _033_ (net)
+                      0.023570    0.000000    0.196345 v _478_/A1 (sg13cmos5l_o21ai_1)
+     1    0.007667    0.033949    0.073965    0.270310 ^ _478_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[3] (net)
+                      0.045265    0.000000    0.270310 ^ sram0/A_ADDR[3] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.270310   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.610404    0.860404   library hold time
+                                              0.860404   data required time
+---------------------------------------------------------------------------------------------
+                                              0.860404   data required time
+                                             -0.270310   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.590095   slack (VIOLATED)
+
+
+Startpoint: _631_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _631_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _631_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[4] (net)
+                      0.038002    0.000000    0.163141 v _375_/B (sg13cmos5l_xnor2_1)
+     2    0.006447    0.028620    0.055905    0.219047 ^ _375_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[12] (net)
+                      0.038160    0.000000    0.219047 ^ sram0/A_DIN[12] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.219047   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.556624    0.806624   library hold time
+                                              0.806624   data required time
+---------------------------------------------------------------------------------------------
+                                              0.806624   data required time
+                                             -0.219047   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.587577   slack (VIOLATED)
+
+
+Startpoint: _634_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _634_/CLK (sg13cmos5l_dfrbpq_1)
+     4    0.013183    0.041435    0.163272    0.163272 ^ _634_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[7] (net)
+                      0.041435    0.000000    0.163272 ^ _359_/A (sg13cmos5l_inv_1)
+     3    0.011314    0.032805    0.037024    0.200296 v _359_/Y (sg13cmos5l_inv_1)
+                                                         _037_ (net)
+                      0.032805    0.000000    0.200296 v _486_/A1 (sg13cmos5l_o21ai_1)
+     1    0.007215    0.032563    0.074529    0.274825 ^ _486_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[7] (net)
+                      0.043418    0.000000    0.274825 ^ sram0/A_ADDR[7] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.274825   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.611985    0.861985   library hold time
+                                              0.861985   data required time
+---------------------------------------------------------------------------------------------
+                                              0.861985   data required time
+                                             -0.274825   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.587160   slack (VIOLATED)
+
+
+Startpoint: _632_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _632_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015572    0.047275    0.167555    0.167555 ^ _632_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[5] (net)
+                      0.047275    0.000000    0.167555 ^ _357_/A (sg13cmos5l_inv_1)
+     2    0.006173    0.023570    0.028790    0.196345 v _357_/Y (sg13cmos5l_inv_1)
+                                                         _035_ (net)
+                      0.023570    0.000000    0.196345 v _482_/A1 (sg13cmos5l_o21ai_1)
+     1    0.009152    0.038482    0.080365    0.276710 ^ _482_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[5] (net)
+                      0.051309    0.000000    0.276710 ^ sram0/A_ADDR[5] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.276710   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.605234    0.855234   library hold time
+                                              0.855234   data required time
+---------------------------------------------------------------------------------------------
+                                              0.855234   data required time
+                                             -0.276710   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.578524   slack (VIOLATED)
+
+
+Startpoint: _633_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _633_/CLK (sg13cmos5l_dfrbpq_1)
+     6    0.020634    0.048544    0.171586    0.171586 v _633_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[6] (net)
+                      0.048544    0.000000    0.171586 v _379_/B (sg13cmos5l_xnor2_1)
+     2    0.006447    0.029043    0.059020    0.230606 ^ _379_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[14] (net)
+                      0.038724    0.000000    0.230606 ^ sram0/A_DIN[14] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.230606   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.556197    0.806197   library hold time
+                                              0.806197   data required time
+---------------------------------------------------------------------------------------------
+                                              0.806197   data required time
+                                             -0.230606   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.575591   slack (VIOLATED)
+
+
+Startpoint: _627_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _627_/CLK (sg13cmos5l_dfrbpq_1)
+     9    0.031259    0.069993    0.187081    0.187081 v _627_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[0] (net)
+                      0.069993    0.000000    0.187081 v _385_/A (sg13cmos5l_xnor2_1)
+     1    0.003657    0.022478    0.057011    0.244092 ^ _385_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[1] (net)
+                      0.029970    0.000000    0.244092 ^ sram0/A_DIN[1] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.244092   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.562815    0.812815   library hold time
+                                              0.812815   data required time
+---------------------------------------------------------------------------------------------
+                                              0.812815   data required time
+                                             -0.244092   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.568723   slack (VIOLATED)
+
+
+Startpoint: _628_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _628_/CLK (sg13cmos5l_dfrbpq_1)
+     7    0.023320    0.053809    0.175804    0.175804 v _628_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[1] (net)
+                      0.053809    0.000000    0.175804 v _386_/A (sg13cmos5l_nand2_1)
+     1    0.004757    0.026814    0.029797    0.205600 ^ _386_/Y (sg13cmos5l_nand2_1)
+                                                         _046_ (net)
+                      0.026814    0.000000    0.205600 ^ _387_/B (sg13cmos5l_xnor2_1)
+     1    0.003657    0.021131    0.042501    0.248101 ^ _387_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[2] (net)
+                      0.028175    0.000000    0.248101 ^ sram0/A_DIN[2] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.248101   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.564172    0.814172   library hold time
+                                              0.814172   data required time
+---------------------------------------------------------------------------------------------
+                                              0.814172   data required time
+                                             -0.248101   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.566070   slack (VIOLATED)
+
+
+Startpoint: _632_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _632_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _632_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[5] (net)
+                      0.038002    0.000000    0.163141 v _377_/B (sg13cmos5l_xnor2_1)
+     3    0.010104    0.037498    0.069439    0.232580 ^ _377_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[13] (net)
+                      0.049998    0.000000    0.232580 ^ sram0/A_DIN[21] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.232580   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.545412    0.795412   library hold time
+                                              0.795412   data required time
+---------------------------------------------------------------------------------------------
+                                              0.795412   data required time
+                                             -0.232580   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.562831   slack (VIOLATED)
+
+
+Startpoint: _633_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _633_/CLK (sg13cmos5l_dfrbpq_1)
+     6    0.020634    0.048544    0.171586    0.171586 v _633_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[6] (net)
+                      0.048544    0.000000    0.171586 v _396_/A (sg13cmos5l_nand2_1)
+     2    0.009515    0.037580    0.039038    0.210624 ^ _396_/Y (sg13cmos5l_nand2_1)
+                                                         _051_ (net)
+                      0.037580    0.000000    0.210624 ^ _397_/B (sg13cmos5l_xnor2_1)
+     1    0.003657    0.021508    0.045466    0.256090 ^ _397_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[7] (net)
+                      0.028677    0.000000    0.256090 ^ sram0/A_DIN[7] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.256090   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.563792    0.813792   library hold time
+                                              0.813792   data required time
+---------------------------------------------------------------------------------------------
+                                              0.813792   data required time
+                                             -0.256090   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.557703   slack (VIOLATED)
+
+
+Startpoint: _633_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _633_/CLK (sg13cmos5l_dfrbpq_1)
+     6    0.021065    0.060706    0.177404    0.177404 ^ _633_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[6] (net)
+                      0.060706    0.000000    0.177404 ^ _358_/A (sg13cmos5l_inv_1)
+     2    0.006173    0.025965    0.031872    0.209276 v _358_/Y (sg13cmos5l_inv_1)
+                                                         _036_ (net)
+                      0.025965    0.000000    0.209276 v _484_/A1 (sg13cmos5l_o21ai_1)
+     1    0.010921    0.043881    0.088674    0.297950 ^ _484_/Y (sg13cmos5l_o21ai_1)
+                                                         sram_addr[6] (net)
+                      0.058508    0.000000    0.297950 ^ sram0/A_ADDR[6] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.297950   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.599076    0.849076   library hold time
+                                              0.849076   data required time
+---------------------------------------------------------------------------------------------
+                                              0.849076   data required time
+                                             -0.297950   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.551126   slack (VIOLATED)
+
+
+Startpoint: _630_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _630_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _630_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[3] (net)
+                      0.038002    0.000000    0.163141 v _373_/B (sg13cmos5l_xnor2_1)
+     3    0.011809    0.041637    0.075747    0.238889 ^ _373_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[11] (net)
+                      0.055516    0.000000    0.238889 ^ sram0/A_DIN[11] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.238889   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.539992    0.789992   library hold time
+                                              0.789992   data required time
+---------------------------------------------------------------------------------------------
+                                              0.789992   data required time
+                                             -0.238889   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.551103   slack (VIOLATED)
+
+
+Startpoint: _634_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _634_/CLK (sg13cmos5l_dfrbpq_1)
+     4    0.012978    0.033536    0.159564    0.159564 v _634_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[7] (net)
+                      0.033536    0.000000    0.159564 v _381_/B (sg13cmos5l_xnor2_1)
+     4    0.015233    0.070861    0.073120    0.232683 v _381_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[15] (net)
+                      0.070861    0.000000    0.232683 v _382_/A (sg13cmos5l_inv_1)
+     1    0.003657    0.025579    0.028552    0.261235 ^ _382_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[31] (net)
+                      0.034105    0.000000    0.261235 ^ sram0/A_DIN[31] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.261235   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.559689    0.809689   library hold time
+                                              0.809689   data required time
+---------------------------------------------------------------------------------------------
+                                              0.809689   data required time
+                                             -0.261235   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.548454   slack (VIOLATED)
+
+
+Startpoint: _632_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _632_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _632_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[5] (net)
+                      0.038002    0.000000    0.163141 v _377_/B (sg13cmos5l_xnor2_1)
+     3    0.010104    0.037498    0.069439    0.232580 ^ _377_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[13] (net)
+                      0.066664    0.000000    0.232580 ^ sram0/A_DIN[13] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.232580   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.529041    0.779041   library hold time
+                                              0.779041   data required time
+---------------------------------------------------------------------------------------------
+                                              0.779041   data required time
+                                             -0.232580   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.546461   slack (VIOLATED)
+
+
+Startpoint: _631_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _631_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _631_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[4] (net)
+                      0.038002    0.000000    0.163141 v _392_/A (sg13cmos5l_and2_1)
+     4    0.012761    0.033967    0.062372    0.225514 v _392_/X (sg13cmos5l_and2_1)
+                                                         _049_ (net)
+                      0.033967    0.000000    0.225514 v _393_/B (sg13cmos5l_xnor2_1)
+     1    0.003657    0.021144    0.044471    0.269985 ^ _393_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[5] (net)
+                      0.028192    0.000000    0.269985 ^ sram0/A_DIN[5] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.269985   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.564159    0.814159   library hold time
+                                              0.814159   data required time
+---------------------------------------------------------------------------------------------
+                                              0.814159   data required time
+                                             -0.269985   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.544174   slack (VIOLATED)
+
+
+Startpoint: _630_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _630_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _630_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[3] (net)
+                      0.038002    0.000000    0.163141 v _390_/A (sg13cmos5l_and2_1)
+     4    0.012761    0.033967    0.062372    0.225514 v _390_/X (sg13cmos5l_and2_1)
+                                                         _048_ (net)
+                      0.033967    0.000000    0.225514 v _391_/B (sg13cmos5l_xnor2_1)
+     1    0.003657    0.021310    0.044471    0.269985 ^ _391_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[4] (net)
+                      0.028413    0.000000    0.269985 ^ sram0/A_DIN[4] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.269985   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.563992    0.813992   library hold time
+                                              0.813992   data required time
+---------------------------------------------------------------------------------------------
+                                              0.813992   data required time
+                                             -0.269985   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.544007   slack (VIOLATED)
+
+
+Startpoint: _629_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _629_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015135    0.037765    0.162951    0.162951 v _629_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[2] (net)
+                      0.037765    0.000000    0.162951 v _371_/B (sg13cmos5l_xnor2_1)
+     4    0.015233    0.071198    0.074409    0.237360 v _371_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[10] (net)
+                      0.071198    0.000000    0.237360 v _372_/A (sg13cmos5l_inv_1)
+     1    0.003657    0.025639    0.028613    0.265973 ^ _372_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[26] (net)
+                      0.034185    0.000000    0.265973 ^ sram0/A_DIN[26] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.265973   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.559629    0.809629   library hold time
+                                              0.809629   data required time
+---------------------------------------------------------------------------------------------
+                                              0.809629   data required time
+                                             -0.265973   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.543656   slack (VIOLATED)
+
+
+Startpoint: _630_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _630_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _630_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[3] (net)
+                      0.038002    0.000000    0.163141 v _373_/B (sg13cmos5l_xnor2_1)
+     3    0.011568    0.057211    0.063694    0.226835 v _373_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[11] (net)
+                      0.057211    0.000000    0.226835 v _374_/A (sg13cmos5l_inv_1)
+     2    0.007314    0.032317    0.034519    0.261354 ^ _374_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[19] (net)
+                      0.043090    0.000000    0.261354 ^ sram0/A_DIN[27] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.261354   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.552198    0.802198   library hold time
+                                              0.802198   data required time
+---------------------------------------------------------------------------------------------
+                                              0.802198   data required time
+                                             -0.261354   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.540844   slack (VIOLATED)
+
+
+Startpoint: _632_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _632_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _632_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[5] (net)
+                      0.038002    0.000000    0.163141 v _377_/B (sg13cmos5l_xnor2_1)
+     3    0.010092    0.051572    0.059351    0.222492 v _377_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[13] (net)
+                      0.051572    0.000000    0.222492 v _378_/A (sg13cmos5l_inv_1)
+     2    0.008815    0.035039    0.036572    0.259064 ^ _378_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[29] (net)
+                      0.046719    0.000000    0.259064 ^ sram0/A_DIN[29] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.259064   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.548633    0.798633   library hold time
+                                              0.798633   data required time
+---------------------------------------------------------------------------------------------
+                                              0.798633   data required time
+                                             -0.259064   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.539568   slack (VIOLATED)
+
+
+Startpoint: _631_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _631_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _631_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[4] (net)
+                      0.038002    0.000000    0.163141 v _375_/B (sg13cmos5l_xnor2_1)
+     2    0.006435    0.037597    0.048588    0.211729 v _375_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[12] (net)
+                      0.037597    0.000000    0.211729 v _376_/A (sg13cmos5l_inv_1)
+     3    0.012472    0.041547    0.040565    0.252294 ^ _376_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[20] (net)
+                      0.055395    0.000000    0.252294 ^ sram0/A_DIN[28] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.252294   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.540110    0.790110   library hold time
+                                              0.790110   data required time
+---------------------------------------------------------------------------------------------
+                                              0.790110   data required time
+                                             -0.252294   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.537816   slack (VIOLATED)
+
+
+Startpoint: _634_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _634_/CLK (sg13cmos5l_dfrbpq_1)
+     4    0.013183    0.041435    0.163272    0.163272 ^ _634_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[7] (net)
+                      0.041435    0.000000    0.163272 ^ _381_/B (sg13cmos5l_xnor2_1)
+     4    0.015262    0.049899    0.079538    0.242810 ^ _381_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[15] (net)
+                      0.066533    0.000000    0.242810 ^ sram0/A_DIN[23] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.242810   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.529170    0.779170   library hold time
+                                              0.779170   data required time
+---------------------------------------------------------------------------------------------
+                                              0.779170   data required time
+                                             -0.242810   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.536360   slack (VIOLATED)
+
+
+Startpoint: _628_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _628_/CLK (sg13cmos5l_dfrbpq_1)
+     7    0.023320    0.053809    0.175804    0.175804 v _628_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[1] (net)
+                      0.053809    0.000000    0.175804 v _369_/B (sg13cmos5l_xor2_1)
+     4    0.014793    0.042776    0.079870    0.255674 v _369_/X (sg13cmos5l_xor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[17] (net)
+                      0.042776    0.000000    0.255674 v _370_/A (sg13cmos5l_inv_1)
+     1    0.003657    0.020643    0.023466    0.279141 ^ _370_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[9] (net)
+                      0.027524    0.000000    0.279141 ^ sram0/A_DIN[9] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.279141   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.564664    0.814664   library hold time
+                                              0.814664   data required time
+---------------------------------------------------------------------------------------------
+                                              0.814664   data required time
+                                             -0.279141   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.535524   slack (VIOLATED)
+
+
+Startpoint: _632_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _632_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _632_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[5] (net)
+                      0.038002    0.000000    0.163141 v _394_/A (sg13cmos5l_and2_1)
+     5    0.017949    0.044185    0.070742    0.233884 v _394_/X (sg13cmos5l_and2_1)
+                                                         _050_ (net)
+                      0.044185    0.000000    0.233884 v _395_/B (sg13cmos5l_xnor2_1)
+     1    0.003657    0.021314    0.047285    0.281169 ^ _395_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[6] (net)
+                      0.028419    0.000000    0.281169 ^ sram0/A_DIN[6] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.281169   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.563987    0.813987   library hold time
+                                              0.813987   data required time
+---------------------------------------------------------------------------------------------
+                                              0.813987   data required time
+                                             -0.281169   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.532819   slack (VIOLATED)
+
+
+Startpoint: _629_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _629_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015163    0.046276    0.166823    0.166823 ^ _629_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[2] (net)
+                      0.046276    0.000000    0.166823 ^ _371_/B (sg13cmos5l_xnor2_1)
+     4    0.015262    0.049999    0.081067    0.247890 ^ _371_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[10] (net)
+                      0.066666    0.000000    0.247890 ^ sram0/A_DIN[18] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.247890   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.529040    0.779040   library hold time
+                                              0.779040   data required time
+---------------------------------------------------------------------------------------------
+                                              0.779040   data required time
+                                             -0.247890   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.531150   slack (VIOLATED)
+
+
+Startpoint: _627_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _627_/CLK (sg13cmos5l_dfrbpq_1)
+     9    0.031259    0.069993    0.187081    0.187081 v _627_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[0] (net)
+                      0.069993    0.000000    0.187081 v _383_/B (sg13cmos5l_xnor2_1)
+     3    0.010104    0.038584    0.079736    0.266817 ^ _383_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[16] (net)
+                      0.051445    0.000000    0.266817 ^ sram0/A_DIN[16] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.266817   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.543991    0.793991   library hold time
+                                              0.793991   data required time
+---------------------------------------------------------------------------------------------
+                                              0.793991   data required time
+                                             -0.266817   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.527174   slack (VIOLATED)
+
+
+Startpoint: _630_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _630_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _630_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[3] (net)
+                      0.038002    0.000000    0.163141 v _373_/B (sg13cmos5l_xnor2_1)
+     3    0.011568    0.057211    0.063694    0.226835 v _373_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[11] (net)
+                      0.057211    0.000000    0.226835 v _374_/A (sg13cmos5l_inv_1)
+     2    0.007314    0.032317    0.034519    0.261354 ^ _374_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[19] (net)
+                      0.057453    0.000000    0.261354 ^ sram0/A_DIN[19] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.261354   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.538089    0.788089   library hold time
+                                              0.788089   data required time
+---------------------------------------------------------------------------------------------
+                                              0.788089   data required time
+                                             -0.261354   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.526735   slack (VIOLATED)
+
+
+Startpoint: _633_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _633_/CLK (sg13cmos5l_dfrbpq_1)
+     6    0.020634    0.048544    0.171586    0.171586 v _633_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[6] (net)
+                      0.048544    0.000000    0.171586 v _379_/B (sg13cmos5l_xnor2_1)
+     2    0.006435    0.038550    0.051175    0.222761 v _379_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[14] (net)
+                      0.038550    0.000000    0.222761 v _380_/A (sg13cmos5l_inv_1)
+     3    0.012472    0.041724    0.040850    0.263610 ^ _380_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[22] (net)
+                      0.055632    0.000000    0.263610 ^ sram0/A_DIN[30] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.263610   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.539877    0.789877   library hold time
+                                              0.789877   data required time
+---------------------------------------------------------------------------------------------
+                                              0.789877   data required time
+                                             -0.263610   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.526267   slack (VIOLATED)
+
+
+Startpoint: _629_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _629_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015135    0.037765    0.162951    0.162951 v _629_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[2] (net)
+                      0.037765    0.000000    0.162951 v _388_/B (sg13cmos5l_and3_1)
+     4    0.012889    0.034793    0.069685    0.232636 v _388_/X (sg13cmos5l_and3_1)
+                                                         _047_ (net)
+                      0.034793    0.000000    0.232636 v _389_/B (sg13cmos5l_xor2_1)
+     1    0.003657    0.034035    0.045663    0.278299 ^ _389_/X (sg13cmos5l_xor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[3] (net)
+                      0.045379    0.000000    0.278299 ^ sram0/A_DIN[3] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.278299   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.549949    0.799949   library hold time
+                                              0.799949   data required time
+---------------------------------------------------------------------------------------------
+                                              0.799949   data required time
+                                             -0.278299   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.521650   slack (VIOLATED)
+
+
+Startpoint: _631_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _631_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015256    0.038002    0.163141    0.163141 v _631_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[4] (net)
+                      0.038002    0.000000    0.163141 v _375_/B (sg13cmos5l_xnor2_1)
+     2    0.006435    0.037597    0.048588    0.211729 v _375_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[12] (net)
+                      0.037597    0.000000    0.211729 v _376_/A (sg13cmos5l_inv_1)
+     3    0.012472    0.041547    0.040565    0.252294 ^ _376_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[20] (net)
+                      0.073861    0.000000    0.252294 ^ sram0/A_DIN[20] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.252294   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.522075    0.772075   library hold time
+                                              0.772075   data required time
+---------------------------------------------------------------------------------------------
+                                              0.772075   data required time
+                                             -0.252294   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.519780   slack (VIOLATED)
+
+
+Startpoint: _634_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _634_/CLK (sg13cmos5l_dfrbpq_1)
+     4    0.013183    0.041435    0.163272    0.163272 ^ _634_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[7] (net)
+                      0.041435    0.000000    0.163272 ^ _381_/B (sg13cmos5l_xnor2_1)
+     4    0.015262    0.049899    0.079538    0.242810 ^ _381_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[15] (net)
+                      0.088710    0.000000    0.242810 ^ sram0/A_DIN[15] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.242810   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.508925    0.758925   library hold time
+                                              0.758925   data required time
+---------------------------------------------------------------------------------------------
+                                              0.758925   data required time
+                                             -0.242810   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.516115   slack (VIOLATED)
+
+
+Startpoint: _627_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _627_/CLK (sg13cmos5l_dfrbpq_1)
+     9    0.031259    0.069993    0.187081    0.187081 v _627_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[0] (net)
+                      0.069993    0.000000    0.187081 v _383_/B (sg13cmos5l_xnor2_1)
+     3    0.010092    0.053778    0.067993    0.255073 v _383_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[16] (net)
+                      0.053778    0.000000    0.255073 v _384_/A (sg13cmos5l_inv_1)
+     2    0.007314    0.031699    0.033730    0.288803 ^ _384_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[0] (net)
+                      0.042265    0.000000    0.288803 ^ sram0/A_DIN[24] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.288803   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.553008    0.803008   library hold time
+                                              0.803008   data required time
+---------------------------------------------------------------------------------------------
+                                              0.803008   data required time
+                                             -0.288803   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.514205   slack (VIOLATED)
+
+
+Startpoint: _629_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _629_/CLK (sg13cmos5l_dfrbpq_1)
+     5    0.015163    0.046276    0.166823    0.166823 ^ _629_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[2] (net)
+                      0.046276    0.000000    0.166823 ^ _371_/B (sg13cmos5l_xnor2_1)
+     4    0.015262    0.049999    0.081067    0.247890 ^ _371_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[10] (net)
+                      0.088887    0.000000    0.247890 ^ sram0/A_DIN[10] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.247890   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.508768    0.758768   library hold time
+                                              0.758768   data required time
+---------------------------------------------------------------------------------------------
+                                              0.758768   data required time
+                                             -0.247890   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.510878   slack (VIOLATED)
+
+
+Startpoint: _627_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _627_/CLK (sg13cmos5l_dfrbpq_1)
+     9    0.031259    0.069993    0.187081    0.187081 v _627_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[0] (net)
+                      0.069993    0.000000    0.187081 v _383_/B (sg13cmos5l_xnor2_1)
+     3    0.010104    0.038584    0.079736    0.266817 ^ _383_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[16] (net)
+                      0.068593    0.000000    0.266817 ^ sram0/A_DIN[8] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.266817   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.527146    0.777146   library hold time
+                                              0.777146   data required time
+---------------------------------------------------------------------------------------------
+                                              0.777146   data required time
+                                             -0.266817   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.510330   slack (VIOLATED)
+
+
+Startpoint: _633_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _633_/CLK (sg13cmos5l_dfrbpq_1)
+     6    0.020634    0.048544    0.171586    0.171586 v _633_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[6] (net)
+                      0.048544    0.000000    0.171586 v _379_/B (sg13cmos5l_xnor2_1)
+     2    0.006435    0.038550    0.051175    0.222761 v _379_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[14] (net)
+                      0.038550    0.000000    0.222761 v _380_/A (sg13cmos5l_inv_1)
+     3    0.012472    0.041724    0.040850    0.263610 ^ _380_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[22] (net)
+                      0.074176    0.000000    0.263610 ^ sram0/A_DIN[22] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.263610   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.521795    0.771795   library hold time
+                                              0.771795   data required time
+---------------------------------------------------------------------------------------------
+                                              0.771795   data required time
+                                             -0.263610   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.508185   slack (VIOLATED)
+
+
+Startpoint: _627_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _627_/CLK (sg13cmos5l_dfrbpq_1)
+     9    0.031259    0.069993    0.187081    0.187081 v _627_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[0] (net)
+                      0.069993    0.000000    0.187081 v _383_/B (sg13cmos5l_xnor2_1)
+     3    0.010092    0.053778    0.067993    0.255073 v _383_/Y (sg13cmos5l_xnor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[16] (net)
+                      0.053778    0.000000    0.255073 v _384_/A (sg13cmos5l_inv_1)
+     2    0.007314    0.031699    0.033730    0.288803 ^ _384_/Y (sg13cmos5l_inv_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[0] (net)
+                      0.056353    0.000000    0.288803 ^ sram0/A_DIN[0] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.288803   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.539169    0.789169   library hold time
+                                              0.789169   data required time
+---------------------------------------------------------------------------------------------
+                                              0.789169   data required time
+                                             -0.288803   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.500367   slack (VIOLATED)
+
+
+Startpoint: _628_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _628_/CLK (sg13cmos5l_dfrbpq_1)
+     7    0.023320    0.053809    0.175804    0.175804 v _628_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[1] (net)
+                      0.053809    0.000000    0.175804 v _369_/B (sg13cmos5l_xor2_1)
+     4    0.014793    0.042776    0.079870    0.255674 v _369_/X (sg13cmos5l_xor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[17] (net)
+                      0.057035    0.000000    0.255674 v sram0/A_DIN[25] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.255674   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.500474    0.750474   library hold time
+                                              0.750474   data required time
+---------------------------------------------------------------------------------------------
+                                              0.750474   data required time
+                                             -0.255674   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.494800   slack (VIOLATED)
+
+
+Startpoint: _628_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _628_/CLK (sg13cmos5l_dfrbpq_1)
+     7    0.023320    0.053809    0.175804    0.175804 v _628_/Q (sg13cmos5l_dfrbpq_1)
+                                                         addr[1] (net)
+                      0.053809    0.000000    0.175804 v _369_/B (sg13cmos5l_xor2_1)
+     4    0.014793    0.042776    0.079870    0.255674 v _369_/X (sg13cmos5l_xor2_1)
+                                                         pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result[17] (net)
+                      0.076047    0.000000    0.255674 v sram0/A_DIN[17] (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.255674   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.483850    0.733850   library hold time
+                                              0.733850   data required time
+---------------------------------------------------------------------------------------------
+                                              0.733850   data required time
+                                             -0.255674   data arrival time
+---------------------------------------------------------------------------------------------
+                                             -0.478176   slack (VIOLATED)
+
+
+Startpoint: _653_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: sram0 (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                      0.150000    0.000000    0.000000 ^ _653_/CLK (sg13cmos5l_dfrbpq_1)
+     1    0.002416    0.012832    0.142977    0.142977 v _653_/Q (sg13cmos5l_dfrbpq_1)
+                                                         state[3] (net)
+                      0.012832    0.000000    0.142977 v _402_/A (sg13cmos5l_and2_1)
+     5    0.013240    0.034225    0.055300    0.198277 v _402_/X (sg13cmos5l_and2_1)
+                                                         sram_wen (net)
+                      0.045634    0.000000    0.198277 v sram0/A_WEN (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                              0.198277   data arrival time
+
+                      0.150000    0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (ideal)
+                                  0.250000    0.250000   clock uncertainty
+                                  0.000000    0.250000   clock reconvergence pessimism
+                                              0.250000 ^ sram0/A_CLK (RM_IHPSG13_1P_256x32_c2_bm_bist)
+                                  0.331477    0.581477   library hold time
+                                              0.581477   data required time
+---------------------------------------------------------------------------------------------
+                                              0.581477   data required time
+                                             -0.198277   data arrival time
+---------------------------
