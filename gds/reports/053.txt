@@ -1,0 +1,1391 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/06-yosys-synthesis/yosys-synthesis.log
+
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.66 (git sha1 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51, clang++ 21.1.8 -fPIC -O3)
+
+1. Executing Liberty frontend: /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/lib/sg13cmos5l_stdcell_typ_1p20V_25C.lib
+Imported 84 cell types from liberty file.
+
+2. Executing Liberty frontend: /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/lib/sg13cmos5l_io_typ_1p2V_3p3V_25C.lib
+Imported 15 cell types from liberty file.
+
+3. Executing Verilog-2005 frontend: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/RM_IHPSG13_1P_256x32_c2_bm_bist.v
+Parsing SystemVerilog input from `/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/RM_IHPSG13_1P_256x32_c2_bm_bist.v' to AST representation.
+Generating RTLIL representation for module `\RM_IHPSG13_1P_256x32_c2_bm_bist'.
+Successfully finished Verilog frontend.
+[INFO] Using SDC file '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/06-yosys-synthesis/synthesis.abc.sdc' for ABC…
+
+4. Executing Verilog-2005 frontend: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v
+Parsing SystemVerilog input from `/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v' to AST representation.
+Storing AST representation for module `$abstract\tt_um_tickertape_sram_smoke'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+
+6. Executing AST frontend in derive mode using pre-parsed AST for module `\tt_um_tickertape_sram_smoke'.
+Generating RTLIL representation for module `\tt_um_tickertape_sram_smoke'.
+
+6.1. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+
+6.2. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+Removing unused module `$abstract\tt_um_tickertape_sram_smoke'.
+Removed 1 unused modules.
+Renaming module tt_um_tickertape_sram_smoke to tt_um_tickertape_sram_smoke.
+
+7. Executing ATTRMAP pass (move or copy attributes).
+
+8. Executing TRIBUF pass.
+
+9. Executing HIERARCHY pass (managing design hierarchy).
+
+9.1. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+
+9.2. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+Removed 0 unused modules.
+
+10. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+11. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:151$42 in module tt_um_tickertape_sram_smoke.
+Marked 1 switch rules as full_case in process $proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:116$36 in module tt_um_tickertape_sram_smoke.
+Marked 3 switch rules as full_case in process $proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5 in module tt_um_tickertape_sram_smoke.
+Removed a total of 0 dead cases.
+
+12. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 1 redundant assignment.
+Promoted 11 assignments to connections.
+
+13. Executing PROC_INIT pass (extract init attributes).
+
+14. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+
+15. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~8 debug messages>
+
+16. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$49'.
+Creating decoders for process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:151$42'.
+     1/1: $1\out_r[7:0]
+Creating decoders for process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:116$36'.
+     1/1: $1\sram_addr[7:0]
+Creating decoders for process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+     1/13: $0\rd_valid[0:0]
+     2/13: $2\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.inv[0:0]$16
+     3/13: $2\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.a[7:0]$15
+     4/13: $2\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.$result[31:0]$14
+     5/13: $1\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.inv[0:0]$12
+     6/13: $1\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.a[7:0]$11
+     7/13: $1\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.$result[31:0]$10
+     8/13: $0\done[0:0]
+     9/13: $0\err_count[5:0]
+    10/13: $0\rd_addr[7:0]
+    11/13: $0\pass_inv[0:0]
+    12/13: $0\addr[7:0]
+    13/13: $0\state[2:0]
+Creating decoders for process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:34$4'.
+
+17. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\tt_um_tickertape_sram_smoke.\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$2.$result' from process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$49'.
+No latch inferred for signal `\tt_um_tickertape_sram_smoke.\out_r' from process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:151$42'.
+No latch inferred for signal `\tt_um_tickertape_sram_smoke.\sram_addr' from process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:116$36'.
+
+18. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\tt_um_tickertape_sram_smoke.\state' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$143' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\addr' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$148' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\pass_inv' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$153' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\rd_valid' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$158' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\rd_addr' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$163' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\err_count' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$168' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\done' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$173' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.$result' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$178' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.a' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$183' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\pattern$func$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:75$1.inv' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+  created $adff cell `$procdff$188' with positive edge clock and positive level reset.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\ctl_s1' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:34$4'.
+  created $dff cell `$procdff$189' with positive edge clock.
+Creating register for signal `\tt_um_tickertape_sram_smoke.\ctl_s2' using process `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:34$4'.
+  created $dff cell `$procdff$190' with positive edge clock.
+
+19. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+20. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:135$49'.
+Found and cleaned up 1 empty switch in `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:151$42'.
+Removing empty process `tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:151$42'.
+Found and cleaned up 1 empty switch in `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:116$36'.
+Removing empty process `tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:116$36'.
+Found and cleaned up 6 empty switches in `\tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+Removing empty process `tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:61$5'.
+Removing empty process `tt_um_tickertape_sram_smoke.$proc$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:34$4'.
+Cleaned up 8 empty switches.
+
+21. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_tickertape_sram_smoke...
+Found and reported 0 problems.
+
+22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~34 debug messages>
+
+23. Executing FLATTEN pass (flatten design).
+
+24. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+25. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 17 unused cells and 84 unused wires.
+<suppressed ~21 debug messages>
+
+26. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+27. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 83 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 62 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+<suppressed ~63 debug messages>
+Removed a total of 21 cells.
+
+28. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port A of cell $procmux$108: \pass_inv -> 1'0
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~31 debug messages>
+
+29. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+    New ctrl vector for $pmux cell $procmux$117: { $auto$opt_reduce.cc:135:opt_pmux$200 $procmux$135_CMP }
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 1 changes.
+
+30. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 63 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+31. Executing OPT_DFF pass (perform DFF optimizations).
+
+32. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 21 unused wires.
+<suppressed ~1 debug messages>
+
+33. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~1 debug messages>
+
+34. Rerunning OPT passes. (Maybe there is more to do…)
+
+35. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~30 debug messages>
+
+36. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+37. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 62 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+38. Executing OPT_DFF pass (perform DFF optimizations).
+
+39. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+40. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+41. Rerunning OPT passes. (Maybe there is more to do…)
+
+42. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~30 debug messages>
+
+43. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+44. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 62 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+45. Executing OPT_DFF pass (perform DFF optimizations).
+
+46. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+47. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+48. Executing FSM pass (extract and optimize FSM).
+
+48.1. Executing FSM_DETECT pass (finding FSMs in design).
+Found FSM state register tt_um_tickertape_sram_smoke.state.
+
+48.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+Extracting FSM `\state' from module `\tt_um_tickertape_sram_smoke'.
+  found $adff cell for state register: $procdff$143
+  root of input selection tree: $0\state[2:0]
+  found reset state: 3'000 (from async reset)
+  found ctrl input: $ne$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:70$13_Y
+  found ctrl input: $procmux$111_CMP
+  found ctrl input: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:113$34_Y
+  found ctrl input: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:112$31_Y
+  found ctrl input: $procmux$112_CMP
+  found ctrl input: \pass_inv
+  found state code: 3'100
+  found state code: 3'001
+  found ctrl input: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:89$27_Y
+  found state code: 3'011
+  found state code: 3'010
+  found ctrl output: $procmux$111_CMP
+  found ctrl output: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:113$34_Y
+  found ctrl output: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:112$31_Y
+  found ctrl output: $procmux$112_CMP
+  ctrl inputs: { $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:89$27_Y $ne$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:70$13_Y \pass_inv }
+  ctrl outputs: { $procmux$112_CMP $procmux$111_CMP $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:113$34_Y $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:112$31_Y $0\state[2:0] }
+  transition:      3'000 3'-0- ->      3'001 7'1000001
+  transition:      3'000 3'-1- ->      3'000 7'1000000
+  transition:      3'100 3'-0- ->      3'100 7'0000100
+  transition:      3'100 3'-1- ->      3'000 7'0000000
+  transition:      3'010 3'00- ->      3'010 7'0010010
+  transition:      3'010 3'10- ->      3'011 7'0010011
+  transition:      3'010 3'-1- ->      3'000 7'0010000
+  transition:      3'001 3'00- ->      3'001 7'0001001
+  transition:      3'001 3'10- ->      3'010 7'0001010
+  transition:      3'001 3'-1- ->      3'000 7'0001000
+  transition:      3'011 3'-00 ->      3'100 7'0100100
+  transition:      3'011 3'-01 ->      3'001 7'0100001
+  transition:      3'011 3'-1- ->      3'000 7'0100000
+
+48.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$201' from module `\tt_um_tickertape_sram_smoke'.
+
+48.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 10 unused cells and 10 unused wires.
+<suppressed ~11 debug messages>
+
+48.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+Optimizing FSM `$fsm$\state$201' from module `\tt_um_tickertape_sram_smoke'.
+  Removing unused output signal $0\state[2:0] [0].
+  Removing unused output signal $0\state[2:0] [1].
+  Removing unused output signal $0\state[2:0] [2].
+
+48.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+Recoding FSM `$fsm$\state$201' from module `\tt_um_tickertape_sram_smoke' using `auto' encoding:
+  mapping auto encoding to `one-hot` for this FSM.
+  000 -> ----1
+  100 -> ---1-
+  010 -> --1--
+  001 -> -1---
+  011 -> 1----
+
+48.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+FSM `$fsm$\state$201' from module `tt_um_tickertape_sram_smoke':
+-------------------------------------
+
+  Information on FSM $fsm$\state$201 (\state):
+
+  Number of input signals:    3
+  Number of output signals:   4
+  Number of state bits:       5
+
+  Input signals:
+    0: \pass_inv
+    1: $ne$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:70$13_Y
+    2: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:89$27_Y
+
+  Output signals:
+    0: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:112$31_Y
+    1: $eq$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:113$34_Y
+    2: $procmux$111_CMP
+    3: $procmux$112_CMP
+
+  State encoding:
+    0:    5'----1  <RESET STATE>
+    1:    5'---1-
+    2:    5'--1--
+    3:    5'-1---
+    4:    5'1----
+
+  Transition Table (state_in, ctrl_in, state_out, ctrl_out):
+      0:     0 3'-1-   ->     0 4'1000
+      1:     0 3'-0-   ->     3 4'1000
+      2:     1 3'-1-   ->     0 4'0000
+      3:     1 3'-0-   ->     1 4'0000
+      4:     2 3'-1-   ->     0 4'0010
+      5:     2 3'00-   ->     2 4'0010
+      6:     2 3'10-   ->     4 4'0010
+      7:     3 3'-1-   ->     0 4'0001
+      8:     3 3'10-   ->     2 4'0001
+      9:     3 3'00-   ->     3 4'0001
+     10:     4 3'-1-   ->     0 4'0100
+     11:     4 3'-00   ->     1 4'0100
+     12:     4 3'-01   ->     3 4'0100
+
+-------------------------------------
+
+48.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+Mapping FSM `$fsm$\state$201' from module `\tt_um_tickertape_sram_smoke'.
+
+49. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~6 debug messages>
+
+50. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 72 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 69 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+<suppressed ~9 debug messages>
+Removed a total of 3 cells.
+
+51. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~24 debug messages>
+
+52. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+53. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 69 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+54. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$173 ($adff) from module tt_um_tickertape_sram_smoke (D = $procmux$85_Y, Q = \done).
+Adding EN signal on $procdff$168 ($adff) from module tt_um_tickertape_sram_smoke (D = $procmux$96_Y, Q = \err_count).
+Adding EN signal on $procdff$163 ($adff) from module tt_um_tickertape_sram_smoke (D = \addr, Q = \rd_addr).
+Adding EN signal on $procdff$153 ($adff) from module tt_um_tickertape_sram_smoke (D = $procmux$110_Y, Q = \pass_inv).
+Adding EN signal on $procdff$148 ($adff) from module tt_um_tickertape_sram_smoke (D = $procmux$117_Y, Q = \addr).
+
+55. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 6 unused cells and 18 unused wires.
+<suppressed ~7 debug messages>
+
+56. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~4 debug messages>
+
+57. Rerunning OPT passes. (Maybe there is more to do…)
+
+58. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+59. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+60. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 78 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 72 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+<suppressed ~18 debug messages>
+Removed a total of 6 cells.
+
+61. Executing OPT_DFF pass (perform DFF optimizations).
+
+62. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+63. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+64. Rerunning OPT passes. (Maybe there is more to do…)
+
+65. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+66. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+67. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 72 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+68. Executing OPT_DFF pass (perform DFF optimizations).
+
+69. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+70. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+71. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell tt_um_tickertape_sram_smoke.$auto$fsm_map.cc:77:implement_pattern_cache$232 ($eq).
+Removed top 1 bits (of 2) from port B of cell tt_um_tickertape_sram_smoke.$ne$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:70$13 ($ne).
+Removed top 7 bits (of 8) from port B of cell tt_um_tickertape_sram_smoke.$add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$17 ($add).
+Removed top 5 bits (of 6) from port B of cell tt_um_tickertape_sram_smoke.$add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:76$25 ($add).
+Removed top 26 bits (of 32) from port B of cell tt_um_tickertape_sram_smoke.$shiftx$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:155$47 ($shiftx).
+Removed top 7 bits (of 8) from port B of cell tt_um_tickertape_sram_smoke.$add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$54 ($add).
+Removed top 1 bits (of 2) from port B of cell tt_um_tickertape_sram_smoke.$procmux$62_CMP0 ($eq).
+
+72. Executing PEEPOPT pass (run peephole optimizers).
+
+73. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+74. Executing BOOTH pass (map to Booth multipliers).
+Mapped 0 multipliers.
+
+75. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module tt_um_tickertape_sram_smoke:
+  creating $macc model for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$17 ($add).
+  creating $macc model for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$54 ($add).
+  creating $macc model for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:76$25 ($add).
+  creating $alu model for $macc $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:76$25.
+  creating $alu model for $macc $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$54.
+  creating $alu model for $macc $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$17.
+  creating $alu cell for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$17: $auto$alumacc.cc:512:replace_alu$283
+  creating $alu cell for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:44$54: $auto$alumacc.cc:512:replace_alu$286
+  creating $alu cell for $add$/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/project.v:76$25: $auto$alumacc.cc:512:replace_alu$289
+  created 3 $alu and 0 $macc cells.
+
+76. Executing ARITH_TREE pass.
+
+77. Executing SHARE pass (SAT-based resource sharing).
+
+78. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+79. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 72 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+80. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+81. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+82. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 72 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+83. Executing OPT_DFF pass (perform DFF optimizations).
+
+84. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+85. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+86. Executing MEMORY pass.
+
+86.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+86.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+86.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+86.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+86.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+86.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+86.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+86.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+86.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+86.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+87. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+88. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~17 debug messages>
+
+89. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 68 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+90. Executing OPT_DFF pass (perform DFF optimizations).
+
+91. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+92. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+93. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+94. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 68 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+95. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~10 debug messages>
+
+96. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+97. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 68 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+98. Executing OPT_SHARE pass.
+
+99. Executing OPT_DFF pass (perform DFF optimizations).
+
+100. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+101. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+102. Executing TECHMAP pass (map to technology primitives).
+
+102.1. Executing Verilog-2005 frontend: /nix/store/a9l8l27f050y0ah3jilxkzxwrkfi561z-yosys-0.66/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/nix/store/a9l8l27f050y0ah3jilxkzxwrkfi561z-yosys-0.66/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+102.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod$32efbfac1c4dc57230cf86180788fdfd12e3b511\_90_alu for cells of type $alu.
+Using template $paramod$c3cd1564c35d873179656addd6052d7ea8b6d991\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $logic_or.
+Using template $paramod$constmap:37b3cc4e06391b7a7ef418215dc52e2abb59f048$paramod$282e2f6c0b1116d84b8f8102ddacd7ff760b6794\_90_shift_shiftx for cells of type $shiftx.
+Using extmapper simplemap for cells of type $pmux.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $dff.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000110 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000001000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+Using extmapper simplemap for cells of type $or.
+No more expansions possible.
+<suppressed ~722 debug messages>
+
+103. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~276 debug messages>
+
+104. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 506 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 451 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 440 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 439 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 438 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+<suppressed ~204 debug messages>
+Removed a total of 68 cells.
+
+105. Executing OPT_DFF pass (perform DFF optimizations).
+
+106. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 54 unused cells and 235 unused wires.
+<suppressed ~55 debug messages>
+
+107. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+108. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 384 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+109. Executing OPT_DFF pass (perform DFF optimizations).
+
+110. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+111. Executing ABC pass (technology mapping using ABC).
+
+111.1. Extracting gate netlist of module `\tt_um_tickertape_sram_smoke' to `<abc-temp-dir>/input.blif'..
+
+111.1.1. Executed ABC.
+Extracted 346 gates and 420 wires to a netlist network with 73 inputs and 67 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+111.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       23
+ABC RESULTS:            ANDNOT cells:       69
+ABC RESULTS:               MUX cells:       33
+ABC RESULTS:              NAND cells:       24
+ABC RESULTS:               NOR cells:        5
+ABC RESULTS:               NOT cells:        6
+ABC RESULTS:                OR cells:       50
+ABC RESULTS:             ORNOT cells:        4
+ABC RESULTS:              XNOR cells:       40
+ABC RESULTS:               XOR cells:       57
+ABC RESULTS:        internal signals:      280
+ABC RESULTS:           input signals:       73
+ABC RESULTS:          output signals:       67
+Removing temp directory.
+Removing global temp directory.
+
+112. Executing OPT pass (performing simple optimizations).
+
+112.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+<suppressed ~8 debug messages>
+
+112.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 349 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 341 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+<suppressed ~24 debug messages>
+Removed a total of 8 cells.
+
+112.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+112.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 1 unused cells and 267 unused wires.
+<suppressed ~2 debug messages>
+
+112.5. Finished fast OPT passes.
+
+113. Executing HIERARCHY pass (managing design hierarchy).
+
+113.1. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+
+113.2. Analyzing design hierarchy..
+Top module:  \tt_um_tickertape_sram_smoke
+Removed 0 unused modules.
+
+114. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_tickertape_sram_smoke...
+Found and reported 0 problems.
+
+115. Printing statistics.
+
+=== tt_um_tickertape_sram_smoke ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      290 wires
+      439 wire bits
+       31 public wires
+      180 public wire bits
+        8 ports
+       43 port bits
+      340 cells
+       69   $_ANDNOT_
+       22   $_AND_
+       23   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+        4   $_DFF_PN0_
+        1   $_DFF_PN1_
+        8   $_DFF_P_
+       33   $_MUX_
+       24   $_NAND_
+        5   $_NOR_
+        5   $_NOT_
+        4   $_ORNOT_
+       50   $_OR_
+       37   $_XNOR_
+       53   $_XOR_
+        1   RM_IHPSG13_1P_256x32_c2_bm_bist
+
+116. Executing OPT pass (performing simple optimizations).
+
+116.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+116.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 340 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+116.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tt_um_tickertape_sram_smoke..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+116.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tt_um_tickertape_sram_smoke.
+Performed a total of 0 changes.
+
+116.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tt_um_tickertape_sram_smoke'.
+Computing hashes of 340 cells of `\tt_um_tickertape_sram_smoke'.
+Finding duplicate cells in `\tt_um_tickertape_sram_smoke'.
+Removed a total of 0 cells.
+
+116.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+116.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+
+116.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tt_um_tickertape_sram_smoke.
+
+116.9. Finished fast OPT passes. (There is nothing left to do.)
+
+117. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~6 debug messages>
+{
+   "creator": "Yosys 0.66 (git sha1 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51, clang++ 21.1.8 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/5ed0f12df3064e4abd1985971698bebb.lib -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/82c968a8f41148a48867f09991c3d1d2.lib ",
+   "modules": {
+      "\\tt_um_tickertape_sram_smoke": {
+         "num_wires":         284,
+         "num_wire_bits":     418,
+         "num_pub_wires":     25,
+         "num_pub_wire_bits": 159,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         340,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 69,
+            "$_AND_": 22,
+            "$_DFFE_PN0P_": 23,
+            "$_DFFE_PN1P_": 1,
+            "$_DFF_PN0_": 4,
+            "$_DFF_PN1_": 1,
+            "$_DFF_P_": 8,
+            "$_MUX_": 33,
+            "$_NAND_": 24,
+            "$_NOR_": 5,
+            "$_NOT_": 5,
+            "$_ORNOT_": 4,
+            "$_OR_": 50,
+            "$_XNOR_": 37,
+            "$_XOR_": 53,
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1
+         }
+      }
+   },
+      "design": {
+         "num_wires":         284,
+         "num_wire_bits":     418,
+         "num_pub_wires":     25,
+         "num_pub_wire_bits": 159,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         340,
+         "num_submodules":       0,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 69,
+            "$_AND_": 22,
+            "$_DFFE_PN0P_": 23,
+            "$_DFFE_PN1P_": 1,
+            "$_DFF_PN0_": 4,
+            "$_DFF_PN1_": 1,
+            "$_DFF_P_": 8,
+            "$_MUX_": 33,
+            "$_NAND_": 24,
+            "$_NOR_": 5,
+            "$_NOT_": 5,
+            "$_ORNOT_": 4,
+            "$_OR_": 50,
+            "$_XNOR_": 37,
+            "$_XOR_": 53,
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1
+         }
+      }
+}
+
+118. Printing statistics.
+
+=== tt_um_tickertape_sram_smoke ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      284 wires
+      418 wire bits
+       25 public wires
+      159 public wire bits
+        8 ports
+       43 port bits
+      340 cells
+       69   $_ANDNOT_
+       22   $_AND_
+       23   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+        4   $_DFF_PN0_
+        1   $_DFF_PN1_
+        8   $_DFF_P_
+       33   $_MUX_
+       24   $_NAND_
+        5   $_NOR_
+        5   $_NOT_
+        4   $_ORNOT_
+       50   $_OR_
+       37   $_XNOR_
+       53   $_XOR_
+        1   RM_IHPSG13_1P_256x32_c2_bm_bist
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_DFFE_PN0P_ is unknown!
+   Area for cell type $_DFFE_PN1P_ is unknown!
+   Area for cell type $_DFF_PN0_ is unknown!
+   Area for cell type $_DFF_PN1_ is unknown!
+   Area for cell type $_DFF_P_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type \RM_IHPSG13_1P_256x32_c2_bm_bist is unknown!
+
+[INFO] Applying tri-state buffer mapping from '/home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/tribuff_map.v'…
+
+119. Executing TECHMAP pass (map to technology primitives).
+
+119.1. Executing Verilog-2005 frontend: /home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/tribuff_map.v
+Parsing Verilog input from `/home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/tribuff_map.v' to AST representation.
+Generating RTLIL representation for module `$_TBUF_'.
+Successfully finished Verilog frontend.
+
+119.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~3 debug messages>
+
+120. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+[INFO] Applying latch mapping from '/home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/latch_map.v'…
+
+121. Executing TECHMAP pass (map to technology primitives).
+
+121.1. Executing Verilog-2005 frontend: /home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/latch_map.v
+Parsing Verilog input from `/home/runner/pdk/ihp-sg13cmos5l/libs.tech/librelane/sg13cmos5l_stdcell/latch_map.v' to AST representation.
+Generating RTLIL representation for module `$_DLATCH_P_'.
+Generating RTLIL representation for module `$_DLATCH_PN0_'.
+Generating RTLIL representation for module `$_DLATCH_N_'.
+Generating RTLIL representation for module `$_DLATCH_NN0_'.
+Successfully finished Verilog frontend.
+
+121.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~6 debug messages>
+
+122. Executing SIMPLEMAP pass (map simple cells to gate primitives).
+
+123. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sg13cmos5l_dfrbpq_1 (noninv, pins=4, area=48.99) is a direct match for cell type $_DFF_PN0_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    unmapped dff cell: $_DFF_P_
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sg13cmos5l_dfrbpq_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    unmapped dff cell: $_DFFE_PP_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+123.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~4 debug messages>
+Mapping DFF cells in module `\tt_um_tickertape_sram_smoke':
+  mapped 37 $_DFF_PN0_ cells to \sg13cmos5l_dfrbpq_1 cells.
+{
+   "creator": "Yosys 0.66 (git sha1 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51, clang++ 21.1.8 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/5ed0f12df3064e4abd1985971698bebb.lib -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/82c968a8f41148a48867f09991c3d1d2.lib ",
+   "modules": {
+      "\\tt_um_tickertape_sram_smoke": {
+         "num_wires":         312,
+         "num_wire_bits":     446,
+         "num_pub_wires":     25,
+         "num_pub_wire_bits": 159,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         368,
+         "num_submodules":       0,
+         "area":              1812.585600,
+         "sequential_area":    1812.585600,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 69,
+            "$_AND_": 22,
+            "$_MUX_": 57,
+            "$_NAND_": 24,
+            "$_NOR_": 5,
+            "$_NOT_": 9,
+            "$_ORNOT_": 4,
+            "$_OR_": 50,
+            "$_XNOR_": 37,
+            "$_XOR_": 53,
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1,
+            "sg13cmos5l_dfrbpq_1": 37
+         }
+      }
+   },
+      "design": {
+         "num_wires":         312,
+         "num_wire_bits":     446,
+         "num_pub_wires":     25,
+         "num_pub_wire_bits": 159,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         368,
+         "num_submodules":       0,
+         "area":              1812.585600,
+         "sequential_area":    1812.585600,
+         "num_cells_by_type": {
+            "$_ANDNOT_": 69,
+            "$_AND_": 22,
+            "$_MUX_": 57,
+            "$_NAND_": 24,
+            "$_NOR_": 5,
+            "$_NOT_": 9,
+            "$_ORNOT_": 4,
+            "$_OR_": 50,
+            "$_XNOR_": 37,
+            "$_XOR_": 53,
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1,
+            "sg13cmos5l_dfrbpq_1": 37
+         }
+      }
+}
+
+124. Printing statistics.
+
+=== tt_um_tickertape_sram_smoke ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      312        - wires
+      446        - wire bits
+       25        - public wires
+      159        - public wire bits
+        8        - ports
+       43        - port bits
+      368 1.81E+03 cells
+       69        -   $_ANDNOT_
+       22        -   $_AND_
+       57        -   $_MUX_
+       24        -   $_NAND_
+        5        -   $_NOR_
+        9        -   $_NOT_
+        4        -   $_ORNOT_
+       50        -   $_OR_
+       37        -   $_XNOR_
+       53        -   $_XOR_
+        1        -   RM_IHPSG13_1P_256x32_c2_bm_bist
+       37 1.81E+03   sg13cmos5l_dfrbpq_1
+
+   Area for cell type $_ANDNOT_ is unknown!
+   Area for cell type $_AND_ is unknown!
+   Area for cell type $_MUX_ is unknown!
+   Area for cell type $_NAND_ is unknown!
+   Area for cell type $_NOR_ is unknown!
+   Area for cell type $_NOT_ is unknown!
+   Area for cell type $_ORNOT_ is unknown!
+   Area for cell type $_OR_ is unknown!
+   Area for cell type $_XNOR_ is unknown!
+   Area for cell type $_XOR_ is unknown!
+   Area for cell type \RM_IHPSG13_1P_256x32_c2_bm_bist is unknown!
+
+   Chip area for module '\tt_um_tickertape_sram_smoke': 1812.585600
+     of which used for sequential elements: 1812.585600 (100.00%)
+
+[INFO] Using generated ABC strategy script '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/06-yosys-synthesis/AREA_0.abc'…
+
+125. Executing ABC pass (technology mapping using ABC).
+
+125.1. Extracting gate netlist of module `\tt_um_tickertape_sram_smoke' to `/tmp/yosys-abc-VII0cw/input.blif'..
+
+125.1.1. Executed ABC.
+Extracted 330 gates and 403 wires to a netlist network with 73 inputs and 71 outputs.
+Running ABC script: /tmp/yosys-abc-VII0cw/abc.script
+ABC: ======== ABC command line "source /tmp/yosys-abc-VII0cw/abc.script"
+ABC: + read_blif /tmp/yosys-abc-VII0cw/input.blif 
+ABC: + read_scl /tmp/yosys-liberty-scl-cache/yosys_merged_f696428a.scl 
+ABC: + read_constr -v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/06-yosys-synthesis/synthesis.abc.sdc 
+ABC: Setting driving cell to be "sg13cmos5l_buf_4/X".
+ABC: Setting output load to be 6.000000.
+ABC: + source /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/06-yosys-synthesis/AREA_0.abc 
+ABC: Error: The network is combinational.
+ABC: Cannot find the default PI driving cell (sg13cmos5l_buf_4/X) in the library.
+ABC: WireLoad = "none"  Gates =    275 (  9.5 %)   Cap =  7.7 ff (  2.2 %)   Area =     2782.57 ( 95.6 %)   Delay =  1354.21 ps  (  4.7 %)               
+ABC: Path  0 --      10 : 0    4 pi                 A =   0.00  Df =   0.0   -0.0 ps  S =   0.0 ps  Cin =  0.0 ff  Cout =  10.8 ff  Cmax =   0.0 ff  G =    0  
+ABC: Path  1 --     161 : 2   14 sg13cmos5l_nor2b_1 A =   9.07  Df = 318.1 -169.2 ps  S = 379.4 ps  Cin =  2.6 ff  Cout =  44.8 ff  Cmax = 300.0 ff  G = 1693  
+ABC: Path  2 --     191 : 2   19 sg13cmos5l_nand2_1 A =   7.26  Df = 738.8 -322.7 ps  S = 356.2 ps  Cin =  2.9 ff  Cout =  62.1 ff  Cmax = 300.0 ff  G = 2028  
+ABC: Path  3 --     192 : 1    3 sg13cmos5l_inv_1   A =   5.44  Df = 874.2 -342.2 ps  S = 113.1 ps  Cin =  2.9 ff  Cout =  11.4 ff  Cmax = 300.0 ff  G =  395  
+ABC: Path  4 --     204 : 2    2 sg13cmos5l_or2_1   A =   9.07  Df = 988.0 -324.4 ps  S =  38.2 ps  Cin =  2.4 ff  Cout =   6.1 ff  Cmax = 300.0 ff  G =  247  
+ABC: Path  5 --     387 : 2    8 sg13cmos5l_nand2_1 A =   7.26  Df =1132.5 -361.5 ps  S = 150.2 ps  Cin =  2.9 ff  Cout =  26.0 ff  Cmax = 300.0 ff  G =  871  
+ABC: Path  6 --     394 : 3    1 sg13cmos5l_nor3_1  A =   9.07  Df =1255.9 -419.6 ps  S =  88.0 ps  Cin =  3.0 ff  Cout =   2.7 ff  Cmax = 300.0 ff  G =   88  
+ABC: Path  7 --     395 : 3    1 sg13cmos5l_a21o_1  A =  12.70  Df =1354.2 -134.1 ps  S =  43.1 ps  Cin =  2.7 ff  Cout =   6.0 ff  Cmax = 300.0 ff  G =  220  
+ABC: Start-point = pi9 (\ctl_s2 [0]).  End-point = po60 ($auto$rtlil.cc:3501:MuxGate$1777).
+ABC: netlist                       : i/o =   73/   71  lat =    0  nd =   275  edge =    696  area =2782.64  delay = 7.00  lev = 7
+ABC: + write_blif /tmp/yosys-abc-VII0cw/output.blif 
+
+125.1.2. Re-integrating ABC results.
+ABC RESULTS:   sg13cmos5l_a21o_1 cells:        5
+ABC RESULTS:   sg13cmos5l_a21oi_1 cells:       28
+ABC RESULTS:   sg13cmos5l_a221oi_1 cells:        8
+ABC RESULTS:   sg13cmos5l_a22oi_1 cells:       19
+ABC RESULTS:   sg13cmos5l_and2_1 cells:       11
+ABC RESULTS:   sg13cmos5l_and3_1 cells:        3
+ABC RESULTS:   sg13cmos5l_and4_1 cells:        1
+ABC RESULTS:   sg13cmos5l_inv_1 cells:       26
+ABC RESULTS:   sg13cmos5l_mux2_1 cells:        7
+ABC RESULTS:   sg13cmos5l_mux4_1 cells:        1
+ABC RESULTS:   sg13cmos5l_nand2_1 cells:       24
+ABC RESULTS:   sg13cmos5l_nand2b_1 cells:       20
+ABC RESULTS:   sg13cmos5l_nand3_1 cells:        5
+ABC RESULTS:   sg13cmos5l_nand3b_1 cells:        3
+ABC RESULTS:   sg13cmos5l_nand4_1 cells:        6
+ABC RESULTS:   sg13cmos5l_nor2_1 cells:       18
+ABC RESULTS:   sg13cmos5l_nor2b_1 cells:       12
+ABC RESULTS:   sg13cmos5l_nor3_1 cells:        4
+ABC RESULTS:   sg13cmos5l_nor4_1 cells:        5
+ABC RESULTS:   sg13cmos5l_o21ai_1 cells:       25
+ABC RESULTS:   sg13cmos5l_or2_1 cells:        3
+ABC RESULTS:   sg13cmos5l_or4_1 cells:        1
+ABC RESULTS:   sg13cmos5l_xnor2_1 cells:       27
+ABC RESULTS:   sg13cmos5l_xor2_1 cells:       13
+ABC RESULTS:        internal signals:      259
+ABC RESULTS:           input signals:       73
+ABC RESULTS:          output signals:       71
+Removing temp directory.
+Removing global temp directory.
+
+126. Executing SETUNDEF pass (replace undef values with defined constants).
+
+127. Executing HILOMAP pass (mapping to constant drivers).
+
+128. Executing SPLITNETS pass (splitting up multi-bit signals).
+
+129. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tt_um_tickertape_sram_smoke..
+Removed 0 unused cells and 431 unused wires.
+<suppressed ~6 debug messages>
+
+130. Executing INSBUF pass (insert buffer cells for connected wires).
+
+131. Executing CHECK pass (checking for obvious problems).
+Checking module tt_um_tickertape_sram_smoke...
+Found and reported 0 problems.
+{
+   "creator": "Yosys 0.66 (git sha1 86f2ddebce7e98ce7cacc27e8a5c14cb53b51b51, clang++ 21.1.8 -fPIC -O3)",
+   "invocation": "stat -json -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/5ed0f12df3064e4abd1985971698bebb.lib -liberty /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/82c968a8f41148a48867f09991c3d1d2.lib ",
+   "modules": {
+      "\\tt_um_tickertape_sram_smoke": {
+         "num_wires":         462,
+         "num_wire_bits":     497,
+         "num_pub_wires":     110,
+         "num_pub_wire_bits": 145,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         447,
+         "num_submodules":       0,
+         "area":              5567.675400,
+         "sequential_area":    1812.585600,
+         "num_cells_by_type": {
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1,
+            "sg13cmos5l_a21o_1": 5,
+            "sg13cmos5l_a21oi_1": 28,
+            "sg13cmos5l_a221oi_1": 8,
+            "sg13cmos5l_a22oi_1": 19,
+            "sg13cmos5l_and2_1": 11,
+            "sg13cmos5l_and3_1": 3,
+            "sg13cmos5l_and4_1": 1,
+            "sg13cmos5l_dfrbpq_1": 37,
+            "sg13cmos5l_inv_1": 26,
+            "sg13cmos5l_mux2_1": 7,
+            "sg13cmos5l_mux4_1": 1,
+            "sg13cmos5l_nand2_1": 24,
+            "sg13cmos5l_nand2b_1": 20,
+            "sg13cmos5l_nand3_1": 5,
+            "sg13cmos5l_nand3b_1": 3,
+            "sg13cmos5l_nand4_1": 6,
+            "sg13cmos5l_nor2_1": 18,
+            "sg13cmos5l_nor2b_1": 12,
+            "sg13cmos5l_nor3_1": 4,
+            "sg13cmos5l_nor4_1": 5,
+            "sg13cmos5l_o21ai_1": 25,
+            "sg13cmos5l_or2_1": 3,
+            "sg13cmos5l_or4_1": 1,
+            "sg13cmos5l_tiehi": 41,
+            "sg13cmos5l_tielo": 93,
+            "sg13cmos5l_xnor2_1": 27,
+            "sg13cmos5l_xor2_1": 13
+         }
+      }
+   },
+      "design": {
+         "num_wires":         462,
+         "num_wire_bits":     497,
+         "num_pub_wires":     110,
+         "num_pub_wire_bits": 145,
+         "num_ports":         8,
+         "num_port_bits":     43,
+         "num_memories":      0,
+         "num_memory_bits":   0,
+         "num_processes":     0,
+         "num_cells":         447,
+         "num_submodules":       0,
+         "area":              5567.675400,
+         "sequential_area":    1812.585600,
+         "num_cells_by_type": {
+            "RM_IHPSG13_1P_256x32_c2_bm_bist": 1,
+            "sg13cmos5l_a21o_1": 5,
+            "sg13cmos5l_a21oi_1": 28,
+            "sg13cmos5l_a221oi_1": 8,
+            "sg13cmos5l_a22oi_1": 19,
+            "sg13cmos5l_and2_1": 11,
+            "sg13cmos5l_and3_1": 3,
+            "sg13cmos5l_and4_1": 1,
+            "sg13cmos5l_dfrbpq_1": 37,
+            "sg13cmos5l_inv_1": 26,
+            "sg13cmos5l_mux2_1": 7,
+            "sg13cmos5l_mux4_1": 1,
+            "sg13cmos5l_nand2_1": 24,
+            "sg13cmos5l_nand2b_1": 20,
+            "sg13cmos5l_nand3_1": 5,
+            "sg13cmos5l_nand3b_1": 3,
+            "sg13cmos5l_nand4_1": 6,
+            "sg13cmos5l_nor2_1": 18,
+            "sg13cmos5l_nor2b_1": 12,
+            "sg13cmos5l_nor3_1": 4,
+            "sg13cmos5l_nor4_1": 5,
+            "sg13cmos5l_o21ai_1": 25,
+            "sg13cmos5l_or2_1": 3,
+            "sg13cmos5l_or4_1": 1,
+            "sg13cmos5l_tiehi": 41,
+            "sg13cmos5l_tielo": 93,
+            "sg13cmos5l_xnor2_1": 27,
+            "sg13cmos5l_xor2_1": 13
+         }
+      }
+}
+
+132. Printing statistics.
+
+=== tt_um_tickertape_sram_smoke ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      462        - wires
+      497        - wire bits
+      110        - public wires
+      145        - public wire bits
+        8        - ports
+       43        - port bits
+      447 5.57E+03 cells
+        1        -   RM_IHPSG13_1P_256x32_c2_bm_bist
+        5   63.504   sg13cmos5l_a21o_1
+       28  254.016   sg13cmos5l_a21oi_1
+        8  116.122   sg13cmos5l_a221oi_1
+       19  206.123   sg13cmos5l_a22oi_1
+       11   99.792   sg13cmos5l_and2_1
+        3   38.102   sg13cmos5l_and3_1
+        1   14.515   sg13cmos5l_and4_1
+       37 1.81E+03   sg13cmos5l_dfrbpq_1
+       26  141.523   sg13cmos5l_inv_1
+        7  127.008   sg13cmos5l_mux2_1
+        1   38.102   sg13cmos5l_mux4_1
+       24  174.182   sg13cmos5l_nand2_1
+       20   181.44   sg13cmos5l_nand2b_1
+        5    45.36   sg13cmos5l_nand3_1
+        3   38.102   sg13cmos5l_nand3b_1
+        6   65.318   sg13cmos5l_nand4_1
+       18  130.637   sg13cmos5l_nor2_1
+       12  108.864   sg13cmos5l_nor2b_1
+        4   36.288   sg13cmos5l_nor3_1
+        5   54.432   sg13cmos5l_nor4_1
+       25    226.8   sg13cmos5l_o21ai_1
+        3   27.216   sg13cmos5l_or2_1
+        1   14.515   sg13cmos5l_or4_1
+       41  297.562   sg13cmos5l_tiehi
+       93  674.957   sg13cmos5l_tielo
+       27   391.91   sg13cmos5l_xnor2_1
+       13  188.698   sg13cmos5l_xor2_1
+
+   Area for cell type \RM_IHPSG13_1P_256x32_c2_bm_bist is unknown!
+
+   Chip area for module '\tt_um_tickertape_sram_smoke': 5567.675400
+     of which used for sequential elements: 1812.585600 (32.56%)
+
+133. Executing Verilog backend.
+Dumping module `\tt_um_tickertape_sram_smoke'.
+
+134. Executing JSON backend.
