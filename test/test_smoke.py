@@ -11,7 +11,6 @@ GL = os.environ.get("GATES") == "yes"
 IDLE, TEST, CHASE, READ = 0, 1, 2, 3
 SYNC = 3          # 2-flop synchronizer + 1 cycle margin
 TEST_CYCLES = 2 * (1 + 256 + 256 + 1) + 10
-READ_STATE = 2    # project.v: S_READ
 
 
 def pattern(a, inv=False):
@@ -64,33 +63,51 @@ async def _dout_signal(dut):
     raise AttributeError("Could not find SRAM read-data signal (dout or sram0.A_DOUT)")
 
 
+def _readback_address(project):
+    """Resolve the pending compare address in RTL or the bit-blasted GL netlist.
+
+    Synthesis recodes state and removes pass_inv, so neither is a portable
+    simulation handle. rd_valid and rd_addr identify the read being compared.
+    """
+    if not int(project.rd_valid.value):
+        return None
+    try:
+        return int(project.rd_addr.value)
+    except AttributeError:
+        return sum(
+            int(getattr(project, f"rd_addr[{bit}]").value) << bit
+            for bit in range(8)
+        )
+
+
 async def corrupt_reads(dut, targets):
     """Simulation-only fault injection: corrupt readback of selected addresses.
 
     This forces the SRAM read-data path in the simulator only; it does not
     modify the RTL, SRAM macro, or manufactured design.
     """
-    dout = _dout_signal(dut)
+    project = dut.user_project
+    dout = _dout_signal(project)
     remaining = set(targets)
 
     while remaining:
         await FallingEdge(dut.clk)
 
         mode = int(dut.uio_in.value) & 0b11
-        if mode != TEST or int(dut.state.value) != READ_STATE:
+        if mode != TEST:
             continue
 
-        addr = int(dut.addr.value)
+        addr = _readback_address(project)
         if addr not in remaining:
             continue
 
-        inv = int(dut.pass_inv.value)
-        corrupted = pattern(addr, inv) ^ 0x00010000
+        original = int(dout.value)
+        corrupted = original ^ 0x00010000
 
         # This read is compared at the next rising edge.
         dout.value = corrupted
         await RisingEdge(dut.clk)
-        dout.value = pattern(addr, inv)
+        dout.value = original
         remaining.remove(addr)
 
 
