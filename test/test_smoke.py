@@ -4,13 +4,14 @@
 import os
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import ClockCycles, FallingEdge
+from cocotb.triggers import ClockCycles, FallingEdge, RisingEdge
 
 GL = os.environ.get("GATES") == "yes"
 
 IDLE, TEST, CHASE, READ = 0, 1, 2, 3
 SYNC = 3          # 2-flop synchronizer + 1 cycle margin
 TEST_CYCLES = 2 * (1 + 256 + 256 + 1) + 10
+READ_STATE = 2    # project.v: S_READ
 
 
 def pattern(a, inv=False):
@@ -50,22 +51,58 @@ async def self_test_passes(dut):
     assert (done, ok, errs) == (1, 1, 0)
 
 
-@cocotb.test(skip=GL)
+async def _dout_signal(dut):
+    """Return the SRAM read-data signal, preferring the RTL net name."""
+    for name in ("dout", "sram0.A_DOUT"):
+        sig = dut
+        try:
+            for part in name.split("."):
+                sig = getattr(sig, part)
+            return sig
+        except AttributeError:
+            continue
+    raise AttributeError("Could not find SRAM read-data signal (dout or sram0.A_DOUT)")
+
+
+async def corrupt_reads(dut, targets):
+    """Simulation-only fault injection: corrupt readback of selected addresses.
+
+    This forces the SRAM read-data path in the simulator only; it does not
+    modify the RTL, SRAM macro, or manufactured design.
+    """
+    dout = _dout_signal(dut)
+    remaining = set(targets)
+
+    while remaining:
+        await FallingEdge(dut.clk)
+
+        mode = int(dut.uio_in.value) & 0b11
+        if mode != TEST or int(dut.state.value) != READ_STATE:
+            continue
+
+        addr = int(dut.addr.value)
+        if addr not in remaining:
+            continue
+
+        inv = int(dut.pass_inv.value)
+        corrupted = pattern(addr, inv) ^ 0x00010000
+
+        # This read is compared at the next rising edge.
+        dout.value = corrupted
+        await RisingEdge(dut.clk)
+        dout.value = pattern(addr, inv)
+        remaining.remove(addr)
+
+
+@cocotb.test()
 async def self_test_detects_corruption(dut):
-    """Corrupt stored words mid-test; the checker must count them."""
+    """Corrupt three readbacks; the checker must count them."""
     await setup(dut)
-    await set_mode(dut, TEST)
-    # Pass 0 write phase ends ~258 cycles in; corrupt 3 words before its reads.
-    await ClockCycles(dut.clk, 1 + 256 + 2)
-    mem = dut.user_project.sram0.i_SRAM_1P_behavioral_bm_bist.memory
-    for a in (7, 100, 255):
-        mem[a].value = int(mem[a].value) ^ 0x00010000
-    await ClockCycles(dut.clk, TEST_CYCLES)
-    await FallingEdge(dut.clk)
-    v = int(dut.uo_out.value)
-    done, ok, errs = v >> 7, (v >> 6) & 1, v & 0x3F
+    corrupt_task = cocotb.start_soon(corrupt_reads(dut, (7, 100, 255)))
+    done, ok, errs = await run_self_test(dut)
+    corrupt_task.cancel()
     dut._log.info(f"done={done} pass={ok} errors={errs}")
-    assert done == 1 and ok == 0 and errs == 3
+    assert (done, ok, errs) == (1, 0, 3)
 
 
 @cocotb.test()
