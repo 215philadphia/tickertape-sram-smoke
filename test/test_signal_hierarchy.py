@@ -41,20 +41,29 @@ class ReadbackAddressTests(unittest.TestCase):
             _readback_address(project)
 
 
-class ReadDataHierarchyTests(unittest.IsolatedAsyncioTestCase):
-    # Await the existing helper in isolation. Fixing its production caller is
-    # deliberately separate from these hierarchy-only tests.
-    async def test_rtl_read_data_under_user_project(self):
+class ReadDataHierarchyTests(unittest.TestCase):
+    def test_rtl_read_data_under_user_project(self):
         data = signal(0x12345678)
         tb = SimpleNamespace(user_project=SimpleNamespace(dout=data))
-        self.assertIs(await _dout_signal(tb.user_project), data)
+        self.assertIs(_dout_signal(tb.user_project), data)
 
-    async def test_gate_level_macro_port_under_user_project(self):
+    def test_gate_level_macro_port_under_user_project(self):
         data = signal(0x12345678)
         tb = SimpleNamespace(
             user_project=SimpleNamespace(sram0=SimpleNamespace(A_DOUT=data))
         )
-        self.assertIs(await _dout_signal(tb.user_project), data)
+        self.assertIs(_dout_signal(tb.user_project), data)
+
+    def test_rtl_read_data_is_preferred_over_macro_port(self):
+        data = signal(0x12345678)
+        project = SimpleNamespace(
+            dout=data, sram0=SimpleNamespace(A_DOUT=signal(0x87654321))
+        )
+        self.assertIs(_dout_signal(project), data)
+
+    def test_missing_read_data_raises_immediately(self):
+        with self.assertRaisesRegex(AttributeError, "Could not find SRAM read-data"):
+            _dout_signal(SimpleNamespace())
 
 
 @cocotb.test()
@@ -62,7 +71,7 @@ async def hierarchy_matches_readback(dut):
     """Resolve the actual pending read throughout both self-test passes."""
     await setup(dut)
     project = dut.user_project
-    dout = await _dout_signal(project)
+    dout = _dout_signal(project)
     self_test_addresses = []
     assert _readback_address(project) is None
     await set_mode(dut, TEST)

@@ -50,7 +50,7 @@ async def self_test_passes(dut):
     assert (done, ok, errs) == (1, 1, 0)
 
 
-async def _dout_signal(dut):
+def _dout_signal(dut):
     """Return the SRAM read-data signal, preferring the RTL net name."""
     for name in ("dout", "sram0.A_DOUT"):
         sig = dut
@@ -105,9 +105,10 @@ async def corrupt_reads(dut, targets):
         corrupted = original ^ 0x00010000
 
         # This read is compared at the next rising edge.
+        # The SRAM updates its output at that edge. Do not restore the old
+        # word afterward: that would overwrite the following read's data.
         dout.value = corrupted
         await RisingEdge(dut.clk)
-        dout.value = original
         remaining.remove(addr)
 
 
