@@ -14,8 +14,9 @@
 //   * Outputs are registered: a row's pins appear one cycle after it takes
 //     effect.
 //
-// Word layout (low to high), WORD = S+19 = 25 bits in a 32-bit macro word:
-//   selB[1:0] selA[3:2] op[5:4] osel[6] out[10:7] wait[18:11] next[24:19]
+// Word layout (low to high), WORD = S+23 = 29 bits in a 32-bit macro word:
+//   selB[1:0] selA[3:2] op[5:4] osel[6] out[10:7] wait[18:11] next[24:19] dir[28:25]
+// dir (v1.1): per-row drive enable, used only by pins in PINMODE 3; 0 in every older table.
 // Slot sources: A: 0=IN0 1=IN1 2=TX_FULL 3=IN2 ; B: 0=CNT_ZERO 1=OBIT 2=CMP 3=IN3
 `default_nettype none
 
@@ -46,6 +47,7 @@ module pfst_core_sram #(
   output reg               rx_valid_o,
   output reg  [7:0]        scr_o,
   output wire [3:0]        out_o,
+  output reg  [3:0]        dir_o,       // per-row drive enable of out[3:0] (PINMODE 3 pins)
   output reg               done_o,
   output reg               flag_o,
   output reg               rx_ovr_o,
@@ -79,6 +81,7 @@ module pfst_core_sram #(
   wire [3:0]   r_out   = R[10:7];
   wire [7:0]   r_wait  = R[18:11];
   wire [S-1:0] r_next  = R[S+18:19];
+  wire [3:0]   r_dir   = R[S+22:S+19];
 
   // ------------------------------------------------------------ state
   wire halt = !rst_n || restart || !run;      // run low acts like restart for control
@@ -205,7 +208,7 @@ module pfst_core_sram #(
     if (halt) begin
       first <= 1'b0; rowv <= 1'b0; boot <= 1'b1;
       wcnt_q <= 8'd0; sub_q <= 9'd0;
-      sr <= 8'd0; obit <= 1'b0; cnt <= 4'd0; out_reg <= out_init;
+      sr <= 8'd0; obit <= 1'b0; cnt <= 4'd0; out_reg <= out_init; dir_o <= 4'd0;   // stopped: row-controlled pins released
     end else begin
       first <= issue;
       if (boot && issue) boot <= 1'b0;
@@ -215,6 +218,7 @@ module pfst_core_sram #(
       if (first) begin
         sr <= n_sr; obit <= n_obit; cnt <= n_cnt;
         out_reg <= out_field;
+        dir_o   <= r_dir;
       end
     end
   end

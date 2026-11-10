@@ -6,7 +6,7 @@ import os
 
 import cocotb
 from cocotb.clock import Clock
-from cocotb.triggers import FallingEdge
+from cocotb.triggers import FallingEdge, RisingEdge, Timer
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 H = 7                                   # host SCK half period in core clocks (3.6 MHz at 50 MHz)
@@ -24,13 +24,14 @@ class Host:
     """SPI mode 0 host, MSB first, CS_n framed. ui_in[3] held high (idle UART line)."""
     def __init__(self, dut):
         self.dut = dut
+        self.ui7 = 0                                              # ui_in[7], a general input pin
 
     async def cycles(self, n):
         for _ in range(n):
             await FallingEdge(self.dut.clk)
 
     def drive(self, sck, mosi, cs_n):
-        self.dut.ui_in.value = 0x08 | sck << 4 | mosi << 5 | cs_n << 6
+        self.dut.ui_in.value = 0x08 | sck << 4 | mosi << 5 | cs_n << 6 | self.ui7 << 7
 
     async def xfer(self, data):
         self.drive(0, 0, 0)
@@ -149,3 +150,46 @@ async def test_uart_tx(dut):
     assert got == data, f"decoded {[hex(x) for x in got]}"
     st = (await h.rreg(0x08))[0]
     assert st >> 6 == 0 and not st & 0x20, f"FIFO should be empty, no overflow: STATUS {st:#x}"
+
+
+def W(nxt, wait=0, out=0, osel=0, op=0, sa=0, sb=0, dir_=0):
+    return dir_ << 25 | nxt << 19 | wait << 11 | out << 7 | osel << 6 | op << 4 | sa << 2 | sb
+
+
+@cocotb.test()
+async def test_passthrough(dut):
+    """v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized."""
+    h = await start(dut)
+    await h.wreg(0x22, 0xC0 | 7, 0x80 | 7)
+    for v in (1, 0, 1):
+        h.ui7 = v; h.drive(0, 0, 1)                               # change ui_in[7] just after a falling edge
+        await Timer(5, unit="ns")
+        assert bit(dut.uo_out, 0) == v, "direct pass-through must follow within the same cycle"
+        assert bit(dut.uo_out, 1) != v, "synchronized pass-through must not follow immediately"
+        seen = None
+        for k in range(1, 4):
+            await RisingEdge(dut.clk)
+            await Timer(1, unit="ns")
+            if bit(dut.uo_out, 1) == v:
+                seen = k; break
+        assert seen == 2, f"synchronized pass-through followed after {seen} rising edges, expected 2"
+        await h.cycles(3)
+
+
+@cocotb.test()
+async def test_row_controlled_pins(dut):
+    """v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped."""
+    h = await start(dut)
+    rows = [W(0, 0, 0b0101, dir_=0b0011)] * 2 + [W(0, 0, 0b1010, dir_=0b1100)] * 2   # row picked by IN0
+    await h.write_table(0, 0, rows)
+    await h.wreg(0x03, 0xE4, 0xFF)                                # OUTMAP identity, PINMODE all row-controlled
+    await h.wreg(0x05, 0x17)                                      # IN0 <- ui_in[7]
+    assert bit(dut.uio_oe, 0) == 0 and int(dut.uio_oe.value) & 15 == 0, "pins must be released while stopped"
+    await h.xfer([0x40, 0x03])
+    for a, oe, out in ((0, 0b0011, 0b0001), (1, 0b1100, 0b1000), (0, 0b0011, 0b0001)):
+        h.ui7 = a; h.drive(0, 0, 1)
+        await h.cycles(10)
+        got_oe, got_out = int(dut.uio_oe.value) & 15, int(dut.uio_out.value) & 15
+        assert (got_oe, got_out) == (oe, out), f"IN0={a}: oe {got_oe:04b} out {got_out:04b}, expected {oe:04b} {out:04b}"
+    await h.xfer([0x40, 0x02])                                    # RESTART, stopped
+    assert int(dut.uio_oe.value) & 15 == 0, "pins must be released after stop"

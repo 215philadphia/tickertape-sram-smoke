@@ -12,7 +12,12 @@ current state plus two input bits chosen per row, so a protocol is firmware: UAR
 not hardware blocks. A host loads tables and configuration over an SPI port; core 0's saved byte feeds a
 comparator whose result core 1 can branch on, so the two cores can react to each other without the host.
 
-Every row lasts exactly P x (1 + wait) clock cycles. The SRAM returns data one cycle after the address, so the
+Every row lasts exactly P x (1 + wait) clock cycles.
+
+Two features make it a literal bump-in-the-wire and let it drive bidirectional buses. Any of uo_out[5:0] can
+forward an input pin (UOMAP bit 7): directly, with only gate delay, or through a 2-flop synchronizer (1-2 clock
+cycles), while a core parses the same line. And a pin in PINMODE 3 is driven only in rows whose direction bits
+say so, so a program can turn a line around mid-transaction (SWD, low-speed USB, half-duplex serial). The SRAM returns data one cycle after the address, so the
 next row is read in the last cycle of the current one.
 
 ## How to test
