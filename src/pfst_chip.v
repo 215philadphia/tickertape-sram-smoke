@@ -39,12 +39,14 @@ module pfst_chip (
   reg [7:0] r_p   [0:1]; reg [1:0] r_cfg [0:1]; reg [3:0] r_rsel [0:1];
   reg [7:0] r_outmap [0:1], r_pinmode [0:1], r_inmap01 [0:1], r_inmap23 [0:1];
   reg [7:0] r_done_state [0:1]; reg [3:0] r_out_init [0:1];
-  reg [1:0] run_q; reg [7:0] thresh, irq_en; reg [3:0] uomap [0:5];
+  reg [1:0] run_q; reg [7:0] thresh, irq_en; reg [7:0] uomap [0:5];
+  reg [1:0] pt_sync [0:5];                              // UOMAP pass-through, 2-flop synchronized mode
 
   // core signals
   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
   wire [7:0] scr [0:1];
   wire [3:0] outv [0:1];
+  wire [3:0] dirv [0:1];
   wire [5:0] state_o [0:1];
   wire [3:0] tx_level_w [0:1];
   reg  [1:0] restart_p, rx_clear_p, push_p;
@@ -72,7 +74,7 @@ module pfst_chip (
       .raw_in(g == 0 ? raw0 : raw1), .cmp(g == 1 ? cmp_q : 1'b0),
       .tx_push(push_p[g]), .tx_push_data(push_data),
       .tx_full_o(tx_full[g]), .tx_ovr_o(tx_ovr[g]), .rx_valid_o(rx_valid[g]), .scr_o(scr[g]),
-      .out_o(outv[g]), .done_o(done[g]), .flag_o(flag[g]), .rx_ovr_o(rx_ovr[g]), .valid_o(valid[g]),
+      .out_o(outv[g]), .dir_o(dirv[g]), .done_o(done[g]), .flag_o(flag[g]), .rx_ovr_o(rx_ovr[g]), .valid_o(valid[g]),
       .state_o(state_o[g]), .tx_level_o(txlvl),
       .ld_en(ld_en_r[g]), .ld_ren(ld_ren_r[g]), .ld_addr(ld_addr_r), .ld_data(ld_data_r),
       .mem_men(m_men[g]), .mem_wen(m_wen[g]), .mem_ren(m_ren[g]),
@@ -108,7 +110,7 @@ module pfst_chip (
         endcase
       end else if (a == 8'h20) rreg = thresh;
       else if (a == 8'h21) rreg = irq_en;
-      else if (a >= 8'h22 && a <= 8'h27) begin ix = a - 8'h22; rreg = {4'd0, uomap[ix[2:0]]}; end
+      else if (a >= 8'h22 && a <= 8'h27) begin ix = a - 8'h22; rreg = uomap[ix[2:0]]; end
     end
   endfunction
 
@@ -137,9 +139,10 @@ module pfst_chip (
         r_p[i] <= 8'd1; r_cfg[i] <= 0; r_rsel[i] <= 0; r_outmap[i] <= 8'hE4; r_pinmode[i] <= 0;
         r_inmap01[i] <= 8'h10; r_inmap23[i] <= 8'h32; r_done_state[i] <= 8'hFF; r_out_init[i] <= 0;
       end
-      for (i = 0; i < 6; i = i + 1) uomap[i] <= 0;
+      for (i = 0; i < 6; i = i + 1) begin uomap[i] <= 0; pt_sync[i] <= 2'b00; end
     end else begin
       prev_sck <= sck2;
+      for (i = 0; i < 6; i = i + 1) pt_sync[i] <= {pt_sync[i][0], pick_in(uomap[i][3:0], ui_in, uio_in)};
       // READ_TABLE staging: cycle 0 issue (ld_ren), cycle 1 latch data
       if (rd_a) begin                                   // t+1: present the read
         ld_ren_r <= cc ? 2'b10 : 2'b01; ld_addr_r <= rd_row[7:0]; rd_a <= 0; rd_b <= 1;
@@ -193,7 +196,7 @@ module pfst_chip (
                 endcase
               end else if (addr == 8'h20) thresh <= b8;
               else if (addr == 8'h21) irq_en <= b8;
-              else if (addr >= 8'h22 && addr <= 8'h27) uomap[uix[2:0]] <= b8[3:0];
+              else if (addr >= 8'h22 && addr <= 8'h27) uomap[uix[2:0]] <= b8;
             end
           end else if (cmd == 8'h02) begin
             if (bidx == 8'd1) begin addr <= b8 + 8'd1; pending <= rreg(b8); end
@@ -243,12 +246,14 @@ module pfst_chip (
         case (r_pinmode[c][2*p +: 2])
           2'd1: begin uio_e[4*c+p] = 1'b1; uio_o[4*c+p] = v; end
           2'd2: begin uio_e[4*c+p] = !v;   uio_o[4*c+p] = 1'b0; end   // open drain: 1 = release
+          2'd3: begin uio_e[4*c+p] = dirv[c][r_outmap[c][2*p +: 2]]; uio_o[4*c+p] = v & dirv[c][r_outmap[c][2*p +: 2]]; end   // row-controlled (v1.1)
           default: ;
         endcase
       end
     uo = 8'd0;
     for (j = 0; j < 6; j = j + 1)
-      if (uomap[j][3]) uo[j] = outv[uomap[j][2]][uomap[j][1:0]];
+      if (uomap[j][7]) uo[j] = uomap[j][6] ? pick_in(uomap[j][3:0], ui_in, uio_in) : pt_sync[j][1];
+      else if (uomap[j][3]) uo[j] = outv[uomap[j][2]][uomap[j][1:0]];
     irq = 1'b0;
     for (c = 0; c < 2; c = c + 1)
       irq = irq | (irq_en[4*c] & done[c]) | (irq_en[4*c+1] & rx_valid[c]) | (irq_en[4*c+2] & flag[c]);
