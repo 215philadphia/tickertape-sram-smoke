@@ -36,6 +36,52 @@ cd test && make        # needs iverilog 12 + cocotb 2.0.1
 4/4 pass: self-test passes; injected corruption of 3 words is counted as exactly
 3 errors; chase walks all 256 addresses one per cycle; manual read returns every byte.
 
+## Gate 0 results (run [38829274463](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/38829274463), commit `108e940`)
+
+**Verdict: pass.** All five criteria met on the first fully green `gds` run.
+
+| # | Criterion | Result |
+|---|---|---|
+| 1 | `gds` completes | Pass (numbers below) |
+| 2 | KLayout DRC | 0 errors; all 9 precheck KLayout/pin/boundary/layer checks pass. No `M3.f` edge hit, so no Metal3 obstruction needed |
+| 3 | LVS | 0 errors, 0 device differences, 0 net differences |
+| 4 | `precheck` | Pass |
+| 5 | `gl_test` | 4/4 pass (same results as RTL) |
+
+**Timing** (50 MHz, 20 ns period; post-PnR STA with extracted parasitics)
+
+| Corner | Worst setup slack | Worst hold slack |
+|---|---|---|
+| nom_slow_1p08V_125C | +10.37 ns | +0.66 ns |
+| nom_typ_1p20V_25C | +11.18 ns | +0.32 ns |
+| nom_fast_1p32V_m40C | +11.64 ns | +0.13 ns |
+
+No setup or hold violations at any corner. The worst setup path overall is
+`sram0/A_DOUT -> uo_out[3]`, which is dominated by the flow's 4 ns output delay constraint.
+
+**`A_DOUT -> A_ADDR` chase loop, slow corner: about +13.8 ns** (worst bit `A_ADDR[4]`).
+The flow's `max.rpt` lists only the worst path per endpoint, which for every `A_ADDR`
+pin starts at `ui_in` (so the chase slack is at least +13.20 ns). The +13.8 ns figure comes
+from `tools/sdf_paths.py`, which traces the post-PnR SDF. It errs pessimistic: on the
+reported `A_DOUT[19] -> uo_out[3]` path it gives 5.514 ns arrival against the flow's 5.378 ns.
+About 2.2 ns of the 2.65 ns `A_DOUT[4] -> A_ADDR[4]` delay is three hold-fix delay cells
+(`hold238`-`hold240`) shared with the `ui_in[4]` path. The other bits have 15.1-15.8 ns slack.
+
+**Area and power**
+
+| | |
+|---|---|
+| Die (6x4 tiles) | 916,214 um^2 |
+| SRAM macro | 49,489 um^2 |
+| Standard cells | 7,791 um^2 (607 cells, 37 flip-flops, 78 hold buffers) |
+| Utilization | 6.35% total, 0.91% standard cells |
+| Total power | 0.64 mW |
+
+**Warnings to carry into the PFST design** (none failed signoff)
+- Max slew: 24 violations at the slow corner (11 typ, 1 fast). Max cap: 11 slow, 12 typ, 14 fast.
+- `[PSM-0069] Check connectivity failed on VPWR / VGND` in the IR-drop step. LVS is clean, so
+  this is probably the IR tool's view of the macro stripes, but IR-drop numbers are not trustworthy until it is resolved.
+
 ## Provenance
 
 Macro integration (PDN plugin, `odb_sram_stripes.py`, `pdn_cfg.tcl`, config keys)
