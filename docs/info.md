@@ -1,16 +1,31 @@
+<!---
+This file is used to generate your project datasheet.
+-->
+
 ## How it works
 
-A single IHP 256x32 single-port SRAM macro behind a small self-test FSM. Mode pins select
-self-test (write/read/compare all 256 words, two patterns), chase (the SRAM output's low
-byte is fed straight back as the next address every cycle), or manual read.
+TickerTape-Out is a protocol emulator built from two programmable finite state transducers (PFSTs).
+Each core is a table-driven state machine whose transition table lives in its own IHP 256x32 SRAM macro:
+every row it fetches sets the next state, four output pins, a wait time, and one datapath operation
+(hold, shift, load from a 3-byte TX FIFO, save to a scratch register). The address of the next row is the
+current state plus two input bits chosen per row, so a protocol is firmware: UART, SPI and I2C are tables,
+not hardware blocks. A host loads tables and configuration over an SPI port; core 0's saved byte feeds a
+comparator whose result core 1 can branch on, so the two cores can react to each other without the host.
+
+Every row lasts exactly P x (1 + wait) clock cycles. The SRAM returns data one cycle after the address, so the
+next row is read in the last cycle of the current one.
 
 ## How to test
 
-1. Reset. Set `uio_in[1:0] = 01`. After about 1100 cycles `uo_out[7]` (done) and
-   `uo_out[6]` (pass) go high; `uo_out[5:0]` is the error count.
-2. Set `uio_in[1:0] = 10`. `uo_out` counts 0..255 at the clock rate.
-3. Set `uio_in[1:0] = 11`, put an address on `ui_in`, pick a byte with `uio_in[3:2]`.
+Host SPI is mode 0, MSB first, on ui_in[4] SCK, ui_in[5] MOSI, ui_in[6] CS_n, with MISO on uo_out[7]; keep SCK
+at or below 4 MHz with a 50 MHz clock. Commands: 0x01 WRITE_REG addr, data...; 0x02 READ_REG addr, dummy...;
+0x1c WRITE_TABLE core c, row, 4 bytes per word...; 0x2c READ_TABLE; 0x3c TX_PUSH; 0x4c CTRL (bit 0 RUN, bit 1
+RESTART); 0x5c READ_SCR. Load a table while the core is stopped, set P, CFG, RSEL, pin modes and OUT_INIT, then
+send CTRL with RUN and RESTART. The cocotb tests in test/test_pfst.py load a UART transmitter into core 0 and
+decode its output from uo_out[4].
 
 ## External hardware
 
-None.
+None required for the tests: the demo board's RP2040 can act as the SPI host. Protocol pins are uio[3:0] for
+core 0 and uio[7:4] for core 1; open-drain lines (I2C) need pull-ups, and a CS line should have a pull-up so it
+idles high before the chip is configured.
