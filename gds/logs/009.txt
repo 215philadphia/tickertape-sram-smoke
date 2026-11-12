@@ -1,0 +1,322 @@
+Original log: gds/3_Build GDS.txt
+2026-11-12T19:30:16.3850664Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:16.4026594Z   empty_packages_behavior: error
+2026-11-12T19:30:16.4065002Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:16.4066196Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-12T19:30:19.1596736Z   fail-on-cache-miss: false
+2026-11-12T19:30:20.1445194Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:20.2881862Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:25.4872051Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:33.2248772Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:41.1907303Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:53.9802946Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:30:57.1450508Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T19:32:10.5280839Z ────────────────────────── Lint Timing Errors Checker ──────────────────────────
+2026-11-12T19:32:10.5296918Z [19:32:10] INFO     Check for Lint Timing Errors clear.           checker.py:412
+2026-11-12T19:32:10.5312820Z ───────────────────────────── Lint Errors Checker ──────────────────────────────
+2026-11-12T19:32:10.5318835Z [19:32:10] VERBOSE  Running 'Checker.LintErrors' at                 step.py:1138
+2026-11-12T19:32:10.5319318Z                     'runs/wokwi/03-checker-linterrors'…                         
+2026-11-12T19:32:10.5327442Z [19:32:10] INFO     Check for Lint errors clear.                  checker.py:131
+2026-11-12T19:32:15.4835790Z ABC: Error: The network is combinational.                                       
+2026-11-12T19:32:15.8175421Z [19:32:15] INFO     Check for Yosys check errors clear.           checker.py:131
+2026-11-12T19:32:17.1692935Z [INFO IFP-0104] Effective utilization:                0.132                     
+2026-11-12T19:32:20.5384505Z [19:32:20] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-12T19:32:20.5390047Z [19:32:20] WARNING  Grid check for VPWR failed: PSM-0069         openroad.py:321
+2026-11-12T19:32:20.5927139Z [19:32:20] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-12T19:32:20.5932926Z [19:32:20] WARNING  Grid check for VGND failed: PSM-0069         openroad.py:321
+2026-11-12T19:32:22.3883540Z [INFO GPL-0019] Utilization:                     6.002 %                        
+2026-11-12T19:32:28.5358485Z [INFO GPL-1002] Placed Cell Area            74051.3044                          
+2026-11-12T19:32:28.5367530Z [INFO GPL-1004] Minimum Feasible Density        0.0700 (cell_area / free_area)  
+2026-11-12T19:32:29.3635226Z                     OpenROAD PSM- you may ignore these if LVS                   
+2026-11-12T19:36:57.2792595Z                     the DRC Viewer.                                             
+2026-11-12T19:37:10.5350143Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-12T19:37:10.5351230Z road-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc                        
+2026-11-12T20:45:45.8602454Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-12T20:45:45.8603502Z road-detailedrouting/drt-run-1/tt_um_tickertape_pfst.drc                        
+2026-11-12T21:21:35.4313184Z [21:21:35] VERBOSE  Running 'Checker.TrDRC' at                      step.py:1138
+2026-11-12T21:21:35.4313695Z                     'runs/wokwi/48-checker-trdrc'…                              
+2026-11-12T21:21:35.4324648Z [21:21:35] ERROR    7 Routing DRC errors found. - deferred        checker.py:124
+2026-11-12T21:22:30.8633253Z Reading "lvsres_db_0x02834b9a".                                                 
+2026-11-12T21:22:30.8636078Z Reading "lvsres_db_0x0283509a".                                                 
+2026-11-12T21:22:30.8665998Z Reading "lvsres_db_0x04007e9a".                                                 
+2026-11-12T21:22:30.8675142Z Reading "lvsres_db_0x0400b71a".                                                 
+2026-11-12T21:22:30.8988790Z Reading "lvsres_db_0x0283151a".                                                 
+2026-11-12T21:22:47.9500174Z    Copying output for cell lvsres_db_0x0283151a from                            
+2026-11-12T21:22:47.9724021Z    Copying output for cell lvsres_db_0x02834b9a from                            
+2026-11-12T21:22:47.9727233Z    Copying output for cell lvsres_db_0x0283509a from                            
+2026-11-12T21:22:47.9747971Z    Copying output for cell lvsres_db_0x04007e9a from                            
+2026-11-12T21:22:47.9908523Z    Copying output for cell lvsres_db_0x0400b71a from                            
+2026-11-12T21:22:54.7877095Z Reading "lvsres_db_0x02834b9a".                                                 
+2026-11-12T21:22:54.7879726Z Reading "lvsres_db_0x0283509a".                                                 
+2026-11-12T21:22:54.7906314Z Reading "lvsres_db_0x04007e9a".                                                 
+2026-11-12T21:22:54.7914174Z Reading "lvsres_db_0x0400b71a".                                                 
+2026-11-12T21:22:54.8189706Z Reading "lvsres_db_0x0283151a".                                                 
+2026-11-12T21:23:42.5622566Z [21:23:42] INFO     Gating variable for step 'Magic.DRC' set   sequential.py:362
+2026-11-12T21:23:42.5627752Z [21:23:42] INFO     Skipping step 'DRC'…                       sequential.py:370
+2026-11-12T21:23:42.5648725Z [21:23:42] VERBOSE  Running 'KLayout.DRC' at                        step.py:1138
+2026-11-12T21:23:42.5649173Z                     'runs/wokwi/63-klayout-drc'…                                
+2026-11-12T21:23:42.5661989Z [21:23:42] INFO     Running KLayout DRC with 4 threads…           klayout.py:738
+2026-11-12T21:23:42.5670238Z                     'runs/wokwi/63-klayout-drc/klayout-drc.log'…                
+2026-11-12T21:23:43.5337491Z IHP-SG13CMOS5L KLayout DRC runset on                                            
+2026-11-12T21:23:43.5904200Z 2026-11-12 21:23:43 +0000: Memory Usage (432884K) : IHP-SG13CMOS5L KLayout DRC  
+2026-11-12T21:23:43.5905577Z out-drc/reports/drc.klayout.lyrdb                                               
+2026-11-12T21:23:43.5936801Z 2026-11-12 21:23:43 +0000: Memory Usage (432884K) : PreCheck DRC enabled: false 
+2026-11-12T21:23:45.5327331Z 2026-11-12 21:23:45 +0000: Memory Usage (446500K) : nodrc_drw has 0 polygons    
+2026-11-12T21:23:46.8870346Z 2026-11-12 21:23:46 +0000: Memory Usage (446500K) : Loaded TECH DRC rules values
+2026-11-12T21:23:46.8871260Z /home/runner/pdk/ihp-sg13cmos5l/libs.tech/klayout/tech/drc/../../python/sg13cmos
+2026-11-12T21:23:46.8874999Z 2026-11-12 21:23:46 +0000: Memory Usage (446500K) : Loaded default DRC rules    
+2026-11-12T21:23:46.8876085Z /home/runner/pdk/ihp-sg13cmos5l/libs.tech/klayout/tech/drc/../../../../../ihp-sg
+2026-11-12T21:23:46.8876580Z 13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_tech_default.json             
+2026-11-12T21:23:59.5716839Z 2026-11-12 21:23:59 +0000: Memory Usage (1136640K) : Starting IHP-SG13CMOS5L DRC
+2026-11-12T21:24:00.5823941Z 2026-11-12 21:24:00 +0000: Memory Usage (1145216K) : Starting IHP-SG13CMOS5L DRC
+2026-11-12T21:24:05.3778788Z 2026-11-12 21:24:05 +0000: Memory Usage (1153160K) : Starting IHP-SG13CMOS5L DRC
+2026-11-12T21:27:55.5062679Z forbidden.nodrc                                                                 
+2026-11-12T21:27:55.7152490Z 2026-11-12 21:27:55 +0000: Memory Usage (3237072K) : KLayout DRC run for tables 
+2026-11-12T21:27:56.5338163Z                     'runs/wokwi/63-klayout-drc/xml_drc_report_to_js             
+2026-11-12T21:27:56.7388675Z                     'Checker.MagicDRC' set to 'False'- the                      
+2026-11-12T21:27:56.7393643Z [21:27:56] INFO     Skipping step 'Magic DRC Checker'…         sequential.py:370
+2026-11-12T21:27:56.7416270Z [21:27:56] VERBOSE  Running 'Checker.KLayoutDRC' at                 step.py:1138
+2026-11-12T21:27:56.7416673Z                     'runs/wokwi/64-checker-klayoutdrc'…                         
+2026-11-12T21:27:56.7430265Z [21:27:56] ERROR    2 KLayout DRC errors found. - deferred        checker.py:124
+2026-11-12T21:28:10.7710103Z tt_um_tickertape_pfst: 218 errors                                               
+2026-11-12T21:28:10.7710711Z Total of 218 errors (check feedback entries).                                   
+2026-11-12T21:28:12.8377477Z [21:28:12] WARNING  218 Magic Illegal Overlap errors found.       checker.py:122
+2026-11-12T21:28:12.8398264Z ────────────────────────────────── Netgen LVS ──────────────────────────────────
+2026-11-12T21:28:12.8404675Z [21:28:12] VERBOSE  Running 'Netgen.LVS' at                         step.py:1138
+2026-11-12T21:28:12.8404984Z                     'runs/wokwi/67-netgen-lvs'…                                 
+2026-11-12T21:28:12.8429614Z                     'runs/wokwi/67-netgen-lvs/netgen-lvs.log'…                  
+2026-11-12T21:28:13.5836223Z en-lvs/reports/lvs.netgen.rpt                                                   
+2026-11-12T21:28:13.5839710Z gen-lvs/reports/lvs.netgen.rpt" enabled                                         
+2026-11-12T21:28:15.3694006Z gen-lvs/reports/lvs.netgen.rpt" disabled                                        
+2026-11-12T21:28:15.3695720Z LVS Done.                                                                       
+2026-11-12T21:28:15.5598824Z ────────────────────── Layout vs. Schematic Error Checker ──────────────────────
+2026-11-12T21:28:15.5606200Z [21:28:15] VERBOSE  Running 'Checker.LVS' at                        step.py:1138
+2026-11-12T21:28:15.5606776Z                     'runs/wokwi/68-checker-lvs'…                                
+2026-11-12T21:28:15.5620439Z [21:28:15] INFO     Check for LVS errors clear.                   checker.py:131
+2026-11-12T21:28:15.5851405Z ───────────────── Report Manufacturability (DRC, LVS, Antenna) ─────────────────
+2026-11-12T21:28:15.5870779Z [21:28:15] WARNING  magic__drc_error__count not reported. Magic.DRC  misc.py:110
+2026-11-12T21:28:15.5885334Z * LVS
+2026-11-12T21:28:15.5885685Z * DRC
+2026-11-12T21:28:15.5885884Z Failed 𐄂
+2026-11-12T21:28:15.5886070Z KLayout DRC errors: 2
+2026-11-12T21:28:15.5886307Z Magic DRC errors: N/A
+2026-11-12T21:28:15.5886582Z Check the report directories of KLayout.DRC and Magic.DRC.
+2026-11-12T21:28:15.6480774Z                     failed: PSM-0069 (and 4 similar warnings)                   
+2026-11-12T21:28:15.6488889Z                     ignore these if LVS passes) found.                          
+2026-11-12T21:28:15.6518861Z                     congestion regions in the DRC Viewer.                       
+2026-11-12T21:28:15.6547751Z                     Overlap errors found.                                       
+2026-11-12T21:28:15.6569523Z                     magic__drc_error__count not reported. Magic.DRC             
+2026-11-12T21:28:15.6577516Z [21:28:15] ERROR    The following error was encountered while    __main__.py:189
+2026-11-12T21:28:15.6578272Z                     One or more deferred errors were                            
+2026-11-12T21:28:15.6578974Z                     7 Routing DRC errors found.                                 
+2026-11-12T21:28:15.6579327Z                     2 KLayout DRC errors found.                                 
+2026-11-12T21:28:15.6582480Z [21:28:15] ERROR    LibreLane will now quit.                     __main__.py:190
+2026-11-12T21:28:16.7119570Z 2026-11-12 21:28:16,711 - project    - ERROR    - harden failed
+2026-11-12T21:28:16.7937765Z ##[error]Process completed with exit code 1.
+2026-11-12T21:28:16.7943675Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=failure;conclusion=failure;duration_ms=7039652]
+2026-11-12T21:28:16.7966440Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-12T21:28:16.7966945Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-12T21:28:16.7969128Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-12T21:28:16.7969294Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-12T21:28:16.7989102Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+--- LAST 200 LINES ---
+2026-11-12T21:28:15.6555148Z                     found in the following corners:                             
+2026-11-12T21:28:15.6555540Z                     * nom_fast_1p32V_m40C                                       
+2026-11-12T21:28:15.6555909Z                     * nom_slow_1p08V_125C                                       
+2026-11-12T21:28:15.6556273Z                     * nom_typ_1p20V_25C                                         
+2026-11-12T21:28:15.6562541Z [21:28:15] WARNING  [Checker.MaxCapViolations] Max Cap violations    flow.py:701
+2026-11-12T21:28:15.6562993Z                     found in the following corners:                             
+2026-11-12T21:28:15.6563383Z                     * nom_fast_1p32V_m40C                                       
+2026-11-12T21:28:15.6563748Z                     * nom_slow_1p08V_125C                                       
+2026-11-12T21:28:15.6564118Z                     * nom_typ_1p20V_25C                                         
+2026-11-12T21:28:15.6569066Z [21:28:15] WARNING  [Misc.ReportManufacturability]                   flow.py:701
+2026-11-12T21:28:15.6569523Z                     magic__drc_error__count not reported. Magic.DRC             
+2026-11-12T21:28:15.6569932Z                     may have been skipped.                                      
+2026-11-12T21:28:15.6577516Z [21:28:15] ERROR    The following error was encountered while    __main__.py:189
+2026-11-12T21:28:15.6577915Z                     running the flow:                                           
+2026-11-12T21:28:15.6578272Z                     One or more deferred errors were                            
+2026-11-12T21:28:15.6578621Z                     encountered:                                                
+2026-11-12T21:28:15.6578974Z                     7 Routing DRC errors found.                                 
+2026-11-12T21:28:15.6579327Z                     2 KLayout DRC errors found.                                 
+2026-11-12T21:28:15.6582480Z [21:28:15] ERROR    LibreLane will now quit.                     __main__.py:190
+2026-11-12T21:28:16.7119570Z 2026-11-12 21:28:16,711 - project    - ERROR    - harden failed
+2026-11-12T21:28:16.7937765Z ##[error]Process completed with exit code 1.
+2026-11-12T21:28:16.7943675Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=failure;conclusion=failure;duration_ms=7039652]
+2026-11-12T21:28:16.7946472Z ##[start-action display=Show build files (for debugging);id=__TinyTapeout_tt-gds-action.__run_7]
+2026-11-12T21:28:16.7948459Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_7;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:16.7949589Z ##[start-action display=Linter output;id=__TinyTapeout_tt-gds-action.__run_8]
+2026-11-12T21:28:16.7964556Z ##[group]Run LINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)
+2026-11-12T21:28:16.7964892Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-12T21:28:16.7965112Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-12T21:28:16.7965262Z [36;1m[0m
+2026-11-12T21:28:16.7965392Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-12T21:28:16.7965565Z [36;1mcat $LINTER_LOG[0m
+2026-11-12T21:28:16.7965797Z [36;1mecho "END DEBUG"[0m
+2026-11-12T21:28:16.7965928Z [36;1m[0m
+2026-11-12T21:28:16.7966051Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-12T21:28:16.7966201Z [36;1m  set +e[0m
+2026-11-12T21:28:16.7966440Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-12T21:28:16.7966676Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-12T21:28:16.7966945Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-12T21:28:16.7967180Z [36;1m  set -e[0m
+2026-11-12T21:28:16.7967295Z [36;1m[0m
+2026-11-12T21:28:16.7967410Z [36;1m  open=""[0m
+2026-11-12T21:28:16.7967602Z [36;1m  summary=""[0m
+2026-11-12T21:28:16.7967737Z [36;1m  icon=":green_circle:"[0m
+2026-11-12T21:28:16.7967897Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-12T21:28:16.7968069Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-12T21:28:16.7968240Z [36;1m    icon=":orange_circle:"[0m
+2026-11-12T21:28:16.7968387Z [36;1m  fi[0m
+2026-11-12T21:28:16.7968512Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-12T21:28:16.7968686Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-12T21:28:16.7968852Z [36;1m    icon=":orange_circle:"[0m
+2026-11-12T21:28:16.7968996Z [36;1m  fi[0m
+2026-11-12T21:28:16.7969128Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-12T21:28:16.7969294Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-12T21:28:16.7969458Z [36;1m    icon=":red_circle:"[0m
+2026-11-12T21:28:16.7969607Z [36;1m    open="open"[0m
+2026-11-12T21:28:16.7969736Z [36;1m  fi[0m
+2026-11-12T21:28:16.7969861Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-12T21:28:16.7970017Z [36;1m    summary="[$summary]"[0m
+2026-11-12T21:28:16.7970157Z [36;1m  fi[0m
+2026-11-12T21:28:16.7970267Z [36;1m[0m
+2026-11-12T21:28:16.7970412Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7970730Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7971190Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7971401Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-12T21:28:16.7971629Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7971826Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7972016Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-12T21:28:16.7972179Z [36;1mfi[0m
+2026-11-12T21:28:16.7989102Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-12T21:28:16.7989299Z env:
+2026-11-12T21:28:16.7989425Z   PDK: ihp-sg13cmos5l
+2026-11-12T21:28:16.7989562Z   PDK_ROOT: /home/runner/pdk
+2026-11-12T21:28:16.7989708Z   TT_ARGS: --ihp
+2026-11-12T21:28:16.7989849Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-12T21:28:16.7990051Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.7990296Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-12T21:28:16.7990540Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.7990757Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.7991145Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.7991367Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-12T21:28:16.7991558Z ##[endgroup]
+2026-11-12T21:28:16.8026761Z DEBUG LINTER_LOG *runs/wokwi/01-verilator-lint/verilator-lint.log*
+2026-11-12T21:28:16.8035352Z %Warning-MODDUP: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/RM_IHPSG13_1P_256x32_c2_bm_bist.v:6:8: Duplicate declaration of module: 'RM_IHPSG13_1P_256x32_c2_bm_bist'
+2026-11-12T21:28:16.8035922Z     6 | module RM_IHPSG13_1P_256x32_c2_bm_bist (
+2026-11-12T21:28:16.8036103Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-12T21:28:16.8036624Z                  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/1dd9b7ef52c849b785b13f8f87bba4c2.bb.v:3:8: ... Location of original declaration
+2026-11-12T21:28:16.8037498Z     3 | module RM_IHPSG13_1P_256x32_c2_bm_bist(A_CLK, A_MEN, A_WEN, A_REN, A_ADDR, A_DIN, A_DLY, A_DOUT, A_BM, A_BIST_CLK, A_BIST_EN, A_BIST_MEN, A_BIST_WEN, A_BIST_REN, A_BIST_ADDR, A_BIST_DIN, A_BIST_BM);
+2026-11-12T21:28:16.8037946Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-12T21:28:16.8038195Z                  ... For warning description see https://verilator.org/warn/MODDUP?v=5.046
+2026-11-12T21:28:16.8038520Z                  ... Use "/* verilator lint_off MODDUP */" and lint_on around source to disable this message.
+2026-11-12T21:28:16.8039012Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:14: Signal is not used: 'tx_full'
+2026-11-12T21:28:16.8039436Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8039719Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-12T21:28:16.8039921Z       |              ^~~~~~~
+2026-11-12T21:28:16.8040145Z                        ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.046
+2026-11-12T21:28:16.8040537Z                        ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+2026-11-12T21:28:16.8041373Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:61: Bits of signal are not used: 'valid'[1]
+2026-11-12T21:28:16.8042078Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8042525Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-12T21:28:16.8042854Z       |                                                             ^~~~~
+2026-11-12T21:28:16.8043286Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:93:35: Bits of function variable are not used: 'ix'[7:3]
+2026-11-12T21:28:16.8043727Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8043987Z    93 |     reg c; reg [3:0] r; reg [7:0] ix;
+2026-11-12T21:28:16.8044149Z       |                                   ^~
+2026-11-12T21:28:16.8044500Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:118:30: Bits of signal are not used: 'rx_sh'[7]
+2026-11-12T21:28:16.8044939Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8045221Z   118 |   reg [3:0] bits;  reg [7:0] rx_sh, cmd, addr, pending, txsh, row_lo;
+2026-11-12T21:28:16.8045430Z       |                              ^~~~~
+2026-11-12T21:28:16.8045787Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:120:14: Bits of signal are not used: 'word'[31:24]
+2026-11-12T21:28:16.8046236Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8046475Z   120 |   reg [31:0] word; reg [2:0] nw;
+2026-11-12T21:28:16.8046635Z       |              ^~~~
+2026-11-12T21:28:16.8047030Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:121:59: Bits of signal are not used: 'rd_nw'[2]
+2026-11-12T21:28:16.8047462Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8047736Z   121 |   reg       rd_a, rd_b, rd_c; reg [8:0] rd_row; reg [2:0] rd_nw;    
+2026-11-12T21:28:16.8047998Z       |                                                           ^~~~~
+2026-11-12T21:28:16.8048365Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:130:14: Bits of signal are not used: 'uix'[7:3]
+2026-11-12T21:28:16.8048836Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-12T21:28:16.8049083Z   130 |   wire [7:0] uix = addr - 8'h22;
+2026-11-12T21:28:16.8049241Z       |              ^~~
+2026-11-12T21:28:16.8049564Z %Warning-UNUSEDPARAM: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:73:14: Parameter is not used: 'HOLD'
+2026-11-12T21:28:16.8050046Z                                                                                                               : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-12T21:28:16.8050351Z    73 |   localparam HOLD = 2'd0, SHIFT = 2'd1, LOAD = 2'd2, SAVE = 2'd3;
+2026-11-12T21:28:16.8050554Z       |              ^~~~
+2026-11-12T21:28:16.8050768Z                       ... For warning description see https://verilator.org/warn/UNUSEDPARAM?v=5.046
+2026-11-12T21:28:16.8051309Z                       ... Use "/* verilator lint_off UNUSEDPARAM */" and lint_on around source to disable this message.
+2026-11-12T21:28:16.8051768Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:76:16: Bits of signal are not used: 'R'[31:29]
+2026-11-12T21:28:16.8052228Z                                                                                                                : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-12T21:28:16.8052486Z    76 |   wire [31:0]  R       = mem_dout;
+2026-11-12T21:28:16.8052662Z       |                ^
+2026-11-12T21:28:16.8052831Z - V e r i l a t i o n   R e p o r t: Verilator 5.046 2026-02-28 rev v5.046
+2026-11-12T21:28:16.8053123Z - Verilator: Built from 0.404 MB sources in 111 modules, into 0.304 MB in 3 C++ files needing 0.000 MB
+2026-11-12T21:28:16.8053484Z - Verilator: Walltime 0.038 s (elab=0.004, cvt=0.024, bld=0.000); cpu 0.038 s on 1 threads; allocated 23.883 MB
+2026-11-12T21:28:16.8053741Z END DEBUG
+2026-11-12T21:28:16.8139924Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=success;conclusion=success;duration_ms=18]
+2026-11-12T21:28:16.8141949Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-12T21:28:16.8143567Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:16.8144597Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-12T21:28:16.8145527Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:16.8146477Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-12T21:28:16.8147445Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:16.8148411Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-12T21:28:16.8182225Z ##[group]Run actions/upload-artifact@v7
+2026-11-12T21:28:16.8182493Z with:
+2026-11-12T21:28:16.8182728Z   name: GDS_logs
+2026-11-12T21:28:16.8182945Z   path: src/*
+runs/wokwi/*
+
+2026-11-12T21:28:16.8183214Z   if-no-files-found: warn
+2026-11-12T21:28:16.8183460Z   compression-level: 6
+2026-11-12T21:28:16.8183805Z   overwrite: false
+2026-11-12T21:28:16.8184010Z   include-hidden-files: false
+2026-11-12T21:28:16.8184285Z   archive: true
+2026-11-12T21:28:16.8184496Z env:
+2026-11-12T21:28:16.8184692Z   PDK: ihp-sg13cmos5l
+2026-11-12T21:28:16.8184996Z   PDK_ROOT: /home/runner/pdk
+2026-11-12T21:28:16.8185219Z   TT_ARGS: --ihp
+2026-11-12T21:28:16.8185505Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-12T21:28:16.8185790Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.8186249Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-12T21:28:16.8186582Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.8186936Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.8187295Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-12T21:28:16.8187626Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-12T21:28:16.8187957Z ##[endgroup]
+2026-11-12T21:28:17.0138901Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-12T21:28:17.0140995Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke. This will be the root directory of the artifact
+2026-11-12T21:28:17.0142197Z With the provided path, there will be 907 files uploaded
+2026-11-12T21:28:17.0146053Z Artifact name is valid!
+2026-11-12T21:28:17.0146296Z Root directory input is valid!
+2026-11-12T21:28:17.2819388Z Uploading artifact: GDS_logs.zip
+2026-11-12T21:28:17.2844124Z Beginning upload of artifact content to blob storage
+2026-11-12T21:28:18.8293082Z Uploaded bytes 8388608
+2026-11-12T21:28:19.1670546Z Uploaded bytes 16777216
+2026-11-12T21:28:20.1028426Z Uploaded bytes 25165824
+2026-11-12T21:28:20.9113153Z Uploaded bytes 33554432
+2026-11-12T21:28:21.4241066Z Uploaded bytes 41943040
+2026-11-12T21:28:22.0881695Z Uploaded bytes 50331648
+2026-11-12T21:28:23.1171946Z Uploaded bytes 58720256
+2026-11-12T21:28:23.8027147Z Uploaded bytes 67108864
+2026-11-12T21:28:24.4391598Z Uploaded bytes 75497472
+2026-11-12T21:28:25.3616410Z Uploaded bytes 83886080
+2026-11-12T21:28:26.0080326Z Uploaded bytes 92274688
+2026-11-12T21:28:26.8246864Z Uploaded bytes 100663296
+2026-11-12T21:28:27.0130747Z Uploaded bytes 104087416
+2026-11-12T21:28:27.0652079Z Finished uploading artifact content to blob storage!
+2026-11-12T21:28:27.0654128Z SHA256 digest of uploaded artifact is 5e252b29c7249b007eeeca0a61f4430039ec9db2643fad425a930b5b6bc68173
+2026-11-12T21:28:27.0655784Z Finalizing artifact upload
+2026-11-12T21:28:27.5233239Z Artifact GDS_logs successfully finalized. Artifact ID 13985367728
+2026-11-12T21:28:27.5233864Z Artifact GDS_logs has been successfully uploaded! Final size is 104087416 bytes. Artifact ID is 13985367728
+2026-11-12T21:28:27.5237727Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43290795739/artifacts/13985367728
+2026-11-12T21:28:27.5415719Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=success;conclusion=success;duration_ms=10726]
+2026-11-12T21:28:27.5417711Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-12T21:28:27.5419986Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:27.5421341Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-12T21:28:27.5422431Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:27.5423846Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-12T21:28:27.5424981Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-12T21:28:27.5426028Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-12T21:28:27.5427194Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
