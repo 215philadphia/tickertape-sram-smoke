@@ -1,0 +1,24 @@
+name: model
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  ocaml:
+    # OCaml golden model + applicative PFST compiler: build, run both test suites, publish compiled tables
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install OCaml
+        run: sudo apt-get update -q && sudo apt-get install -y -q ocaml-nox ocaml-findlib
+      - name: Build and test
+        run: model/run_tests.sh
+      - name: Upload compiled tables and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: model_results
+          path: |
+            model/compiled_tables.json
+            model/*.log
