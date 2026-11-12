@@ -1,57 +1,59 @@
 # Tiny Tapeout project information
 project:
-  title:        "TickerTape-Out Gate 0: SRAM macro smoke test"      # Project title
+  title:        "TickerTape-Out: programmable finite state transducer"      # Project title
   author:       "Jonathan Clark"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  "One IHP 256x32 SRAM macro with self-test and a DOUT->ADDR chase loop"      # One line description of what your project does
+  description:  "Two table-driven protocol engines (UART/SPI/I2C as firmware), each in an IHP 256x32 SRAM, programmed over SPI"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     50000000       # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 167x108 uM.
-  tiles: "6x4"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+  tiles: "8x4"          # Jane Street competition allocation (planned maximum 8x4)
 
   # Your top module name must start with "tt_um_". Make it unique by including your github username:
-  top_module:  "tt_um_tickertape_sram_smoke"
+  top_module:  "tt_um_tickertape_pfst"
 
   # List your project's source files here.
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-    - "project.v"
+    - "tt_um_tickertape_pfst.v"
+    - "pfst_chip.v"
+    - "pfst_core_sram.v"
     - "RM_IHPSG13_1P_256x32_c2_bm_bist.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
 pinout:
   # Inputs
-  ui[0]: "ADDR0"
-  ui[1]: "ADDR1"
-  ui[2]: "ADDR2"
-  ui[3]: "ADDR3"
-  ui[4]: "ADDR4"
-  ui[5]: "ADDR5"
-  ui[6]: "ADDR6"
-  ui[7]: "ADDR7"
+  ui[0]: "IN source (INMAP 0)"
+  ui[1]: "IN source (INMAP 1)"
+  ui[2]: "IN source (INMAP 2)"
+  ui[3]: "IN source (INMAP 3), e.g. UART RX"
+  ui[4]: "host SPI SCK"
+  ui[5]: "host SPI MOSI"
+  ui[6]: "host SPI CS_n"
+  ui[7]: "IN source (INMAP 7)"
 
   # Outputs
-  uo[0]: "OUT0"
-  uo[1]: "OUT1"
-  uo[2]: "OUT2"
-  uo[3]: "OUT3"
-  uo[4]: "OUT4"
-  uo[5]: "OUT5"
-  uo[6]: "OUT6"
-  uo[7]: "OUT7"
+  uo[0]: "UOMAP mirror 0"
+  uo[1]: "UOMAP mirror 1"
+  uo[2]: "UOMAP mirror 2"
+  uo[3]: "UOMAP mirror 3"
+  uo[4]: "UOMAP mirror 4 (e.g. UART TX)"
+  uo[5]: "UOMAP mirror 5"
+  uo[6]: "IRQ"
+  uo[7]: "host SPI MISO"
 
   # Bidirectional pins
-  uio[0]: "MODE0"
-  uio[1]: "MODE1"
-  uio[2]: "BSEL0"
-  uio[3]: "BSEL1"
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "core 0 pin 0"
+  uio[1]: "core 0 pin 1"
+  uio[2]: "core 0 pin 2"
+  uio[3]: "core 0 pin 3"
+  uio[4]: "core 1 pin 0"
+  uio[5]: "core 1 pin 1"
+  uio[6]: "core 1 pin 2"
+  uio[7]: "core 1 pin 3"
 
 # Do not change!
 yaml_version: 6

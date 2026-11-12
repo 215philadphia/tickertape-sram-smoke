@@ -1,11 +1,11 @@
-name: Collect smoke-test results
+name: Collect CI results
 on:
   workflow_dispatch:
     inputs:
       commit_sha:
         description: Commit whose runs should be collected
         required: true
-        default: '9ec9676ee6260b1e2f4e0e3f0a52e170afe811cb'
+        default: ''
 permissions:
   actions: read
   contents: write
@@ -46,8 +46,17 @@ jobs:
               dest = root / path
               dest.parent.mkdir(parents=True, exist_ok=True)
               dest.write_text(text, encoding='utf-8')
-          summary = [f'# Smoke-test results for {sha}', '', 'Logs are excerpts; artifact reports may be truncated. Missing reports are not passing signoff.', '']
-          runs = pages(f'repos/{repo}/actions/runs?head_sha={sha}', 'workflow_runs')
+          summary = [f'# CI results for {sha}', '', 'Logs are excerpts; artifact reports may be truncated. Missing reports are not passing signoff.', '']
+          import time
+          deadline = time.time() + 45 * 60                      # wait for this commit's runs to finish (logs need a completed run)
+          while True:
+              runs = pages(f'repos/{repo}/actions/runs?head_sha={sha}', 'workflow_runs')
+              busy = [r['name'] for r in runs if r['name'] in ('gds', 'test', 'docs') and r['status'] != 'completed']
+              if not busy or time.time() > deadline:
+                  break
+              print('waiting for', busy, flush=True); time.sleep(30)
+          if busy:
+              summary.append(f'Timed out waiting for: {busy}')
           selected = {}
           for run in sorted(runs, key=lambda r: r['id'], reverse=True):
               if run['name'] in ('gds', 'test', 'docs'):
@@ -116,13 +125,13 @@ jobs:
         shell: bash
         run: |
           gh auth setup-git
-          branch="smoke-results-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          branch="results-${TARGET_SHA:0:7}-${GITHUB_RUN_ID}"
           git -C publish init
           git -C publish checkout -b "$branch"
           git -C publish config user.name 'github-actions[bot]'
           git -C publish config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git -C publish add .
-          git -C publish commit -m "Collect smoke-test results for $TARGET_SHA"
+          git -C publish commit -m "CI results for $TARGET_SHA"
           git -C publish remote add origin "https://github.com/$REPO.git"
           git -C publish push origin "$branch"
           echo "Results branch: $branch" >> "$GITHUB_STEP_SUMMARY"

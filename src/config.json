@@ -1,5 +1,5 @@
 {
-  "//": "Gate 0 smoke test. Macro integration adapted from WilliamZhang20/protocol-emulator (Apache-2.0), which passed full TT cmos5l precheck with RM_IHPSG13_1P_1024x8_c2_bm_bist.",
+  "//": "TickerTape-Out PFST v1: two cores, each with its own IHP 256x32 SRAM macro. Macro integration from Gate 0 (WilliamZhang20/protocol-emulator PDN approach).",
   "meta": {
     "flow": "Classic",
     "substituting_steps": {
@@ -13,13 +13,20 @@
   "RUN_LINTER": 1,
   "LINTER_INCLUDE_PDK_MODELS": 1,
   "CLOCK_PORT": "clk",
-  "// MACROS": "Location snapped to the 0.48 um site / 3.78 um row grid, roughly centred on the 1289.28 x 710.64 um 6x4 die.",
+  "// MACROS": "Variant B: sram0 at the exact Gate 0 position (432.0, 302.4); sram1 beside it at x=912.0 (63.36 um gap). 8x4 only.",
   "MACROS": {
     "RM_IHPSG13_1P_256x32_c2_bm_bist": {
       "instances": {
         "sram0": {
           "location": [
             432.0,
+            302.4
+          ],
+          "orientation": "R0"
+        },
+        "sram1": {
+          "location": [
+            912.0,
             302.4
           ],
           "orientation": "R0"
@@ -52,7 +59,9 @@
   },
   "PDN_MACRO_CONNECTIONS": [
     "sram0 VPWR VGND VDD! VSS!",
-    "sram0 VPWR VGND VDDARRAY! VSS!"
+    "sram0 VPWR VGND VDDARRAY! VSS!",
+    "sram1 VPWR VGND VDD! VSS!",
+    "sram1 VPWR VGND VDDARRAY! VSS!"
   ],
   "// ROUTING_OBSTRUCTIONS": "WZ needed an M3.f keepout at a DRC-found hotspot on the 1024x8. Location for the 256x32 is unknown; add one only if KLayout DRC reports M3.f at the macro edge.",
   "PDN_CFG": "dir::pdn_cfg.tcl",
