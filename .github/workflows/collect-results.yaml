@@ -28,8 +28,13 @@ jobs:
           sha = os.environ['TARGET_SHA']
           if not re.fullmatch(r'[0-9a-fA-F]{40}', sha):
               raise SystemExit('Provide a full 40-character commit SHA')
-          def api(endpoint):
-              return subprocess.check_output(['gh', 'api', endpoint], timeout=90)
+          def api(endpoint, timeout=90):
+              return subprocess.check_output(['gh', 'api', endpoint], timeout=timeout)
+          # GDS_logs (~100 MB) is too big to keep whole: keep only signoff STA violator/timing reports,
+          # the CTS and design-repair logs, and the Magic extraction logs (illegal-overlap locations).
+          KEEP = re.compile(r'stapostpnr/(summary\.rpt|[^/]+/(checks|skew\.max|skew\.min|ws\.max|ws\.min)\.rpt)$'
+                            r'|stapostpnr/nom_slow[^/]*/(max|min)\.rpt$|openroad-cts/.*\.log$|openroad-repairdesignpostgpl/.*\.log$|magic-(spiceextraction|drc)/.*\.(log|rpt)$', re.I)
+          LOGHITS = re.compile(r'overlap|CTS-|RSZ-|sink|cluster|buffer|fanout|slew|capacitance|violat|error|warn', re.I)
           def data(endpoint):
               return json.loads(api(endpoint))
           def pages(endpoint, key):
@@ -99,18 +104,27 @@ jobs:
                   total = 0
                   for artifact in artifacts:
                       summary.append(f'- Artifact: {artifact["name"]}; expired: {artifact["expired"]}')
-                      if artifact['expired'] or artifact['size_in_bytes'] > 50000000:
+                      targeted = artifact['name'] == 'GDS_logs'
+                      if artifact['expired'] or artifact['size_in_bytes'] > (300000000 if targeted else 50000000):
                           continue
                       try:
-                          raw = api(f'repos/{repo}/actions/artifacts/{artifact["id"]}/zip')
+                          raw = api(f'repos/{repo}/actions/artifacts/{artifact["id"]}/zip', timeout=600)
                           with zipfile.ZipFile(io.BytesIO(raw)) as archive:
                               for entry in archive.infolist():
                                   suffix = pathlib.PurePosixPath(entry.filename).suffix.lower()
-                                  if entry.is_dir() or suffix not in ('.xml', '.json', '.rpt', '.txt', '.log', '.csv', '.md') or entry.file_size > 5000000:
+                                  if entry.is_dir() or suffix not in ('.xml', '.json', '.rpt', '.txt', '.log', '.csv', '.md'):
                                       continue
-                                  if count >= 100 or total >= 5000000:
+                                  if targeted and not KEEP.search(entry.filename):
+                                      continue
+                                  if entry.file_size > (50000000 if targeted else 5000000):
+                                      continue
+                                  if count >= 160 or total >= 8000000:
                                       break
-                                  text = archive.read(entry).decode('utf-8', errors='replace')[:100000]
+                                  text = archive.read(entry).decode('utf-8', errors='replace')
+                                  if targeted and suffix == '.log':
+                                      lines = text.splitlines()
+                                      text = '\n'.join([l for l in lines if LOGHITS.search(l)][:1500] + ['--- LAST 150 LINES ---'] + lines[-150:])
+                                  text = text[:100000]
                                   save(f'{name}/reports/{count:03d}.txt', f'Artifact: {artifact["name"]}\nOriginal path: {entry.filename}\n\n' + text)
                                   count += 1
                                   total += len(text)
