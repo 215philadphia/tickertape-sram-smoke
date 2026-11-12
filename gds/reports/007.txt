@@ -1,0 +1,239 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/36-openroad-cts/openroad-cts.log
+
+[WARNING ORD-0032] Invalid thread number specification: None.
+[WARNING STA-1140] /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C.lib line 20, library RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C already exists.
+[WARNING STA-1140] /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C.lib line 20, library RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C already exists.
++ clock_tree_synthesis -buf_list sg13cmos5l_buf_8 sg13cmos5l_buf_4 sg13cmos5l_buf_2 sg13cmos5l_buf_1 -root_buf sg13cmos5l_buf_8 -sink_clustering_size 10 -sink_clustering_enable -apply_ndr half
+[INFO CTS-0050] Root buffer is sg13cmos5l_buf_8.
+[INFO CTS-0051] Sink buffer is sg13cmos5l_buf_8.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+[INFO CTS-0049] Characterization buffer is sg13cmos5l_buf_8.
+[INFO CTS-0007] Net "clk" found for clock "clk".
+[INFO CTS-0011]  Clock net "clk" for macros has 2 sinks.
+[INFO CTS-0011]  Clock net "clk_regs" for registers has 559 sinks.
+[INFO CTS-0008] TritonCTS found 2 clock nets.
+[INFO CTS-0097] Characterization used 4 buffer(s) types.
+[INFO CTS-0201] 2 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk.
+[INFO CTS-0028]  Total number of sinks: 2.
+[INFO CTS-0029]  Macro  sinks will be clustered in groups of up to 4 and with maximum cluster diameter of 833.3 um.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 18900  dbu (18 um).
+[INFO CTS-0023]  Original sink region: [(634610, 302530), (1114610, 302530)].
+[INFO CTS-0024]  Normalized sink region: [(33.5772, 16.0069), (58.9741, 16.0069)].
+[INFO CTS-0025]     Width:  25.3968.
+[INFO CTS-0026]     Height: 0.0000.
+    Sinks per sub-region: 1
+[INFO CTS-0034]     Segment length (rounded): 6.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 8.
+[INFO CTS-0035]  Number of sinks covered: 2.
+[INFO CTS-0201] 2 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk_regs.
+[INFO CTS-0028]  Total number of sinks: 559.
+[INFO CTS-0029]  Register sinks will be clustered in groups of up to 8 and with maximum cluster diameter of 50.0 um.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 18900  dbu (18 um).
+[INFO CTS-0204] A clustering solution was found from clustering size of 8 and clustering diameter of 50.
+[INFO CTS-0205] Better solution may be possible if either -sink_clustering_size, -sink_clustering_max_diameter, or both options are omitted to enable automatic clustering.
+[INFO CTS-0019]  Total number of sinks after clustering: 94.
+[INFO CTS-0024]  Normalized sink region: [(18.5778, 14.4556), (46.6095, 36.9111)].
+[INFO CTS-0025]     Width:  28.0317.
+[INFO CTS-0026]     Height: 22.4556.
+    Sinks per sub-region: 47
+[INFO CTS-0034]     Segment length (rounded): 8.
+    Sinks per sub-region: 24
+[INFO CTS-0034]     Segment length (rounded): 6.
+    Sinks per sub-region: 12
+[INFO CTS-0034]     Segment length (rounded): 4.
+    Sinks per sub-region: 6
+[INFO CTS-0034]     Segment length (rounded): 2.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 8.
+[INFO CTS-0035]  Number of sinks covered: 94.
+[INFO CTS-0018]     Created 3 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 2.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 2.
+[INFO CTS-0015]     Created 3 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 1:2..
+[INFO CTS-0017]     Max level of the clock tree: 1.
+[INFO CTS-0018]     Created 104 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 2.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 3.
+[INFO CTS-0015]     Created 104 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:3, 3:4, 4:5, 5:16, 6:27, 7:18, 8:30..
+[INFO CTS-0017]     Max level of the clock tree: 4.
+[INFO CTS-0098] Clock net "clk"
+[INFO CTS-0099]  Sinks 2
+[INFO CTS-0100]  Leaf buffers 0
+[INFO CTS-0101]  Average sink wire length 1495.79 um
+[INFO CTS-0102]  Path depth 2 - 2
+[INFO CTS-0207]  Dummy loads inserted 0
+[INFO CTS-0098] Clock net "clk_regs"
+[INFO CTS-0099]  Sinks 612
+[INFO CTS-0100]  Leaf buffers 87
+[INFO CTS-0101]  Average sink wire length 288.40 um
+[INFO CTS-0102]  Path depth 2 - 3
+[INFO CTS-0207]  Dummy loads inserted 53
+[INFO CTS-0033] Balancing latency for clock clk
+[INFO CTS-0036]  inserted 4 delay buffers
+[INFO CTS-0037] Total number of delay buffers: 4
+[INFO RSZ-0058] Using max wire length 4688um.
+  Buffer                                   18     130.64
+  Clock buffer                            126    2971.99
+  Timing Repair Buffer                    478    3783.02
+  Buffer                                   18     130.64
+  Clock buffer                            126    2971.99
+  Timing Repair Buffer                    478    3783.02
+Total number of Buffers Inserted: 107.
+Total number of Sinks: 561.
+--- LAST 150 LINES ---
+[INFO CTS-0020]  Wire segment unit: 18900  dbu (18 um).
+[INFO CTS-0023]  Original sink region: [(634610, 302530), (1114610, 302530)].
+[INFO CTS-0024]  Normalized sink region: [(33.5772, 16.0069), (58.9741, 16.0069)].
+[INFO CTS-0025]     Width:  25.3968.
+[INFO CTS-0026]     Height: 0.0000.
+ Level 1
+    Direction: Horizontal
+    Sinks per sub-region: 1
+    Sub-region size: 12.6984 X 0.0000
+[INFO CTS-0034]     Segment length (rounded): 6.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 8.
+[INFO CTS-0035]  Number of sinks covered: 2.
+[INFO CTS-0201] 2 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk_regs.
+[INFO CTS-0028]  Total number of sinks: 559.
+[INFO CTS-0029]  Register sinks will be clustered in groups of up to 8 and with maximum cluster diameter of 50.0 um.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 18900  dbu (18 um).
+[INFO CTS-0204] A clustering solution was found from clustering size of 8 and clustering diameter of 50.
+[INFO CTS-0205] Better solution may be possible if either -sink_clustering_size, -sink_clustering_max_diameter, or both options are omitted to enable automatic clustering.
+[INFO CTS-0019]  Total number of sinks after clustering: 94.
+[INFO CTS-0024]  Normalized sink region: [(18.5778, 14.4556), (46.6095, 36.9111)].
+[INFO CTS-0025]     Width:  28.0317.
+[INFO CTS-0026]     Height: 22.4556.
+ Level 1
+    Direction: Horizontal
+    Sinks per sub-region: 47
+    Sub-region size: 14.0159 X 22.4556
+[INFO CTS-0034]     Segment length (rounded): 8.
+ Level 2
+    Direction: Vertical
+    Sinks per sub-region: 24
+    Sub-region size: 14.0159 X 11.2278
+[INFO CTS-0034]     Segment length (rounded): 6.
+ Level 3
+    Direction: Horizontal
+    Sinks per sub-region: 12
+    Sub-region size: 7.0079 X 11.2278
+[INFO CTS-0034]     Segment length (rounded): 4.
+ Level 4
+    Direction: Vertical
+    Sinks per sub-region: 6
+    Sub-region size: 7.0079 X 5.6139
+[INFO CTS-0034]     Segment length (rounded): 2.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 8.
+[INFO CTS-0035]  Number of sinks covered: 94.
+[INFO CTS-0018]     Created 3 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 2.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 2.
+[INFO CTS-0015]     Created 3 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 1:2..
+[INFO CTS-0017]     Max level of the clock tree: 1.
+[INFO CTS-0018]     Created 104 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 2.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 3.
+[INFO CTS-0015]     Created 104 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:3, 3:4, 4:5, 5:16, 6:27, 7:18, 8:30..
+[INFO CTS-0017]     Max level of the clock tree: 4.
+[INFO CTS-0098] Clock net "clk"
+[INFO CTS-0099]  Sinks 2
+[INFO CTS-0100]  Leaf buffers 0
+[INFO CTS-0101]  Average sink wire length 1495.79 um
+[INFO CTS-0102]  Path depth 2 - 2
+[INFO CTS-0207]  Dummy loads inserted 0
+[INFO CTS-0098] Clock net "clk_regs"
+[INFO CTS-0099]  Sinks 612
+[INFO CTS-0100]  Leaf buffers 87
+[INFO CTS-0101]  Average sink wire length 288.40 um
+[INFO CTS-0102]  Path depth 2 - 3
+[INFO CTS-0207]  Dummy loads inserted 53
+[INFO CTS-0033] Balancing latency for clock clk
+[INFO CTS-0036]  inserted 4 delay buffers
+[INFO CTS-0037] Total number of delay buffers: 4
+[INFO] Repairing long wires on clock nets…
+[INFO RSZ-0058] Using max wire length 4688um.
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+sram0 matched with sram0
+sram0 matched with sram0
+sram1 matched with sram1
+sram1 matched with sram1
+[INFO ODB-0403] 330 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Macro                                     2   98977.00
+  Buffer                                   18     130.64
+  Clock buffer                            126    2971.99
+  Timing Repair Buffer                    478    3783.02
+  Inverter                                253    1377.13
+  Clock inverter                           39     321.15
+  Sequential cell                         559   27384.74
+  Multi-Input combinational cell         3234   31233.08
+  Total                                  4709  166178.75
+Writing OpenROAD database to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.odb'…
+Writing netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.nl.v'…
+Writing powered netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.pnl.v'…
+Writing layout to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.def'…
+Writing timing constraints to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.sdc'…
+[INFO] Legalizing…
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       1097.3 u
+average displacement        0.2 u
+max displacement           10.0 u
+original HPWL          218637.5 u
+legalized HPWL         221583.3 u
+delta HPWL                    1 %
+
+[INFO DPL-0020] Mirrored 2210 instances
+[INFO DPL-0021] HPWL before          221583.3 u
+[INFO DPL-0022] HPWL after           219051.4 u
+[INFO DPL-0023] HPWL delta               -1.1 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+sram0 matched with sram0
+sram0 matched with sram0
+sram1 matched with sram1
+sram1 matched with sram1
+[INFO ODB-0403] 0 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Macro                                     2   98977.00
+  Buffer                                   18     130.64
+  Clock buffer                            126    2971.99
+  Timing Repair Buffer                    478    3783.02
+  Inverter                                253    1377.13
+  Clock inverter                           39     321.15
+  Sequential cell                         559   27384.74
+  Multi-Input combinational cell         3234   31233.08
+  Total                                  4709  166178.75
+Writing OpenROAD database to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.odb'…
+Writing netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.nl.v'…
+Writing powered netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.pnl.v'…
+Writing layout to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.def'…
+Writing timing constraints to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.sdc'…
+%OL_CREATE_REPORT cts.rpt
+Total number of Clock Roots: 2.
+Total number of Buffers Inserted: 107.
+Total number of Clock Subnets: 107.
+Total number of Sinks: 561.
+Cells used:
+  sg13cmos5l_buf_8: 112
+Dummys used:
+  sg13cmos5l_buf_8: 14
+  sg13cmos5l_inv_1: 9
+  sg13cmos5l_inv_2: 19
+  sg13cmos5l_inv_4: 9
+  sg13cmos5l_inv_8: 2
+%OL_END_REPORT
