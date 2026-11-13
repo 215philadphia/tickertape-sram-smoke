@@ -1,0 +1,240 @@
+Original log: gds/3_Build GDS.txt
+2026-11-13T19:49:51.4822118Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:49:51.4990056Z   empty_packages_behavior: error
+2026-11-13T19:49:51.5026200Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:49:51.5027219Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-13T19:50:03.7969410Z   fail-on-cache-miss: false
+2026-11-13T19:50:04.7907454Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:05.0193514Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:14.1839088Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:25.6406541Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:34.9106692Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:48.4334566Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:50:53.4432674Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T19:52:18.3100296Z ────────────────────────── Lint Timing Errors Checker ──────────────────────────
+2026-11-13T19:52:18.3117892Z [19:52:18] INFO     Check for Lint Timing Errors clear.           checker.py:412
+2026-11-13T19:52:18.3138373Z ───────────────────────────── Lint Errors Checker ──────────────────────────────
+2026-11-13T19:52:18.3142482Z [19:52:18] VERBOSE  Running 'Checker.LintErrors' at                 step.py:1138
+2026-11-13T19:52:18.3142851Z                     'runs/wokwi/03-checker-linterrors'…                         
+2026-11-13T19:52:18.3151972Z [19:52:18] INFO     Check for Lint errors clear.                  checker.py:131
+2026-11-13T19:52:23.9473051Z ABC: Error: The network is combinational.                                       
+2026-11-13T19:52:24.2487665Z [19:52:24] INFO     Check for Yosys check errors clear.           checker.py:131
+2026-11-13T19:52:25.7372911Z [INFO IFP-0104] Effective utilization:                0.132                     
+2026-11-13T19:52:29.4824607Z [19:52:29] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-13T19:52:29.4831384Z [19:52:29] WARNING  Grid check for VPWR failed: PSM-0069         openroad.py:321
+2026-11-13T19:52:29.5585627Z [19:52:29] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-13T19:52:29.5590918Z [19:52:29] WARNING  Grid check for VGND failed: PSM-0069         openroad.py:321
+2026-11-13T19:52:31.7848609Z [INFO GPL-0019] Utilization:                     6.002 %                        
+2026-11-13T19:52:38.8537989Z [INFO GPL-1002] Placed Cell Area            74051.3044                          
+2026-11-13T19:52:38.8546208Z [INFO GPL-1004] Minimum Feasible Density        0.0700 (cell_area / free_area)  
+2026-11-13T19:52:39.7519331Z                     OpenROAD PSM- you may ignore these if LVS                   
+2026-11-13T19:54:23.7680002Z                     the DRC Viewer.                                             
+2026-11-13T19:54:36.8628992Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-13T19:54:36.8630084Z road-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc                        
+2026-11-13T20:03:47.9439323Z ##[error]The operation was canceled.
+2026-11-13T20:03:47.9465146Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T20:03:47.9465766Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T20:03:47.9468050Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T20:03:47.9468220Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T20:03:47.9488295Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+--- LAST 200 LINES ---
+2026-11-13T19:58:48.7636711Z Up-via summary (total 37448):                                                   
+2026-11-13T19:58:48.7639145Z                                                                                 
+2026-11-13T19:58:48.7641624Z -----------------                                                               
+2026-11-13T19:58:48.7644755Z  GatPoly        0                                                               
+2026-11-13T19:58:48.7647613Z   Metal1    16781                                                               
+2026-11-13T19:58:48.7650257Z   Metal2    18840                                                               
+2026-11-13T19:58:48.7652843Z   Metal3     1827                                                               
+2026-11-13T19:58:48.7656192Z   Metal4        0                                                               
+2026-11-13T19:58:48.7658430Z -----------------                                                               
+2026-11-13T19:58:48.7661429Z         37448                                                                   
+2026-11-13T19:58:48.7664234Z                                                                                 
+2026-11-13T19:58:48.7666491Z                                                                                 
+2026-11-13T19:58:48.7679797Z [INFO DRT-0195] Start 1st optimization iteration.                               
+2026-11-13T19:59:05.9865753Z     Completing 10% with 5167 violations.                                        
+2026-11-13T19:59:05.9866570Z     elapsed time = 00:00:17, memory = 526.87 (MB).                              
+2026-11-13T19:59:31.5081129Z     Completing 20% with 5167 violations.                                        
+2026-11-13T19:59:31.5082933Z     elapsed time = 00:00:42, memory = 526.87 (MB).                              
+2026-11-13T19:59:31.6934097Z     Completing 30% with 4200 violations.                                        
+2026-11-13T19:59:31.6935968Z     elapsed time = 00:00:42, memory = 526.87 (MB).                              
+2026-11-13T20:00:31.3593529Z     Completing 40% with 4200 violations.                                        
+2026-11-13T20:00:31.3595659Z     elapsed time = 00:01:42, memory = 526.87 (MB).                              
+2026-11-13T20:00:31.7435332Z     Completing 50% with 4200 violations.                                        
+2026-11-13T20:00:31.7436904Z     elapsed time = 00:01:42, memory = 526.87 (MB).                              
+2026-11-13T20:00:39.9257730Z     Completing 60% with 3705 violations.                                        
+2026-11-13T20:00:39.9259931Z     elapsed time = 00:01:51, memory = 526.87 (MB).                              
+2026-11-13T20:01:11.9955942Z     Completing 70% with 3705 violations.                                        
+2026-11-13T20:01:11.9963859Z     elapsed time = 00:02:23, memory = 526.87 (MB).                              
+2026-11-13T20:01:12.2588456Z     Completing 80% with 2523 violations.                                        
+2026-11-13T20:01:12.2589496Z     elapsed time = 00:02:23, memory = 526.87 (MB).                              
+2026-11-13T20:02:08.1301617Z     Completing 90% with 2523 violations.                                        
+2026-11-13T20:02:08.1303563Z     elapsed time = 00:03:19, memory = 526.87 (MB).                              
+2026-11-13T20:02:08.5551569Z     Completing 100% with 1962 violations.                                       
+2026-11-13T20:02:08.5552416Z     elapsed time = 00:03:19, memory = 526.87 (MB).                              
+2026-11-13T20:02:08.7802316Z [INFO DRT-0199]   Number of violations = 1962.                                  
+2026-11-13T20:02:08.7810411Z Viol/Layer      Metal2 Metal3 Metal4                                            
+2026-11-13T20:02:08.7814847Z Metal Spacing      702     11      0                                            
+2026-11-13T20:02:08.7817516Z Short             1148     97      4                                            
+2026-11-13T20:02:08.7822940Z [INFO DRT-0267] cpu time = 00:03:19, elapsed time = 00:03:20, memory = 526.87   
+2026-11-13T20:02:08.7823380Z (MB), peak = 550.01 (MB)                                                        
+2026-11-13T20:02:08.7892562Z Total wire length = 345648 um.                                                  
+2026-11-13T20:02:08.7895698Z Total wire length on LAYER Metal1 = 0 um.                                       
+2026-11-13T20:02:08.7897958Z Total wire length on LAYER Metal2 = 115803 um.                                  
+2026-11-13T20:02:08.7901186Z Total wire length on LAYER Metal3 = 203909 um.                                  
+2026-11-13T20:02:08.7904101Z Total wire length on LAYER Metal4 = 25935 um.                                   
+2026-11-13T20:02:08.7907365Z Total wire length on LAYER TopMetal1 = 0 um.                                    
+2026-11-13T20:02:08.7910197Z Total number of vias = 37235.                                                   
+2026-11-13T20:02:08.7913297Z Up-via summary (total 37235):                                                   
+2026-11-13T20:02:08.7915537Z                                                                                 
+2026-11-13T20:02:08.7917731Z -----------------                                                               
+2026-11-13T20:02:08.7920258Z  GatPoly        0                                                               
+﻿2026-11-13T20:02:08.7923366Z   Metal1    16773                                                               
+2026-11-13T20:02:08.7925903Z   Metal2    18515                                                               
+2026-11-13T20:02:08.7928355Z   Metal3     1947                                                               
+2026-11-13T20:02:08.7930856Z   Metal4        0                                                               
+2026-11-13T20:02:08.7933124Z -----------------                                                               
+2026-11-13T20:02:08.7935740Z         37235                                                                   
+2026-11-13T20:02:08.7937855Z                                                                                 
+2026-11-13T20:02:08.7939865Z                                                                                 
+2026-11-13T20:02:08.7943636Z [INFO DRT-0195] Start 2nd optimization iteration.                               
+2026-11-13T20:02:22.0630048Z     Completing 10% with 1962 violations.                                        
+2026-11-13T20:02:22.0630522Z     elapsed time = 00:00:13, memory = 526.87 (MB).                              
+2026-11-13T20:02:55.7930923Z     Completing 20% with 1962 violations.                                        
+2026-11-13T20:02:55.7932818Z     elapsed time = 00:00:47, memory = 526.87 (MB).                              
+2026-11-13T20:02:55.9149453Z     Completing 30% with 1945 violations.                                        
+2026-11-13T20:02:55.9151163Z     elapsed time = 00:00:47, memory = 526.87 (MB).                              
+2026-11-13T20:03:41.6512920Z     Completing 40% with 1945 violations.                                        
+2026-11-13T20:03:41.6515010Z     elapsed time = 00:01:32, memory = 526.87 (MB).                              
+2026-11-13T20:03:41.8590022Z     Completing 50% with 1945 violations.                                        
+2026-11-13T20:03:41.8592481Z     elapsed time = 00:01:33, memory = 526.87 (MB).                              
+2026-11-13T20:03:47.9439323Z ##[error]The operation was canceled.
+2026-11-13T20:03:47.9442695Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=cancelled;conclusion=cancelled;duration_ms=774505]
+2026-11-13T20:03:47.9445661Z ##[start-action display=Show build files (for debugging);id=__TinyTapeout_tt-gds-action.__run_7]
+2026-11-13T20:03:47.9447481Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_7;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9448545Z ##[start-action display=Linter output;id=__TinyTapeout_tt-gds-action.__run_8]
+2026-11-13T20:03:47.9462916Z ##[group]Run LINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)
+2026-11-13T20:03:47.9463547Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-13T20:03:47.9463801Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-13T20:03:47.9463965Z [36;1m[0m
+2026-11-13T20:03:47.9464115Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-13T20:03:47.9464313Z [36;1mcat $LINTER_LOG[0m
+2026-11-13T20:03:47.9464481Z [36;1mecho "END DEBUG"[0m
+2026-11-13T20:03:47.9464643Z [36;1m[0m
+2026-11-13T20:03:47.9464783Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-13T20:03:47.9464963Z [36;1m  set +e[0m
+2026-11-13T20:03:47.9465146Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T20:03:47.9465392Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-13T20:03:47.9465766Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T20:03:47.9466023Z [36;1m  set -e[0m
+2026-11-13T20:03:47.9466159Z [36;1m[0m
+2026-11-13T20:03:47.9466285Z [36;1m  open=""[0m
+2026-11-13T20:03:47.9466417Z [36;1m  summary=""[0m
+2026-11-13T20:03:47.9466555Z [36;1m  icon=":green_circle:"[0m
+2026-11-13T20:03:47.9466722Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-13T20:03:47.9466897Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-13T20:03:47.9467070Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T20:03:47.9467295Z [36;1m  fi[0m
+2026-11-13T20:03:47.9467425Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-13T20:03:47.9467599Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-13T20:03:47.9467771Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T20:03:47.9467921Z [36;1m  fi[0m
+2026-11-13T20:03:47.9468050Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T20:03:47.9468220Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T20:03:47.9468395Z [36;1m    icon=":red_circle:"[0m
+2026-11-13T20:03:47.9468548Z [36;1m    open="open"[0m
+2026-11-13T20:03:47.9468750Z [36;1m  fi[0m
+2026-11-13T20:03:47.9468875Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-13T20:03:47.9469033Z [36;1m    summary="[$summary]"[0m
+2026-11-13T20:03:47.9469182Z [36;1m  fi[0m
+2026-11-13T20:03:47.9469294Z [36;1m[0m
+2026-11-13T20:03:47.9469442Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9469760Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9470063Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9470345Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-13T20:03:47.9470570Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9470774Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9470965Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T20:03:47.9471137Z [36;1mfi[0m
+2026-11-13T20:03:47.9488295Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T20:03:47.9488498Z env:
+2026-11-13T20:03:47.9488628Z   PDK: ihp-sg13cmos5l
+2026-11-13T20:03:47.9488768Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T20:03:47.9488917Z   TT_ARGS: --ihp
+2026-11-13T20:03:47.9489061Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T20:03:47.9489272Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:47.9489517Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T20:03:47.9489768Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:47.9490002Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:47.9490243Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:47.9490485Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:03:47.9490684Z ##[endgroup]
+2026-11-13T20:03:47.9530507Z DEBUG LINTER_LOG *runs/wokwi/01-verilator-lint/verilator-lint.log*
+2026-11-13T20:03:47.9540592Z %Warning-MODDUP: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/RM_IHPSG13_1P_256x32_c2_bm_bist.v:6:8: Duplicate declaration of module: 'RM_IHPSG13_1P_256x32_c2_bm_bist'
+2026-11-13T20:03:47.9541483Z     6 | module RM_IHPSG13_1P_256x32_c2_bm_bist (
+2026-11-13T20:03:47.9542359Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-13T20:03:47.9543632Z                  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/8cbf56dbcb804939a9a0a779360bd539.bb.v:3:8: ... Location of original declaration
+2026-11-13T20:03:47.9544801Z     3 | module RM_IHPSG13_1P_256x32_c2_bm_bist(A_CLK, A_MEN, A_WEN, A_REN, A_ADDR, A_DIN, A_DLY, A_DOUT, A_BM, A_BIST_CLK, A_BIST_EN, A_BIST_MEN, A_BIST_WEN, A_BIST_REN, A_BIST_ADDR, A_BIST_DIN, A_BIST_BM);
+2026-11-13T20:03:47.9545543Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-13T20:03:47.9549001Z                  ... For warning description see https://verilator.org/warn/MODDUP?v=5.046
+2026-11-13T20:03:47.9549508Z                  ... Use "/* verilator lint_off MODDUP */" and lint_on around source to disable this message.
+2026-11-13T20:03:47.9550248Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:14: Signal is not used: 'tx_full'
+2026-11-13T20:03:47.9550993Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9551615Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-13T20:03:47.9551995Z       |              ^~~~~~~
+2026-11-13T20:03:47.9552499Z                        ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.046
+2026-11-13T20:03:47.9553122Z                        ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+2026-11-13T20:03:47.9554240Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:61: Bits of signal are not used: 'valid'[1]
+2026-11-13T20:03:47.9555122Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9559236Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-13T20:03:47.9560247Z       |                                                             ^~~~~
+2026-11-13T20:03:47.9561222Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:93:35: Bits of function variable are not used: 'ix'[7:3]
+2026-11-13T20:03:47.9562245Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9562706Z    93 |     reg c; reg [3:0] r; reg [7:0] ix;
+2026-11-13T20:03:47.9563378Z       |                                   ^~
+2026-11-13T20:03:47.9564223Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:118:30: Bits of signal are not used: 'rx_sh'[7]
+2026-11-13T20:03:47.9565029Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9565555Z   118 |   reg [3:0] bits;  reg [7:0] rx_sh, cmd, addr, pending, txsh, row_lo;
+2026-11-13T20:03:47.9565944Z       |                              ^~~~~
+2026-11-13T20:03:47.9566803Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:120:14: Bits of signal are not used: 'word'[31:24]
+2026-11-13T20:03:47.9567598Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9568075Z   120 |   reg [31:0] word; reg [2:0] nw;
+2026-11-13T20:03:47.9568594Z       |              ^~~~
+2026-11-13T20:03:47.9569474Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:121:59: Bits of signal are not used: 'rd_nw'[2]
+2026-11-13T20:03:47.9570291Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9570770Z   121 |   reg       rd_a, rd_b, rd_c; reg [8:0] rd_row; reg [2:0] rd_nw;    
+2026-11-13T20:03:47.9571159Z       |                                                           ^~~~~
+2026-11-13T20:03:47.9572055Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:130:14: Bits of signal are not used: 'uix'[7:3]
+2026-11-13T20:03:47.9574155Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T20:03:47.9574791Z   130 |   wire [7:0] uix = addr - 8'h22;
+2026-11-13T20:03:47.9575430Z       |              ^~~
+2026-11-13T20:03:47.9576546Z %Warning-UNUSEDPARAM: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:73:14: Parameter is not used: 'HOLD'
+2026-11-13T20:03:47.9577444Z                                                                                                               : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-13T20:03:47.9578399Z    73 |   localparam HOLD = 2'd0, SHIFT = 2'd1, LOAD = 2'd2, SAVE = 2'd3;
+2026-11-13T20:03:47.9579008Z       |              ^~~~
+2026-11-13T20:03:47.9579759Z                       ... For warning description see https://verilator.org/warn/UNUSEDPARAM?v=5.046
+2026-11-13T20:03:47.9580477Z                       ... Use "/* verilator lint_off UNUSEDPARAM */" and lint_on around source to disable this message.
+2026-11-13T20:03:47.9581659Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:76:16: Bits of signal are not used: 'R'[31:29]
+2026-11-13T20:03:47.9582767Z                                                                                                                : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-13T20:03:47.9583874Z    76 |   wire [31:0]  R       = mem_dout;
+2026-11-13T20:03:47.9584272Z       |                ^
+2026-11-13T20:03:47.9584934Z - V e r i l a t i o n   R e p o r t: Verilator 5.046 2026-02-28 rev v5.046
+2026-11-13T20:03:47.9585602Z - Verilator: Built from 0.404 MB sources in 111 modules, into 0.304 MB in 3 C++ files needing 0.000 MB
+2026-11-13T20:03:47.9586589Z - Verilator: Walltime 0.039 s (elab=0.005, cvt=0.024, bld=0.000); cpu 0.039 s on 1 threads; allocated 23.883 MB
+2026-11-13T20:03:47.9587320Z END DEBUG
+2026-11-13T20:03:47.9665351Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=success;conclusion=success;duration_ms=21]
+2026-11-13T20:03:47.9667270Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-13T20:03:47.9668999Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9670106Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-13T20:03:47.9671103Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9672080Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-13T20:03:47.9673011Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9674445Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T20:03:47.9678774Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9679975Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-13T20:03:47.9680998Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9682059Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-13T20:03:47.9683072Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9684382Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-13T20:03:47.9685326Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:03:47.9686392Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-13T20:03:47.9687455Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
