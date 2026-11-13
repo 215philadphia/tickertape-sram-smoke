@@ -24,6 +24,7 @@ Work done this way (each change goes to the author for review before it is merge
 | 2026-11-13 | `ps2_rx_dsl`, a PS/2 receiver in the DSL (parity carried in the state number), with model and RTL tests | Passes on the golden model and the RTL; a table that skips the parity check fails the test |
 | 2026-11-13 | "At a glance" overview in the README | Each claim linked to the test or document that supports it |
 | 2026-11-13 | `docs/design-evolution.md`, comparing the author's original pitch with the built design | Each difference checked against the RTL, compiler and tests; reasons not stated in the source are marked as our reading |
+| 2026-11-13 | `docs/applications.md`: realistic uses of the chip and where its ideas apply in trading hardware | Claims about the chip linked to the tests and documents behind them; limits stated explicitly |
 
 ## Earlier work
 

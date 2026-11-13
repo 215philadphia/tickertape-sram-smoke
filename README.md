@@ -43,6 +43,12 @@ an earlier Python model; protocol references written from the specs; must-reject
 deliberately broken tables that the tests must catch; and RTL plus gate-level tests on the chip itself.
 Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes ([status](#signoff-status)).
 
+**What it is for.** A reprogrammable tool for hardware debugging: emulate either side of a low-speed
+protocol, or sit in the wire and parse a live line while passing it through. Its ideas (deterministic
+table-driven parsing, host-free reaction between engines, compile-time checked state machines) are the
+ones trading firms use at full scale in FPGAs, for example in hardware pre-trade risk checks
+([applications](docs/applications.md)).
+
 ## Documentation
 
 | Document | Contents |
@@ -50,6 +56,7 @@ Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
 | [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
+| [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
 | [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
 | [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
