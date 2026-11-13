@@ -29,9 +29,10 @@ Work done this way (each change goes to the author for review before it is merge
 ## Earlier work
 
 Work before 13 November 2026 (the specification, the RTL, the Python reference model, the OCaml golden
-model and compiler, the tests and the flow configuration) was developed with **Claude (Anthropic)
-running in a GitHub Codespace** connected to this repository. Files were pushed to and pulled from
-GitHub through that setup. Those commits carry no `Co-Authored-By` trailer, so the history does not mark
+model and compiler, the tests and the flow configuration) was developed with a mixture of AI tools:
+**Claude (Anthropic)** running in a GitHub Codespace connected to this repository, together with
+**ChatGPT (OpenAI)**, **Gemini (Google)** and **Grok (xAI)**. Files were pushed to and pulled from
+GitHub through the Codespace. Those commits carry no `Co-Authored-By` trailer, so the history does not mark
 them individually as AI-assisted; this section is the record instead. The concept itself originated with
 David Cox.
 
