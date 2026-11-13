@@ -1,0 +1,40 @@
+Original log: test/5_Install Python packages.txt
+2026-11-13T17:27:25.6362550Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+--- LAST 200 LINES ---
+﻿2026-11-13T17:27:25.5878875Z ##[group]Run pip install -r test/requirements.txt
+2026-11-13T17:27:25.5879141Z [36;1mpip install -r test/requirements.txt[0m
+2026-11-13T17:27:25.6362550Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T17:27:25.6362804Z env:
+2026-11-13T17:27:25.6362977Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T17:27:25.6363230Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T17:27:25.6363483Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T17:27:25.6363697Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T17:27:25.6363924Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T17:27:25.6364137Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T17:27:25.6364323Z ##[endgroup]
+2026-11-13T17:27:30.4173794Z Collecting pytest==8.4.2 (from -r test/requirements.txt (line 1))
+2026-11-13T17:27:30.4909986Z   Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-11-13T17:27:30.5428522Z Collecting cocotb==2.0.1 (from -r test/requirements.txt (line 2))
+2026-11-13T17:27:30.5576187Z   Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.8 kB)
+2026-11-13T17:27:30.5795847Z Collecting iniconfig>=1 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T17:27:30.5928876Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T17:27:30.6170227Z Collecting packaging>=20 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T17:27:30.6299381Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-11-13T17:27:30.6515912Z Collecting pluggy<2,>=1.5 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T17:27:30.6647661Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-11-13T17:27:30.6890764Z Collecting pygments>=2.7.2 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T17:27:30.7028536Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-13T17:27:30.7301868Z Collecting find_libpython (from cocotb==2.0.1->-r test/requirements.txt (line 2))
+2026-11-13T17:27:30.7431859Z   Downloading find_libpython-0.5.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T17:27:30.7591603Z Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-11-13T17:27:30.8113163Z Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+2026-11-13T17:27:30.9013726Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 69.3 MB/s  0:00:00
+2026-11-13T17:27:30.9146416Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-11-13T17:27:30.9295416Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-11-13T17:27:30.9444799Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-11-13T17:27:30.9591462Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-11-13T17:27:30.9646708Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 262.5 MB/s  0:00:00
+2026-11-13T17:27:30.9777886Z Downloading find_libpython-0.5.1-py3-none-any.whl (9.2 kB)
+2026-11-13T17:27:31.3033126Z Installing collected packages: pygments, pluggy, packaging, iniconfig, find_libpython, pytest, cocotb
+2026-11-13T17:27:32.0337675Z 
+2026-11-13T17:27:32.0345726Z Successfully installed cocotb-2.0.1 find_libpython-0.5.1 iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-8.4.2
