@@ -47,7 +47,7 @@ The pinout is in [`info.yaml`](info.yaml).
 | `src/` | RTL: `tt_um_tickertape_pfst.v` (top, two SRAM macros), `pfst_chip.v`, `pfst_core_sram.v`; flow config `config.json`, `pdn_cfg.tcl` |
 | `macro/` | IHP 256x32 SRAM macro LEF |
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
-| `test/` | cocotb testbench (`test_pfst.py`) with the IHP SRAM simulation models in `test/models` |
+| `test/` | cocotb tests: chip features (`test_pfst.py`) and every compiled program on the chip (`test_programs.py`), with the IHP SRAM simulation models in `test/models` |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
 | `docs/` | Datasheet text (`info.md`) and the documents listed above |
 | `.github/workflows/` | `gds`, `test`, `model`, `fpga`, `docs` CI jobs |
@@ -60,8 +60,10 @@ RTL testbench (needs Icarus Verilog 12 and cocotb 2.0.1):
 cd test && make -B
 ```
 
-5/5 pass: register reset values and read-back, table write/read through the SRAM macro, a UART transmitter
-loaded into core 0 and decoded from `uo_out[4]`, UOMAP pass-through, and PINMODE 3 row-controlled pins.
+11/11 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
+a UART transmitter, UOMAP pass-through and PINMODE 3 row-controlled pins. `test_programs.py` runs every
+program the OCaml compiler produces on the chip and decodes the pins: UART TX, UART RX at ±1% baud error,
+SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, and half-duplex UART on one wire.
 
 Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`.
 

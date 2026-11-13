@@ -8,7 +8,7 @@ level below runs in CI on each push; the commands are given so anyone can rerun 
 | 1. Golden model | An OCaml model of one core, bit-exact against traces from an earlier Python model | `model/main.ml` | `model` workflow |
 | 2. Protocol behaviour | Programs on the model, decoded by independent protocol references (UART, SPI, I2C, Nano-Tick) | `model/main.ml`, `model/compile_test.ml` | `model` workflow |
 | 3. Compiler | Static checks reject bad programs; good programs compile and decode correctly | `model/compile_test.ml` | `model` workflow |
-| 4. RTL and gate level | cocotb tests drive the real top level through the host SPI port | `test/test_pfst.py` | `test` and `gds` (`gl_test`) workflows |
+| 4. RTL and gate level | cocotb tests drive the real top level through the host SPI port, including every compiled program | `test/test_pfst.py`, `test/test_programs.py` | `test` and `gds` (`gl_test`) workflows |
 | 5. Physical signoff | Tiny Tapeout flow: STA, KLayout DRC, LVS, precheck | `.github/workflows/gds.yaml` | `gds` workflow |
 
 ## 1. Golden model: an independent second implementation
@@ -70,13 +70,29 @@ IHP SRAM simulation models) only through its pins, as a host on the demo board w
 | `test_passthrough` | UOMAP forwarding: direct (same cycle) and synchronized |
 | `test_row_controlled_pins` | PINMODE 3: the row's `dir` bits decide which pins drive; all pins released while stopped |
 
-The `gds` workflow runs the same tests against the **gate-level netlist** after place and route (`gl_test`),
-which catches synthesis and tool errors as well as RTL bugs.
+### Every compiled program, on the chip
 
-The compiled UART TX, UART RX, SPI TX and half-duplex UART tables have also been run on the chip RTL
-through the host port and decoded from the pins, the half-duplex one on a single PINMODE 3 wire with zero
-contention cycles. That harness (`chip_compiled_test.py`) is kept with the RTL verification package and is
-not in this repository.
+[`test/test_programs.py`](../test/test_programs.py) loads each program the OCaml compiler produces onto
+the chip through the host SPI port, as the demo board would, and checks the protocol on the pins with a
+decoder written in the test:
+
+| Test | Program | Checks |
+|---|---|---|
+| `test_compiled_uart_tx` | `uart_tx_dsl` | Pushed bytes appear as 8N1 frames |
+| `test_compiled_uart_rx` | `uart_rx_dsl` | Frames at -1%, 0 and +1% baud error are received; each read back with `READ_SCR` via the IRQ pin; no overrun |
+| `test_compiled_spi_tx` | `spi_tx_dsl` | Mode 0 frames decoded from CS, SCK and MOSI |
+| `test_compiled_i2c_write` | `i2c_wr_dsl` | Open drain with a reactive target: 6 bytes written and ACKed, then a wrong address is NACKed; DONE reached each time; exactly one START and STOP per transaction |
+| `test_compiled_nanotick` | `uart_rx_dsl` + `nt_trader_dsl` | **Both cores, no host in the loop:** core 0 receives prices, the comparator fires below `THRESH`, core 1 sends exactly one 3-byte SPI order per downward crossing |
+| `test_compiled_half_duplex` | `hd_uart_dsl` | One wire in PINMODE 3: request out, reply in, **zero cycles where both ends drive** |
+
+The tables come from `test/compiled_tables.json`, a snapshot of the compiler output.
+`model/run_tests.sh` fails if the snapshot differs from what the compiler produces, so the RTL tests
+cannot silently run stale tables. These tests were themselves checked by breaking tables on purpose: an
+I2C master that stops after the first byte, and a trader that re-arms without waiting for the price to
+recover (23 orders instead of 3), both fail.
+
+The `gds` workflow runs all of these tests against the **gate-level netlist** after place and route
+(`gl_test`), which catches synthesis and tool errors as well as RTL bugs.
 
 ## 5. Physical signoff
 
@@ -90,8 +106,6 @@ to a `results-<sha>-<run>` branch, so results can be compared across runs. Curre
 - The OCaml model has the `dir` register but not the pin modes that consume it, nor `DONE`, `FLAG`,
   `TX_OVR` or `OUT_INIT`.
 - Cycle alignment between the model and the RTL's read-ahead is not cross-checked automatically.
-- The in-repo RTL tests run one protocol table (a UART transmitter, `test/uart_tx_b20.json`). The
-  OCaml-compiled programs are checked on the RTL only by the harness that is not in this repository.
 - No formal verification yet.
 
 ## Running everything
