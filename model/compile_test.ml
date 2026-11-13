@@ -161,6 +161,39 @@ let test_half_duplex () =
         failwith (Printf.sprintf "wire decoded %s" (String.concat " " (List.map (Printf.sprintf "%02x") decoded)));
       if Pfst.rx_bytes_in_order core <> List.map (fun r -> r lxor 0xFF) reqs then failwith "saved replies wrong")
 
+(* PS/2 device-to-host waveform: per bit, CLK high for half_p cycles (DATA changes in the middle of
+   that half), then low for half_p cycles; the host samples DATA while CLK is low. `bad_parity` and
+   `bad_stop` corrupt that frame. Returns per-cycle (data, clk). *)
+let ps2_wave ?(half_p = 30) ?(gap = 200) frames =
+  let out = ref [] in
+  let emit d c n = for _ = 1 to n do out := (d, c) :: !out done in
+  emit 1 1 gap;
+  List.iter (fun (b, bad_parity, bad_stop) ->
+      let data = List.init 8 (fun k -> (b lsr k) land 1) in
+      let ones = List.fold_left ( + ) 0 data in
+      let par = (if ones mod 2 = 0 then 1 else 0) lxor (if bad_parity then 1 else 0) in
+      let stop = if bad_stop then 0 else 1 in
+      let prev = ref 1 in
+      List.iter (fun d ->
+          emit !prev 1 (half_p / 2); emit d 1 (half_p - half_p / 2); emit d 0 half_p; prev := d)
+        ((0 :: data) @ [par; stop]);
+      emit 1 1 gap)
+    frames;
+  Array.of_list (List.rev !out)
+
+let test_ps2_rx () =
+  check "DSL PS/2 RX (new protocol): bytes saved, parity/stop errors rejected" (fun () ->
+      let c = Compiler.compile (Dsl_programs.ps2_rx_dsl ()) in
+      if c.num_states <> 39 then failwith (Printf.sprintf "expected 39 states, got %d" c.num_states);
+      let good = [0x00; 0xFF; 0x1C; 0xF0; 0x5A; 0x81] in
+      let frames = List.map (fun b -> (b, false, false)) good
+                   @ [(0x33, true, false); (0x44, false, true); (0x29, false, false)] in
+      let core = Pfst.create ~table:c.table ~p:1 ~msb_first:false ~reset_sel:c.reset_sel in
+      Array.iter (fun (d, k) -> ignore (Pfst.step core ~raw_in:[| d; k; 0; d |] ~cmp:0)) (ps2_wave frames);
+      let got = Pfst.rx_bytes_in_order core in
+      if got <> good @ [0x29] then
+        failwith (Printf.sprintf "saved %s" (String.concat " " (List.map (Printf.sprintf "%02x") got))))
+
 let expect_error name prog needle =
   check (Printf.sprintf "neg: %-46s (must be rejected)" name) (fun () ->
       match Compiler.compile (prog ()) with
@@ -179,6 +212,7 @@ let () =
   test_i2c_wr ();
   test_nanotick_dsl ();
   test_half_duplex ();
+  test_ps2_rx ();
   print_endline "";
   print_endline "-- static checks: each control must be rejected at compile time,";
   print_endline "   before ever running --";

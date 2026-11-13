@@ -84,12 +84,13 @@ decoder written in the test:
 | `test_compiled_i2c_write` | `i2c_wr_dsl` | Open drain with a reactive target: 6 bytes written and ACKed, then a wrong address is NACKed; DONE reached each time; exactly one START and STOP per transaction |
 | `test_compiled_nanotick` | `uart_rx_dsl` + `nt_trader_dsl` | **Both cores, no host in the loop:** core 0 receives prices, the comparator fires below `THRESH`, core 1 sends exactly one 3-byte SPI order per downward crossing |
 | `test_compiled_half_duplex` | `hd_uart_dsl` | One wire in PINMODE 3: request out, reply in, **zero cycles where both ends drive** |
+| `test_compiled_ps2_rx` | `ps2_rx_dsl` | A new protocol: PS/2 frames received; a parity error and a stop-bit error each save nothing and raise `FLAG`; the receiver stays in sync afterwards |
 
 The tables come from `test/compiled_tables.json`, a snapshot of the compiler output.
 `model/run_tests.sh` fails if the snapshot differs from what the compiler produces, so the RTL tests
 cannot silently run stale tables. These tests were themselves checked by breaking tables on purpose: an
-I2C master that stops after the first byte, and a trader that re-arms without waiting for the price to
-recover (23 orders instead of 3), both fail.
+I2C master that stops after the first byte, a trader that re-arms without waiting for the price to
+recover (23 orders instead of 3), and a PS/2 receiver that accepts any parity bit all fail.
 
 The `gds` workflow runs all of these tests against the **gate-level netlist** after place and route
 (`gl_test`), which catches synthesis and tool errors as well as RTL bugs.

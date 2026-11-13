@@ -24,7 +24,7 @@ THRESH, IRQ_EN = 0x20, 0x21
 UIO = 0x8                               # INMAP index bit: take the input from uio_in instead of ui_in
 
 
-async def load(h, core, name, *, p, out_init, pinmode, inmap01=0x10, inmap23=0x32, done_state=0xFF):
+async def load(h, core, name, *, p, out_init, pinmode, inmap01=0x10, inmap23=0x32, done_state=0xFF, cfg=0):
     """Load a compiled program into a stopped core and configure it; does not start it."""
     prog = PROGS[name]
     table = prog["table"]
@@ -33,7 +33,7 @@ async def load(h, core, name, *, p, out_init, pinmode, inmap01=0x10, inmap23=0x3
     ra, rb = prog["reset_sel"]
     base = 0x10 * core
     await h.wreg(base + OUT_INIT, out_init)                     # before any pin is driven
-    await h.wreg(base + P, p, int(prog["msb_first"]), ra | rb << 2, 0xE4, pinmode, inmap01, inmap23, done_state)
+    await h.wreg(base + P, p, int(prog["msb_first"]) | cfg, ra | rb << 2, 0xE4, pinmode, inmap01, inmap23, done_state)
     return prog
 
 
@@ -318,3 +318,55 @@ async def test_compiled_half_duplex(dut):
     assert state["contention"] == 0, f"{state['contention']} cycles with both ends driving"
     assert replies == [r ^ 0xFF for r in reqs], f"replies {[hex(x) for x in replies]}"
     assert uart_decode(state["wire"], BP) == [x for r in reqs for x in (r, r ^ 0xFF)], "wire trace"
+
+
+def ps2_frame(b, bad_parity=False, bad_stop=False, half_p=30):
+    """One PS/2 device-to-host frame as per-cycle (data, clk): DATA changes mid-way through CLK high."""
+    data = [(b >> k) & 1 for k in range(8)]
+    par = (1 - sum(data) % 2) ^ bad_parity                      # odd parity
+    seq, prev = [], 1
+    for d in [0] + data + [par, 0 if bad_stop else 1]:
+        seq += [(prev, 1)] * (half_p // 2) + [(d, 1)] * (half_p - half_p // 2) + [(d, 0)] * half_p
+        prev = d
+    return seq + [(1, 1)] * 200
+
+
+@cocotb.test()
+async def test_compiled_ps2_rx(dut):
+    """ps2_rx_dsl (39 states, a protocol the chip was not designed for) on core 0: CLK on uio[1],
+    DATA on uio[0] (to both IN0 and IN3). Good frames are received; a parity or stop-bit error
+    saves nothing and raises FLAG instead."""
+    h = await start(dut)
+    await load(h, 0, "ps2_rx_dsl", p=1, out_init=0, pinmode=0, cfg=0b10,      # CFG bit 1: flag mode
+               inmap01=(UIO | 1) << 4 | (UIO | 0), inmap23=(UIO | 0) << 4 | 0x2)
+    await h.wreg(IRQ_EN, 0x02)                                  # IRQ <- core 0 RX_VALID
+    dut.uio_in.value = 0b11                                     # both lines released (pulled up)
+    await run(h, 0)
+
+    async def send(frame):
+        for d, c in frame:
+            await FallingEdge(dut.clk)
+            dut.uio_in.value = d | c << 1
+
+    async def receive():
+        for _ in range(100):
+            if bit(dut.uo_out, 6):
+                return (await h.xfer([0x50, 0]))[1]             # READ_SCR clears RX_VALID
+            await FallingEdge(dut.clk)
+        return None
+
+    good = [0x00, 0xFF, 0x1C, 0xF0, 0x5A, 0x81]                 # 0x1C 'A' make code, 0xF0 break prefix
+    got = []
+    for b in good:
+        await send(ps2_frame(b))
+        got.append(await receive())
+    assert got == good, f"received {got}"
+    assert not await status(h, 0) & 0x10, "FLAG set by a good frame"
+    for kind in ({"bad_parity": True}, {"bad_stop": True}):
+        await send(ps2_frame(0x33, **kind))
+        assert await receive() is None, f"{kind}: a bad frame was saved"
+        assert await status(h, 0) & 0x10, f"{kind}: FLAG not raised"
+        await run(h, 0)                                         # RESTART clears FLAG
+        assert not await status(h, 0) & 0x10
+    await send(ps2_frame(0x29))                                 # still in sync afterwards
+    assert await receive() == 0x29

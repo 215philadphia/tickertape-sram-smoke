@@ -13,7 +13,7 @@ A host loads tables and configuration over an SPI port.
 | Document | Contents |
 |---|---|
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
-| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, six example programs, loading a program |
+| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
 | [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
@@ -60,10 +60,11 @@ RTL testbench (needs Icarus Verilog 12 and cocotb 2.0.1):
 cd test && make -B
 ```
 
-11/11 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
+12/12 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
 a UART transmitter, UOMAP pass-through and PINMODE 3 row-controlled pins. `test_programs.py` runs every
 program the OCaml compiler produces on the chip and decodes the pins: UART TX, UART RX at ±1% baud error,
-SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, and half-duplex UART on one wire.
+SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire, and
+a PS/2 receiver with parity checking.
 
 Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`.
 
@@ -74,7 +75,7 @@ cd model && ./run_tests.sh
 ```
 
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
-static checks and must-reject controls; it also exports the six compiled programs to `compiled_tables.json`.
+static checks and must-reject controls; it also exports the seven compiled programs to `compiled_tables.json`.
 
 ## Signoff status
 
