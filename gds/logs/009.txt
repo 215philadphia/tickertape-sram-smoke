@@ -1,0 +1,222 @@
+Original log: gds/3_Build GDS.txt
+2026-11-13T23:03:31.0589482Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:03:31.1088508Z   empty_packages_behavior: error
+2026-11-13T23:03:31.1192057Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:03:31.1198975Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-13T23:03:34.7511288Z   fail-on-cache-miss: false
+2026-11-13T23:03:36.7607378Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:03:36.9476601Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:03:42.6909676Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:03:54.9880651Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:08.2829058Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:24.1361785Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:28.9712538Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:42.9218872Z ##[error]The operation was canceled.
+2026-11-13T23:04:42.9259177Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T23:04:42.9260124Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T23:04:42.9264612Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T23:04:42.9265248Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T23:04:42.9295666Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:42.9372194Z ##[error]Process completed with exit code 1.
+2026-11-13T23:04:42.9379554Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=14]
+--- LAST 200 LINES ---
+2026-11-13T23:04:08.2837172Z ##[endgroup]
+2026-11-13T23:04:24.1319258Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_4;outcome=success;conclusion=success;duration_ms=15855]
+2026-11-13T23:04:24.1321882Z ##[start-action display=Install LibreLane;id=__TinyTapeout_tt-gds-action.__run_5]
+2026-11-13T23:04:24.1340901Z ##[group]Run pip install librelane==3.1.0.dev3
+2026-11-13T23:04:24.1341286Z [36;1mpip install librelane==3.1.0.dev3[0m
+2026-11-13T23:04:24.1361785Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:24.1362170Z env:
+2026-11-13T23:04:24.1362369Z   PDK: ihp-sg13cmos5l
+2026-11-13T23:04:24.1362621Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T23:04:24.1362869Z   TT_ARGS: --ihp
+2026-11-13T23:04:24.1363114Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T23:04:24.1363486Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:24.1363933Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T23:04:24.1364381Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:24.1364979Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:24.1365383Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:24.1365789Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T23:04:24.1366123Z ##[endgroup]
+2026-11-13T23:04:24.5220246Z Collecting librelane==3.1.0.dev3
+2026-11-13T23:04:24.6158309Z   Downloading librelane-3.1.0.dev3-py3-none-any.whl.metadata (8.8 kB)
+2026-11-13T23:04:24.6386615Z Collecting ciel<3,>=2.3.1 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:24.6661824Z   Downloading ciel-2.6.1-py3-none-any.whl.metadata (7.5 kB)
+2026-11-13T23:04:24.6724338Z Requirement already satisfied: click<8.4,>=8 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from librelane==3.1.0.dev3) (8.2.1)
+2026-11-13T23:04:24.6948512Z Collecting cloup<4,>=3.0.5 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:24.7149798Z   Downloading cloup-3.1.0-py2.py3-none-any.whl.metadata (6.4 kB)
+2026-11-13T23:04:24.7382567Z Collecting deprecated<2,>=1.2.10 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:24.7570711Z   Downloading deprecated-1.3.1-py2.py3-none-any.whl.metadata (5.9 kB)
+2026-11-13T23:04:24.7839649Z Collecting httpx<0.29,>=0.22.0 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:24.8028420Z   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+2026-11-13T23:04:24.8081595Z Requirement already satisfied: klayout<0.32.0,>=0.29.0 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from librelane==3.1.0.dev3) (0.29.12)
+2026-11-13T23:04:24.8263880Z Collecting lln-libparse==0.56.* (from librelane==3.1.0.dev3)
+2026-11-13T23:04:24.8461157Z   Downloading lln_libparse-0.56.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+2026-11-13T23:04:25.0987911Z Collecting lxml>=4.9.0 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.1176207Z   Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+2026-11-13T23:04:25.1855998Z Collecting psutil>=5.9.0 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.2045546Z   Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+2026-11-13T23:04:25.2176961Z Requirement already satisfied: pyyaml<7,>=5 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from librelane==3.1.0.dev3) (6.0.2)
+2026-11-13T23:04:25.6616036Z Collecting rapidfuzz<4,>=3.9.0 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.6802828Z   Downloading rapidfuzz-3.14.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (12 kB)
+2026-11-13T23:04:25.7158073Z Collecting rich<16,>=12 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.7346468Z   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+2026-11-13T23:04:25.7580242Z Collecting semver<4,>=3.0.2 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.7805361Z   Downloading semver-3.1.1-py3-none-any.whl.metadata (5.1 kB)
+2026-11-13T23:04:25.8121713Z Collecting yamlcore<0.1.0,>=0.0.2 (from librelane==3.1.0.dev3)
+2026-11-13T23:04:25.8323347Z   Downloading yamlcore-0.0.4-py3-none-any.whl.metadata (4.0 kB)
+2026-11-13T23:04:25.8527875Z Collecting pcpp<2,>=1.2 (from ciel<3,>=2.3.1->librelane==3.1.0.dev3)
+2026-11-13T23:04:25.8726692Z   Downloading pcpp-1.30-py2.py3-none-any.whl.metadata (23 kB)
+2026-11-13T23:04:25.9885459Z Collecting zstandard<1,>=0.19.0 (from ciel<3,>=2.3.1->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.0073857Z   Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+2026-11-13T23:04:26.5011695Z Collecting wrapt<3,>=1.10 (from deprecated<2,>=1.2.10->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.5200948Z   Downloading wrapt-2.5.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+2026-11-13T23:04:26.5463495Z Collecting anyio (from httpx<0.29,>=0.22.0->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.5654124Z   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+2026-11-13T23:04:26.5694987Z Requirement already satisfied: certifi in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from httpx<0.29,>=0.22.0->librelane==3.1.0.dev3) (2025.8.3)
+2026-11-13T23:04:26.5881954Z Collecting httpcore==1.* (from httpx<0.29,>=0.22.0->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.6069809Z   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+2026-11-13T23:04:26.6150264Z Requirement already satisfied: idna in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from httpx<0.29,>=0.22.0->librelane==3.1.0.dev3) (3.10)
+2026-11-13T23:04:26.6301615Z Collecting h11>=0.16 (from httpcore==1.*->httpx<0.29,>=0.22.0->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.6487796Z   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+2026-11-13T23:04:26.6761607Z Collecting wheel (from lln-libparse==0.56.*->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.6950741Z   Downloading wheel-0.48.0-py3-none-any.whl.metadata (2.3 kB)
+2026-11-13T23:04:26.7182635Z Collecting markdown-it-py>=2.2.0 (from rich<16,>=12->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.7368424Z   Downloading markdown_it_py-4.3.0-py3-none-any.whl.metadata (7.9 kB)
+2026-11-13T23:04:26.7426481Z Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from rich<16,>=12->librelane==3.1.0.dev3) (2.19.2)
+2026-11-13T23:04:26.7599741Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich<16,>=12->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.7783112Z   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+2026-11-13T23:04:26.8013573Z Collecting typing_extensions>=4.16.0 (from anyio->httpx<0.29,>=0.22.0->librelane==3.1.0.dev3)
+2026-11-13T23:04:26.8201767Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+2026-11-13T23:04:26.8259114Z Requirement already satisfied: packaging>=24.0 in /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages (from wheel->lln-libparse==0.56.*->librelane==3.1.0.dev3) (25.0)
+2026-11-13T23:04:26.8530370Z Downloading librelane-3.1.0.dev3-py3-none-any.whl (429 kB)
+2026-11-13T23:04:26.9251275Z Downloading ciel-2.6.1-py3-none-any.whl (38 kB)
+2026-11-13T23:04:26.9476909Z Downloading cloup-3.1.0-py2.py3-none-any.whl (55 kB)
+2026-11-13T23:04:26.9690218Z Downloading deprecated-1.3.1-py2.py3-none-any.whl (11 kB)
+2026-11-13T23:04:26.9894463Z Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+2026-11-13T23:04:27.0106625Z Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+2026-11-13T23:04:27.0335750Z Downloading lln_libparse-0.56.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (134 kB)
+2026-11-13T23:04:27.0561658Z Downloading pcpp-1.30-py2.py3-none-any.whl (91 kB)
+2026-11-13T23:04:27.0783062Z Downloading rapidfuzz-3.14.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)
+2026-11-13T23:04:27.1291024Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 63.9 MB/s  0:00:00
+2026-11-13T23:04:27.1479446Z Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+2026-11-13T23:04:27.1702604Z Downloading semver-3.1.1-py3-none-any.whl (18 kB)
+2026-11-13T23:04:27.1934172Z Downloading wrapt-2.5.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (240 kB)
+2026-11-13T23:04:27.2158529Z Downloading yamlcore-0.0.4-py3-none-any.whl (6.0 kB)
+2026-11-13T23:04:27.2408451Z Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-11-13T23:04:27.2687110Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 222.6 MB/s  0:00:00
+2026-11-13T23:04:27.2879863Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-11-13T23:04:27.3108144Z Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+2026-11-13T23:04:27.3301902Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 338.8 MB/s  0:00:00
+2026-11-13T23:04:27.3496319Z Downloading markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+2026-11-13T23:04:27.3709125Z Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-11-13T23:04:27.3918476Z Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+2026-11-13T23:04:27.4164430Z Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+2026-11-13T23:04:27.4372593Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-13T23:04:27.4577687Z Downloading wheel-0.48.0-py3-none-any.whl (33 kB)
+2026-11-13T23:04:27.6122318Z Installing collected packages: pcpp, zstandard, yamlcore, wrapt, wheel, typing_extensions, semver, rapidfuzz, psutil, mdurl, lxml, h11, cloup, markdown-it-py, lln-libparse, httpcore, deprecated, anyio, rich, httpx, ciel, librelane
+2026-11-13T23:04:28.8684451Z 
+2026-11-13T23:04:28.8715262Z Successfully installed anyio-4.16.0 ciel-2.6.1 cloup-3.1.0 deprecated-1.3.1 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 librelane-3.1.0.dev3 lln-libparse-0.56.0 lxml-6.1.3 markdown-it-py-4.3.0 mdurl-0.1.2 pcpp-1.30 psutil-7.2.2 rapidfuzz-3.14.6 rich-15.0.0 semver-3.1.1 typing_extensions-4.16.0 wheel-0.48.0 wrapt-2.5.2 yamlcore-0.0.4 zstandard-0.25.0
+2026-11-13T23:04:28.9669502Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_5;outcome=success;conclusion=success;duration_ms=4834]
+2026-11-13T23:04:28.9672273Z ##[start-action display=Make GDS with LibreLane;id=__TinyTapeout_tt-gds-action.__run_6]
+2026-11-13T23:04:28.9691356Z ##[group]Run ./tt/tt_tool.py --harden $TT_ARGS
+2026-11-13T23:04:28.9691740Z [36;1m./tt/tt_tool.py --harden $TT_ARGS[0m
+2026-11-13T23:04:28.9712538Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:28.9712911Z env:
+2026-11-13T23:04:28.9713121Z   PDK: ihp-sg13cmos5l
+2026-11-13T23:04:28.9713366Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T23:04:28.9713615Z   TT_ARGS: --ihp
+2026-11-13T23:04:28.9713867Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T23:04:28.9714232Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:28.9714668Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T23:04:28.9715427Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:28.9715837Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:28.9716245Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:28.9716655Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T23:04:28.9716993Z ##[endgroup]
+2026-11-13T23:04:31.2748788Z 3.1.0.dev3: Pulling from librelane/librelane
+2026-11-13T23:04:31.4156608Z 38c20df466be: Pulling fs layer
+2026-11-13T23:04:31.4157368Z 0ed324f0ec18: Pulling fs layer
+2026-11-13T23:04:31.6668385Z 0ed324f0ec18: Verifying Checksum
+2026-11-13T23:04:31.6669104Z 0ed324f0ec18: Download complete
+2026-11-13T23:04:42.9218872Z ##[error]The operation was canceled.
+2026-11-13T23:04:42.9223338Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=cancelled;conclusion=cancelled;duration_ms=13955]
+2026-11-13T23:04:42.9227561Z ##[start-action display=Show build files (for debugging);id=__TinyTapeout_tt-gds-action.__run_7]
+2026-11-13T23:04:42.9230771Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_7;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9234567Z ##[start-action display=Linter output;id=__TinyTapeout_tt-gds-action.__run_8]
+2026-11-13T23:04:42.9254961Z ##[group]Run LINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)
+2026-11-13T23:04:42.9255959Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-13T23:04:42.9256662Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-13T23:04:42.9257167Z [36;1m[0m
+2026-11-13T23:04:42.9257568Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-13T23:04:42.9257906Z [36;1mcat $LINTER_LOG[0m
+2026-11-13T23:04:42.9258148Z [36;1mecho "END DEBUG"[0m
+2026-11-13T23:04:42.9258380Z [36;1m[0m
+2026-11-13T23:04:42.9258602Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-13T23:04:42.9258876Z [36;1m  set +e[0m
+2026-11-13T23:04:42.9259177Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T23:04:42.9259623Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-13T23:04:42.9260124Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T23:04:42.9260544Z [36;1m  set -e[0m
+2026-11-13T23:04:42.9260754Z [36;1m[0m
+2026-11-13T23:04:42.9260967Z [36;1m  open=""[0m
+2026-11-13T23:04:42.9261367Z [36;1m  summary=""[0m
+2026-11-13T23:04:42.9261610Z [36;1m  icon=":green_circle:"[0m
+2026-11-13T23:04:42.9261892Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-13T23:04:42.9262380Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-13T23:04:42.9262690Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T23:04:42.9263187Z [36;1m  fi[0m
+2026-11-13T23:04:42.9263530Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-13T23:04:42.9263840Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-13T23:04:42.9264142Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T23:04:42.9264391Z [36;1m  fi[0m
+2026-11-13T23:04:42.9264612Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T23:04:42.9265248Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T23:04:42.9265619Z [36;1m    icon=":red_circle:"[0m
+2026-11-13T23:04:42.9266100Z [36;1m    open="open"[0m
+2026-11-13T23:04:42.9266491Z [36;1m  fi[0m
+2026-11-13T23:04:42.9266715Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-13T23:04:42.9267070Z [36;1m    summary="[$summary]"[0m
+2026-11-13T23:04:42.9267489Z [36;1m  fi[0m
+2026-11-13T23:04:42.9267694Z [36;1m[0m
+2026-11-13T23:04:42.9267957Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9268515Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9269056Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9269734Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-13T23:04:42.9270314Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9270712Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9271193Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:04:42.9271484Z [36;1mfi[0m
+2026-11-13T23:04:42.9295666Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:42.9296164Z env:
+2026-11-13T23:04:42.9296375Z   PDK: ihp-sg13cmos5l
+2026-11-13T23:04:42.9296801Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T23:04:42.9297086Z   TT_ARGS: --ihp
+2026-11-13T23:04:42.9297323Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T23:04:42.9298051Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:42.9298501Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T23:04:42.9298938Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:42.9299715Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:42.9300305Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:04:42.9300922Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T23:04:42.9301537Z ##[endgroup]
+2026-11-13T23:04:42.9349083Z DEBUG LINTER_LOG *runs/wokwi/*-verilator-lint/verilator-lint.log*
+2026-11-13T23:04:42.9364357Z cat: 'runs/wokwi/*-verilator-lint/verilator-lint.log': No such file or directory
+2026-11-13T23:04:42.9372194Z ##[error]Process completed with exit code 1.
+2026-11-13T23:04:42.9379554Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=14]
+2026-11-13T23:04:42.9382796Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-13T23:04:42.9385747Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9387743Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-13T23:04:42.9389680Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9391549Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-13T23:04:42.9406891Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9409188Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T23:04:42.9415555Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9417682Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-13T23:04:42.9419922Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9422630Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-13T23:04:42.9425738Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9428633Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-13T23:04:42.9430658Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:04:42.9432641Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-13T23:04:42.9434638Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
