@@ -59,7 +59,10 @@ let create ~table ~p ~msb_first ~reset_sel =
 let restart c =
   c.st <- 0; c.timer <- 0;
   c.sel_a <- fst c.reset_sel; c.sel_b <- snd c.reset_sel;
-  c.sr <- 0; c.obit <- 0; c.cnt <- 0; c.scr <- 0; c.dir <- 0;
+  c.sr <- 0; c.obit <- 0; c.cnt <- 0; c.dir <- 0;
+  (* Spec v1.1 section 5 and the RTL: RESTART does NOT clear SCR (nor RX_VALID / RX_OVR / VALID,
+     which this model does not represent); only reset does. rx_bytes is not chip state: it is
+     this model's log of SAVEd bytes, cleared here so a reused core starts a fresh transaction. *)
   c.tx_full <- false; Queue.clear c.tx_queue; c.rx_bytes <- []
 
 (* Host push into the depth-3 TX FIFO (tx_reg + 2 queued). Returns false if full. *)
