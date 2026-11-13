@@ -65,13 +65,31 @@ cd model && ./run_tests.sh
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
 static checks and must-reject controls; it also exports the six compiled programs to `compiled_tables.json`.
 
-## Signoff checklist (GDS flow)
+## Signoff status
 
-1. `gds` job completes; record `A_DOUT -> A_ADDR` slack (slow corner), cell area and utilization.
-2. KLayout DRC clean. If it reports `M3.f` at a macro edge, add a Metal3 `ROUTING_OBSTRUCTIONS` strip there.
-3. LVS clean (the power-hookup signoff; `ERROR_ON_PDN_VIOLATIONS` is 0).
-4. `precheck` job passes.
-5. `gl_test` job passes.
+From [gds run #28](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43453786318) on `main`
+(commit `19754a1`); reports are on the `results-19754a1-43468440259` branch published by the collector.
+
+| Check | Result |
+|---|---|
+| `gds` job | Pass. Die 1724.16 x 710.64 um (8x4), core area 1.208 mm², utilization 15.1% (standard cells 7.6%) |
+| Setup, slow corner (1.08 V, 125 C) | Met. Worst slack 4.17 ns (`rst_n` input to `sram1`); worst register-to-register slack 10.89 ns, which bounds the `A_DOUT -> A_ADDR` loop |
+| Hold | Met. Worst slack 0.107 ns (fast corner) |
+| KLayout DRC | Clean (precheck: SG13CMOS5L DRC, pin labels, zero area) |
+| LVS | Clean (0 errors, 0 unmatched nets, devices or pins); this is the power-hookup signoff |
+| Antenna | 0 violations |
+| `precheck` job | Pass |
+| `gl_test` job | Pass |
+
+Open items:
+
+- **Electrical rule violations** in post-route STA: 21 max-capacitance, up to 11 max-slew and 3 max-fanout
+  violations (all corners report them). They do not fail the flow, but should be fixed or explained before submission.
+- Expected and accepted by config: 16264 pdngen power-grid warnings (the SRAM stripes are bridged after that check;
+  LVS is the connectivity signoff) and 182 Magic illegal-overlap reports (false positive on the macro's LEF Metal4
+  obstruction; Magic DRC is off and KLayout DRC is the physical signoff).
+
+If KLayout DRC ever reports `M3.f` at a macro edge, add a Metal3 `ROUTING_OBSTRUCTIONS` strip there.
 
 ## History
 
