@@ -50,6 +50,7 @@ Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
 | [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
+| [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
 | [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
 
