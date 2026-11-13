@@ -1,0 +1,222 @@
+Original log: 3_gds.txt
+2026-11-13T23:04:40.2281870Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:40.2430138Z   empty_packages_behavior: error
+2026-11-13T23:04:40.2471628Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:04:40.2473117Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-13T23:04:57.0573086Z   fail-on-cache-miss: false
+2026-11-13T23:04:59.8116777Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:00.0970980Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:08.2785687Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:17.0781909Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:26.9973971Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:47.3592057Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:50.8177251Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:06:47.4260827Z ##[error]The operation was canceled.
+2026-11-13T23:06:47.4300186Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T23:06:47.4301231Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T23:06:47.4306286Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T23:06:47.4306619Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T23:06:47.4341221Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:06:47.4417083Z ##[error]Process completed with exit code 1.
+2026-11-13T23:06:47.4425811Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=14]
+--- LAST 200 LINES ---
+2026-11-13T23:05:49.5767072Z Downloading rapidfuzz-3.14.6-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (3.2 MB)
+2026-11-13T23:05:49.6014313Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 136.0 MB/s  0:00:00
+2026-11-13T23:05:49.6093525Z Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+2026-11-13T23:05:49.6199751Z Downloading semver-3.1.1-py3-none-any.whl (18 kB)
+2026-11-13T23:05:49.6291853Z Downloading wrapt-2.5.2-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (240 kB)
+2026-11-13T23:05:49.6403157Z Downloading yamlcore-0.0.4-py3-none-any.whl (6.0 kB)
+2026-11-13T23:05:49.6503626Z Downloading zstandard-0.25.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.6 MB)
+2026-11-13T23:05:49.6739640Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.6/5.6 MB 240.3 MB/s  0:00:00
+2026-11-13T23:05:49.6820610Z Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+2026-11-13T23:05:49.6920041Z Downloading lxml-6.1.3-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+2026-11-13T23:05:49.7539279Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 82.2 MB/s  0:00:00
+2026-11-13T23:05:49.7617759Z Downloading markdown_it_py-4.3.0-py3-none-any.whl (96 kB)
+2026-11-13T23:05:49.7716034Z Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+2026-11-13T23:05:49.7835949Z Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+2026-11-13T23:05:49.7945702Z Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+2026-11-13T23:05:49.8035343Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-13T23:05:49.8135053Z Downloading wheel-0.48.0-py3-none-any.whl (33 kB)
+2026-11-13T23:05:49.9160581Z Installing collected packages: pcpp, zstandard, yamlcore, wrapt, wheel, typing_extensions, semver, rapidfuzz, psutil, mdurl, lxml, h11, cloup, markdown-it-py, lln-libparse, httpcore, deprecated, anyio, rich, httpx, ciel, librelane
+2026-11-13T23:05:50.7359029Z 
+2026-11-13T23:05:50.7377939Z Successfully installed anyio-4.16.0 ciel-2.6.1 cloup-3.1.0 deprecated-1.3.1 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 librelane-3.1.0.dev3 lln-libparse-0.56.0 lxml-6.1.3 markdown-it-py-4.3.0 mdurl-0.1.2 pcpp-1.30 psutil-7.2.2 rapidfuzz-3.14.6 rich-15.0.0 semver-3.1.1 typing_extensions-4.16.0 wheel-0.48.0 wrapt-2.5.2 yamlcore-0.0.4 zstandard-0.25.0
+2026-11-13T23:05:50.8133436Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_5;outcome=success;conclusion=success;duration_ms=3458]
+2026-11-13T23:05:50.8136398Z ##[start-action display=Make GDS with LibreLane;id=__TinyTapeout_tt-gds-action.__run_6]
+2026-11-13T23:05:50.8149731Z ##[group]Run ./tt/tt_tool.py --harden $TT_ARGS
+2026-11-13T23:05:50.8150073Z [36;1m./tt/tt_tool.py --harden $TT_ARGS[0m
+2026-11-13T23:05:50.8177251Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:05:50.8177606Z env:
+2026-11-13T23:05:50.8177840Z   PDK: ihp-sg13cmos5l
+2026-11-13T23:05:50.8178134Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T23:05:50.8178399Z   TT_ARGS: --ihp
+2026-11-13T23:05:50.8178661Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T23:05:50.8178986Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:05:50.8179415Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T23:05:50.8179795Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:05:50.8180160Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:05:50.8180502Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:05:50.8180853Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T23:05:50.8181186Z ##[endgroup]
+2026-11-13T23:05:59.6216049Z 3.1.0.dev3: Pulling from librelane/librelane
+2026-11-13T23:05:59.7613554Z 38c20df466be: Pulling fs layer
+2026-11-13T23:05:59.7614198Z 0ed324f0ec18: Pulling fs layer
+2026-11-13T23:06:00.1808297Z 0ed324f0ec18: Verifying Checksum
+2026-11-13T23:06:00.1808749Z 0ed324f0ec18: Download complete
+2026-11-13T23:06:39.4563277Z 38c20df466be: Verifying Checksum
+2026-11-13T23:06:39.4564237Z 38c20df466be: Download complete
+2026-11-13T23:06:47.4260827Z ##[error]The operation was canceled.
+2026-11-13T23:06:47.4266351Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=cancelled;conclusion=cancelled;duration_ms=56612]
+2026-11-13T23:06:47.4271226Z ##[start-action display=Show build files (for debugging);id=__TinyTapeout_tt-gds-action.__run_7]
+2026-11-13T23:06:47.4274238Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_7;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4277014Z ##[start-action display=Linter output;id=__TinyTapeout_tt-gds-action.__run_8]
+2026-11-13T23:06:47.4296314Z ##[group]Run LINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)
+2026-11-13T23:06:47.4296957Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-13T23:06:47.4297406Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-13T23:06:47.4297767Z [36;1m[0m
+2026-11-13T23:06:47.4298118Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-13T23:06:47.4298501Z [36;1mcat $LINTER_LOG[0m
+2026-11-13T23:06:47.4298851Z [36;1mecho "END DEBUG"[0m
+2026-11-13T23:06:47.4299152Z [36;1m[0m
+2026-11-13T23:06:47.4299424Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-13T23:06:47.4299803Z [36;1m  set +e[0m
+2026-11-13T23:06:47.4300186Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T23:06:47.4300678Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-13T23:06:47.4301231Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T23:06:47.4301670Z [36;1m  set -e[0m
+2026-11-13T23:06:47.4302066Z [36;1m[0m
+2026-11-13T23:06:47.4302318Z [36;1m  open=""[0m
+2026-11-13T23:06:47.4302611Z [36;1m  summary=""[0m
+2026-11-13T23:06:47.4302930Z [36;1m  icon=":green_circle:"[0m
+2026-11-13T23:06:47.4303302Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-13T23:06:47.4303781Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-13T23:06:47.4304135Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T23:06:47.4304484Z [36;1m  fi[0m
+2026-11-13T23:06:47.4304820Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-13T23:06:47.4305323Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-13T23:06:47.4305735Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T23:06:47.4305992Z [36;1m  fi[0m
+2026-11-13T23:06:47.4306286Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T23:06:47.4306619Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T23:06:47.4306928Z [36;1m    icon=":red_circle:"[0m
+2026-11-13T23:06:47.4307244Z [36;1m    open="open"[0m
+2026-11-13T23:06:47.4307500Z [36;1m  fi[0m
+2026-11-13T23:06:47.4307791Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-13T23:06:47.4308064Z [36;1m    summary="[$summary]"[0m
+2026-11-13T23:06:47.4308417Z [36;1m  fi[0m
+2026-11-13T23:06:47.4308704Z [36;1m[0m
+2026-11-13T23:06:47.4308953Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4309464Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4309939Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4310353Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-13T23:06:47.4310749Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4311075Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4311429Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T23:06:47.4311719Z [36;1mfi[0m
+2026-11-13T23:06:47.4341221Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T23:06:47.4341588Z env:
+2026-11-13T23:06:47.4342078Z   PDK: ihp-sg13cmos5l
+2026-11-13T23:06:47.4342344Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T23:06:47.4342604Z   TT_ARGS: --ihp
+2026-11-13T23:06:47.4342901Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T23:06:47.4343278Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:06:47.4343726Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T23:06:47.4344115Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:06:47.4344579Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:06:47.4344960Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T23:06:47.4345503Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T23:06:47.4345936Z ##[endgroup]
+2026-11-13T23:06:47.4402415Z DEBUG LINTER_LOG *runs/wokwi/*-verilator-lint/verilator-lint.log*
+2026-11-13T23:06:47.4413099Z cat: 'runs/wokwi/*-verilator-lint/verilator-lint.log': No such file or directory
+2026-11-13T23:06:47.4417083Z ##[error]Process completed with exit code 1.
+2026-11-13T23:06:47.4425811Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=14]
+2026-11-13T23:06:47.4428591Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-13T23:06:47.4430800Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4432792Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-13T23:06:47.4434636Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4436754Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-13T23:06:47.4438622Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4440673Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T23:06:47.4446499Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4448773Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-13T23:06:47.4450966Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4453028Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-13T23:06:47.4455636Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4457948Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-13T23:06:47.4460200Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4462187Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-13T23:06:47.4464253Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4610697Z Post job cleanup.
+2026-11-13T23:06:47.4615009Z ##[start-action display=Setup python;id=__79ca90bd-f4ff-421c-8145-8dfc057e8bc9.__actions_setup-python]
+2026-11-13T23:06:47.4617602Z ##[end-action id=__79ca90bd-f4ff-421c-8145-8dfc057e8bc9.__actions_setup-python;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T23:06:47.4620038Z ##[start-action display=Checkout tt-support-tools repo;id=__79ca90bd-f4ff-421c-8145-8dfc057e8bc9.__actions_checkout]
+2026-11-13T23:06:47.4669512Z Post job cleanup.
+2026-11-13T23:06:47.5422111Z [command]/usr/bin/git version
+2026-11-13T23:06:47.5493365Z git version 2.56.1
+2026-11-13T23:06:47.5519340Z Temporarily overriding HOME='/home/runner/work/_temp/8b8174a3-658a-4792-aa85-b8314a118488' before making global git config changes
+2026-11-13T23:06:47.5520615Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T23:06:47.5522540Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt
+2026-11-13T23:06:47.5585893Z Removing SSH command configuration
+2026-11-13T23:06:47.5586541Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T23:06:47.5617839Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T23:06:47.5919354Z Removing HTTP extra header
+2026-11-13T23:06:47.5921597Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T23:06:47.5965010Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T23:06:47.6199472Z Removing includeIf entries pointing to credentials config files
+2026-11-13T23:06:47.6206181Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T23:06:47.6228186Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T23:06:47.6229251Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T23:06:47.6234593Z includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T23:06:47.6237691Z includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T23:06:47.6241833Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T23:06:47.6277726Z /home/runner/work/_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6295768Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path /home/runner/work/_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6530214Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T23:06:47.6531249Z /home/runner/work/_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6533453Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6535627Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T23:06:47.6536750Z /github/runner_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6538422Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git.path /github/runner_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6546865Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T23:06:47.6566683Z /github/runner_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6571493Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path /github/runner_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config
+2026-11-13T23:06:47.6627794Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T23:06:47.6779625Z Removing credentials config '/home/runner/work/_temp/git-credentials-d59569df-ebef-4203-bd3a-297b50e2fb3e.config'
+2026-11-13T23:06:47.6873054Z ##[end-action id=__79ca90bd-f4ff-421c-8145-8dfc057e8bc9.__actions_checkout;outcome=success;conclusion=success;duration_ms=225]
+2026-11-13T23:06:47.6938872Z Post job cleanup.
+2026-11-13T23:06:47.7659789Z [command]/usr/bin/git version
+2026-11-13T23:06:47.7691639Z git version 2.56.1
+2026-11-13T23:06:47.7722793Z Temporarily overriding HOME='/home/runner/work/_temp/225854ce-d8ac-4a89-978b-1700ab3534d8' before making global git config changes
+2026-11-13T23:06:47.7728279Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T23:06:47.7733151Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-13T23:06:47.7783332Z Removing SSH command configuration
+2026-11-13T23:06:47.7784230Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T23:06:47.7788036Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T23:06:47.8027123Z Removing HTTP extra header
+2026-11-13T23:06:47.8028322Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T23:06:47.8076922Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T23:06:47.8316397Z Removing includeIf entries pointing to credentials config files
+2026-11-13T23:06:47.8328288Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T23:06:47.8356601Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T23:06:47.8357820Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T23:06:47.8359319Z includeif.gitdir:/github/workspace/.git.path
+2026-11-13T23:06:47.8359909Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T23:06:47.8362677Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T23:06:47.8383632Z /home/runner/work/_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8394867Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8424708Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T23:06:47.8448495Z /home/runner/work/_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8488797Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8491537Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-13T23:06:47.8503971Z /github/runner_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8509221Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8541020Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T23:06:47.8560759Z /github/runner_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8568644Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config
+2026-11-13T23:06:47.8601465Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T23:06:47.8776901Z Removing credentials config '/home/runner/work/_temp/git-credentials-ad62790e-2388-4dfb-bdba-925ce2488dce.config'
+2026-11-13T23:06:47.8890929Z Cleaning up orphan processes
+2026-11-13T23:06:47.9087941Z Terminate orphan process: pid (2734) (python3)
+2026-11-13T23:06:47.9409615Z Terminate orphan process: pid (2752) (git)
+2026-11-13T23:06:47.9435039Z Terminate orphan process: pid (2754) (sh)
+2026-11-13T23:06:47.9452703Z Terminate orphan process: pid (2755) (python)
+2026-11-13T23:06:47.9472857Z Terminate orphan process: pid (2804) (docker)
