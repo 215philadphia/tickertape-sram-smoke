@@ -1,0 +1,86 @@
+Artifact: tt_submission
+Original path: docs/applications.md
+
+# Applications
+
+TickerTape-Out is a 50 MHz chip on a 130 nm process with 24 digital pins. It is not a trading system,
+and it is not meant to be one. What it demonstrates is a set of architectural ideas: deterministic
+table-driven protocol engines, engines that react to each other without a host, pass-through pins, and
+programs that are checked before they run. This page describes where those ideas apply, and what the
+chip itself is realistically for.
+
+## What the chip is for: hardware debugging and reverse engineering
+
+The competition's own motivation is the primary use. Engineers bringing up and debugging boards
+constantly need to talk to low-speed interfaces: UART consoles, SPI flash, I2C sensors, PS/2 devices, and
+debug ports such as SWD and JTAG. TickerTape-Out is a tool for that:
+
+- **Emulate either side of a protocol** by loading a table, without new hardware. Seven programs are
+  demonstrated on the chip RTL, including a PS/2 receiver the design was not built around
+  ([toolchain.md](toolchain.md#example-programs)).
+- **Observe a live line while passing it through.** Any output can forward an input pin, directly or
+  through a synchronizer, while a core parses the same signal ([architecture.md](architecture.md#pins)).
+  The chip can sit between two devices, watch their traffic and flag events, without breaking the link.
+- **Drive shared buses safely.** Row-controlled pins turn a line around inside the program, so
+  half-duplex and open-drain buses can be driven with no contention (`test_compiled_half_duplex` checks
+  for zero contention cycles).
+
+## Where the architecture's ideas apply in finance
+
+Trading firms build much of their latency-critical hardware as state machines in FPGAs. Each idea in
+TickerTape-Out has a full-scale counterpart there.
+
+### Deterministic parsing
+
+Exchange market-data feeds are parsed in FPGAs as state machines because the timing is fixed: every
+message takes the same number of cycles, with no instruction fetch, cache or interrupt to add jitter.
+TickerTape-Out works the same way in miniature: a row lasts exactly P x (1 + wait) cycles, and the next
+row is read during the current one, so there is no fetch overhead
+([architecture.md](architecture.md#timing)).
+
+### Hardware pre-trade risk checks
+
+In the US, broker-dealers with market access must have pre-trade risk controls that stop orders breaching
+price, size or credit limits (the SEC's Market Access Rule, 15c3-5). Firms implement such checks in
+hardware so they add as little latency as possible.
+
+The Nano-Tick demo is closer to this than to a trading strategy. One engine extracts a value from a
+stream, hardware compares it with a host-set limit, and the result gates what a second engine may send,
+with no software in the path ([test](../test/test_programs.py), `test_compiled_nanotick`). The `VALID`
+gate, which stops the comparator acting on the scratch register's reset value, is the kind of detail
+a risk gate needs: it never acts on data that has not arrived.
+
+### Taps and timestamping
+
+Network taps and capture appliances forward traffic untouched while recording or flagging what passes,
+for latency measurement and compliance records. TickerTape-Out's pass-through pins, combined with a core
+parsing the same line, are the same "bump in the wire" pattern.
+
+### Verified state machines
+
+In trading hardware, a state machine that can hang or reach an unintended state is an operational risk,
+not just a bug. The TickerTape-Out compiler rejects unreachable states and deadlock traps before a
+program ever runs ([toolchain.md](toolchain.md#what-the-compiler-checks)), and the verification suite
+checks that its own tests fail on deliberately broken programs ([verification.md](verification.md)).
+Proving such properties at compile time carries over directly to full-scale designs.
+
+## What would change at full scale
+
+| | TickerTape-Out | Production trading hardware |
+|---|---|---|
+| Interfaces | UART, SPI, I2C, PS/2 at kHz to low-MHz rates | 10–25 Gb Ethernet |
+| Implementation | 130 nm ASIC, 50 MHz | FPGA, or an advanced-process ASIC |
+| Decision logic | One byte compared with one threshold | Order books, positions, many instruments |
+| Risk controls | None beyond the `VALID` gate | Required by regulation before any order reaches an exchange |
+
+The ideas transfer: table-driven protocol engines, a compiler that checks programs before they run, and
+the verification approach. The 130 nm chip and its pins do not. As a block inside an FPGA, the same
+architecture would give a reprogrammable, deterministic protocol engine whose programs can be verified
+before deployment.
+
+## What Nano-Tick is, and is not
+
+Nano-Tick demonstrates two engines on one chip reacting to each other deterministically with no host in
+the loop: a received price below a threshold produces exactly one 3-byte SPI message per crossing. It is
+not an autonomous trading system: it has no order book or risk controls, and its feed is UART, not a
+market-data network. Sending real orders without pre-trade risk checks would not be permitted.
