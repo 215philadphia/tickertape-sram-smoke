@@ -103,6 +103,10 @@
   "//DESIGN_REPAIR_MAX_CAP_PCT": "Repair to 40% of each cap limit and 60% of each slew limit (defaults 80%/80%), to absorb post-route growth over placement estimates.",
   "DESIGN_REPAIR_MAX_CAP_PCT": 60,
   "DESIGN_REPAIR_MAX_SLEW_PCT": 40,
+  "//RUN_POST_GRT_DESIGN_REPAIR": "Repair cap/slew/fanout again on global-route parasitics, after post-CTS hold fixing. Post-GPL repair ends with 0 violations, yet signoff STA shows 21 cap (SRAM A_DOUT), 11 slew (SRAM inputs, e.g. a hold dlygate driving sram1/A_ADDR[1]) and 3 fanout. Margins 20% (default 10%) for detailed-route growth.",
+  "RUN_POST_GRT_DESIGN_REPAIR": 1,
+  "GRT_DESIGN_REPAIR_MAX_CAP_PCT": 20,
+  "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 20,
   "PDN_MULTILAYER": 0,
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1
