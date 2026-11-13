@@ -13,8 +13,8 @@
 
 Run `./run_tests.sh` (needs `ocamlfind` with `str`). CI runs it on every push (`.github/workflows/model.yaml`).
 
-Known gaps versus spec v1.1: the model clears the scratchpad on RESTART (v1.1 does not); it models the `dir`
-register but not the pin modes that consume it; cycle alignment with the RTL's read-ahead is not cross-checked.
+RESTART matches spec v1.1 section 5 and the RTL: it keeps SCR (checked in main.ml). Known gaps: the model
+has the `dir` register but not the pin modes that consume it, nor DONE/FLAG/TX_OVR/OUT_INIT; cycle alignment with the RTL's read-ahead is not cross-checked.
 Compiled UART TX/RX, SPI TX and half-duplex UART tables have been run on the chip RTL through the host port and
 decoded from the pins, the half-duplex one on a single PINMODE 3 wire with zero contention cycles (rtl harness
 `chip_compiled_test.py`, kept with the RTL verification package).

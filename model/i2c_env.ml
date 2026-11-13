@@ -140,7 +140,7 @@ let run (v : Refs.vector) txns =
       let q = ref (hdr :: (match tx.kind with
           | `W | `P -> tx.payload
           | `R -> List.init tx.nread (fun _ -> 0))) in
-      Pfst.restart c;                 (* now clears rx_bytes/scr itself *)
+      Pfst.restart c;                 (* clears the rx_bytes log; SCR is kept, as on the chip *)
       let cyc = ref 0 and started = ref false and timeout = ref false in
       let flag = ref false in                    (* sticky, chip-level, not core-level *)
       while not (!started && c.Pfst.st = v.done_state && c.Pfst.timer = 0) && not !timeout do

@@ -222,17 +222,18 @@ let visited_rows (v : Refs.vector) txn =
   Hashtbl.fold (fun k v acc -> (k, v) :: acc) seen []
 
 let neg_restart_leaves_stale_rx () =
-  check "neg: restart must clear rx_bytes/scr (stale read must not leak)" (fun () ->
+  check "restart: clears the rx_bytes log, keeps SCR (spec v1.1 section 5)" (fun () ->
       let v = Refs.load "i2c_wr.vec" in
       let txn : I2c_env.txn = { kind = `W; addr = 0x50; payload = [0x00]; nread = 0; slave_data = [] } in
       let c = Pfst.create ~table:v.table ~p:v.p ~msb_first:v.msb ~reset_sel:v.reset_sel in
       (* Dirty the core directly, bypassing I2c_env.run's own setup, then
-         restart and confirm nothing from before the restart survives. *)
+         restart: the model's byte log must not leak into the next transaction,
+         and SCR must survive, as on the chip (only reset clears it). *)
       ignore (Pfst.step c ~raw_in:[| 1; 1; 0; 0 |] ~cmp:0);
       c.Pfst.rx_bytes <- [0xAA; 0xBB]; c.Pfst.scr <- 0x42;
       Pfst.restart c;
       if c.Pfst.rx_bytes <> [] then failwith "rx_bytes survived a restart";
-      if c.Pfst.scr <> 0 then failwith "scr survived a restart";
+      if c.Pfst.scr <> 0x42 then failwith (Printf.sprintf "SCR changed by restart (0x%02x; spec v1.1: kept)" c.Pfst.scr);
       let results, terr = I2c_env.run v [txn] in
       if terr <> [] then failwith "unrelated: timing violations after restart";
       match results with
