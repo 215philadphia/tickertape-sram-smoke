@@ -8,8 +8,17 @@ Each core is a table-driven state machine whose transition table lives in its ow
 `RM_IHPSG13_1P_256x32_c2_bm_bist` SRAM macro, so UART, SPI and I2C are firmware tables, not hardware blocks.
 A host loads tables and configuration over an SPI port.
 
-The full datasheet text (how it works, SPI command set, external hardware) is in [`docs/info.md`](docs/info.md);
-the pinout is in [`info.yaml`](info.yaml).
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
+| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, six example programs, loading a program |
+| [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
+| [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
+| [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
+
+The pinout is in [`info.yaml`](info.yaml).
 
 ## How it works (summary)
 
@@ -40,7 +49,7 @@ the pinout is in [`info.yaml`](info.yaml).
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
 | `test/` | cocotb testbench (`test_pfst.py`) with the IHP SRAM simulation models in `test/models` |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
-| `docs/info.md` | Datasheet text |
+| `docs/` | Datasheet text (`info.md`) and the documents listed above |
 | `.github/workflows/` | `gds`, `test`, `model`, `fpga`, `docs` CI jobs |
 
 ## Running the tests

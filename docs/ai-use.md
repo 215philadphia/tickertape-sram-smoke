@@ -1,0 +1,37 @@
+# Use of AI tools
+
+The competition allows AI tools and asks entrants to describe how they used them. This page records that
+use.
+
+## Recorded in this repository
+
+Commits made with Claude Code (Anthropic) carry a `Co-Authored-By: Claude` trailer and a link to the
+session. To list them:
+
+```bash
+git log --grep="Co-Authored-By: Claude" --format="%h %ad %s" --date=short
+```
+
+Work done this way (each change goes to the author for review before it is merged):
+
+| Date | Work | How the result was checked |
+|---|---|---|
+| 2026-11-13 | README rewrite for the PFST design; `.gitignore` for model build output | RTL tests (5/5) and model tests (0 failures) run before writing; README facts checked against the source |
+| 2026-11-13 | Signoff results in the README, read from the CI results branch of gds run 28 | Numbers copied from the published timing, precheck and LVS reports |
+| 2026-11-13 | Comparison of the cap/slew/fanout experiment branches, and a post-global-routing design-repair experiment (`RUN_POST_GRT_DESIGN_REPAIR`) | LibreLane variable names and step order checked against LibreLane's source; result judged by the GDS run |
+| 2026-11-13 | `CLAUDE.md` (competition rules applied to this repo) and the documentation in `docs/` (`architecture.md`, `toolchain.md`, `verification.md`, this page) | Every statement checked against the RTL, the compiler, the tests and the competition page |
+
+## Earlier work
+
+> **To complete before submission (author):** describe whether and how AI tools were used for the
+> earlier work in this repository: the PFST specification, the RTL, the Python model, the OCaml golden
+> model and compiler, the tests and the flow configuration. Commits before 2026-11-13 carry no AI
+> trailer, so this cannot be reconstructed from the history.
+
+## Principles followed
+
+- The author decides what is merged; AI-made changes go through pull requests.
+- AI-written claims about the design are checked against the source, tests or reports before they are
+  committed.
+- Verification evidence comes from tools (simulators, the OCaml checks, the Tiny Tapeout flow), not from
+  an AI's description of the design.
