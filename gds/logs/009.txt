@@ -1,0 +1,210 @@
+Original log: gl_test/3_GL test.txt
+2026-11-13T01:56:36.7557608Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:56:36.7818219Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:56:50.8889460Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:56:57.3518318Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:57:07.3816695Z [36;1m# `make` will return success even if the tests fail, so check for failure in results.xml[0m
+2026-11-13T01:57:07.3817260Z [36;1m! grep failure results.xml[0m
+2026-11-13T01:57:07.3834981Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:57:15.2853821Z                                                         ** TESTS=5 PASS=5 FAIL=0 SKIP=0                   755250.00           5.18     145706.60  **
+--- LAST 200 LINES ---
+2026-11-13T01:57:06.4507145Z 
+2026-11-13T01:57:06.4507245Z No user sessions are running outdated binaries.
+2026-11-13T01:57:06.4507424Z 
+2026-11-13T01:57:06.4507593Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-13T01:57:07.3795100Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_5;outcome=success;conclusion=success;duration_ms=10031]
+2026-11-13T01:57:07.3797579Z ##[start-action display=Run tests;id=__TinyTapeout_tt-gds-action.__run_6]
+2026-11-13T01:57:07.3814616Z ##[group]Run cp tt_submission/*.v "test/gate_level_netlist.v"
+2026-11-13T01:57:07.3815006Z [36;1mcp tt_submission/*.v "test/gate_level_netlist.v"[0m
+2026-11-13T01:57:07.3815258Z [36;1mcd "test"[0m
+2026-11-13T01:57:07.3815457Z [36;1mrm -f tb.vcd tb.fst results.xml[0m
+2026-11-13T01:57:07.3815944Z [36;1mmake clean[0m
+2026-11-13T01:57:07.3816215Z [36;1mGATES=yes make[0m
+2026-11-13T01:57:07.3816399Z [36;1m[0m
+2026-11-13T01:57:07.3816695Z [36;1m# `make` will return success even if the tests fail, so check for failure in results.xml[0m
+2026-11-13T01:57:07.3817044Z [36;1mtest -f results.xml[0m
+2026-11-13T01:57:07.3817260Z [36;1m! grep failure results.xml[0m
+2026-11-13T01:57:07.3834981Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T01:57:07.3835400Z env:
+2026-11-13T01:57:07.3835562Z   PDK: ihp-sg13cmos5l
+2026-11-13T01:57:07.3836012Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T01:57:07.3836217Z   PDK_SOURCE: IHP-Open-PDK
+2026-11-13T01:57:07.3836447Z   PDK_VERSION: 2bbec755dc67ca3db0261c3d6163e15735d66710
+2026-11-13T01:57:07.3836752Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:07.3837223Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T01:57:07.3837555Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:07.3837855Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:07.3838160Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:07.3838456Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T01:57:07.3838720Z ##[endgroup]
+2026-11-13T01:57:08.0851100Z rm -f results.xml
+2026-11-13T01:57:08.0887294Z "make" -f Makefile results.xml
+2026-11-13T01:57:08.0906038Z make[1]: Entering directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T01:57:08.3276338Z mkdir -p sim_build/gl
+2026-11-13T01:57:08.3348306Z /usr/bin/iverilog -o sim_build/gl/sim.vvp -s tb -g2012 -DGL_TEST -DFUNCTIONAL -DSIM -I/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src -f sim_build/gl/cmds.f  /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_udp.v /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/verilog/sg13cmos5l_io.v /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/gate_level_netlist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_core_behavioral_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_256x32_c2_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/tb.v
+2026-11-13T01:57:08.3398186Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:42: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3399608Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:44: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3400966Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:50: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3402258Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:52: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3403562Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:66: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3404875Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:68: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3406355Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:103: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3407652Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:105: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3408969Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:111: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3410288Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:113: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3411610Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:127: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3412912Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:129: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3414490Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:177: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3415916Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:179: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3417381Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:227: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3418617Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:229: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3419925Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:274: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3421248Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:276: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3422547Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:290: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3423853Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:292: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3425165Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:306: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3426595Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:308: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3427908Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:322: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3429237Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:324: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3430547Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:346: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3431862Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:348: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3436693Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:385: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3438051Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:387: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3439341Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:393: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3440586Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:395: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3441825Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:405: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3442996Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:407: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3443749Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:417: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3444495Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:419: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3445430Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1786: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3446758Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1788: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3447697Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1830: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3448465Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1832: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3449235Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1881: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3450012Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1883: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3450769Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1901: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3451516Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:1903: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3452257Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2487: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3452999Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2489: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3453742Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2733: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3454486Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2735: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3455234Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2743: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3456192Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2745: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3456948Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2802: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3457685Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2804: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3458429Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2811: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3459183Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2813: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3459942Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2866: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3460688Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2868: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3461425Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2875: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3462165Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2877: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3463033Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2932: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3463775Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2934: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3464619Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2990: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3465372Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:2992: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3466284Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3199: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3467040Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3201: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3467789Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3211: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3468531Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3213: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3469270Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3250: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3470041Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3252: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3470835Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3262: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:08.3471586Z /home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/verilog/sg13cmos5l_stdcell.v:3264: sorry: ifnone with an edge-sensitive path is not supported.
+2026-11-13T01:57:09.1726341Z rm -f results.xml
+2026-11-13T01:57:09.1764425Z COCOTB_TEST_MODULES=test_pfst COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+2026-11-13T01:57:09.1765477Z          /usr/bin/vvp -M /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/gl/sim.vvp -fst   
+2026-11-13T01:57:09.1805549Z      -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.11.9 interpreter at /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+2026-11-13T01:57:09.1866629Z      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+2026-11-13T01:57:10.0530844Z      0.00ns INFO     cocotb                             Running on Icarus Verilog version 13.0 (stable)
+2026-11-13T01:57:10.0531652Z      0.00ns INFO     cocotb                             Seeding Python random module with 1794535030
+2026-11-13T01:57:10.0532812Z      0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb
+2026-11-13T01:57:10.1011943Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_pfst.py:13: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/uart_tx_b20.json' mode='r' encoding='UTF-8'>
+2026-11-13T01:57:10.1013565Z                                                           UART = json.load(open(os.path.join(HERE, "uart_tx_b20.json")))
+2026-11-13T01:57:10.1014155Z      0.00ns INFO     cocotb                             Running tests
+2026-11-13T01:57:10.1014718Z      0.00ns INFO     cocotb.regression                  running test_pfst.test_registers (1/5)
+2026-11-13T01:57:10.1015991Z                                                             Reset values of every core-0 register, then write/read-back with auto-increment.
+2026-11-13T01:57:10.8438818Z  94330.00ns INFO     cocotb.regression                  test_pfst.test_registers passed
+2026-11-13T01:57:10.8460665Z  94330.00ns INFO     cocotb.regression                  running test_pfst.test_table (2/5)
+2026-11-13T01:57:10.8461456Z                                                             WRITE_TABLE / READ_TABLE through the macro of core 1, across a word and row boundary.
+2026-11-13T01:57:12.7717559Z 383100.00ns INFO     cocotb.regression                  test_pfst.test_table passed
+2026-11-13T01:57:12.7722193Z 383100.00ns INFO     cocotb.regression                  running test_pfst.test_uart_tx (3/5)
+2026-11-13T01:57:12.7723010Z                                                             Load a UART TX program into core 0, push bytes over SPI, decode the frames from uo_out[4].
+2026-11-13T01:57:14.7563393Z 677270.00ns INFO     cocotb.regression                  test_pfst.test_uart_tx passed
+2026-11-13T01:57:14.7573065Z 677270.00ns INFO     cocotb.regression                  running test_pfst.test_passthrough (4/5)
+2026-11-13T01:57:14.7573686Z                                                             v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized.
+2026-11-13T01:57:14.8254655Z 687200.00ns INFO     cocotb.regression                  test_pfst.test_passthrough passed
+2026-11-13T01:57:14.8259171Z 687200.00ns INFO     cocotb.regression                  running test_pfst.test_row_controlled_pins (5/5)
+2026-11-13T01:57:14.8259795Z                                                             v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped.
+2026-11-13T01:57:15.2839826Z 755250.00ns INFO     cocotb.regression                  test_pfst.test_row_controlled_pins passed
+2026-11-13T01:57:15.2847181Z 755250.00ns INFO     cocotb.regression                  ********************************************************************************************
+2026-11-13T01:57:15.2847956Z                                                         ** TEST                                STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+2026-11-13T01:57:15.2848672Z                                                         ********************************************************************************************
+2026-11-13T01:57:15.2849338Z                                                         ** test_pfst.test_registers             PASS       94330.00           0.74     127075.91  **
+2026-11-13T01:57:15.2850146Z                                                         ** test_pfst.test_table                 PASS      288770.00           1.93     149988.79  **
+2026-11-13T01:57:15.2850917Z                                                         ** test_pfst.test_uart_tx               PASS      294170.00           1.98     148292.34  **
+2026-11-13T01:57:15.2851677Z                                                         ** test_pfst.test_passthrough           PASS        9930.00           0.07     146412.71  **
+2026-11-13T01:57:15.2852456Z                                                         ** test_pfst.test_row_controlled_pins   PASS       68050.00           0.46     148694.43  **
+2026-11-13T01:57:15.2853157Z                                                         ********************************************************************************************
+2026-11-13T01:57:15.2853821Z                                                         ** TESTS=5 PASS=5 FAIL=0 SKIP=0                   755250.00           5.18     145706.60  **
+2026-11-13T01:57:15.2854458Z                                                         ********************************************************************************************
+2026-11-13T01:57:15.3113316Z FST info: dumpfile tb.fst opened for output.
+2026-11-13T01:57:15.8615973Z make[1]: Leaving directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T01:57:15.8640292Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=success;conclusion=success;duration_ms=8484]
+2026-11-13T01:57:15.8642752Z ##[start-action display=Upload Waveform and Test Results;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T01:57:15.8676371Z ##[group]Run actions/upload-artifact@v7
+2026-11-13T01:57:15.8676614Z with:
+2026-11-13T01:57:15.8676788Z   name: gatelevel_test_results
+2026-11-13T01:57:15.8677049Z   path: test/tb.vcd
+test/tb.fst
+test/results.xml
+test/output/*
+
+2026-11-13T01:57:15.8677341Z   if-no-files-found: warn
+2026-11-13T01:57:15.8677546Z   compression-level: 6
+2026-11-13T01:57:15.8677738Z   overwrite: false
+2026-11-13T01:57:15.8677920Z   include-hidden-files: false
+2026-11-13T01:57:15.8678129Z   archive: true
+2026-11-13T01:57:15.8678290Z env:
+2026-11-13T01:57:15.8678452Z   PDK: ihp-sg13cmos5l
+2026-11-13T01:57:15.8678638Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T01:57:15.8678858Z   PDK_SOURCE: IHP-Open-PDK
+2026-11-13T01:57:15.8679099Z   PDK_VERSION: 2bbec755dc67ca3db0261c3d6163e15735d66710
+2026-11-13T01:57:15.8679399Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:15.8679734Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T01:57:15.8680075Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:15.8680380Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:15.8680675Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:15.8680971Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T01:57:15.8681236Z ##[endgroup]
+2026-11-13T01:57:15.9887054Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-13T01:57:15.9889189Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test. This will be the root directory of the artifact
+2026-11-13T01:57:15.9889894Z With the provided path, there will be 2 files uploaded
+2026-11-13T01:57:15.9893544Z Artifact name is valid!
+2026-11-13T01:57:15.9893766Z Root directory input is valid!
+2026-11-13T01:57:16.1910441Z Uploading artifact: gatelevel_test_results.zip
+2026-11-13T01:57:16.1941304Z Beginning upload of artifact content to blob storage
+2026-11-13T01:57:16.3829854Z Uploaded bytes 568074
+2026-11-13T01:57:16.4016244Z Finished uploading artifact content to blob storage!
+2026-11-13T01:57:16.4017211Z SHA256 digest of uploaded artifact is 02302020e179421e8bd82926853b8b54a5024ae68b1828ca85f2548adf324358
+2026-11-13T01:57:16.4018101Z Finalizing artifact upload
+2026-11-13T01:57:16.7569849Z Artifact gatelevel_test_results successfully finalized. Artifact ID 14002308667
+2026-11-13T01:57:16.7570623Z Artifact gatelevel_test_results has been successfully uploaded! Final size is 568074 bytes. Artifact ID is 14002308667
+2026-11-13T01:57:16.7572768Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43341814354/artifacts/14002308667
+2026-11-13T01:57:16.7672753Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=success;conclusion=success;duration_ms=902]
+2026-11-13T01:57:16.7676159Z ##[start-action display=Test Summary;id=__TinyTapeout_tt-gds-action.__test-summary_action]
+2026-11-13T01:57:16.7727443Z ##[group]Run test-summary/action@v2.6
+2026-11-13T01:57:16.7727814Z with:
+2026-11-13T01:57:16.7728097Z   paths: test/results.xml
+2026-11-13T01:57:16.7728381Z env:
+2026-11-13T01:57:16.7728628Z   PDK: ihp-sg13cmos5l
+2026-11-13T01:57:16.7728920Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T01:57:16.7729252Z   PDK_SOURCE: IHP-Open-PDK
+2026-11-13T01:57:16.7729626Z   PDK_VERSION: 2bbec755dc67ca3db0261c3d6163e15735d66710
+2026-11-13T01:57:16.7730123Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:16.7730687Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T01:57:16.7731244Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:16.7732059Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:16.7732625Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T01:57:16.7733112Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T01:57:16.7733545Z ##[endgroup]
+2026-11-13T01:57:16.8283147Z ##[end-action id=__TinyTapeout_tt-gds-action.__test-summary_action;outcome=success;conclusion=success;duration_ms=60]
