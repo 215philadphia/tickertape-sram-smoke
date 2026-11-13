@@ -1,0 +1,217 @@
+Original log: gds/3_Build GDS.txt
+2026-11-13T18:29:36.6231807Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:36.6509244Z   empty_packages_behavior: error
+2026-11-13T18:29:36.6570053Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:36.6572577Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-13T18:29:39.4415443Z   fail-on-cache-miss: false
+2026-11-13T18:29:41.1594372Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:41.3427828Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:43.0533844Z ##[error]The operation was canceled.
+2026-11-13T18:29:43.0588904Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T18:29:43.0589862Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T18:29:43.0593559Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T18:29:43.0593855Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T18:29:43.0618330Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:43.0675144Z ##[error]Process completed with exit code 1.
+2026-11-13T18:29:43.0681912Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=11]
+--- LAST 200 LINES ---
+2026-11-13T18:29:41.3428387Z   PDK: ihp-sg13cmos5l
+2026-11-13T18:29:41.3428958Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T18:29:41.3429204Z   TT_ARGS: --ihp
+2026-11-13T18:29:41.3429445Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T18:29:41.3429732Z ##[endgroup]
+2026-11-13T18:29:41.3554813Z ##[end-action id=__TinyTapeout_tt-gds-action.__awalsh128_cache-apt-pkgs-action.clean-cache;outcome=success;conclusion=success;duration_ms=16]
+2026-11-13T18:29:41.3593589Z ##[end-action id=__TinyTapeout_tt-gds-action.__awalsh128_cache-apt-pkgs-action;outcome=success;conclusion=success;duration_ms=4725]
+2026-11-13T18:29:41.3595858Z ##[start-action display=Checkout tt-support-tools repo;id=__TinyTapeout_tt-gds-action.__actions_checkout]
+2026-11-13T18:29:41.3671762Z ##[group]Run actions/checkout@v6
+2026-11-13T18:29:41.3672020Z with:
+2026-11-13T18:29:41.3672239Z   repository: TinyTapeout/tt-support-tools
+2026-11-13T18:29:41.3672542Z   ref: ihp-sg13cmos5l
+2026-11-13T18:29:41.3672758Z   path: tt
+2026-11-13T18:29:41.3675490Z   token: ***
+2026-11-13T18:29:41.3675707Z   ssh-strict: true
+2026-11-13T18:29:41.3675918Z   ssh-user: git
+2026-11-13T18:29:41.3676137Z   persist-credentials: true
+2026-11-13T18:29:41.3676386Z   clean: true
+2026-11-13T18:29:41.3676603Z   sparse-checkout-cone-mode: true
+2026-11-13T18:29:41.3676877Z   fetch-depth: 1
+2026-11-13T18:29:41.3677081Z   fetch-tags: false
+2026-11-13T18:29:41.3677297Z   show-progress: true
+2026-11-13T18:29:41.3677512Z   lfs: false
+2026-11-13T18:29:41.3677718Z   submodules: false
+2026-11-13T18:29:41.3677934Z   set-safe-directory: true
+2026-11-13T18:29:41.3678195Z   allow-unsafe-pr-checkout: false
+2026-11-13T18:29:41.3678696Z env:
+2026-11-13T18:29:41.3678933Z   PDK: ihp-sg13cmos5l
+2026-11-13T18:29:41.3679167Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T18:29:41.3679408Z   TT_ARGS: --ihp
+2026-11-13T18:29:41.3679642Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T18:29:41.3679935Z ##[endgroup]
+2026-11-13T18:29:41.4535145Z Syncing repository: TinyTapeout/tt-support-tools
+2026-11-13T18:29:41.4536684Z ##[group]Getting Git version info
+2026-11-13T18:29:41.4537706Z Working directory is '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt'
+2026-11-13T18:29:41.4579508Z [command]/usr/bin/git version
+2026-11-13T18:29:41.4625969Z git version 2.56.1
+2026-11-13T18:29:41.4648223Z ##[endgroup]
+2026-11-13T18:29:41.4662425Z Temporarily overriding HOME='/home/runner/work/_temp/a649e12a-7b66-4df8-97da-76ce1741e49b' before making global git config changes
+2026-11-13T18:29:41.4664067Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T18:29:41.4670481Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt
+2026-11-13T18:29:41.4707164Z ##[group]Determining repository object format
+2026-11-13T18:29:41.8670172Z ##[endgroup]
+2026-11-13T18:29:41.8670953Z ##[group]Initializing the repository
+2026-11-13T18:29:41.8675667Z [command]/usr/bin/git init /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt
+2026-11-13T18:29:41.8735552Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-13T18:29:41.8736813Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-13T18:29:41.8737770Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-13T18:29:41.8738773Z hint: call:
+2026-11-13T18:29:41.8739113Z hint:
+2026-11-13T18:29:41.8739542Z hint: 	git config --global init.defaultBranch <name>
+2026-11-13T18:29:41.8740458Z hint:
+2026-11-13T18:29:41.8741015Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-13T18:29:41.8741967Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-13T18:29:41.8742701Z hint:
+2026-11-13T18:29:41.8743082Z hint: 	git branch -m <name>
+2026-11-13T18:29:41.8743515Z hint:
+2026-11-13T18:29:41.8744120Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-13T18:29:41.8745322Z Initialized empty Git repository in /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/
+2026-11-13T18:29:41.8767950Z [command]/usr/bin/git remote add origin https://github.com/TinyTapeout/tt-support-tools
+2026-11-13T18:29:41.8832883Z ##[endgroup]
+2026-11-13T18:29:41.8834353Z ##[group]Disabling automatic garbage collection
+2026-11-13T18:29:41.8840216Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-13T18:29:41.8894405Z ##[endgroup]
+2026-11-13T18:29:41.8895187Z ##[group]Setting up auth
+2026-11-13T18:29:41.8895942Z Removing SSH command configuration
+2026-11-13T18:29:41.8903511Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T18:29:41.8961097Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T18:29:41.9225439Z Removing HTTP extra header
+2026-11-13T18:29:41.9233276Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T18:29:41.9291043Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T18:29:41.9547519Z Removing includeIf entries pointing to credentials config files
+2026-11-13T18:29:41.9554677Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T18:29:41.9636088Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T18:29:41.9891717Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-a0f23800-8ca8-46b0-a15e-499c2f32531c.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-13T18:29:41.9953185Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path /home/runner/work/_temp/git-credentials-a0f23800-8ca8-46b0-a15e-499c2f32531c.config
+2026-11-13T18:29:41.9997492Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-a0f23800-8ca8-46b0-a15e-499c2f32531c.config
+2026-11-13T18:29:42.0044285Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/tt/.git.path /github/runner_temp/git-credentials-a0f23800-8ca8-46b0-a15e-499c2f32531c.config
+2026-11-13T18:29:42.0088896Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/tt/.git/worktrees/*.path /github/runner_temp/git-credentials-a0f23800-8ca8-46b0-a15e-499c2f32531c.config
+2026-11-13T18:29:42.0129936Z ##[endgroup]
+2026-11-13T18:29:42.0130627Z ##[group]Fetching the repository
+2026-11-13T18:29:42.0139197Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/ihp-sg13cmos5l*:refs/remotes/origin/ihp-sg13cmos5l* +refs/tags/ihp-sg13cmos5l*:refs/tags/ihp-sg13cmos5l*
+2026-11-13T18:29:42.9114828Z From https://github.com/TinyTapeout/tt-support-tools
+2026-11-13T18:29:42.9115421Z  * [new branch]      ihp-sg13cmos5l -> origin/ihp-sg13cmos5l
+2026-11-13T18:29:42.9123103Z ##[endgroup]
+2026-11-13T18:29:42.9123968Z ##[group]Determining the checkout info
+2026-11-13T18:29:42.9131458Z [command]/usr/bin/git branch --list --remote origin/ihp-sg13cmos5l
+2026-11-13T18:29:42.9170977Z   origin/ihp-sg13cmos5l
+2026-11-13T18:29:42.9175302Z ##[endgroup]
+2026-11-13T18:29:42.9180136Z [command]/usr/bin/git sparse-checkout disable
+2026-11-13T18:29:42.9233537Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-13T18:29:42.9275733Z ##[group]Checking out the ref
+2026-11-13T18:29:42.9279878Z [command]/usr/bin/git checkout --progress --force -B ihp-sg13cmos5l refs/remotes/origin/ihp-sg13cmos5l
+2026-11-13T18:29:42.9626539Z Switched to a new branch 'ihp-sg13cmos5l'
+2026-11-13T18:29:42.9630596Z branch 'ihp-sg13cmos5l' set up to track 'origin/ihp-sg13cmos5l'.
+2026-11-13T18:29:42.9636649Z ##[endgroup]
+2026-11-13T18:29:42.9690160Z [command]/usr/bin/git log -1 --format=%H
+2026-11-13T18:29:42.9730033Z d66cf179e7bc4d296362ab7e2e3b344dc3c4f665
+2026-11-13T18:29:42.9857963Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_checkout;outcome=success;conclusion=success;duration_ms=1626]
+2026-11-13T18:29:42.9860990Z ##[start-action display=Setup python;id=__TinyTapeout_tt-gds-action.__actions_setup-python]
+2026-11-13T18:29:42.9906659Z ##[group]Run actions/setup-python@v6
+2026-11-13T18:29:42.9906941Z with:
+2026-11-13T18:29:42.9907138Z   python-version: 3.11
+2026-11-13T18:29:42.9907360Z   cache: pip
+2026-11-13T18:29:42.9907558Z   check-latest: false
+2026-11-13T18:29:42.9910658Z   token: ***
+2026-11-13T18:29:42.9910885Z   update-environment: true
+2026-11-13T18:29:42.9911134Z   allow-prereleases: false
+2026-11-13T18:29:42.9911385Z   freethreaded: false
+2026-11-13T18:29:42.9911592Z env:
+2026-11-13T18:29:42.9911782Z   PDK: ihp-sg13cmos5l
+2026-11-13T18:29:42.9912007Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T18:29:42.9912250Z   TT_ARGS: --ihp
+2026-11-13T18:29:42.9912488Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T18:29:42.9912773Z ##[endgroup]
+2026-11-13T18:29:43.0533844Z ##[error]The operation was canceled.
+2026-11-13T18:29:43.0538237Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_setup-python;outcome=cancelled;conclusion=cancelled;duration_ms=67]
+2026-11-13T18:29:43.0542077Z ##[start-action display=Install tt-support-tools dependencies;id=__TinyTapeout_tt-gds-action.__run_2]
+2026-11-13T18:29:43.0544164Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0546030Z ##[start-action display=Fetch verilog and build config;id=__TinyTapeout_tt-gds-action.__run_3]
+2026-11-13T18:29:43.0547918Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0550344Z ##[start-action display=Install ihp-sg13cmos5l PDK;id=__TinyTapeout_tt-gds-action.__run_4]
+2026-11-13T18:29:43.0553536Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_4;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0555444Z ##[start-action display=Install LibreLane;id=__TinyTapeout_tt-gds-action.__run_5]
+2026-11-13T18:29:43.0557292Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0559517Z ##[start-action display=Make GDS with LibreLane;id=__TinyTapeout_tt-gds-action.__run_6]
+2026-11-13T18:29:43.0561466Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0563335Z ##[start-action display=Show build files (for debugging);id=__TinyTapeout_tt-gds-action.__run_7]
+2026-11-13T18:29:43.0565213Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_7;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0567182Z ##[start-action display=Linter output;id=__TinyTapeout_tt-gds-action.__run_8]
+2026-11-13T18:29:43.0585465Z ##[group]Run LINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)
+2026-11-13T18:29:43.0586019Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-13T18:29:43.0586395Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-13T18:29:43.0586652Z [36;1m[0m
+2026-11-13T18:29:43.0586871Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-13T18:29:43.0587346Z [36;1mcat $LINTER_LOG[0m
+2026-11-13T18:29:43.0587578Z [36;1mecho "END DEBUG"[0m
+2026-11-13T18:29:43.0587796Z [36;1m[0m
+2026-11-13T18:29:43.0588000Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-13T18:29:43.0588261Z [36;1m  set +e[0m
+2026-11-13T18:29:43.0588904Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T18:29:43.0589370Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-13T18:29:43.0589862Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T18:29:43.0590292Z [36;1m  set -e[0m
+2026-11-13T18:29:43.0590492Z [36;1m[0m
+2026-11-13T18:29:43.0590678Z [36;1m  open=""[0m
+2026-11-13T18:29:43.0590891Z [36;1m  summary=""[0m
+2026-11-13T18:29:43.0591116Z [36;1m  icon=":green_circle:"[0m
+2026-11-13T18:29:43.0591397Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-13T18:29:43.0591704Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-13T18:29:43.0592000Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T18:29:43.0592300Z [36;1m  fi[0m
+2026-11-13T18:29:43.0592519Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-13T18:29:43.0592811Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-13T18:29:43.0593099Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T18:29:43.0593344Z [36;1m  fi[0m
+2026-11-13T18:29:43.0593559Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T18:29:43.0593855Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T18:29:43.0594139Z [36;1m    icon=":red_circle:"[0m
+2026-11-13T18:29:43.0594392Z [36;1m    open="open"[0m
+2026-11-13T18:29:43.0594630Z [36;1m  fi[0m
+2026-11-13T18:29:43.0594832Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-13T18:29:43.0595107Z [36;1m    summary="[$summary]"[0m
+2026-11-13T18:29:43.0595347Z [36;1m  fi[0m
+2026-11-13T18:29:43.0595530Z [36;1m[0m
+2026-11-13T18:29:43.0595773Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0596335Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0596874Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0597240Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-13T18:29:43.0597645Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0597996Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0598328Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T18:29:43.0598958Z [36;1mfi[0m
+2026-11-13T18:29:43.0618330Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T18:29:43.0618833Z env:
+2026-11-13T18:29:43.0619027Z   PDK: ihp-sg13cmos5l
+2026-11-13T18:29:43.0619263Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T18:29:43.0619506Z   TT_ARGS: --ihp
+2026-11-13T18:29:43.0619750Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T18:29:43.0620033Z ##[endgroup]
+2026-11-13T18:29:43.0660960Z DEBUG LINTER_LOG *runs/wokwi/*-verilator-lint/verilator-lint.log*
+2026-11-13T18:29:43.0670260Z cat: 'runs/wokwi/*-verilator-lint/verilator-lint.log': No such file or directory
+2026-11-13T18:29:43.0675144Z ##[error]Process completed with exit code 1.
+2026-11-13T18:29:43.0681912Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=failure;conclusion=failure;duration_ms=11]
+2026-11-13T18:29:43.0684136Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-13T18:29:43.0686301Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0688118Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-13T18:29:43.0690455Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0692300Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-13T18:29:43.0694093Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0696176Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T18:29:43.0701560Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0703650Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-13T18:29:43.0705610Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0707557Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-13T18:29:43.0710261Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0712221Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-13T18:29:43.0714066Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T18:29:43.0715975Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-13T18:29:43.0717938Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
