@@ -151,7 +151,13 @@ If KLayout DRC ever reports `M3.f` at a macro edge, add a Metal3 `ROUTING_OBSTRU
 This repo started as Gate 0, a single-macro smoke test that checked whether a user SRAM of this size survives
 GDS, precheck, LVS and gate-level test on the CMOS5L flow. The PFST design replaced that test design.
 
-## Provenance
+## Credits and provenance
+
+**Concept:** David Cox originated the idea behind TickerTape-Out: a programmable finite state transducer
+used as a "bump-in-the-wire" protocol engine. See [design evolution](docs/design-evolution.md) for how the
+concept became the built design.
+
+**Design and implementation:** Jonathan Clark.
 
 Macro integration (PDN plugin, `odb_sram_stripes.py`, `pdn_cfg.tcl`, config keys)
 is adapted from [WilliamZhang20/protocol-emulator](https://github.com/WilliamZhang20/protocol-emulator)

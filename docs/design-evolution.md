@@ -1,7 +1,7 @@
 # Design evolution: from pitch to silicon
 
-TickerTape-Out started as a one-page pitch: a "bump-in-the-wire" protocol engine inspired by how
-trading firms parse market data in FPGAs. The core idea survived intact. Many details did not, and the
+The concept behind TickerTape-Out originated with David Cox. It started as a one-page pitch: a
+"bump-in-the-wire" protocol engine inspired by how trading firms parse market data in FPGAs. The core idea survived intact. Many details did not, and the
 reasons are some of the most interesting engineering in the project. This page sets the original pitch
 next to what was built and explains each change.
 
