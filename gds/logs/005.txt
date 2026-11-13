@@ -1,0 +1,242 @@
+Original log: 3_gds.txt
+2026-11-13T22:27:35.6365256Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:35.6559356Z   empty_packages_behavior: error
+2026-11-13T22:27:35.6607572Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:35.6609878Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-13T22:27:36.7576985Z   fail-on-cache-miss: false
+2026-11-13T22:27:37.3376556Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:37.4814222Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:39.4636463Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:47.6079696Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:27:55.7503394Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:28:09.2312670Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:28:13.9458208Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:29:08.4035768Z ────────────────────────── Lint Timing Errors Checker ──────────────────────────
+2026-11-13T22:29:08.4051030Z [22:29:08] INFO     Check for Lint Timing Errors clear.           checker.py:412
+2026-11-13T22:29:08.4066482Z ───────────────────────────── Lint Errors Checker ──────────────────────────────
+2026-11-13T22:29:08.4072244Z [22:29:08] VERBOSE  Running 'Checker.LintErrors' at                 step.py:1138
+2026-11-13T22:29:08.4072769Z                     'runs/wokwi/03-checker-linterrors'…                         
+2026-11-13T22:29:08.4080242Z [22:29:08] INFO     Check for Lint errors clear.                  checker.py:131
+2026-11-13T22:29:13.6433601Z ABC: Error: The network is combinational.                                       
+2026-11-13T22:29:13.9162951Z [22:29:13] INFO     Check for Yosys check errors clear.           checker.py:131
+2026-11-13T22:29:15.3792378Z [INFO IFP-0104] Effective utilization:                0.132                     
+2026-11-13T22:29:18.7432579Z [22:29:18] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-13T22:29:18.7438782Z [22:29:18] WARNING  Grid check for VPWR failed: PSM-0069         openroad.py:321
+2026-11-13T22:29:18.7989191Z [22:29:18] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-13T22:29:18.7994686Z [22:29:18] WARNING  Grid check for VGND failed: PSM-0069         openroad.py:321
+2026-11-13T22:29:20.7055899Z [INFO GPL-0019] Utilization:                     6.002 %                        
+2026-11-13T22:29:27.0905893Z [INFO GPL-1002] Placed Cell Area            74051.3044                          
+2026-11-13T22:29:27.0914219Z [INFO GPL-1004] Minimum Feasible Density        0.0700 (cell_area / free_area)  
+2026-11-13T22:29:27.9624008Z                     OpenROAD PSM- you may ignore these if LVS                   
+2026-11-13T22:31:04.3598785Z                     the DRC Viewer.                                             
+2026-11-13T22:31:16.9551197Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-13T22:31:16.9551844Z road-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc                        
+2026-11-13T22:56:27.1657519Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-13T22:56:27.1658521Z road-detailedrouting/drt-run-1/tt_um_tickertape_pfst.drc                        
+2026-11-13T22:57:34.6177985Z ##[error]The operation was canceled.
+2026-11-13T22:57:34.6209781Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T22:57:34.6210397Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T22:57:34.6212863Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T22:57:34.6213044Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T22:57:34.6233614Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+--- LAST 200 LINES ---
+2026-11-13T22:57:34.6208202Z [36;1mLINTER_LOG=(runs/wokwi/*-verilator-lint/verilator-lint.log)[0m
+2026-11-13T22:57:34.6208515Z [36;1mLINTER_LOG=${LINTER_LOG[0]}[0m
+2026-11-13T22:57:34.6208678Z [36;1m[0m
+2026-11-13T22:57:34.6208821Z [36;1mecho "DEBUG LINTER_LOG *$LINTER_LOG*"[0m
+2026-11-13T22:57:34.6209008Z [36;1mcat $LINTER_LOG[0m
+2026-11-13T22:57:34.6209156Z [36;1mecho "END DEBUG"[0m
+2026-11-13T22:57:34.6209301Z [36;1m[0m
+2026-11-13T22:57:34.6209435Z [36;1mif [ -s "$LINTER_LOG" ]; then[0m
+2026-11-13T22:57:34.6209596Z [36;1m  set +e[0m
+2026-11-13T22:57:34.6209781Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-13T22:57:34.6210038Z [36;1m  count_warn=$( egrep -i "^%Warning" $LINTER_LOG | wc -l)[0m
+2026-11-13T22:57:34.6210397Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-13T22:57:34.6210642Z [36;1m  set -e[0m
+2026-11-13T22:57:34.6210771Z [36;1m[0m
+2026-11-13T22:57:34.6210891Z [36;1m  open=""[0m
+2026-11-13T22:57:34.6211026Z [36;1m  summary=""[0m
+2026-11-13T22:57:34.6211174Z [36;1m  icon=":green_circle:"[0m
+2026-11-13T22:57:34.6211349Z [36;1m  if [ $count_other -gt 0 ]; then[0m
+2026-11-13T22:57:34.6211535Z [36;1m    summary="$count_other message(s)"[0m
+2026-11-13T22:57:34.6211785Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T22:57:34.6211943Z [36;1m  fi[0m
+2026-11-13T22:57:34.6212083Z [36;1m  if [ $count_warn -gt 0 ]; then[0m
+2026-11-13T22:57:34.6212267Z [36;1m    summary="$count_warn warning(s)"[0m
+2026-11-13T22:57:34.6212448Z [36;1m    icon=":orange_circle:"[0m
+2026-11-13T22:57:34.6212609Z [36;1m  fi[0m
+2026-11-13T22:57:34.6212863Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-13T22:57:34.6213044Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-13T22:57:34.6213227Z [36;1m    icon=":red_circle:"[0m
+2026-11-13T22:57:34.6213391Z [36;1m    open="open"[0m
+2026-11-13T22:57:34.6213532Z [36;1m  fi[0m
+2026-11-13T22:57:34.6213665Z [36;1m  if [ -n "$summary" ]; then[0m
+2026-11-13T22:57:34.6213835Z [36;1m    summary="[$summary]"[0m
+2026-11-13T22:57:34.6213989Z [36;1m  fi[0m
+2026-11-13T22:57:34.6214111Z [36;1m[0m
+2026-11-13T22:57:34.6214271Z [36;1m  echo "<details ${open}>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6214610Z [36;1m  echo "<summary><h1>Linter output&nbsp;&nbsp;<h4>${summary} ${icon}</h4></h1></summary>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6214929Z [36;1m  echo "<pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6215159Z [36;1m  # Print each line of the file preceeded by four spaces:[0m
+2026-11-13T22:57:34.6215403Z [36;1m  sed 's/^/    /' < $LINTER_LOG >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6215619Z [36;1m  echo "</pre>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6215824Z [36;1m  echo "</details>" >> $GITHUB_STEP_SUMMARY[0m
+2026-11-13T22:57:34.6216002Z [36;1mfi[0m
+2026-11-13T22:57:34.6233614Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T22:57:34.6233824Z env:
+2026-11-13T22:57:34.6233953Z   PDK: ihp-sg13cmos5l
+2026-11-13T22:57:34.6234104Z   PDK_ROOT: /home/runner/pdk
+2026-11-13T22:57:34.6234258Z   TT_ARGS: --ihp
+2026-11-13T22:57:34.6234415Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-13T22:57:34.6234645Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T22:57:34.6234906Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T22:57:34.6235166Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T22:57:34.6235406Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T22:57:34.6235643Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T22:57:34.6235954Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T22:57:34.6236179Z ##[endgroup]
+2026-11-13T22:57:34.6282586Z DEBUG LINTER_LOG *runs/wokwi/01-verilator-lint/verilator-lint.log*
+2026-11-13T22:57:34.6291659Z %Warning-MODDUP: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/RM_IHPSG13_1P_256x32_c2_bm_bist.v:6:8: Duplicate declaration of module: 'RM_IHPSG13_1P_256x32_c2_bm_bist'
+2026-11-13T22:57:34.6292484Z     6 | module RM_IHPSG13_1P_256x32_c2_bm_bist (
+2026-11-13T22:57:34.6293180Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-13T22:57:34.6294186Z                  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/tmp/1e7bf0b975494369bdfc07b68116a7e7.bb.v:3:8: ... Location of original declaration
+2026-11-13T22:57:34.6295157Z     3 | module RM_IHPSG13_1P_256x32_c2_bm_bist(A_CLK, A_MEN, A_WEN, A_REN, A_ADDR, A_DIN, A_DLY, A_DOUT, A_BM, A_BIST_CLK, A_BIST_EN, A_BIST_MEN, A_BIST_WEN, A_BIST_REN, A_BIST_ADDR, A_BIST_DIN, A_BIST_BM);
+2026-11-13T22:57:34.6295699Z       |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2026-11-13T22:57:34.6296400Z                  ... For warning description see https://verilator.org/warn/MODDUP?v=5.046
+2026-11-13T22:57:34.6296998Z                  ... Use "/* verilator lint_off MODDUP */" and lint_on around source to disable this message.
+2026-11-13T22:57:34.6297795Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:14: Signal is not used: 'tx_full'
+2026-11-13T22:57:34.6298654Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6301286Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-13T22:57:34.6301553Z       |              ^~~~~~~
+2026-11-13T22:57:34.6301809Z                        ... For warning description see https://verilator.org/warn/UNUSEDSIGNAL?v=5.046
+2026-11-13T22:57:34.6302190Z                        ... Use "/* verilator lint_off UNUSEDSIGNAL */" and lint_on around source to disable this message.
+2026-11-13T22:57:34.6303098Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:46:61: Bits of signal are not used: 'valid'[1]
+2026-11-13T22:57:34.6303855Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6304367Z    46 |   wire [1:0] tx_full, tx_ovr, rx_valid, done, flag, rx_ovr, valid;
+2026-11-13T22:57:34.6304738Z       |                                                             ^~~~~
+2026-11-13T22:57:34.6305661Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:93:35: Bits of function variable are not used: 'ix'[7:3]
+2026-11-13T22:57:34.6306440Z                                                                                                           : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6307045Z    93 |     reg c; reg [3:0] r; reg [7:0] ix;
+2026-11-13T22:57:34.6308795Z       |                                   ^~
+2026-11-13T22:57:34.6309413Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:118:30: Bits of signal are not used: 'rx_sh'[7]
+2026-11-13T22:57:34.6310170Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6310656Z   118 |   reg [3:0] bits;  reg [7:0] rx_sh, cmd, addr, pending, txsh, row_lo;
+2026-11-13T22:57:34.6311002Z       |                              ^~~~~
+2026-11-13T22:57:34.6311636Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:120:14: Bits of signal are not used: 'word'[31:24]
+2026-11-13T22:57:34.6312552Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6313223Z   120 |   reg [31:0] word; reg [2:0] nw;
+2026-11-13T22:57:34.6313482Z       |              ^~~~
+2026-11-13T22:57:34.6314061Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:121:59: Bits of signal are not used: 'rd_nw'[2]
+2026-11-13T22:57:34.6314909Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6315376Z   121 |   reg       rd_a, rd_b, rd_c; reg [8:0] rd_row; reg [2:0] rd_nw;    
+2026-11-13T22:57:34.6315743Z       |                                                           ^~~~~
+2026-11-13T22:57:34.6316397Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_chip.v:130:14: Bits of signal are not used: 'uix'[7:3]
+2026-11-13T22:57:34.6317174Z                                                                                                            : ... note: In instance 'tt_um_tickertape_pfst.chip'
+2026-11-13T22:57:34.6317663Z   130 |   wire [7:0] uix = addr - 8'h22;
+2026-11-13T22:57:34.6317919Z       |              ^~~
+2026-11-13T22:57:34.6318485Z %Warning-UNUSEDPARAM: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:73:14: Parameter is not used: 'HOLD'
+2026-11-13T22:57:34.6319261Z                                                                                                               : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-13T22:57:34.6319850Z    73 |   localparam HOLD = 2'd0, SHIFT = 2'd1, LOAD = 2'd2, SAVE = 2'd3;
+2026-11-13T22:57:34.6320187Z       |              ^~~~
+2026-11-13T22:57:34.6320561Z                       ... For warning description see https://verilator.org/warn/UNUSEDPARAM?v=5.046
+2026-11-13T22:57:34.6321136Z                       ... Use "/* verilator lint_off UNUSEDPARAM */" and lint_on around source to disable this message.
+2026-11-13T22:57:34.6321942Z %Warning-UNUSEDSIGNAL: /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/src/pfst_core_sram.v:76:16: Bits of signal are not used: 'R'[31:29]
+2026-11-13T22:57:34.6322908Z                                                                                                                : ... note: In instance 'tt_um_tickertape_pfst.chip.core[1].u'
+2026-11-13T22:57:34.6323362Z    76 |   wire [31:0]  R       = mem_dout;
+2026-11-13T22:57:34.6323621Z       |                ^
+2026-11-13T22:57:34.6323909Z - V e r i l a t i o n   R e p o r t: Verilator 5.046 2026-02-28 rev v5.046
+2026-11-13T22:57:34.6324416Z - Verilator: Built from 0.404 MB sources in 111 modules, into 0.304 MB in 3 C++ files needing 0.000 MB
+2026-11-13T22:57:34.6324904Z - Verilator: Walltime 0.035 s (elab=0.004, cvt=0.021, bld=0.000); cpu 0.035 s on 1 threads; allocated 23.883 MB
+2026-11-13T22:57:34.6325215Z END DEBUG
+2026-11-13T22:57:34.6411450Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_8;outcome=success;conclusion=success;duration_ms=22]
+2026-11-13T22:57:34.6413225Z ##[start-action display=Yosys warnings;id=__TinyTapeout_tt-gds-action.__run_9]
+2026-11-13T22:57:34.6414748Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_9;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6415896Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-13T22:57:34.6416909Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6417940Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-13T22:57:34.6418910Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6419961Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-13T22:57:34.6424028Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6425405Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-13T22:57:34.6426563Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6427670Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-13T22:57:34.6428824Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6429896Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-13T22:57:34.6430874Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6431965Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-13T22:57:34.6433315Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6544594Z Post job cleanup.
+2026-11-13T22:57:34.6547128Z ##[start-action display=Setup python;id=__98acee25-c52e-4c19-90dc-754695e906f5.__actions_setup-python]
+2026-11-13T22:57:34.6548467Z ##[end-action id=__98acee25-c52e-4c19-90dc-754695e906f5.__actions_setup-python;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T22:57:34.6549617Z ##[start-action display=Checkout tt-support-tools repo;id=__98acee25-c52e-4c19-90dc-754695e906f5.__actions_checkout]
+2026-11-13T22:57:34.6582502Z Post job cleanup.
+2026-11-13T22:57:34.7203526Z [command]/usr/bin/git version
+2026-11-13T22:57:34.7239928Z git version 2.56.1
+2026-11-13T22:57:34.7267700Z Temporarily overriding HOME='/home/runner/work/_temp/b2ab5334-6082-44f5-b2ff-1d3a9850ce5b' before making global git config changes
+2026-11-13T22:57:34.7268641Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T22:57:34.7271915Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt
+2026-11-13T22:57:34.7325087Z Removing SSH command configuration
+2026-11-13T22:57:34.7325529Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T22:57:34.7360680Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T22:57:34.7658371Z Removing HTTP extra header
+2026-11-13T22:57:34.7664053Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T22:57:34.7710394Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T22:57:34.8016731Z Removing includeIf entries pointing to credentials config files
+2026-11-13T22:57:34.8025931Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T22:57:34.8075412Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T22:57:34.8076401Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T22:57:34.8077132Z includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T22:57:34.8077688Z includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T22:57:34.8085835Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T22:57:34.8121393Z /home/runner/work/_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8133040Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path /home/runner/work/_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8178002Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T22:57:34.8216795Z /home/runner/work/_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8225053Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8266749Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T22:57:34.8300546Z /github/runner_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8307306Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git.path /github/runner_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8349355Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T22:57:34.8390904Z /github/runner_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8398076Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path /github/runner_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config
+2026-11-13T22:57:34.8450180Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T22:57:34.8674176Z Removing credentials config '/home/runner/work/_temp/git-credentials-ff41e3cd-2bc8-4c9d-8e24-f90a871e04f8.config'
+2026-11-13T22:57:34.8788598Z ##[end-action id=__98acee25-c52e-4c19-90dc-754695e906f5.__actions_checkout;outcome=success;conclusion=success;duration_ms=223]
+2026-11-13T22:57:34.8833253Z Post job cleanup.
+2026-11-13T22:57:34.9662277Z [command]/usr/bin/git version
+2026-11-13T22:57:34.9713483Z git version 2.56.1
+2026-11-13T22:57:34.9736345Z Temporarily overriding HOME='/home/runner/work/_temp/ff0e764c-76b7-4f03-8491-f2dc1386615e' before making global git config changes
+2026-11-13T22:57:34.9738553Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T22:57:34.9741546Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-13T22:57:34.9777180Z Removing SSH command configuration
+2026-11-13T22:57:34.9792842Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T22:57:34.9819608Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T22:57:35.0082318Z Removing HTTP extra header
+2026-11-13T22:57:35.0094441Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T22:57:35.0138839Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T22:57:35.0381821Z Removing includeIf entries pointing to credentials config files
+2026-11-13T22:57:35.0403455Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T22:57:35.0437284Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T22:57:35.0438098Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T22:57:35.0438702Z includeif.gitdir:/github/workspace/.git.path
+2026-11-13T22:57:35.0439153Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T22:57:35.0455536Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T22:57:35.0510094Z /home/runner/work/_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0517281Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0575978Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T22:57:35.0618967Z /home/runner/work/_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0642670Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0693652Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-13T22:57:35.0717291Z /github/runner_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0741808Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0792035Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T22:57:35.0815545Z /github/runner_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0838148Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config
+2026-11-13T22:57:35.0897803Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T22:57:35.1162558Z Removing credentials config '/home/runner/work/_temp/git-credentials-409338e9-4ee1-4048-9d74-d52390b5cb80.config'
+2026-11-13T22:57:35.1311542Z Cleaning up orphan processes
+2026-11-13T22:57:35.1455760Z Terminate orphan process: pid (2719) (python3)
+2026-11-13T22:57:35.1493401Z Terminate orphan process: pid (2737) (git)
+2026-11-13T22:57:35.1512560Z Terminate orphan process: pid (2738) (git)
+2026-11-13T22:57:35.1531648Z Terminate orphan process: pid (2739) (sh)
+2026-11-13T22:57:35.1549441Z Terminate orphan process: pid (2740) (docker)
