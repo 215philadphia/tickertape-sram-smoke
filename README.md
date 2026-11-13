@@ -157,7 +157,7 @@ GDS, precheck, LVS and gate-level test on the CMOS5L flow. The PFST design repla
 used as a "bump-in-the-wire" protocol engine. See [design evolution](docs/design-evolution.md) for how the
 concept became the built design.
 
-**Design and implementation:** Jonathan Clark.
+**Design, implementation, development and engineering:** Jonathan Clark.
 
 Macro integration (PDN plugin, `odb_sram_stripes.py`, `pdn_cfg.tcl`, config keys)
 is adapted from [WilliamZhang20/protocol-emulator](https://github.com/WilliamZhang20/protocol-emulator)
