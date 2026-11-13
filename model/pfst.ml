@@ -29,6 +29,7 @@ type t = {
   mutable obit : int;
   mutable cnt : int;
   mutable out : int;
+  mutable dir : int;                   (* v1.1 per-row drive enable, registered with out *)
   mutable tx_reg : int;
   mutable tx_full : bool;
   tx_queue : int Queue.t;              (* depth 2, the FIFO's tail *)
@@ -41,7 +42,7 @@ type t = {
 let create ~table ~p ~msb_first ~reset_sel =
   { table; p; msb_first; st = 0; timer = 0;
     sel_a = fst reset_sel; sel_b = snd reset_sel; reset_sel;
-    sr = 0; obit = 0; cnt = 0; out = 0;
+    sr = 0; obit = 0; cnt = 0; out = 0; dir = 0;
     tx_reg = 0; tx_full = false; tx_queue = Queue.create ();
     rx_bytes = []; scr = 0;
     sync = Array.make 4 1; sync2 = Array.make 4 1 }
@@ -58,7 +59,7 @@ let create ~table ~p ~msb_first ~reset_sel =
 let restart c =
   c.st <- 0; c.timer <- 0;
   c.sel_a <- fst c.reset_sel; c.sel_b <- snd c.reset_sel;
-  c.sr <- 0; c.obit <- 0; c.cnt <- 0; c.scr <- 0;
+  c.sr <- 0; c.obit <- 0; c.cnt <- 0; c.scr <- 0; c.dir <- 0;
   c.tx_full <- false; Queue.clear c.tx_queue; c.rx_bytes <- []
 
 (* Host push into the depth-3 TX FIFO (tx_reg + 2 queued). Returns false if full. *)
@@ -93,7 +94,8 @@ let step c ~raw_in ~cmp =
     let osel = (w lsr 6) land 1 in
     let out = (w lsr 7) land 15 in
     let wait = (w lsr 11) land 255 in
-    let nxt = w lsr 19 in
+    let nxt = (w lsr 19) land 63 in      (* 6-bit state field, as the RTL: bits [28:25] are dir *)
+    let dir = (w lsr 25) land 15 in
     (match op with
      | Hold -> ()
      | Shift ->
@@ -115,6 +117,7 @@ let step c ~raw_in ~cmp =
        c.scr <- c.sr; c.rx_bytes <- c.sr :: c.rx_bytes);
     let obit_pin = if osel = 1 then c.obit else out land 1 in
     c.out <- (out land (lnot 1)) lor obit_pin;
+    c.dir <- dir;
     c.st <- nxt; c.sel_a <- sel_a'; c.sel_b <- sel_b';
     c.timer <- c.p * (1 + wait) - 1;
     c.out
