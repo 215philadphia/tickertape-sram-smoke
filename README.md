@@ -8,8 +8,60 @@ Each core is a table-driven state machine whose transition table lives in its ow
 `RM_IHPSG13_1P_256x32_c2_bm_bist` SRAM macro, so UART, SPI and I2C are firmware tables, not hardware blocks.
 A host loads tables and configuration over an SPI port.
 
-The full datasheet text (how it works, SPI command set, external hardware) is in [`docs/info.md`](docs/info.md);
-the pinout is in [`info.yaml`](info.yaml).
+## At a glance
+
+**A protocol is data, not hardware.** Each core is a state machine whose whole program is one 256-word
+table in SRAM: every row picks the next state from two input bits, sets four pins, waits an exact number of
+cycles and does one datapath operation. New protocols are new tables, loaded after fabrication.
+
+**Demonstrated on the chip RTL, every one from the same compiler** ([tests](test/test_programs.py), also run
+at gate level after place and route):
+
+| Program | States | What it shows |
+|---|---|---|
+| UART TX / RX | 2 / 4 | RX holds sync at ±1% baud error |
+| SPI controller | 4 | Mode 0, MSB first |
+| I2C write | 14 | Open drain, clock-stretch aware, ACK and NACK, against a reactive target |
+| Half-duplex UART | 6 | One wire: the program itself turns the line around each row (`dir` bits), zero contention cycles |
+| PS/2 receiver | 39 | **A protocol the chip was not designed around**, with parity checked by carrying it in the state number |
+| Nano-Tick trader | 4 + 9 | **Two cores, no host:** core 0 receives prices over UART, a comparator fires, core 1 sends an SPI order |
+
+**What the architecture makes possible:**
+
+- **Exact timing for free:** a row lasts P x (1 + wait) cycles with no fetch or decode overhead, because the
+  SRAM's output register *is* the state register and the next row is read during the current one.
+- **Cores that react to each other:** core 0's last received byte feeds a comparator that core 1 branches on.
+- **Bump in the wire:** any output can forward an input pin, directly or synchronized, while a core parses it.
+- **Bus turnaround in the program:** pins in PINMODE 3 drive only in rows whose `dir` bits say so.
+
+**Programs are checked before they run.** The [compiler](docs/toolchain.md) is a deep-embedded OCaml DSL: a
+program is plain data, so the compiler walks every state and input combination and rejects unreachable
+states, deadlock traps and out-of-range fields at compile time.
+
+**Verified in layers** ([write-up](docs/verification.md)): an independent golden model bit-exact against
+an earlier Python model; protocol references written from the specs; must-reject compiler controls;
+deliberately broken tables that the tests must catch; and RTL plus gate-level tests on the chip itself.
+Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes ([status](#signoff-status)).
+
+**What it is for.** A reprogrammable tool for hardware debugging: emulate either side of a low-speed
+protocol, or sit in the wire and parse a live line while passing it through. Its ideas (deterministic
+table-driven parsing, host-free reaction between engines, compile-time checked state machines) are the
+ones trading firms use at full scale in FPGAs, for example in hardware pre-trade risk checks
+([applications](docs/applications.md)).
+
+## Documentation
+
+| Document | Contents |
+|---|---|
+| [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
+| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
+| [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
+| [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
+| [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
+| [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
+| [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
+
+The pinout is in [`info.yaml`](info.yaml).
 
 ## How it works (summary)
 
@@ -38,9 +90,9 @@ the pinout is in [`info.yaml`](info.yaml).
 | `src/` | RTL: `tt_um_tickertape_pfst.v` (top, two SRAM macros), `pfst_chip.v`, `pfst_core_sram.v`; flow config `config.json`, `pdn_cfg.tcl` |
 | `macro/` | IHP 256x32 SRAM macro LEF |
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
-| `test/` | cocotb testbench (`test_pfst.py`) with the IHP SRAM simulation models in `test/models` |
+| `test/` | cocotb tests: chip features (`test_pfst.py`) and every compiled program on the chip (`test_programs.py`), with the IHP SRAM simulation models in `test/models` |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
-| `docs/info.md` | Datasheet text |
+| `docs/` | Datasheet text (`info.md`) and the documents listed above |
 | `.github/workflows/` | `gds`, `test`, `model`, `fpga`, `docs` CI jobs |
 
 ## Running the tests
@@ -51,8 +103,11 @@ RTL testbench (needs Icarus Verilog 12 and cocotb 2.0.1):
 cd test && make -B
 ```
 
-5/5 pass: register reset values and read-back, table write/read through the SRAM macro, a UART transmitter
-loaded into core 0 and decoded from `uo_out[4]`, UOMAP pass-through, and PINMODE 3 row-controlled pins.
+12/12 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
+a UART transmitter, UOMAP pass-through and PINMODE 3 row-controlled pins. `test_programs.py` runs every
+program the OCaml compiler produces on the chip and decodes the pins: UART TX, UART RX at ±1% baud error,
+SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire, and
+a PS/2 receiver with parity checking.
 
 Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`.
 
@@ -63,7 +118,7 @@ cd model && ./run_tests.sh
 ```
 
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
-static checks and must-reject controls; it also exports the six compiled programs to `compiled_tables.json`.
+static checks and must-reject controls; it also exports the seven compiled programs to `compiled_tables.json`.
 
 ## Signoff status
 
@@ -96,7 +151,13 @@ If KLayout DRC ever reports `M3.f` at a macro edge, add a Metal3 `ROUTING_OBSTRU
 This repo started as Gate 0, a single-macro smoke test that checked whether a user SRAM of this size survives
 GDS, precheck, LVS and gate-level test on the CMOS5L flow. The PFST design replaced that test design.
 
-## Provenance
+## Credits and provenance
+
+**Concept:** David Cox originated the idea behind TickerTape-Out: a programmable finite state transducer
+used as a "bump-in-the-wire" protocol engine. See [design evolution](docs/design-evolution.md) for how the
+concept became the built design.
+
+**Design, implementation, development and engineering:** Jonathan Clark.
 
 Macro integration (PDN plugin, `odb_sram_stripes.py`, `pdn_cfg.tcl`, config keys)
 is adapted from [WilliamZhang20/protocol-emulator](https://github.com/WilliamZhang20/protocol-emulator)

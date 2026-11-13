@@ -16,5 +16,5 @@ let export (prog : Compiler.program) =
     (json_list json_str prog.Compiler.terminals)
 
 let () =
-  let progs = Dsl_programs.[ uart_tx_dsl (); uart_rx_dsl (); spi_tx_dsl (); i2c_wr_dsl (); nt_trader_dsl (); hd_uart_dsl () ] in
+  let progs = Dsl_programs.[ uart_tx_dsl (); uart_rx_dsl (); spi_tx_dsl (); i2c_wr_dsl (); nt_trader_dsl (); hd_uart_dsl (); ps2_rx_dsl () ] in
   print_string ("{\n" ^ String.concat ",\n" (List.map export progs) ^ "\n}\n")
