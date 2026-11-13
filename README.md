@@ -8,6 +8,41 @@ Each core is a table-driven state machine whose transition table lives in its ow
 `RM_IHPSG13_1P_256x32_c2_bm_bist` SRAM macro, so UART, SPI and I2C are firmware tables, not hardware blocks.
 A host loads tables and configuration over an SPI port.
 
+## At a glance
+
+**A protocol is data, not hardware.** Each core is a state machine whose whole program is one 256-word
+table in SRAM: every row picks the next state from two input bits, sets four pins, waits an exact number of
+cycles and does one datapath operation. New protocols are new tables, loaded after fabrication.
+
+**Demonstrated on the chip RTL, every one from the same compiler** ([tests](test/test_programs.py), also run
+at gate level after place and route):
+
+| Program | States | What it shows |
+|---|---|---|
+| UART TX / RX | 2 / 4 | RX holds sync at ±1% baud error |
+| SPI controller | 4 | Mode 0, MSB first |
+| I2C write | 14 | Open drain, clock-stretch aware, ACK and NACK, against a reactive target |
+| Half-duplex UART | 6 | One wire: the program itself turns the line around each row (`dir` bits), zero contention cycles |
+| PS/2 receiver | 39 | **A protocol the chip was not designed around**, with parity checked by carrying it in the state number |
+| Nano-Tick trader | 4 + 9 | **Two cores, no host:** core 0 receives prices over UART, a comparator fires, core 1 sends an SPI order |
+
+**What the architecture makes possible:**
+
+- **Exact timing for free:** a row lasts P x (1 + wait) cycles with no fetch or decode overhead, because the
+  SRAM's output register *is* the state register and the next row is read during the current one.
+- **Cores that react to each other:** core 0's last received byte feeds a comparator that core 1 branches on.
+- **Bump in the wire:** any output can forward an input pin, directly or synchronized, while a core parses it.
+- **Bus turnaround in the program:** pins in PINMODE 3 drive only in rows whose `dir` bits say so.
+
+**Programs are checked before they run.** The [compiler](docs/toolchain.md) is a deep-embedded OCaml DSL: a
+program is plain data, so the compiler walks every state and input combination and rejects unreachable
+states, deadlock traps and out-of-range fields at compile time.
+
+**Verified in layers** ([write-up](docs/verification.md)): an independent golden model bit-exact against
+an earlier Python model; protocol references written from the specs; must-reject compiler controls;
+deliberately broken tables that the tests must catch; and RTL plus gate-level tests on the chip itself.
+Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes ([status](#signoff-status)).
+
 ## Documentation
 
 | Document | Contents |
