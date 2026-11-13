@@ -31,6 +31,6 @@ decode its output from uo_out[4].
 
 ## External hardware
 
-None required for the tests: the demo board's RP2040 can act as the SPI host. Protocol pins are uio[3:0] for
+None required for the tests: the demo board's RP2350 can act as the SPI host. Protocol pins are uio[3:0] for
 core 0 and uio[7:4] for core 1; open-drain lines (I2C) need pull-ups, and a CS line should have a pull-up so it
 idles high before the chip is configured.

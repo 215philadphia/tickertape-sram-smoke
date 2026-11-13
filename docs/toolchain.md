@@ -108,4 +108,4 @@ Over the host SPI port ([architecture.md](architecture.md#host-interface)), with
 3. `CTRL` (`0x40 + c`) with RUN and RESTART
 
 [`test/test_pfst.py`](../test/test_pfst.py) does exactly this for a UART transmitter (`test_uart_tx`) and
-decodes the result from the pin. On the Tiny Tapeout demo board, the RP2040/RP2350 can act as the SPI host.
+decodes the result from the pin. On the Tiny Tapeout demo board, the RP2350 can act as the SPI host.
