@@ -1,0 +1,207 @@
+Original log: 0_test.txt
+2026-11-13T15:30:21.8962637Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T15:30:32.3839135Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T15:30:36.4873961Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T15:30:36.4874463Z [36;1m! grep failure results.xml[0m
+2026-11-13T15:30:41.7412244Z                                                         ** TESTS=5 PASS=5 FAIL=0 SKIP=0                   755250.00           3.30     228634.27  **
+--- LAST 200 LINES ---
+2026-11-13T15:30:30.4022002Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-11-13T15:30:30.4046625Z Not building database; man-db/auto-update is not 'true'.
+2026-11-13T15:30:31.0933154Z 
+2026-11-13T15:30:31.0933669Z Running kernel seems to be up-to-date.
+2026-11-13T15:30:31.0934084Z 
+2026-11-13T15:30:31.0934284Z No services need to be restarted.
+2026-11-13T15:30:31.0934631Z 
+2026-11-13T15:30:31.0934833Z No containers need to be restarted.
+2026-11-13T15:30:31.0935227Z 
+2026-11-13T15:30:31.0935517Z No user sessions are running outdated binaries.
+2026-11-13T15:30:31.0935984Z 
+2026-11-13T15:30:31.0936432Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-13T15:30:32.2088121Z ##[group]Run actions/setup-python@v6
+2026-11-13T15:30:32.2088422Z with:
+2026-11-13T15:30:32.2088621Z   python-version: 3.11
+2026-11-13T15:30:32.2088844Z   check-latest: false
+2026-11-13T15:30:32.2091628Z   token: ***
+2026-11-13T15:30:32.2091850Z   update-environment: true
+2026-11-13T15:30:32.2092117Z   allow-prereleases: false
+2026-11-13T15:30:32.2092346Z   freethreaded: false
+2026-11-13T15:30:32.2092564Z ##[endgroup]
+2026-11-13T15:30:32.3545069Z ##[group]Installed versions
+2026-11-13T15:30:32.3651648Z Successfully set up CPython (3.11.18)
+2026-11-13T15:30:32.3652377Z ##[endgroup]
+2026-11-13T15:30:32.3805284Z ##[group]Run pip install -r test/requirements.txt
+2026-11-13T15:30:32.3805711Z [36;1mpip install -r test/requirements.txt[0m
+2026-11-13T15:30:32.3839135Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T15:30:32.3839507Z env:
+2026-11-13T15:30:32.3839793Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:32.3840673Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T15:30:32.3841179Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:32.3841595Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:32.3842010Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:32.3842433Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T15:30:32.3842769Z ##[endgroup]
+2026-11-13T15:30:34.7103397Z Collecting pytest==8.4.2 (from -r test/requirements.txt (line 1))
+2026-11-13T15:30:34.7587527Z   Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-11-13T15:30:34.8212886Z Collecting cocotb==2.0.1 (from -r test/requirements.txt (line 2))
+2026-11-13T15:30:34.8265664Z   Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.8 kB)
+2026-11-13T15:30:34.8432165Z Collecting iniconfig>=1 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T15:30:34.8468688Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T15:30:34.8679871Z Collecting packaging>=20 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T15:30:34.8716776Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-11-13T15:30:34.8896399Z Collecting pluggy<2,>=1.5 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T15:30:34.8938049Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-11-13T15:30:34.9176374Z Collecting pygments>=2.7.2 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T15:30:34.9214081Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-13T15:30:34.9436637Z Collecting find_libpython (from cocotb==2.0.1->-r test/requirements.txt (line 2))
+2026-11-13T15:30:34.9483873Z   Downloading find_libpython-0.5.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T15:30:34.9569961Z Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-11-13T15:30:34.9752562Z Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+2026-11-13T15:30:35.0423621Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 77.2 MB/s  0:00:00
+2026-11-13T15:30:35.0463940Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-11-13T15:30:35.0518606Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-11-13T15:30:35.0583985Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-11-13T15:30:35.0648073Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-11-13T15:30:35.0746853Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 129.1 MB/s  0:00:00
+2026-11-13T15:30:35.0782875Z Downloading find_libpython-0.5.1-py3-none-any.whl (9.2 kB)
+2026-11-13T15:30:35.2589272Z Installing collected packages: pygments, pluggy, packaging, iniconfig, find_libpython, pytest, cocotb
+2026-11-13T15:30:36.4317704Z 
+2026-11-13T15:30:36.4328679Z Successfully installed cocotb-2.0.1 find_libpython-0.5.1 iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-8.4.2
+2026-11-13T15:30:36.4872863Z ##[group]Run cd test
+2026-11-13T15:30:36.4873155Z [36;1mcd test[0m
+2026-11-13T15:30:36.4873357Z [36;1mmake clean[0m
+2026-11-13T15:30:36.4873564Z [36;1mmake[0m
+2026-11-13T15:30:36.4873961Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T15:30:36.4874463Z [36;1m! grep failure results.xml[0m
+2026-11-13T15:30:36.4895296Z shell: /usr/bin/bash -e {0}
+2026-11-13T15:30:36.4895546Z env:
+2026-11-13T15:30:36.4895812Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:36.4896257Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T15:30:36.4896695Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:36.4897092Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:36.4897502Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:36.4897924Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T15:30:36.4898252Z ##[endgroup]
+2026-11-13T15:30:37.3233242Z rm -f results.xml
+2026-11-13T15:30:37.3275434Z "make" -f Makefile results.xml
+2026-11-13T15:30:37.3297250Z make[1]: Entering directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T15:30:37.6291025Z mkdir -p sim_build/rtl
+2026-11-13T15:30:37.6376309Z /usr/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -DFUNCTIONAL -I/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src -f sim_build/rtl/cmds.f  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/tt_um_tickertape_pfst.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_chip.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_core_sram.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_core_behavioral_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_256x32_c2_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/tb.v
+2026-11-13T15:30:37.7545538Z rm -f results.xml
+2026-11-13T15:30:37.7595227Z COCOTB_TEST_MODULES=test_pfst COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+2026-11-13T15:30:37.7596839Z          /usr/bin/vvp -M /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst   
+2026-11-13T15:30:37.7647771Z      -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.11.9 interpreter at /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+2026-11-13T15:30:37.7723236Z      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+2026-11-13T15:30:38.3926778Z      0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+2026-11-13T15:30:38.3928152Z      0.00ns INFO     cocotb                             Seeding Python random module with 1794583838
+2026-11-13T15:30:38.3930380Z      0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb
+2026-11-13T15:30:38.4369541Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_pfst.py:13: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/uart_tx_b20.json' mode='r' encoding='UTF-8'>
+2026-11-13T15:30:38.4372259Z                                                           UART = json.load(open(os.path.join(HERE, "uart_tx_b20.json")))
+2026-11-13T15:30:38.4373140Z      0.00ns INFO     cocotb                             Running tests
+2026-11-13T15:30:38.4373989Z      0.00ns INFO     cocotb.regression                  running test_pfst.test_registers (1/5)
+2026-11-13T15:30:38.4375358Z                                                             Reset values of every core-0 register, then write/read-back with auto-increment.
+2026-11-13T15:30:38.8469268Z  94330.00ns INFO     cocotb.regression                  test_pfst.test_registers passed
+2026-11-13T15:30:38.8499295Z  94330.00ns INFO     cocotb.regression                  running test_pfst.test_table (2/5)
+2026-11-13T15:30:38.8500722Z                                                             WRITE_TABLE / READ_TABLE through the macro of core 1, across a word and row boundary.
+2026-11-13T15:30:40.1044718Z 383100.00ns INFO     cocotb.regression                  test_pfst.test_table passed
+2026-11-13T15:30:40.1050967Z 383100.00ns INFO     cocotb.regression                  running test_pfst.test_uart_tx (3/5)
+2026-11-13T15:30:40.1052130Z                                                             Load a UART TX program into core 0, push bytes over SPI, decode the frames from uo_out[4].
+2026-11-13T15:30:41.3974035Z 677270.00ns INFO     cocotb.regression                  test_pfst.test_uart_tx passed
+2026-11-13T15:30:41.3987845Z 677270.00ns INFO     cocotb.regression                  running test_pfst.test_passthrough (4/5)
+2026-11-13T15:30:41.3989165Z                                                             v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized.
+2026-11-13T15:30:41.4421162Z 687200.00ns INFO     cocotb.regression                  test_pfst.test_passthrough passed
+2026-11-13T15:30:41.4428152Z 687200.00ns INFO     cocotb.regression                  running test_pfst.test_row_controlled_pins (5/5)
+2026-11-13T15:30:41.4429454Z                                                             v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped.
+2026-11-13T15:30:41.7394856Z 755250.00ns INFO     cocotb.regression                  test_pfst.test_row_controlled_pins passed
+2026-11-13T15:30:41.7404364Z 755250.00ns INFO     cocotb.regression                  ********************************************************************************************
+2026-11-13T15:30:41.7405244Z                                                         ** TEST                                STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+2026-11-13T15:30:41.7405970Z                                                         ********************************************************************************************
+2026-11-13T15:30:41.7407009Z                                                         ** test_pfst.test_registers             PASS       94330.00           0.41     230314.46  **
+2026-11-13T15:30:41.7407853Z                                                         ** test_pfst.test_table                 PASS      288770.00           1.25     230235.34  **
+2026-11-13T15:30:41.7408662Z                                                         ** test_pfst.test_uart_tx               PASS      294170.00           1.29     227686.21  **
+2026-11-13T15:30:41.7409510Z                                                         ** test_pfst.test_passthrough           PASS        9930.00           0.04     230291.88  **
+2026-11-13T15:30:41.7410711Z                                                         ** test_pfst.test_row_controlled_pins   PASS       68050.00           0.30     229570.06  **
+2026-11-13T15:30:41.7411517Z                                                         ********************************************************************************************
+2026-11-13T15:30:41.7412244Z                                                         ** TESTS=5 PASS=5 FAIL=0 SKIP=0                   755250.00           3.30     228634.27  **
+2026-11-13T15:30:41.7412961Z                                                         ********************************************************************************************
+2026-11-13T15:30:41.7681040Z FST info: dumpfile tb.fst opened for output.
+2026-11-13T15:30:41.8198345Z make[1]: Leaving directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T15:30:41.8272878Z ##[group]Run test-summary/action@v2.4
+2026-11-13T15:30:41.8273198Z with:
+2026-11-13T15:30:41.8273403Z   paths: test/results.xml
+2026-11-13T15:30:41.8273628Z env:
+2026-11-13T15:30:41.8273875Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.8274307Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T15:30:41.8274758Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.8275143Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.8275515Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.8275892Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T15:30:41.8276209Z ##[endgroup]
+2026-11-13T15:30:41.9007301Z ##[group]Run actions/upload-artifact@v7
+2026-11-13T15:30:41.9007603Z with:
+2026-11-13T15:30:41.9007797Z   name: test-results
+2026-11-13T15:30:41.9008052Z   path: test/tb.fst
+test/results.xml
+test/output/*
+
+2026-11-13T15:30:41.9008369Z   if-no-files-found: warn
+2026-11-13T15:30:41.9008598Z   compression-level: 6
+2026-11-13T15:30:41.9008806Z   overwrite: false
+2026-11-13T15:30:41.9009018Z   include-hidden-files: false
+2026-11-13T15:30:41.9009247Z   archive: true
+2026-11-13T15:30:41.9009434Z env:
+2026-11-13T15:30:41.9009694Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.9010128Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T15:30:41.9010954Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.9011339Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.9011720Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T15:30:41.9012137Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T15:30:41.9012470Z ##[endgroup]
+2026-11-13T15:30:42.0583258Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-13T15:30:42.0586876Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test. This will be the root directory of the artifact
+2026-11-13T15:30:42.0588648Z With the provided path, there will be 2 files uploaded
+2026-11-13T15:30:42.0590065Z Artifact name is valid!
+2026-11-13T15:30:42.0591346Z Root directory input is valid!
+2026-11-13T15:30:42.2749778Z Uploading artifact: test-results.zip
+2026-11-13T15:30:42.2791495Z Beginning upload of artifact content to blob storage
+2026-11-13T15:30:42.3910608Z Uploaded bytes 14075
+2026-11-13T15:30:42.4073551Z Finished uploading artifact content to blob storage!
+2026-11-13T15:30:42.4075145Z SHA256 digest of uploaded artifact is bd725c4098cd85314ae8281227af4a4d6037ebb00499058151e88c9f0647376e
+2026-11-13T15:30:42.4076735Z Finalizing artifact upload
+2026-11-13T15:30:42.7532848Z Artifact test-results successfully finalized. Artifact ID 14052232457
+2026-11-13T15:30:42.7534160Z Artifact test-results has been successfully uploaded! Final size is 14075 bytes. Artifact ID is 14052232457
+2026-11-13T15:30:42.7537770Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43453244728/artifacts/14052232457
+2026-11-13T15:30:42.7722351Z Post job cleanup.
+2026-11-13T15:30:42.9221730Z Post job cleanup.
+2026-11-13T15:30:43.0152777Z [command]/usr/bin/git version
+2026-11-13T15:30:43.0202896Z git version 2.56.1
+2026-11-13T15:30:43.0253307Z Temporarily overriding HOME='/home/runner/work/_temp/c8e0299f-65a8-4c74-aa68-5c370461c8df' before making global git config changes
+2026-11-13T15:30:43.0254926Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T15:30:43.0259468Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-13T15:30:43.0298423Z Removing SSH command configuration
+2026-11-13T15:30:43.0306932Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T15:30:43.0349514Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T15:30:43.0655572Z Removing HTTP extra header
+2026-11-13T15:30:43.0663420Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T15:30:43.0705074Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T15:30:43.0985371Z Removing includeIf entries pointing to credentials config files
+2026-11-13T15:30:43.0997636Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T15:30:43.1064516Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T15:30:43.1066020Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T15:30:43.1067268Z includeif.gitdir:/github/workspace/.git.path
+2026-11-13T15:30:43.1068076Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T15:30:43.1077394Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T15:30:43.1111151Z /home/runner/work/_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1126510Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1182485Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T15:30:43.1217494Z /home/runner/work/_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1235074Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1284294Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-13T15:30:43.1318388Z /github/runner_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1330158Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1382327Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T15:30:43.1415589Z /github/runner_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1427277Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config
+2026-11-13T15:30:43.1474898Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T15:30:43.1736371Z Removing credentials config '/home/runner/work/_temp/git-credentials-b3642a2c-920e-4412-a36d-53a4454a23fb.config'
+2026-11-13T15:30:43.1905575Z Cleaning up orphan processes
+2026-11-13T15:30:43.2384377Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: test-summary/action@v2.4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
