@@ -1,0 +1,208 @@
+Original log: 0_test.txt
+2026-11-13T20:03:35.3637545Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T20:03:49.7416687Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-13T20:03:56.6651062Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T20:03:56.6651538Z [36;1m! grep failure results.xml[0m
+2026-11-13T20:04:03.0211684Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-13T20:04:34.5390375Z                                                          ** TESTS=12 PASS=12 FAIL=0 SKIP=0                     8116920.01          35.81     226681.33  **
+--- LAST 200 LINES ---
+2026-11-13T20:03:49.7419339Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:49.7420006Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:49.7420565Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:49.7420958Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:03:49.7421296Z ##[endgroup]
+2026-11-13T20:03:54.3491141Z Collecting pytest==8.4.2 (from -r test/requirements.txt (line 1))
+2026-11-13T20:03:54.4106992Z   Downloading pytest-8.4.2-py3-none-any.whl.metadata (7.7 kB)
+2026-11-13T20:03:54.4746107Z Collecting cocotb==2.0.1 (from -r test/requirements.txt (line 2))
+2026-11-13T20:03:54.4841498Z   Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.8 kB)
+2026-11-13T20:03:54.4986859Z Collecting iniconfig>=1 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T20:03:54.5067980Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T20:03:54.5266614Z Collecting packaging>=20 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T20:03:54.5343329Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+2026-11-13T20:03:54.5498295Z Collecting pluggy<2,>=1.5 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T20:03:54.5580701Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+2026-11-13T20:03:54.5790412Z Collecting pygments>=2.7.2 (from pytest==8.4.2->-r test/requirements.txt (line 1))
+2026-11-13T20:03:54.5865216Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+2026-11-13T20:03:54.6065279Z Collecting find_libpython (from cocotb==2.0.1->-r test/requirements.txt (line 2))
+2026-11-13T20:03:54.6139060Z   Downloading find_libpython-0.5.1-py3-none-any.whl.metadata (2.8 kB)
+2026-11-13T20:03:54.6259559Z Downloading pytest-8.4.2-py3-none-any.whl (365 kB)
+2026-11-13T20:03:54.6581936Z Downloading cocotb-2.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.6 MB)
+2026-11-13T20:03:54.7893326Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 45.0 MB/s  0:00:00
+2026-11-13T20:03:54.7966950Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+2026-11-13T20:03:54.8068361Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+2026-11-13T20:03:54.8159696Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+2026-11-13T20:03:54.8261561Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+2026-11-13T20:03:54.8457021Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 62.6 MB/s  0:00:00
+2026-11-13T20:03:54.8538970Z Downloading find_libpython-0.5.1-py3-none-any.whl (9.2 kB)
+2026-11-13T20:03:55.4295100Z Installing collected packages: pygments, pluggy, packaging, iniconfig, find_libpython, pytest, cocotb
+2026-11-13T20:03:56.6115558Z 
+2026-11-13T20:03:56.6126210Z Successfully installed cocotb-2.0.1 find_libpython-0.5.1 iniconfig-2.3.1 packaging-26.3 pluggy-1.7.0 pygments-2.21.0 pytest-8.4.2
+2026-11-13T20:03:56.6649945Z ##[group]Run cd test
+2026-11-13T20:03:56.6650230Z [36;1mcd test[0m
+2026-11-13T20:03:56.6650433Z [36;1mmake clean[0m
+2026-11-13T20:03:56.6650632Z [36;1mmake[0m
+2026-11-13T20:03:56.6651062Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T20:03:56.6651538Z [36;1m! grep failure results.xml[0m
+2026-11-13T20:03:56.6672308Z shell: /usr/bin/bash -e {0}
+2026-11-13T20:03:56.6672798Z env:
+2026-11-13T20:03:56.6673093Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6673539Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T20:03:56.6673985Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6674373Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6674770Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6675192Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:03:56.6675517Z ##[endgroup]
+2026-11-13T20:03:57.5274937Z rm -f results.xml
+2026-11-13T20:03:57.5319164Z "make" -f Makefile results.xml
+2026-11-13T20:03:57.5341920Z make[1]: Entering directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T20:03:57.8269839Z mkdir -p sim_build/rtl
+2026-11-13T20:03:57.8357695Z /usr/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -DFUNCTIONAL -I/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src -f sim_build/rtl/cmds.f  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/tt_um_tickertape_pfst.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_chip.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_core_sram.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_core_behavioral_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_256x32_c2_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/tb.v
+2026-11-13T20:03:57.9493534Z rm -f results.xml
+2026-11-13T20:03:57.9539616Z COCOTB_TEST_MODULES=test_pfst,test_programs COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+2026-11-13T20:03:57.9541883Z          /usr/bin/vvp -M /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst   
+2026-11-13T20:03:57.9590106Z      -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.11.9 interpreter at /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+2026-11-13T20:03:57.9663145Z      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+2026-11-13T20:03:58.6546222Z      0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+2026-11-13T20:03:58.6547628Z      0.00ns INFO     cocotb                             Seeding Python random module with 1794600238
+2026-11-13T20:03:58.6549604Z      0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb
+2026-11-13T20:03:58.7124871Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_pfst.py:13: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/uart_tx_b20.json' mode='r' encoding='UTF-8'>
+2026-11-13T20:03:58.7127390Z                                                           UART = json.load(open(os.path.join(HERE, "uart_tx_b20.json")))
+2026-11-13T20:03:58.7294395Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_programs.py:18: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/compiled_tables.json' mode='r' encoding='UTF-8'>
+2026-11-13T20:03:58.7296816Z                                                           PROGS = json.load(open(os.path.join(HERE, "compiled_tables.json")))
+2026-11-13T20:03:58.7297710Z      0.00ns INFO     cocotb                             Running tests
+2026-11-13T20:03:58.7298575Z      0.00ns INFO     cocotb.regression                  running test_pfst.test_registers (1/12)
+2026-11-13T20:03:58.7299720Z                                                             Reset values of every core-0 register, then write/read-back with auto-increment.
+2026-11-13T20:03:59.1428972Z  94330.00ns INFO     cocotb.regression                  test_pfst.test_registers passed
+2026-11-13T20:03:59.1458846Z  94330.00ns INFO     cocotb.regression                  running test_pfst.test_table (2/12)
+2026-11-13T20:03:59.1460093Z                                                             WRITE_TABLE / READ_TABLE through the macro of core 1, across a word and row boundary.
+2026-11-13T20:04:00.3851093Z 383100.00ns INFO     cocotb.regression                  test_pfst.test_table passed
+2026-11-13T20:04:00.3857106Z 383100.00ns INFO     cocotb.regression                  running test_pfst.test_uart_tx (3/12)
+2026-11-13T20:04:00.3858271Z                                                             Load a UART TX program into core 0, push bytes over SPI, decode the frames from uo_out[4].
+2026-11-13T20:04:01.6895078Z 677270.00ns INFO     cocotb.regression                  test_pfst.test_uart_tx passed
+2026-11-13T20:04:01.6908449Z 677270.00ns INFO     cocotb.regression                  running test_pfst.test_passthrough (4/12)
+2026-11-13T20:04:01.6909548Z                                                             v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized.
+2026-11-13T20:04:01.7341050Z 687200.00ns INFO     cocotb.regression                  test_pfst.test_passthrough passed
+2026-11-13T20:04:01.7347697Z 687200.00ns INFO     cocotb.regression                  running test_pfst.test_row_controlled_pins (5/12)
+2026-11-13T20:04:01.7348742Z                                                             v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped.
+2026-11-13T20:04:02.0226476Z 755250.00ns INFO     cocotb.regression                  test_pfst.test_row_controlled_pins passed
+2026-11-13T20:04:02.0235824Z 755250.00ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_tx (6/12)
+2026-11-13T20:04:02.0237099Z                                                             uart_tx_dsl (2 states) on core 0: bytes pushed over SPI appear as 8N1 frames on uio[0].
+2026-11-13T20:04:03.0203951Z 982660.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_tx passed
+2026-11-13T20:04:03.0210307Z 982660.01ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_rx (7/12)
+2026-11-13T20:04:03.0211684Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-13T20:04:05.8459699Z 1622390.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_rx passed
+2026-11-13T20:04:05.8469226Z 1622390.01ns INFO     cocotb.regression                  running test_programs.test_compiled_spi_tx (8/12)
+2026-11-13T20:04:05.8470433Z                                                              spi_tx_dsl (4 states) on core 0, P=4: mode 0 frames (CS, SCK, MOSI on uio[2:0]).
+2026-11-13T20:04:07.4858522Z 1987680.01ns INFO     cocotb.regression                  test_programs.test_compiled_spi_tx passed
+2026-11-13T20:04:07.4864547Z 1987680.01ns INFO     cocotb.regression                  running test_programs.test_compiled_i2c_write (9/12)
+2026-11-13T20:04:07.4866311Z                                                              i2c_wr_dsl (14 states) on core 0, open drain: write 6 bytes to 0x50, then a NACKed address; DONE each time.
+2026-11-13T20:04:13.2427395Z 3256410.01ns INFO     cocotb.regression                  test_programs.test_compiled_i2c_write passed
+2026-11-13T20:04:13.2438057Z 3256410.01ns INFO     cocotb.regression                  running test_programs.test_compiled_nanotick (10/12)
+2026-11-13T20:04:13.2439504Z                                                              Both cores, no host in the loop: core 0 receives prices over UART (uart_rx_dsl), the comparator
+2026-11-13T20:04:18.5284291Z 4406020.01ns INFO     cocotb.regression                  test_programs.test_compiled_nanotick passed
+2026-11-13T20:04:18.5295082Z 4406020.01ns INFO     cocotb.regression                  running test_programs.test_compiled_half_duplex (11/12)
+2026-11-13T20:04:18.5296385Z                                                              hd_uart_dsl (6 states) on one wire, uio[0] in PINMODE 3: send a request, release the wire,
+2026-11-13T20:04:21.4433989Z 5030310.01ns INFO     cocotb.regression                  test_programs.test_compiled_half_duplex passed
+2026-11-13T20:04:21.4450080Z 5030310.01ns INFO     cocotb.regression                  running test_programs.test_compiled_ps2_rx (12/12)
+2026-11-13T20:04:21.4451399Z                                                              ps2_rx_dsl (39 states, a protocol the chip was not designed for) on core 0: CLK on uio[1],
+2026-11-13T20:04:34.5361241Z 8116920.01ns INFO     cocotb.regression                  test_programs.test_compiled_ps2_rx passed
+2026-11-13T20:04:34.5373490Z 8116920.01ns INFO     cocotb.regression                  *************************************************************************************************
+2026-11-13T20:04:34.5374649Z                                                          ** TEST                                     STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+2026-11-13T20:04:34.5375611Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5376584Z                                                          ** test_pfst.test_registers                  PASS       94330.00           0.41     228437.48  **
+2026-11-13T20:04:34.5377940Z                                                          ** test_pfst.test_table                      PASS      288770.00           1.24     233079.76  **
+2026-11-13T20:04:34.5378993Z                                                          ** test_pfst.test_uart_tx                    PASS      294170.00           1.30     225673.44  **
+2026-11-13T20:04:34.5380073Z                                                          ** test_pfst.test_passthrough                PASS        9930.00           0.04     230595.34  **
+2026-11-13T20:04:34.5381198Z                                                          ** test_pfst.test_row_controlled_pins        PASS       68050.00           0.29     236654.91  **
+2026-11-13T20:04:34.5382359Z                                                          ** test_programs.test_compiled_uart_tx       PASS      227410.00           1.00     228207.74  **
+2026-11-13T20:04:34.5383681Z                                                          ** test_programs.test_compiled_uart_rx       PASS      639730.00           2.82     226479.20  **
+2026-11-13T20:04:34.5384872Z                                                          ** test_programs.test_compiled_spi_tx        PASS      365290.00           1.64     222925.69  **
+2026-11-13T20:04:34.5386034Z                                                          ** test_programs.test_compiled_i2c_write     PASS     1268730.00           5.76     220419.15  **
+2026-11-13T20:04:34.5386920Z                                                          ** test_programs.test_compiled_nanotick      PASS     1149610.00           5.28     217547.88  **
+2026-11-13T20:04:34.5387980Z                                                          ** test_programs.test_compiled_half_duplex   PASS      624290.00           2.91     214270.14  **
+2026-11-13T20:04:34.5388898Z                                                          ** test_programs.test_compiled_ps2_rx        PASS     3086610.00          13.09     235784.02  **
+2026-11-13T20:04:34.5389665Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5390375Z                                                          ** TESTS=12 PASS=12 FAIL=0 SKIP=0                     8116920.01          35.81     226681.33  **
+2026-11-13T20:04:34.5391090Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5652983Z FST info: dumpfile tb.fst opened for output.
+2026-11-13T20:04:34.7555491Z make[1]: Leaving directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T20:04:34.7729658Z ##[group]Run test-summary/action@v2.4
+2026-11-13T20:04:34.7730039Z with:
+2026-11-13T20:04:34.7730289Z   paths: test/results.xml
+2026-11-13T20:04:34.7730580Z env:
+2026-11-13T20:04:34.7730836Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.7731301Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T20:04:34.7731736Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.7732133Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.7732834Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.7733245Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:04:34.7733571Z ##[endgroup]
+2026-11-13T20:04:34.8451564Z ##[group]Run actions/upload-artifact@v7
+2026-11-13T20:04:34.8451873Z with:
+2026-11-13T20:04:34.8452071Z   name: test-results
+2026-11-13T20:04:34.8452334Z   path: test/tb.fst
+test/results.xml
+test/output/*
+
+2026-11-13T20:04:34.8452964Z   if-no-files-found: warn
+2026-11-13T20:04:34.8453207Z   compression-level: 6
+2026-11-13T20:04:34.8453443Z   overwrite: false
+2026-11-13T20:04:34.8453664Z   include-hidden-files: false
+2026-11-13T20:04:34.8453902Z   archive: true
+2026-11-13T20:04:34.8454098Z env:
+2026-11-13T20:04:34.8454546Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.8455000Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T20:04:34.8455435Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.8455818Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.8456197Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:04:34.8456609Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:04:34.8456928Z ##[endgroup]
+2026-11-13T20:04:35.0235134Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-13T20:04:35.0238694Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test. This will be the root directory of the artifact
+2026-11-13T20:04:35.0240134Z With the provided path, there will be 2 files uploaded
+2026-11-13T20:04:35.0246086Z Artifact name is valid!
+2026-11-13T20:04:35.0246960Z Root directory input is valid!
+2026-11-13T20:04:35.4363371Z Uploading artifact: test-results.zip
+2026-11-13T20:04:35.4406197Z Beginning upload of artifact content to blob storage
+2026-11-13T20:04:36.0040442Z Uploaded bytes 73667
+2026-11-13T20:04:36.0854675Z Finished uploading artifact content to blob storage!
+2026-11-13T20:04:36.0855825Z SHA256 digest of uploaded artifact is b8cf196e8c6d5475e0a0b8491e1cac59626105b27299107b4f4bc4cd3937a50a
+2026-11-13T20:04:36.0856960Z Finalizing artifact upload
+2026-11-13T20:04:37.0147364Z Artifact test-results successfully finalized. Artifact ID 14071949703
+2026-11-13T20:04:37.0148540Z Artifact test-results has been successfully uploaded! Final size is 73667 bytes. Artifact ID is 14071949703
+2026-11-13T20:04:37.0153061Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43497972049/artifacts/14071949703
+2026-11-13T20:04:37.0344306Z Post job cleanup.
+2026-11-13T20:04:37.1864763Z Post job cleanup.
+2026-11-13T20:04:37.2866493Z [command]/usr/bin/git version
+2026-11-13T20:04:37.2913327Z git version 2.56.1
+2026-11-13T20:04:37.2983885Z Temporarily overriding HOME='/home/runner/work/_temp/1f14536b-b938-4725-bf13-4e5f67f03bb8' before making global git config changes
+2026-11-13T20:04:37.2995856Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T20:04:37.3023806Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-13T20:04:37.3040624Z Removing SSH command configuration
+2026-11-13T20:04:37.3041869Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T20:04:37.3090720Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T20:04:37.3410618Z Removing HTTP extra header
+2026-11-13T20:04:37.3411519Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T20:04:37.3468714Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T20:04:37.3779137Z Removing includeIf entries pointing to credentials config files
+2026-11-13T20:04:37.3793497Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T20:04:37.3834609Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T20:04:37.3851975Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T20:04:37.3855955Z includeif.gitdir:/github/workspace/.git.path
+2026-11-13T20:04:37.3863887Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T20:04:37.3866206Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-13T20:04:37.3902932Z /home/runner/work/_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.3932305Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.3971621Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-13T20:04:37.4023745Z /home/runner/work/_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4027218Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4074835Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-13T20:04:37.4110098Z /github/runner_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4124054Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4177408Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-13T20:04:37.4217117Z /github/runner_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4226946Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config
+2026-11-13T20:04:37.4297304Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T20:04:37.4555150Z Removing credentials config '/home/runner/work/_temp/git-credentials-d9ce4fa0-1950-437a-af89-57e476d30bca.config'
+2026-11-13T20:04:37.4717579Z Cleaning up orphan processes
+2026-11-13T20:04:37.5131732Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: test-summary/action@v2.4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

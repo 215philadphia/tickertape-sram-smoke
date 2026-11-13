@@ -1,0 +1,95 @@
+Original log: test/6_Run tests.txt
+2026-11-13T20:03:56.6651059Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T20:03:56.6651536Z [36;1m! grep failure results.xml[0m
+2026-11-13T20:04:03.0211640Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-13T20:04:34.5390373Z                                                          ** TESTS=12 PASS=12 FAIL=0 SKIP=0                     8116920.01          35.81     226681.33  **
+--- LAST 200 LINES ---
+﻿2026-11-13T20:03:56.6649929Z ##[group]Run cd test
+2026-11-13T20:03:56.6650227Z [36;1mcd test[0m
+2026-11-13T20:03:56.6650431Z [36;1mmake clean[0m
+2026-11-13T20:03:56.6650630Z [36;1mmake[0m
+2026-11-13T20:03:56.6651059Z [36;1m# make will return success even if the test fails, so check for failure in the results.xml[0m
+2026-11-13T20:03:56.6651536Z [36;1m! grep failure results.xml[0m
+2026-11-13T20:03:56.6672295Z shell: /usr/bin/bash -e {0}
+2026-11-13T20:03:56.6672795Z env:
+2026-11-13T20:03:56.6673090Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6673537Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-13T20:03:56.6673982Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6674370Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6674768Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-13T20:03:56.6675155Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-13T20:03:56.6675514Z ##[endgroup]
+2026-11-13T20:03:57.5274910Z rm -f results.xml
+2026-11-13T20:03:57.5319151Z "make" -f Makefile results.xml
+2026-11-13T20:03:57.5341905Z make[1]: Entering directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-13T20:03:57.8269793Z mkdir -p sim_build/rtl
+2026-11-13T20:03:57.8357647Z /usr/bin/iverilog -o sim_build/rtl/sim.vvp -s tb -g2012 -DFUNCTIONAL -I/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src -f sim_build/rtl/cmds.f  /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/tt_um_tickertape_pfst.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_chip.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/../src/pfst_core_sram.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_core_behavioral_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/models/RM_IHPSG13_1P_256x32_c2_bm_bist.v /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/tb.v
+2026-11-13T20:03:57.9493507Z rm -f results.xml
+2026-11-13T20:03:57.9539601Z COCOTB_TEST_MODULES=test_pfst,test_programs COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=tb TOPLEVEL_LANG=verilog \
+2026-11-13T20:03:57.9541871Z          /usr/bin/vvp -M /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb/libs -m libcocotbvpi_icarus   sim_build/rtl/sim.vvp -fst   
+2026-11-13T20:03:57.9590088Z      -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.11.9 interpreter at /opt/hostedtoolcache/Python/3.11.18/x64/bin/python
+2026-11-13T20:03:57.9663123Z      -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+2026-11-13T20:03:58.6546183Z      0.00ns INFO     cocotb                             Running on Icarus Verilog version 12.0 (stable)
+2026-11-13T20:03:58.6547584Z      0.00ns INFO     cocotb                             Seeding Python random module with 1794600238
+2026-11-13T20:03:58.6549592Z      0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/cocotb
+2026-11-13T20:03:58.7124831Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_pfst.py:13: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/uart_tx_b20.json' mode='r' encoding='UTF-8'>
+2026-11-13T20:03:58.7127377Z                                                           UART = json.load(open(os.path.join(HERE, "uart_tx_b20.json")))
+2026-11-13T20:03:58.7293970Z      0.00ns WARNING  py.warnings                        /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/test_programs.py:18: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test/compiled_tables.json' mode='r' encoding='UTF-8'>
+2026-11-13T20:03:58.7296805Z                                                           PROGS = json.load(open(os.path.join(HERE, "compiled_tables.json")))
+2026-11-13T20:03:58.7297703Z      0.00ns INFO     cocotb                             Running tests
+2026-11-13T20:03:58.7298567Z      0.00ns INFO     cocotb.regression                  running test_pfst.test_registers (1/12)
+2026-11-13T20:03:58.7299711Z                                                             Reset values of every core-0 register, then write/read-back with auto-increment.
+2026-11-13T20:03:59.1428930Z  94330.00ns INFO     cocotb.regression                  test_pfst.test_registers passed
+2026-11-13T20:03:59.1458830Z  94330.00ns INFO     cocotb.regression                  running test_pfst.test_table (2/12)
+2026-11-13T20:03:59.1460049Z                                                             WRITE_TABLE / READ_TABLE through the macro of core 1, across a word and row boundary.
+2026-11-13T20:04:00.3851055Z 383100.00ns INFO     cocotb.regression                  test_pfst.test_table passed
+2026-11-13T20:04:00.3857088Z 383100.00ns INFO     cocotb.regression                  running test_pfst.test_uart_tx (3/12)
+2026-11-13T20:04:00.3858266Z                                                             Load a UART TX program into core 0, push bytes over SPI, decode the frames from uo_out[4].
+2026-11-13T20:04:01.6895033Z 677270.00ns INFO     cocotb.regression                  test_pfst.test_uart_tx passed
+2026-11-13T20:04:01.6908436Z 677270.00ns INFO     cocotb.regression                  running test_pfst.test_passthrough (4/12)
+2026-11-13T20:04:01.6909544Z                                                             v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized.
+2026-11-13T20:04:01.7341014Z 687200.00ns INFO     cocotb.regression                  test_pfst.test_passthrough passed
+2026-11-13T20:04:01.7347658Z 687200.00ns INFO     cocotb.regression                  running test_pfst.test_row_controlled_pins (5/12)
+2026-11-13T20:04:01.7348739Z                                                             v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped.
+2026-11-13T20:04:02.0226438Z 755250.00ns INFO     cocotb.regression                  test_pfst.test_row_controlled_pins passed
+2026-11-13T20:04:02.0235810Z 755250.00ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_tx (6/12)
+2026-11-13T20:04:02.0237088Z                                                             uart_tx_dsl (2 states) on core 0: bytes pushed over SPI appear as 8N1 frames on uio[0].
+2026-11-13T20:04:03.0203914Z 982660.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_tx passed
+2026-11-13T20:04:03.0210293Z 982660.01ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_rx (7/12)
+2026-11-13T20:04:03.0211640Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-13T20:04:05.8459663Z 1622390.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_rx passed
+2026-11-13T20:04:05.8469210Z 1622390.01ns INFO     cocotb.regression                  running test_programs.test_compiled_spi_tx (8/12)
+2026-11-13T20:04:05.8470423Z                                                              spi_tx_dsl (4 states) on core 0, P=4: mode 0 frames (CS, SCK, MOSI on uio[2:0]).
+2026-11-13T20:04:07.4858482Z 1987680.01ns INFO     cocotb.regression                  test_programs.test_compiled_spi_tx passed
+2026-11-13T20:04:07.4864534Z 1987680.01ns INFO     cocotb.regression                  running test_programs.test_compiled_i2c_write (9/12)
+2026-11-13T20:04:07.4865924Z                                                              i2c_wr_dsl (14 states) on core 0, open drain: write 6 bytes to 0x50, then a NACKed address; DONE each time.
+2026-11-13T20:04:13.2427356Z 3256410.01ns INFO     cocotb.regression                  test_programs.test_compiled_i2c_write passed
+2026-11-13T20:04:13.2438042Z 3256410.01ns INFO     cocotb.regression                  running test_programs.test_compiled_nanotick (10/12)
+2026-11-13T20:04:13.2439494Z                                                              Both cores, no host in the loop: core 0 receives prices over UART (uart_rx_dsl), the comparator
+2026-11-13T20:04:18.5284252Z 4406020.01ns INFO     cocotb.regression                  test_programs.test_compiled_nanotick passed
+2026-11-13T20:04:18.5295068Z 4406020.01ns INFO     cocotb.regression                  running test_programs.test_compiled_half_duplex (11/12)
+2026-11-13T20:04:18.5296374Z                                                              hd_uart_dsl (6 states) on one wire, uio[0] in PINMODE 3: send a request, release the wire,
+2026-11-13T20:04:21.4433897Z 5030310.01ns INFO     cocotb.regression                  test_programs.test_compiled_half_duplex passed
+2026-11-13T20:04:21.4450066Z 5030310.01ns INFO     cocotb.regression                  running test_programs.test_compiled_ps2_rx (12/12)
+2026-11-13T20:04:21.4451389Z                                                              ps2_rx_dsl (39 states, a protocol the chip was not designed for) on core 0: CLK on uio[1],
+2026-11-13T20:04:34.5361205Z 8116920.01ns INFO     cocotb.regression                  test_programs.test_compiled_ps2_rx passed
+2026-11-13T20:04:34.5373479Z 8116920.01ns INFO     cocotb.regression                  *************************************************************************************************
+2026-11-13T20:04:34.5374646Z                                                          ** TEST                                     STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+2026-11-13T20:04:34.5375580Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5376582Z                                                          ** test_pfst.test_registers                  PASS       94330.00           0.41     228437.48  **
+2026-11-13T20:04:34.5377937Z                                                          ** test_pfst.test_table                      PASS      288770.00           1.24     233079.76  **
+2026-11-13T20:04:34.5378991Z                                                          ** test_pfst.test_uart_tx                    PASS      294170.00           1.30     225673.44  **
+2026-11-13T20:04:34.5380065Z                                                          ** test_pfst.test_passthrough                PASS        9930.00           0.04     230595.34  **
+2026-11-13T20:04:34.5381196Z                                                          ** test_pfst.test_row_controlled_pins        PASS       68050.00           0.29     236654.91  **
+2026-11-13T20:04:34.5382350Z                                                          ** test_programs.test_compiled_uart_tx       PASS      227410.00           1.00     228207.74  **
+2026-11-13T20:04:34.5383678Z                                                          ** test_programs.test_compiled_uart_rx       PASS      639730.00           2.82     226479.20  **
+2026-11-13T20:04:34.5384861Z                                                          ** test_programs.test_compiled_spi_tx        PASS      365290.00           1.64     222925.69  **
+2026-11-13T20:04:34.5386025Z                                                          ** test_programs.test_compiled_i2c_write     PASS     1268730.00           5.76     220419.15  **
+2026-11-13T20:04:34.5386918Z                                                          ** test_programs.test_compiled_nanotick      PASS     1149610.00           5.28     217547.88  **
+2026-11-13T20:04:34.5387823Z                                                          ** test_programs.test_compiled_half_duplex   PASS      624290.00           2.91     214270.14  **
+2026-11-13T20:04:34.5388896Z                                                          ** test_programs.test_compiled_ps2_rx        PASS     3086610.00          13.09     235784.02  **
+2026-11-13T20:04:34.5389663Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5390373Z                                                          ** TESTS=12 PASS=12 FAIL=0 SKIP=0                     8116920.01          35.81     226681.33  **
+2026-11-13T20:04:34.5391088Z                                                          *************************************************************************************************
+2026-11-13T20:04:34.5652946Z FST info: dumpfile tb.fst opened for output.
+2026-11-13T20:04:34.7555459Z make[1]: Leaving directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'

@@ -1,0 +1,39 @@
+Original log: gds/5_Post Build GDS.txt
+--- LAST 200 LINES ---
+﻿2026-11-13T20:22:38.3503496Z Post job cleanup.
+2026-11-13T20:22:38.3508394Z ##[start-action display=Setup python;id=__44abef98-94ad-489d-99cd-175df8d9ef28.__actions_setup-python]
+2026-11-13T20:22:38.3511018Z ##[end-action id=__44abef98-94ad-489d-99cd-175df8d9ef28.__actions_setup-python;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-11-13T20:22:38.3513030Z ##[start-action display=Checkout tt-support-tools repo;id=__44abef98-94ad-489d-99cd-175df8d9ef28.__actions_checkout]
+2026-11-13T20:22:38.3594356Z Post job cleanup.
+2026-11-13T20:22:38.4500901Z [command]/usr/bin/git version
+2026-11-13T20:22:38.4549644Z git version 2.56.1
+2026-11-13T20:22:38.4589071Z Temporarily overriding HOME='/home/runner/work/_temp/de9581bb-e0ee-4649-bd15-06187224ad4c' before making global git config changes
+2026-11-13T20:22:38.4590673Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T20:22:38.4595929Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt
+2026-11-13T20:22:38.4660438Z Removing SSH command configuration
+2026-11-13T20:22:38.4661391Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T20:22:38.4691103Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T20:22:38.5014292Z Removing HTTP extra header
+2026-11-13T20:22:38.5015349Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T20:22:38.5053201Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T20:22:38.5412621Z Removing includeIf entries pointing to credentials config files
+2026-11-13T20:22:38.5424747Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T20:22:38.5486280Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T20:22:38.5501883Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T20:22:38.5504724Z includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T20:22:38.5505486Z includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T20:22:38.5517631Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path
+2026-11-13T20:22:38.5549817Z /home/runner/work/_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5601205Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git.path /home/runner/work/_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5691608Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path
+2026-11-13T20:22:38.5751058Z /home/runner/work/_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5771618Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/tt/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5829877Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git.path
+2026-11-13T20:22:38.5855431Z /github/runner_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5871266Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git.path /github/runner_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5906655Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path
+2026-11-13T20:22:38.5930713Z /github/runner_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.5942372Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/tt/.git/worktrees/*.path /github/runner_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config
+2026-11-13T20:22:38.6004849Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T20:22:38.6212620Z Removing credentials config '/home/runner/work/_temp/git-credentials-6bcfac41-eda3-4c2e-b4de-00d5d7624632.config'
+2026-11-13T20:22:38.6298760Z ##[end-action id=__44abef98-94ad-489d-99cd-175df8d9ef28.__actions_checkout;outcome=success;conclusion=success;duration_ms=278]
