@@ -105,6 +105,62 @@ let test_nanotick_dsl () =
           failwith (Printf.sprintf "seed %d: an order was not BUY" seed)
       done)
 
+(* One shared wire: the core drives it only while dir[0] = 1 (PINMODE 3), otherwise
+   the remote drives it or the pull-up holds it high. The remote answers each
+   request with its bitwise inverse after a 2-bit turnaround. One independent
+   decoder over the whole wire must see request, reply, request, reply, ...;
+   any cycle where both sides drive is a failure. *)
+let test_half_duplex () =
+  check "DSL half-duplex UART (dir): request/reply on one wire, no contention" (fun () ->
+      let c = Compiler.compile (Dsl_programs.hd_uart_dsl ()) in
+      if c.num_states <> 6 then failwith (Printf.sprintf "expected 6 states, got %d" c.num_states);
+      let bp = Dsl_programs.bp in
+      let reqs = [0x00; 0xFF; 0x55; 0xA5; 0x3C] in
+      let core = Pfst.create ~table:c.table ~p:1 ~msb_first:false ~reset_sel:c.reset_sel in
+      let rng = Random.State.make [| 3 |] in
+      let n = List.length reqs * 40 * bp in
+      let wire = Array.make n 1 in
+      let pending = ref reqs and waiting = ref false and got = ref 0 in
+      let remote = ref [||] and r_t0 = ref 0 and drove_prev = ref false and released_at = ref (-1) in
+      let f0 = ref 0 and f1 = ref 0 in          (* remote frame: first start-bit sample .. end of stop bit *)
+      let contention = ref 0 and drove_ever = ref false in
+      for k = 0 to n - 1 do
+        let chip_drives = core.Pfst.dir land 1 = 1 in
+        if chip_drives then drove_ever := true;
+        if !drove_prev && not chip_drives then released_at := k;
+        drove_prev := chip_drives;
+        (* remote: after the chip releases following a request, wait 2 bits, then reply *)
+        if !released_at >= 0 && k = !released_at + 2 * bp && Array.length !remote = 0 then begin
+          let req = List.nth reqs (!got) in
+          remote := Refs.uart_encode ~rng [req lxor 0xFF] (float_of_int bp) 0.0 0.0; r_t0 := k;
+          let s0 = ref 0 in while !remote.(!s0) = 1 do incr s0 done;
+          f0 := !s0; f1 := !s0 + 10 * bp
+        end;
+        let j = k - !r_t0 in
+        let in_frame = Array.length !remote > 0 && j >= !f0 && j < !f1 in
+        (* push-pull remote: drives its own levels for its whole frame, released outside it *)
+        let remote_drives = in_frame in
+        let remote_level = if in_frame then !remote.(j) else 1 in
+        if chip_drives && in_frame then incr contention;
+        if Array.length !remote > 0 && j >= Array.length !remote then (remote := [||]; released_at := -1);
+        let w = if chip_drives then core.Pfst.out land 1 else if remote_drives then remote_level else 1 in
+        wire.(k) <- w;
+        (* host: one request at a time, next one only after its reply is saved *)
+        let rx = List.length core.Pfst.rx_bytes in
+        if !waiting && rx > !got then (incr got; waiting := false);
+        if (not !waiting) && k > 20 then (match !pending with
+            | h :: tl when not core.Pfst.tx_full -> ignore (Pfst.host_write core h); pending := tl; waiting := true
+            | _ -> ());
+        ignore (Pfst.step core ~raw_in:[| w; 0; 0; 0 |] ~cmp:0)
+      done;
+      if not !drove_ever then failwith "core never drove the wire";
+      if !contention > 0 then failwith (Printf.sprintf "%d cycles of bus contention" !contention);
+      let decoded, _ = Refs.uart_decode wire (float_of_int bp) in
+      let expect = List.concat_map (fun r -> [r; r lxor 0xFF]) reqs in
+      if decoded <> expect then
+        failwith (Printf.sprintf "wire decoded %s" (String.concat " " (List.map (Printf.sprintf "%02x") decoded)));
+      if Pfst.rx_bytes_in_order core <> List.map (fun r -> r lxor 0xFF) reqs then failwith "saved replies wrong")
+
 let expect_error name prog needle =
   check (Printf.sprintf "neg: %-46s (must be rejected)" name) (fun () ->
       match Compiler.compile (prog ()) with
@@ -122,6 +178,7 @@ let () =
   test_spi_tx ();
   test_i2c_wr ();
   test_nanotick_dsl ();
+  test_half_duplex ();
   print_endline "";
   print_endline "-- static checks: each control must be rejected at compile time,";
   print_endline "   before ever running --";
@@ -131,6 +188,8 @@ let () =
   expect_error "transition to undeclared state" Dsl_programs.bad_undeclared_target "undeclared";
   expect_error "wait field out of range" Dsl_programs.bad_wait_range "range";
   expect_error "three inputs, no slot fits" Dsl_programs.bad_too_many_inputs "at most 2";
+  expect_error "dir field out of range" Dsl_programs.bad_dir_range "dir 16";
+  expect_error "65 states (chip holds 64)" Dsl_programs.bad_too_many_states "64";
   expect_error "real trap beside a legitimate declared terminal"
     Dsl_programs.bad_trap_beside_real_terminal "TRAP";
   check "terminals mechanism trusts an explicit (bad) declaration"

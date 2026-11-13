@@ -20,7 +20,9 @@ type src = In0 | In1 | TxFull | In2 | CntZero | Obit | Cmp | In3
 let slot_a = [| In0; In1; TxFull; In2 |]
 let slot_b = [| CntZero; Obit; Cmp; In3 |]
 
-type row = { next : string; wait : int; out : int; osel : int; op : op }
+(* dir (spec v1.1): per-row drive enable of out[3:0] for pins in PINMODE 3, word bits [28:25].
+   0 = released; every pre-v1.1 program leaves it 0. *)
+type row = { next : string; wait : int; out : int; osel : int; op : op; dir : int }
 
 type state_def = {
   name : string;
@@ -144,6 +146,7 @@ let compile (p : program) =
   let num = Hashtbl.create 32 in
   List.iteri (fun i n -> Hashtbl.replace num n i) names;
   let n_states = List.length names in
+  if n_states > 64 then err "%d states: the chip has 64 (6-bit state field; bits [28:25] belong to dir)" n_states;
   let s_bits = if n_states <= 1 then 1 else
       let b = ref 0 in while (1 lsl !b) < n_states do incr b done; !b in
   let table = Array.make (4 * n_states) 0 in
@@ -175,6 +178,7 @@ let compile (p : program) =
           if r.wait < 0 || r.wait > 255 then err "state %s: wait %d out of range" st.name r.wait;
           if r.out < 0 || r.out > 15 then err "state %s: out %d out of range" st.name r.out;
           if r.osel <> 0 && r.osel <> 1 then err "state %s: osel must be 0/1" st.name;
+          if r.dir < 0 || r.dir > 15 then err "state %s: dir %d out of range" st.name r.dir;
           let na, nb = place_inputs (Hashtbl.find by_name r.next) in
           let na_i = match na with Some s -> slot_index slot_a s | None -> 0 in
           let nb_i = match nb with Some s -> slot_index slot_b s | None -> 0 in
@@ -183,6 +187,7 @@ let compile (p : program) =
               [ (r.wait, 8); (r.out, 4); (r.osel, 1); (op_code r.op, 2); (na_i, 2); (nb_i, 2) ] in
           if w land (lnot ((1 lsl (s_bits + 19)) - 1)) <> 0 then
             err "state %s: word overflows %d bits" st.name (s_bits + 19);
+          let w = w lor (r.dir lsl 25) in            (* fixed position: the chip's state field is always 6 bits *)
           table.((Hashtbl.find num st.name lsl 2) lor (a lsl 1) lor b) <- w)
         combos)
     p.states;

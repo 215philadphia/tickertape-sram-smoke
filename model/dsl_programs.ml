@@ -7,10 +7,10 @@
 
 open Compiler
 
-let hold ?(out = 0) ?(osel = 0) ?(wait = 0) next = { next; wait; out; osel; op = Hold }
-let shift ?(out = 0) ?(osel = 0) ?(wait = 0) next = { next; wait; out; osel; op = Shift }
-let load ?(out = 0) ?(osel = 0) ?(wait = 0) next = { next; wait; out; osel; op = Load }
-let save ?(out = 0) ?(osel = 0) ?(wait = 0) next = { next; wait; out; osel; op = Save }
+let hold ?(out = 0) ?(osel = 0) ?(wait = 0) ?(dir = 0) next = { next; wait; out; osel; op = Hold; dir }
+let shift ?(out = 0) ?(osel = 0) ?(wait = 0) ?(dir = 0) next = { next; wait; out; osel; op = Shift; dir }
+let load ?(out = 0) ?(osel = 0) ?(wait = 0) ?(dir = 0) next = { next; wait; out; osel; op = Load; dir }
+let save ?(out = 0) ?(osel = 0) ?(wait = 0) ?(dir = 0) next = { next; wait; out; osel; op = Save; dir }
 
 let st name inputs rowfn = { name; inputs; rowfn }
 
@@ -215,6 +215,40 @@ let bad_undeclared_target () =
   { pname = "bad_undeclared_target"; start = "IDLE"; states; msb_first = false; terminals = [] }
 
 (* A wait field out of range. *)
+(* ------------------------------------------- half-duplex single-wire UART (v1.1) *)
+(* One wire: out[0] on a PINMODE 3 pin, read back through IN0. Send one request
+   byte from the FIFO while driving the wire (dir[0] = 1 on the start, data and
+   stop bits), release it, receive one reply byte on the same wire and SAVE it,
+   then wait one more bit period before idling so a fresh request can't start
+   while the far end is still in its stop bit. Every other row releases the
+   wire. The receive side uses LOAD only to set the bit counter, so the host
+   must push the next request after the reply arrives (LOAD would consume it).
+   No reply at all leaves the engine in RIDLE; the host recovers with RESTART. *)
+let hd_uart_dsl () =
+  let half = bp / 2 - 1 in
+  let states = [
+    st "TIDLE" [TxFull] (fun c -> if c.(0) then load ~dir:1 ~wait:bw "TDATA" else hold ~out:1 "TIDLE");
+    st "TDATA" [CntZero] (fun c -> if c.(0) then hold ~out:1 ~dir:1 ~wait:bw "RIDLE"
+                           else shift ~out:1 ~osel:1 ~dir:1 ~wait:bw "TDATA");
+    st "RIDLE" [In0] (fun c -> if c.(0) then hold "RIDLE" else load ~wait:half "RCHK");
+    st "RCHK" [In0] (fun c -> if c.(0) then hold "RIDLE" else hold ~wait:bw "RDATA");
+    st "RDATA" [In0; CntZero] (fun c ->
+        if c.(1) then (if c.(0) then save ~wait:bw "TIDLE" else hold "RFERR")
+        else shift ~wait:bw "RDATA");
+    st "RFERR" [In0] (fun c -> if c.(0) then hold "TIDLE" else hold "RFERR");
+  ] in
+  { pname = "hd_uart_dsl"; start = "TIDLE"; states; msb_first = false; terminals = [] }
+
+let bad_dir_range () =
+  let states = [ st "IDLE" [] (fun _ -> hold ~dir:16 "IDLE") ] in
+  { pname = "bad_dir_range"; start = "IDLE"; states; msb_first = false; terminals = [] }
+
+(* 65 states in a ring: one more than the chip's 6-bit state field holds. *)
+let bad_too_many_states () =
+  let name i = Printf.sprintf "S%d" i in
+  let states = List.init 65 (fun i -> st (name i) [] (fun _ -> hold (name ((i + 1) mod 65)))) in
+  { pname = "bad_too_many_states"; start = "S0"; states; msb_first = false; terminals = [] }
+
 let bad_wait_range () =
   let states = [ st "IDLE" [] (fun _ -> hold ~wait:999 "IDLE") ] in
   { pname = "bad_wait_range"; start = "IDLE"; states; msb_first = false; terminals = [] }
