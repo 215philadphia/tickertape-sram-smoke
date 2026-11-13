@@ -20,6 +20,9 @@ Work done this way (each change goes to the author for review before it is merge
 | 2026-11-13 | Signoff results in the README, read from the CI results branch of gds run 28 | Numbers copied from the published timing, precheck and LVS reports |
 | 2026-11-13 | Comparison of the cap/slew/fanout experiment branches, and a post-global-routing design-repair experiment (`RUN_POST_GRT_DESIGN_REPAIR`) | LibreLane variable names and step order checked against LibreLane's source; result judged by the GDS run |
 | 2026-11-13 | `CLAUDE.md` (competition rules applied to this repo) and the documentation in `docs/` (`architecture.md`, `toolchain.md`, `verification.md`, this page) | Every statement checked against the RTL, the compiler, the tests and the competition page |
+| 2026-11-13 | `test/test_programs.py`: every compiled program run on the chip RTL, with test-side decoders and an I2C target | Run on Icarus Verilog; each test also checked to fail on a deliberately broken table |
+| 2026-11-13 | `ps2_rx_dsl`, a PS/2 receiver in the DSL (parity carried in the state number), with model and RTL tests | Passes on the golden model and the RTL; a table that skips the parity check fails the test |
+| 2026-11-13 | "At a glance" overview in the README | Each claim linked to the test or document that supports it |
 
 ## Earlier work
 
