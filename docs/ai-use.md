@@ -28,10 +28,18 @@ Work done this way (each change goes to the author for review before it is merge
 
 ## Earlier work
 
-> **To complete before submission (author):** describe whether and how AI tools were used for the
-> earlier work in this repository: the PFST specification, the RTL, the Python model, the OCaml golden
-> model and compiler, the tests and the flow configuration. Commits before 2026-11-13 carry no AI
-> trailer, so this cannot be reconstructed from the history.
+Work before 13 November 2026 (the specification, the RTL, the Python reference model, the OCaml golden
+model and compiler, the tests and the flow configuration) was developed with **Claude (Anthropic)
+running in a GitHub Codespace** connected to this repository. Files were pushed to and pulled from
+GitHub through that setup. Those commits carry no `Co-Authored-By` trailer, so the history does not mark
+them individually as AI-assisted; this section is the record instead. The concept itself originated with
+David Cox.
+
+The same rule applied as in the later work: a result was accepted only when independent checks agreed.
+The OCaml golden model is checked bit-exact against the Python model, the protocol references were
+written from the protocol specifications rather than from either model, the compiler's static checks
+are tested with programs that must be rejected, and the RTL is tested through its pins and at gate
+level on the Tiny Tapeout flow ([verification.md](verification.md)).
 
 ## Principles followed
 
