@@ -1,13 +1,14 @@
 name: formal
 
 on:
-  # Manual only while the proofs are being finished; switch to `push:` once they pass (see formal/README.md)
+  push:
   workflow_dispatch:
 
 jobs:
   formal:
     # Formal proofs of the PFST core and chip pin safety with Yosys + SymbiYosys + cvc5 (see formal/README.md)
     runs-on: ubuntu-24.04
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Install Yosys and the cvc5 SMT solver
