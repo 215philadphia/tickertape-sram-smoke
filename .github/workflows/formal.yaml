@@ -1,0 +1,30 @@
+name: formal
+
+on:
+  # Manual only while the proofs are being finished; switch to `push:` once they pass (see formal/README.md)
+  workflow_dispatch:
+
+jobs:
+  formal:
+    # Formal proofs of the PFST core and chip pin safety with Yosys + SymbiYosys + cvc5 (see formal/README.md)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Yosys and the cvc5 SMT solver
+        run: sudo apt-get update -q && sudo apt-get install -y -q yosys cvc5
+      - name: Install SymbiYosys (the release matching the distro's Yosys 0.33)
+        run: |
+          git clone -q --depth 1 --branch yosys-0.33 https://github.com/YosysHQ/sby.git "$RUNNER_TEMP/sby"
+          sudo make -C "$RUNNER_TEMP/sby" install PREFIX=/usr/local
+      - name: Run the proofs
+        run: formal/run.sh
+      - name: Upload proof logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: formal_results
+          path: |
+            formal/core_*/logfile.txt
+            formal/chip_*/logfile.txt
+            formal/core_*/engine_0/trace*.vcd
+            formal/chip_*/engine_0/trace*.vcd

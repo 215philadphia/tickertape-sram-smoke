@@ -1,0 +1,23 @@
+[tasks]
+bmc
+prove
+cover
+
+[options]
+bmc:   mode bmc
+bmc:   depth 30
+prove: mode prove
+prove: depth 4
+cover: mode cover
+cover: depth 80
+
+[engines]
+smtbmc cvc5
+
+[script]
+read -formal -sv pfst_core_sram.v pfst_chip_formal.v
+prep -top pfst_chip
+
+[files]
+build/pfst_core_sram.v
+build/pfst_chip_formal.v
