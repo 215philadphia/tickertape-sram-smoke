@@ -38,9 +38,10 @@ at gate level after place and route):
 program is plain data, so the compiler walks every state and input combination and rejects unreachable
 states, deadlock traps and out-of-range fields at compile time.
 
-**Verified in layers** ([write-up](docs/verification.md)): an independent golden model bit-exact against
-an earlier Python model; protocol references written from the specs; must-reject compiler controls;
-deliberately broken tables that the tests must catch; and RTL plus gate-level tests on the chip itself.
+**Verified in layers** ([write-up](docs/verification.md)): formal proofs, for every program, that rows last
+exactly P x (1 + wait) cycles and that the FIFO and pins behave ([formal/](formal/README.md)); an independent golden
+model bit-exact against an earlier Python model; protocol references written from the specs; must-reject compiler
+controls; deliberately broken tables that the tests must catch; and RTL plus gate-level tests on the chip itself.
 Signoff on the Tiny Tapeout flow: timing met, DRC and LVS clean, precheck passes ([status](#signoff-status)).
 
 **What it is for.** A reprogrammable tool for hardware debugging: emulate either side of a low-speed

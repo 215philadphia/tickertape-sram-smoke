@@ -73,7 +73,7 @@ One 32-bit word per row. Bits [31:29] are unused.
 |---|---|---|
 | 0 | `HOLD` | Nothing |
 | 1 | `SHIFT` | Shift `IN0` into `SR` (LSB first: in at bit 7; MSB first: in at bit 0, per CFG). `OBIT` takes the bit shifted out. `CNT` decrements, stopping at 0. |
-| 2 | `LOAD` | Pop the TX FIFO into `SR` (0 if empty) and set `CNT` to 8 |
+| 2 | `LOAD` | Pop the TX FIFO into `SR` and set `CNT` to 8. From an empty FIFO it reloads the byte last loaded (0 after reset or RESTART) |
 | 3 | `SAVE` | Copy `SR` to `SCR`, set `RX_VALID` (and `RX_OVR` if it was already set), set `VALID` |
 
 **Sticky status from rows:** fetching a row of state `DONE_STATE` sets `DONE`. With `CFG.flag_mode` set,
@@ -135,6 +135,8 @@ requested it. `c` is the core number (0 or 1).
 RESTART flushes the TX FIFO and clears `DONE`, `FLAG` and `TX_OVR`. It keeps `SCR`, `RX_VALID`, `RX_OVR`
 and `VALID`, which only `READ_SCR` or reset clear. RUN starts from state 0. Tables can only be read or
 written while a core is stopped, because each core's SRAM is single-port.
+Set `P` while the core is stopped: the RTL does not stop the host changing it while the core runs, and doing so
+changes row lengths mid-program (the exact-timing guarantee assumes `P` is fixed while running).
 
 ### Register map
 
