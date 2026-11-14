@@ -13,7 +13,7 @@
   "RUN_LINTER": 1,
   "LINTER_INCLUDE_PDK_MODELS": 1,
   "CLOCK_PORT": "clk",
-  "// MACROS": "Variant B: sram0 at the exact Gate 0 position (432.0, 302.4); sram1 beside it at x=912.0 (63.36 um gap). 8x4 only.",
+  "// MACROS": "Variant B: sram0 at the exact Gate 0 position (432.0, 302.4); sram1 beside it at x=912.0 (63.36 um gap). 8x4 only. Experiment pfst-sram0-mx: sram0 flipped to MX so its signal pins (on the macro's y=0 edge) face up toward the TT I/O pins on the die's top edge; sram1 stays R0 as the control.",
   "MACROS": {
     "RM_IHPSG13_1P_256x32_c2_bm_bist": {
       "instances": {
@@ -22,7 +22,7 @@
             432.0,
             302.4
           ],
-          "orientation": "R0"
+          "orientation": "MX"
         },
         "sram1": {
           "location": [
