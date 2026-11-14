@@ -19,36 +19,52 @@
   (* anyconst *) reg [7:0] f_p;                              // A2: an arbitrary, fixed prescaler value
   always @* if (run) assume(p_val == f_p);
 
-  wire [17:0] f_pe = (f_p == 8'd0) ? 18'd256 : {10'd0, f_p};   // effective P: 0 means 256
-
   // ------------------------------------------------------------------ row timer: exact length
-  // Independent count of how long the current row has been in effect, and of the wait field it began with.
-  reg  [17:0] f_age_q;
+  // A row is (1 + wait) back-to-back periods of exactly P cycles. This is counted independently of the RTL,
+  // using only addition: g_per counts completed periods, g_in is the cycle index inside the period, and g_acc
+  // accumulates P once per completed period (so at the last cycle of a row it holds wait x P by repeated
+  // addition). No multiplier is involved, which keeps the proof inside what the solver can do for every P.
+  wire [8:0]  f_pe9 = (f_p == 8'd0) ? 9'd256 : {1'b0, f_p};   // effective P: 0 means 256
   reg  [7:0]  f_w_q;
-  wire [17:0] f_age   = first ? 18'd1 : f_age_q + 18'd1;       // this cycle is the f_age-th cycle of the row
-  wire [7:0]  f_w     = first ? r_wait : f_w_q;
-  wire [17:0] f_total = f_pe * ({10'd0, f_w} + 18'd1);         // P x (1 + wait)
-  always @(posedge clk) begin f_age_q <= f_age; f_w_q <= f_w; end
+  reg  [7:0]  g_per_q;
+  reg  [8:0]  g_in_q;
+  reg  [17:0] g_acc_q;
+  reg  [17:0] f_age_q;
+  wire [7:0]  f_w    = first ? r_wait : f_w_q;                 // wait value this row began with
+  wire        g_wrap = !first && (g_in_q + 9'd1 == f_pe9);     // previous cycle ended a period
+  wire [8:0]  g_in   = first ? 9'd0 : (g_wrap ? 9'd0 : g_in_q + 9'd1);
+  wire [7:0]  g_per  = first ? 8'd0 : (g_wrap ? g_per_q + 8'd1 : g_per_q);
+  wire [17:0] g_acc  = first ? 18'd0 : (g_wrap ? g_acc_q + {9'd0, f_pe9} : g_acc_q);
+  wire [17:0] f_age  = first ? 18'd1 : f_age_q + 18'd1;        // this is the f_age-th cycle of the row
+  always @(posedge clk) begin
+    f_w_q <= f_w; g_per_q <= g_per; g_in_q <= g_in; g_acc_q <= g_acc; f_age_q <= f_age;
+  end
 
   wire f_inrow = !halt && (first || rowv);                     // a row is in effect and the core is not halting
 
   always @(posedge clk) if (f_past_valid) begin
-    // ---- control-state invariants (needed to make the timer proof inductive)
+    // ---- control-state invariants (make the timer proof inductive)
     assert(boot || first || rowv);
     assert(!(boot && first));
     assert(!(boot && rowv));
     if (!first && rowv) begin
-      assert({9'd0, sub_q} < f_pe);                                                // sub-counter within one prescaler period
-      assert(f_age_q + 18'd1 + {10'd0, wcnt_q} * f_pe + {9'd0, sub_q} == f_total);   // elapsed + remaining == length
+      assert(g_in < f_pe9);                                    // position inside the period
+      assert(g_per <= f_w_q);                                  // never beyond the (1 + wait)-th period
+      assert(wcnt_q == f_w_q - g_per);                         // the RTL counters hold exactly what is left:
+      assert(sub_q  == f_pe9 - 9'd1 - g_in);                   //   (wait - periods done) periods + the rest of this one
+      assert(f_age  == g_acc + {9'd0, g_in} + 18'd1);          // elapsed cycles = completed periods x P + position
     end
 
     // ---- T1: every row lasts exactly P x (1 + wait) cycles
-    if (f_inrow &&  last) assert(f_age == f_total);              // ends on exactly the right cycle ...
-    if (f_inrow && !last) assert(f_age <  f_total);              // ... and never runs past it (timer never underflows)
+    // `last` fires in the last cycle of the (1 + wait)-th period, and in no other cycle ...
+    if (f_inrow) assert(last == (g_per == f_w && g_in == f_pe9 - 9'd1));
+    if (f_inrow) assert(g_per <= f_w);                         // ... so the timer never runs past the end or underflows
+    // ... and at that cycle exactly wait x P + P cycles have elapsed (wait periods already completed, plus this one)
+    if (f_inrow && last) assert(f_age == g_acc + {9'd0, f_pe9});
 
     // ---- T2: the next row is read in the last cycle and takes effect in the very next one (no gap)
     if (f_inrow &&  last) assert(mem_men && mem_ren);
-    if (f_inrow && !last) assert(!(mem_men && mem_ren));         // no read while a row is still in progress
+    if (f_inrow && !last) assert(!(mem_men && mem_ren));       // no read while a row is still in progress
     if ($past(f_inrow && last)) assert(first);
 
     // ---- T3: the table cannot be written while the core runs
@@ -59,7 +75,7 @@
       assert(!first && !rowv && boot);
       assert(wcnt_q == 8'd0 && sub_q == 9'd0 && sr == 8'd0 && cnt == 4'd0 && !obit);
       assert(out_o == $past(out_init));
-      assert(dir_o == 4'd0);                                     // row-controlled pins released
+      assert(dir_o == 4'd0);                                   // row-controlled pins released
       assert(state_o == {S{1'b0}});
     end
   end
@@ -123,9 +139,9 @@
 
   // ------------------------------------------------------------------ cover: the properties above are not vacuous
   always @(posedge clk) if (f_past_valid) begin
-    cover(f_inrow && first && last && f_total == 18'd1);                 // a one-cycle row
-    cover(f_inrow && !first && last && f_total == 18'd12);               // a 12-cycle row, ending mid-way
-    cover(f_inrow && last && f_total > 18'd12 && f_total <= 18'd40);
+    cover(f_inrow && first && last && f_age == 18'd1);                 // a one-cycle row
+    cover(f_inrow && !first && last && f_age == 18'd12);               // a 12-cycle row, ending mid-way
+    cover(f_inrow && last && f_age > 18'd12 && f_age <= 18'd40);
     cover(do_load && fcnt == 2'd3);                                      // LOAD from a full FIFO
     cover(do_load && fcnt == 2'd0);                                      // LOAD from an empty FIFO
     cover(fovr);                                                         // FIFO overflow
