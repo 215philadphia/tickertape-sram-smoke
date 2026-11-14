@@ -124,8 +124,8 @@ Proved for the core, for every prescaler `P` and every `wait`:
 Proved at chip level: an open-drain pin never drives high, an input pin is never driven, a stopped core has
 released its row-controlled pins, and no bidirectional pin is driven out of reset.
 
-The proofs are unbounded (k-induction); a bounded check from reset and cover points (which show the interesting
-cases are reachable, so no property is vacuous) run alongside. To show the proofs can fail, five bugs were
+The proofs are unbounded (k-induction); a bounded check from reset runs alongside, and for the core, cover points show
+the interesting cases are reachable, so those properties are not vacuous. To show the proofs can fail, five bugs were
 planted in copies of the RTL, one at a time (a prescaler off by one, a wait off by one, table writes while
 running, the FIFO overflow flag removed, RESTART clearing `SCR`), and each is caught with a counterexample.
 

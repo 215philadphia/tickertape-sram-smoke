@@ -4,7 +4,7 @@ Proofs with [SymbiYosys](https://github.com/YosysHQ/sby) (Yosys 0.33, solver cvc
 PFST core and of the chip's pin muxing.
 
 ```bash
-formal/run.sh          # everything: core.sby and chip.sby, each with prove, bmc and cover tasks
+formal/run.sh          # everything: core.sby (prove, bmc, cover) and chip.sby (prove, bmc)
 formal/run.sh core     # the core only
 formal/run.sh chip     # the chip only
 ```
@@ -25,8 +25,10 @@ for **every possible table contents**, that is, for every program, not just the 
 ## What is proved
 
 Each task is `prove` (k-induction: an unbounded proof, with the base case run from reset), `bmc` (a bounded check
-from reset, which finds counterexamples with a trace) and `cover` (shows the interesting cases are reachable, so a
-property is not vacuously true).
+from reset, which finds counterexamples with a trace) and, for the core, `cover` (shows the interesting cases are
+reachable, so a property is not vacuously true). The chip has no cover task: reaching a driven pin needs about 100
+cycles of SPI configuration, and the solver did not finish that in 20 minutes. That the pins are driven in all three
+modes is shown by the cocotb tests instead.
 
 ### Core (`pfst_core_props.vh`, proved for every value of `P` and `wait`)
 
