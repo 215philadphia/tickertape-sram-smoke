@@ -57,6 +57,7 @@ ones trading firms use at full scale in FPGAs, for example in hardware pre-trade
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
 | [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
+| [Formal proofs](formal/README.md) | What is proved for every program, the assumptions, what is not proved, and how to rerun them |
 | [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
 | [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
@@ -110,7 +111,8 @@ program the OCaml compiler produces on the chip and decodes the pins: UART TX, U
 SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire, and
 a PS/2 receiver with parity checking.
 
-Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`.
+Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`. More in
+[`test/README.md`](test/README.md).
 
 OCaml golden model and compiler (needs `ocamlfind`):
 
@@ -121,10 +123,20 @@ cd model && ./run_tests.sh
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
 static checks and must-reject controls; it also exports the seven compiled programs to `compiled_tables.json`.
 
+Formal proofs (needs `yosys`, `cvc5` and SymbiYosys; see [`formal/README.md`](formal/README.md)):
+
+```bash
+formal/run.sh
+```
+
+The proofs cover the core's exact row timing, the TX FIFO, flags and reset behaviour, and pin safety, for every
+program; the whole suite takes about a minute.
+
 ## Signoff status
 
-From [gds run #28](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43453786318) on `main`
-(commit `19754a1`); reports are on the `results-19754a1-43468440259` branch published by the collector.
+From [gds run #55](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43600506291) on `main`
+(commit `2ac893a`); reports are on the `results-2ac893a-43607814542` branch published by the collector. The chip
+design and flow configuration are unchanged since the earlier signoff run (#28), and the numbers are identical.
 
 | Check | Result |
 |---|---|

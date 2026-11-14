@@ -1,47 +1,40 @@
-# Sample testbench for a Tiny Tapeout project
+# Tests
 
-This is a sample testbench for a Tiny Tapeout project. It uses [cocotb](https://docs.cocotb.org/en/stable/) to drive the DUT and check the outputs.
-See below to get started or for more information, check the [website](https://tinytapeout.com/hdl/testing/).
+cocotb tests that drive the whole chip (`tt_um_tickertape_pfst`) through its pins only, the way the demo board's
+microcontroller would: every table, register write and byte goes in over the host SPI port, and every result is read
+from the pins. They run on open-source tools: Icarus Verilog 12 and cocotb 2.0.1.
 
-## Setting up
+| File | Tests |
+|---|---|
+| `test_pfst.py` (5) | Register reset values and read-back; table write and read through the SRAM macro; a UART transmitter; UOMAP pass-through (direct and synchronized); PINMODE 3 row-controlled pins |
+| `test_programs.py` (7) | Every program the OCaml compiler produces, loaded onto the chip and decoded from the pins: UART TX, UART RX at -1%, 0 and +1% baud error, SPI TX, I2C write against a reactive open-drain target (ACK and NACK), the two-core Nano-Tick trader, half-duplex UART on one PINMODE 3 wire, and a PS/2 receiver |
 
-1. Edit [Makefile](Makefile) and modify `PROJECT_SOURCES` to point to your Verilog files.
-2. Edit [tb.v](tb.v) and replace `tt_um_example` with your module name.
+## Run them
 
-## How to run
-
-To run the RTL simulation:
-
-```sh
-make -B
+```bash
+pip install -r requirements.txt     # cocotb 2.0.1 (and pytest)
+make -B                              # 12 tests, a minute or two
 ```
 
-To run gatelevel simulation, first harden your project and copy `../runs/wokwi/results/final/verilog/gl/{your_module_name}.v` to `gate_level_netlist.v`.
+`test_programs.py` loads its tables from `compiled_tables.json`, a snapshot of what the compiler produces.
+`model/run_tests.sh` fails if the snapshot is out of date; refresh it with `cp ../model/compiled_tables.json .` after
+changing a program.
 
-Then run:
+## Gate level
 
-```sh
+After the Tiny Tapeout flow has hardened the design, copy the final netlist to `gate_level_netlist.v` and run the same
+tests against it (CI does this in the `gl_test` job):
+
+```bash
 make -B GATES=yes
 ```
 
-If you wish to save the waveform in VCD format instead of FST format, edit tb.v to use `$dumpfile("tb.vcd");` and then run:
+## Waveforms
 
-```sh
-make -B FST=
-```
-
-This will generate `tb.vcd` instead of `tb.fst`.
-
-## How to view the waveform file
-
-Using GTKWave
-
-```sh
+```bash
 gtkwave tb.fst tb.gtkw
 ```
 
-Using Surfer
+or `surfer tb.fst`. Use `make -B FST=` and edit `tb.v` to write `tb.vcd` instead.
 
-```sh
-surfer tb.fst
-```
+The formal proofs are separate: see [`../formal/README.md`](../formal/README.md).
