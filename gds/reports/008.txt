@@ -1,0 +1,198 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/56-openroad-stapostpnr/nom_fast_1p32V_m40C/checks.rpt
+
+
+===========================================================================
+report_checks -unconstrained
+===========================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+Startpoint: ui_in[2] (input port clocked by clk)
+Endpoint: uo_out[2] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                                  0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (propagated)
+                                  4.000000    4.000000 ^ input external delay
+     1    0.003161    0.013790    0.001956    4.001956 ^ ui_in[2] (in)
+                                                         ui_in[2] (net)
+                      0.013790    0.000000    4.001956 ^ input4/A (sg13cmos5l_buf_1)
+     1    0.055573    0.148863    0.135288    4.137244 ^ input4/X (sg13cmos5l_buf_1)
+                                                         net4 (net)
+                      0.149564    0.008726    4.145970 ^ fanout519/A (sg13cmos5l_buf_1)
+     7    0.062397    0.165924    0.191441    4.337411 ^ fanout519/X (sg13cmos5l_buf_1)
+                                                         net519 (net)
+                      0.166004    0.003188    4.340600 ^ fanout518/A (sg13cmos5l_buf_1)
+     8    0.064947    0.173413    0.194611    4.535210 ^ fanout518/X (sg13cmos5l_buf_1)
+                                                         net518 (net)
+                      0.173780    0.006955    4.542165 ^ _3917_/B_N (sg13cmos5l_nor2b_1)
+     1    0.004066    0.050475    0.107298    4.649463 ^ _3917_/Y (sg13cmos5l_nor2b_1)
+                                                         _0985_ (net)
+                      0.050475    0.000171    4.649634 ^ _3918_/B1 (sg13cmos5l_a21oi_1)
+     1    0.004932    0.055015    0.032481    4.682115 v _3918_/Y (sg13cmos5l_a21oi_1)
+                                                         _0986_ (net)
+                      0.055016    0.000365    4.682481 v _3919_/A2 (sg13cmos5l_o21ai_1)
+     1    0.005269    0.066535    0.075532    4.758013 ^ _3919_/Y (sg13cmos5l_o21ai_1)
+                                                         _0987_ (net)
+                      0.066535    0.000406    4.758419 ^ _3920_/B1 (sg13cmos5l_a21oi_1)
+     1    0.004612    0.052965    0.035813    4.794232 v _3920_/Y (sg13cmos5l_a21oi_1)
+                                                         _0988_ (net)
+                      0.052966    0.000353    4.794585 v _3921_/C (sg13cmos5l_nor3_1)
+     1    0.005195    0.072208    0.072752    4.867338 ^ _3921_/Y (sg13cmos5l_nor3_1)
+                                                         _0989_ (net)
+                      0.072209    0.000408    4.867746 ^ _3922_/B (sg13cmos5l_nor2_1)
+     2    0.016036    0.050603    0.064260    4.932005 v _3922_/Y (sg13cmos5l_nor2_1)
+                                                         _0990_ (net)
+                      0.050606    0.000460    4.932466 v _3924_/A2 (sg13cmos5l_a21o_1)
+     1    0.004416    0.021214    0.087511    5.019977 v _3924_/X (sg13cmos5l_a21o_1)
+                                                         _0992_ (net)
+                      0.021214    0.000350    5.020327 v _3934_/B1 (sg13cmos5l_o21ai_1)
+     1    0.078747    0.510548    0.192899    5.213225 ^ _3934_/Y (sg13cmos5l_o21ai_1)
+                                                         uo_out[2] (net)
+                      0.511232    0.016244    5.229469 ^ uo_out[2] (out)
+                                              5.229469   data arrival time
+
+                                 20.000000   20.000000   clock clk (rise edge)
+                                  0.000000   20.000000   clock network delay (propagated)
+                                 -0.250000   19.750002   clock uncertainty
+                                  0.000000   19.750002   clock reconvergence pessimism
+                                 -4.000000   15.750001   output external delay
+                                             15.750001   data required time
+---------------------------------------------------------------------------------------------
+                                             15.750001   data required time
+                                             -5.229469   data arrival time
+---------------------------------------------------------------------------------------------
+                                             10.520532   slack (MET)
+
+
+
+
+===========================================================================
+report_checks --slack_max -0.01
+============================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+No paths found.
+
+
+===========================================================================
+ report_check_types -max_slew -max_cap -max_fanout -violators
+============================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+max slew
+
+Pin                                        Limit        Slew       Slack
+------------------------------------------------------------------------
+sram0/A_ADDR[5]                         0.476000    0.527204   -0.051204 (VIOLATED)
+sram0/A_ADDR[4]                         0.476000    0.505322   -0.029322 (VIOLATED)
+sram0/A_ADDR[1]                         0.476000    0.497972   -0.021972 (VIOLATED)
+
+max fanout
+
+Pin                                   Limit Fanout  Slack
+---------------------------------------------------------
+fanout502/X                               8     32    -24 (VIOLATED)
+clkbuf_0_clk_regs/X                       8     16     -8 (VIOLATED)
+fanout78/X                                8      9        (VIOLATED)
+
+max capacitance
+
+Pin                                        Limit         Cap       Slack
+------------------------------------------------------------------------
+sram0/A_DOUT[21]                        0.064000    0.305217   -0.241217 (VIOLATED)
+sram0/A_DOUT[19]                        0.064000    0.303460   -0.239460 (VIOLATED)
+sram0/A_DOUT[22]                        0.064000    0.294911   -0.230911 (VIOLATED)
+sram0/A_DOUT[20]                        0.064000    0.294322   -0.230322 (VIOLATED)
+sram0/A_DOUT[23]                        0.064000    0.263293   -0.199293 (VIOLATED)
+sram0/A_DOUT[29]                        0.064000    0.206500   -0.142500 (VIOLATED)
+sram0/A_DOUT[16]                        0.064000    0.149997   -0.085997 (VIOLATED)
+sram0/A_DOUT[17]                        0.064000    0.145927   -0.081927 (VIOLATED)
+sram1/A_DOUT[16]                        0.064000    0.138778   -0.074778 (VIOLATED)
+sram0/A_DOUT[12]                        0.064000    0.122334   -0.058334 (VIOLATED)
+sram0/A_DOUT[15]                        0.064000    0.112100   -0.048100 (VIOLATED)
+sram0/A_DOUT[9]                         0.064000    0.106849   -0.042849 (VIOLATED)
+sram0/A_DOUT[14]                        0.064000    0.101777   -0.037777 (VIOLATED)
+sram0/A_DOUT[5]                         0.064000    0.094641   -0.030641 (VIOLATED)
+sram0/A_DOUT[6]                         0.064000    0.093289   -0.029289 (VIOLATED)
+sram0/A_DOUT[7]                         0.064000    0.090722   -0.026722 (VIOLATED)
+sram0/A_DOUT[1]                         0.064000    0.086452   -0.022452 (VIOLATED)
+sram0/A_DOUT[4]                         0.064000    0.077039   -0.013039 (VIOLATED)
+sram0/A_DOUT[2]                         0.064000    0.072047   -0.008047 (VIOLATED)
+sram1/A_DOUT[15]                        0.064000    0.069300   -0.005300 (VIOLATED)
+sram1/A_DOUT[13]                        0.064000    0.064698   -0.000698 (VIOLATED)
+
+
+
+===========================================================================
+report_parasitic_annotation -report_unannotated
+============================================================================
+Found 54 unannotated drivers.
+ ena
+ clkload0/Y
+ clkload1/Y
+ clkload10/Y
+ clkload11/Y
+ clkload12/Y
+ clkload13/Y
+ clkload14/Y
+ clkload15/Y
+ clkload16/Y
+ clkload17/Y
+ clkload18/Y
+ clkload19/Y
+ clkload2/Y
+ clkload20/Y
+ clkload21/Y
+ clkload22/X
+ clkload23/Y
+ clkload24/Y
+ clkload25/Y
+ clkload26/X
+ clkload27/Y
+ clkload28/Y
+ clkload29/Y
+ clkload3/X
+ clkload30/Y
+ clkload31/X
+ clkload32/X
+ clkload33/Y
+ clkload34/X
+ clkload35/X
+ clkload36/X
+ clkload37/Y
+ clkload38/X
+ clkload39/X
+ clkload4/Y
+ clkload40/Y
+ clkload41/Y
+ clkload42/Y
+ clkload43/Y
+ clkload44/X
+ clkload45/X
+ clkload46/Y
+ clkload47/Y
+ clkload48/X
+ clkload49/Y
+ clkload5/Y
+ clkload50/Y
+ clkload51/Y
+ clkload52/X
+ clkload6/Y
+ clkload7/Y
+ clkload8/Y
+ clkload9/Y
+Found 0 partially unannotated drivers.
+
+===========================================================================
+max slew violation count 3
+max fanout violation count 3
+max cap violation count 21
+============================================================================
+
+===========================================================================
+check_setup -verbose -unconstrained_endpoints -multiple_clock -no_clock -no_input_delay -loops -generated_clocks
+===========================================================================
