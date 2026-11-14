@@ -17,17 +17,27 @@ Every row lasts exactly P x (1 + wait) clock cycles.
 Two features make it a literal bump-in-the-wire and let it drive bidirectional buses. Any of uo_out[5:0] can
 forward an input pin (UOMAP bit 7): directly, with only gate delay, or through a 2-flop synchronizer (1-2 clock
 cycles), while a core parses the same line. And a pin in PINMODE 3 is driven only in rows whose direction bits
-say so, so a program can turn a line around mid-transaction (SWD, low-speed USB, half-duplex serial). The SRAM returns data one cycle after the address, so the
-next row is read in the last cycle of the current one.
+say so, so a program can turn a line around mid-transaction. Half-duplex serial on a single wire is demonstrated; other shared-wire
+protocols such as SWD need the same kind of turnaround. The SRAM returns data one cycle after the address, so the next row is read
+in the last cycle of the current one.
 
 ## How to test
 
 Host SPI is mode 0, MSB first, on ui_in[4] SCK, ui_in[5] MOSI, ui_in[6] CS_n, with MISO on uo_out[7]; keep SCK
-at or below 4 MHz with a 50 MHz clock. Commands: 0x01 WRITE_REG addr, data...; 0x02 READ_REG addr, dummy...;
-0x1c WRITE_TABLE core c, row, 4 bytes per word...; 0x2c READ_TABLE; 0x3c TX_PUSH; 0x4c CTRL (bit 0 RUN, bit 1
-RESTART); 0x5c READ_SCR. Load a table while the core is stopped, set P, CFG, RSEL, pin modes and OUT_INIT, then
-send CTRL with RUN and RESTART. The cocotb tests in test/test_pfst.py load a UART transmitter into core 0 and
-decode its output from uo_out[4].
+at or below 4 MHz with a 50 MHz clock. Commands (c is the core number, 0 or 1): 0x01 WRITE_REG addr, data...;
+0x02 READ_REG addr, dummy...; 0x10+c WRITE_TABLE row, 4 bytes per word...; 0x20+c READ_TABLE; 0x30+c TX_PUSH;
+0x40+c CTRL (bit 0 RUN, bit 1 RESTART); 0x50+c READ_SCR. Load a table while the core is stopped, set P, CFG, RSEL, pin
+modes and OUT_INIT, then send CTRL with RUN and RESTART.
+
+The chip is powered down when its design is deselected and loses its tables and registers, so the host must reload
+them each time the design is selected, and after any reset (rst_n). Tables come from the OCaml toolchain in model/ (run
+model/run_tests.sh to produce compiled_tables.json; see docs/toolchain.md).
+
+The cocotb tests in test/ (12 in all) drive the chip only through these pins, as the demo board's microcontroller
+would. test_pfst.py checks the chip's features. test_programs.py loads each program compiled by the toolchain onto the
+chip and decodes the pins: UART transmit and receive, SPI transmit, I2C write, half-duplex UART on one wire, a PS/2
+receiver, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
+below a threshold.
 
 ## External hardware
 
