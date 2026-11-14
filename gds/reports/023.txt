@@ -1,0 +1,147 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/56-openroad-stapostpnr/nom_fast_1p32V_m40C/checks.rpt
+
+
+===========================================================================
+report_checks -unconstrained
+===========================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+Startpoint: uio_in[2] (input port clocked by clk)
+Endpoint: uo_out[0] (output port clocked by clk)
+Path Group: clk
+Path Type: max
+
+Fanout         Cap        Slew       Delay        Time   Description
+---------------------------------------------------------------------------------------------
+                                  0.000000    0.000000   clock clk (rise edge)
+                                  0.000000    0.000000   clock network delay (propagated)
+                                  4.000000    4.000000 v input external delay
+     1    0.003171    0.011194    0.001715    4.001715 v uio_in[2] (in)
+                                                         uio_in[2] (net)
+                      0.011194    0.000000    4.001715 v input12/A (sg13cmos5l_buf_1)
+     1    0.045255    0.099439    0.105952    4.107667 v input12/X (sg13cmos5l_buf_1)
+                                                         net12 (net)
+                      0.099975    0.006261    4.113928 v fanout538/A (sg13cmos5l_buf_1)
+     7    0.083824    0.180613    0.192132    4.306060 v fanout538/X (sg13cmos5l_buf_1)
+                                                         net538 (net)
+                      0.181775    0.012446    4.318506 v fanout537/A (sg13cmos5l_buf_1)
+     8    0.063055    0.138256    0.175474    4.493980 v fanout537/X (sg13cmos5l_buf_1)
+                                                         net537 (net)
+                      0.140434    0.014632    4.508612 v _3870_/A1 (sg13cmos5l_mux2_1)
+     1    0.005163    0.030997    0.115906    4.624519 v _3870_/X (sg13cmos5l_mux2_1)
+                                                         _0940_ (net)
+                      0.030997    0.000386    4.624905 v _3874_/A2 (sg13cmos5l_mux4_1)
+     1    0.004645    0.031561    0.128354    4.753258 v _3874_/X (sg13cmos5l_mux4_1)
+                                                         _0944_ (net)
+                      0.031561    0.000555    4.753813 v _3875_/A2 (sg13cmos5l_a21oi_1)
+     2    0.017701    0.108164    0.108327    4.862140 ^ _3875_/Y (sg13cmos5l_a21oi_1)
+                                                         _0945_ (net)
+                      0.108179    0.001080    4.863219 ^ _3877_/A2 (sg13cmos5l_a21oi_1)
+     1    0.003517    0.039913    0.066235    4.929454 v _3877_/Y (sg13cmos5l_a21oi_1)
+                                                         _0947_ (net)
+                      0.039913    0.000263    4.929717 v _3883_/A_N (sg13cmos5l_nand2b_1)
+     1    0.056835    0.232753    0.213287    5.143003 v _3883_/Y (sg13cmos5l_nand2b_1)
+                                                         uo_out[0] (net)
+                      0.233703    0.012856    5.155860 v uo_out[0] (out)
+                                              5.155860   data arrival time
+
+                                 20.000000   20.000000   clock clk (rise edge)
+                                  0.000000   20.000000   clock network delay (propagated)
+                                 -0.250000   19.750002   clock uncertainty
+                                  0.000000   19.750002   clock reconvergence pessimism
+                                 -4.000000   15.750001   output external delay
+                                             15.750001   data required time
+---------------------------------------------------------------------------------------------
+                                             15.750001   data required time
+                                             -5.155860   data arrival time
+---------------------------------------------------------------------------------------------
+                                             10.594141   slack (MET)
+
+
+
+
+===========================================================================
+report_checks --slack_max -0.01
+============================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+No paths found.
+
+
+===========================================================================
+ report_check_types -max_slew -max_cap -max_fanout -violators
+============================================================================
+======================= nom_fast_1p32V_m40C Corner ===================================
+
+max slew
+
+Pin                                        Limit        Slew       Slack
+------------------------------------------------------------------------
+sram1/A_ADDR[2]                         0.476000    0.489394   -0.013394 (VIOLATED)
+
+max fanout
+
+Pin                                   Limit Fanout  Slack
+---------------------------------------------------------
+clkbuf_0_clk_regs/X                       8     16     -8 (VIOLATED)
+
+max capacitance
+
+Pin                                        Limit         Cap       Slack
+------------------------------------------------------------------------
+sram1/A_DOUT[19]                        0.064000    0.120616   -0.056616 (VIOLATED)
+sram1/A_DOUT[12]                        0.064000    0.073964   -0.009964 (VIOLATED)
+
+
+
+===========================================================================
+report_parasitic_annotation -report_unannotated
+============================================================================
+Found 35 unannotated drivers.
+ ena
+ clkload0/Y
+ clkload1/Y
+ clkload10/Y
+ clkload11/Y
+ clkload12/X
+ clkload13/Y
+ clkload14/X
+ clkload15/Y
+ clkload16/Y
+ clkload17/Y
+ clkload18/Y
+ clkload19/X
+ clkload2/Y
+ clkload20/Y
+ clkload21/Y
+ clkload22/Y
+ clkload23/Y
+ clkload24/Y
+ clkload25/Y
+ clkload26/Y
+ clkload27/Y
+ clkload28/X
+ clkload29/X
+ clkload3/Y
+ clkload30/Y
+ clkload31/Y
+ clkload32/Y
+ clkload33/Y
+ clkload4/Y
+ clkload5/Y
+ clkload6/Y
+ clkload7/Y
+ clkload8/Y
+ clkload9/Y
+Found 0 partially unannotated drivers.
+
+===========================================================================
+max slew violation count 1
+max fanout violation count 1
+max cap violation count 2
+============================================================================
+
+===========================================================================
+check_setup -verbose -unconstrained_endpoints -multiple_clock -no_clock -no_input_delay -loops -generated_clocks
+===========================================================================
