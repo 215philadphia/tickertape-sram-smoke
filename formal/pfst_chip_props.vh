@@ -37,3 +37,34 @@
   // No cover points at this level: reaching a driven pin needs about 100 cycles of SPI configuration, which is
   // beyond what the solver does in reasonable time. That the pins are driven in all three modes is shown by the
   // cocotb tests (test/test_programs.py: push-pull, open drain, and row-controlled pins).
+
+  // ------------------------------------------------------------------ comparator and UOMAP pass-through
+  // Expected values are computed independently of the RTL: the comparison by a 9-bit subtraction's borrow,
+  // and pin selection by indexing the 16 input pins directly (0-7 ui_in, 8-15 uio_in).
+  reg f_past2 = 1'b0;
+  always @(posedge clk) if (f_past_valid) f_past2 <= 1'b1;
+  wire [15:0] f_pins = {uio_in, ui_in};
+  wire [8:0]  f_diff = {1'b0, scr[0]} - {1'b0, thresh};       // borrow (bit 8) set exactly when SCR < THRESH
+
+  always @(posedge clk) if (f_past_valid) begin
+    // C1: CMP is registered: it equals VALID[0] AND (SCR[0] < THRESH) as of the previous cycle; 0 out of reset
+    if ($past(!rst_n)) assert(!cmp_q);
+    else assert(cmp_q == ($past(valid[0]) && $past(f_diff[8])));
+  end
+
+  genvar fj;
+  generate for (fj = 0; fj < 6; fj = fj + 1) begin : fprop_uo
+    wire [7:0] m = uomap[fj];
+    always @(posedge clk) if (f_past_valid) begin
+      // C2: direct pass-through (UOMAP b7=1, b6=1) is combinational: uo_out follows the selected pin in the same cycle
+      if (m[7] && m[6]) assert(uo_out[fj] == f_pins[m[3:0]]);
+      // C4: an unmapped output (b7=0, b3=0) is held low
+      if (!m[7] && !m[3]) assert(!uo_out[fj]);
+    end
+    always @(posedge clk) if (f_past2) begin
+      // C3: synchronized pass-through (b7=1, b6=0) shows the selected pin exactly two clock edges later,
+      //     provided the mapping was not changed in between
+      if (m[7] && !m[6] && $past(m) == m && $past(m, 2) == m && $past(rst_n) && $past(rst_n, 2))
+        assert(uo_out[fj] == $past(f_pins[m[3:0]], 2));
+    end
+  end endgenerate

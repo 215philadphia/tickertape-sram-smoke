@@ -58,6 +58,13 @@ the solvers available (z3 and cvc5 both ran for more than 15 minutes without an 
 | P4 | Out of reset, no bidirectional pin is driven. |
 | P5 | A stopped core has released all its row-controlled drive enables. |
 | P6 | A core's SRAM write strobe is never high while that core runs. |
+| C1 | **The comparator:** `CMP` equals `VALID[0]` AND (`SCR[0]` < `THRESH`) from the previous cycle, and is 0 out of reset. |
+| C2 | **Direct pass-through** (UOMAP b7=1, b6=1): `uo_out` equals the selected input pin in the same cycle, for every pin and every output. |
+| C3 | **Synchronized pass-through** (b7=1, b6=0): `uo_out` equals the selected pin exactly two clock edges earlier, when the mapping was not changed in between. |
+| C4 | An unmapped output (b7=0, b3=0) is held low. |
+
+C1 to C4 compute the expected value independently of the RTL: the comparison from a 9-bit subtraction's borrow, and
+the pin by indexing the 16 input pins directly, not through the RTL's `pick_in` function.
 
 ## Assumptions
 
@@ -73,7 +80,7 @@ the solvers available (z3 and cvc5 both ran for more than 15 minutes without an 
 - **Datapath results** other than the FIFO and `SAVE`: the contents of `SR` and `CNT` after `SHIFT`, and the pin
   values a row produces, are covered by simulation and the golden-model cross-checks.
 - **The host SPI protocol**: only its effect on pin safety (P1 to P4, P6) is proved.
-- **The comparator and UOMAP pass-through.**
+- **That `CMP` reaches core 1 and not core 0**: a one-line static connection, exercised by the Nano-Tick tests.
 - **Timing and layout** (the Tiny Tapeout flow covers those).
 
 ## Checking that the proofs can fail
@@ -81,6 +88,13 @@ the solvers available (z3 and cvc5 both ran for more than 15 minutes without an 
 A proof that cannot fail proves nothing. Five bugs were planted, one at a time, in copies of the RTL, and each is
 caught with a counterexample: a prescaler off by one, a wait value off by one, the table SRAM written while running,
 the FIFO overflow flag removed, and RESTART clearing `SCR`. The bounded check finds each within 3 to 6 cycles.
+
+Five more were planted against C1 to C4, each caught by the property written for it: the comparator using `<=`
+(C1), the comparator ignoring `VALID` (C1), the synchronized pass-through using one flop instead of two (C3), direct
+mode ignored (C2), and the ui/uio pin banks swapped (C2). These are caught by the unbounded proof's induction step,
+not by the bounded check: reaching a configured comparator or pass-through from reset takes about 100 cycles of
+SPI configuration, beyond the bounded depth. The induction counterexamples start from configurations the host can
+reach (any `THRESH`, `UOMAP` and `SCR` value), so they are real bugs.
 
 Findings from the proofs: the documentation said `LOAD` from an empty FIFO returns 0; the proof showed it returns
 the last loaded byte, and the docs were corrected. The OCaml golden model does not clear its copy of that byte on
