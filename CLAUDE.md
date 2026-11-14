@@ -48,7 +48,7 @@ No fixed weighting. In order of emphasis on the page:
 ## Working rules for changes
 
 - Before changing `src/`, `info.yaml`, `src/config.json` or the workflows, check the change against the rules table.
-- After any RTL change, run `cd test && make -B` (cocotb) and `cd model && ./run_tests.sh` (OCaml model and compiler), and keep both green.
+- After any RTL change, run `cd test && make -B` (cocotb), `cd model && ./run_tests.sh` (OCaml model and compiler) and `formal/run.sh` (formal proofs), and keep all three green. The proofs assume `P` is fixed while a core runs (see `formal/README.md`).
 - Never merge a change that breaks `gds`, `precheck` or `gl_test` on `main`.
 - One flow experiment per GDS run, so its effect can be attributed. Record results in the commit or README.
 - Keep `README.md`, `docs/info.md` and `info.yaml` consistent with the design: they are part of what is judged.

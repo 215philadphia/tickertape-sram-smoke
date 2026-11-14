@@ -1,6 +1,6 @@
 # Verification approach
 
-The design is checked at five levels, each by something written independently of what it checks. Every
+The design is checked at six levels, each by something written independently of what it checks. Every
 level below runs in CI on each push; the commands are given so anyone can rerun them with open-source tools.
 
 | Level | What is checked | Where | Runs in CI |
@@ -10,6 +10,7 @@ level below runs in CI on each push; the commands are given so anyone can rerun 
 | 3. Compiler | Static checks reject bad programs; good programs compile and decode correctly | `model/compile_test.ml` | `model` workflow |
 | 4. RTL and gate level | cocotb tests drive the real top level through the host SPI port, including every compiled program | `test/test_pfst.py`, `test/test_programs.py` | `test` and `gds` (`gl_test`) workflows |
 | 5. Physical signoff | Tiny Tapeout flow: STA, KLayout DRC, LVS, precheck | `.github/workflows/gds.yaml` | `gds` workflow |
+| 6. Formal proofs | SymbiYosys proofs of the core's timing, FIFO, flags and reset behaviour, and of pin safety, for every program | `formal/` | `formal` workflow |
 
 ## 1. Golden model: an independent second implementation
 
@@ -102,12 +103,46 @@ the Tiny Tapeout precheck. A collector workflow publishes the timing, DRC and LV
 to a `results-<sha>-<run>` branch, so results can be compared across runs. Current numbers are in the
 [README](../README.md#signoff-status).
 
+## 6. Formal proofs
+
+Simulation checks the programs we wrote. [`formal/`](../formal/README.md) proves properties of the RTL for
+**every possible program**: the SRAM contents are a free input to the proofs, so a property holds whatever
+table is loaded. The tool is SymbiYosys (Yosys with the cvc5 solver); the properties are plain SystemVerilog,
+pasted into a copy of the RTL so that `src/` is never modified.
+
+Proved for the core, for every prescaler `P` and every `wait`:
+
+- **Every row lasts exactly P x (1 + wait) cycles.** The end of a row fires in the last cycle of the
+  (1 + wait)-th period of `P` cycles and in no other cycle, so the timer cannot underflow or overrun.
+- The next row is read in the last cycle and takes effect in the next one: no gap, no overhead.
+- The TX FIFO matches a 3-byte queue model for every push and pop sequence, with the overflow flag set by a
+  push into a full FIFO and nothing else.
+- `SAVE`, `RX_OVR`, RESTART keeping `SCR` (spec v1.1 section 5), sticky `DONE` and `FLAG`, and the start state
+  after reset, RESTART or stop.
+- The table SRAM is never written while the core runs.
+
+Proved at chip level: an open-drain pin never drives high, an input pin is never driven, a stopped core has
+released its row-controlled pins, and no bidirectional pin is driven out of reset.
+
+The proofs are unbounded (k-induction); a bounded check from reset and cover points (which show the interesting
+cases are reachable, so no property is vacuous) run alongside. To show the proofs can fail, five bugs were
+planted in copies of the RTL, one at a time (a prescaler off by one, a wait off by one, table writes while
+running, the FIFO overflow flag removed, RESTART clearing `SCR`), and each is caught with a counterexample.
+
+The proofs assume `P` is not changed while a core runs; the RTL does not enforce this, and the host contract
+is documented in [architecture.md](architecture.md#host-interface). They found one documentation error: a `LOAD`
+from an empty FIFO returns the byte last loaded, not 0.
+
 ## Known gaps
 
 - The OCaml model has the `dir` register but not the pin modes that consume it, nor `DONE`, `FLAG`,
   `TX_OVR` or `OUT_INIT`.
 - Cycle alignment between the model and the RTL's read-ahead is not cross-checked automatically.
-- No formal verification yet.
+- The formal proofs do not cover the datapath results (`SR`, `CNT`) beyond `SAVE` and the FIFO, address formation, the
+  SPI protocol beyond its effect on pin safety, the comparator, UOMAP pass-through, or the SRAM timing contract
+  (see [formal/README.md](../formal/README.md#what-is-not-proved)).
+- The OCaml model keeps the last loaded TX byte across RESTART, while the RTL clears it to 0 (visible only if a
+  program reads `SR` after a `LOAD` from an empty FIFO).
 
 ## Running everything
 

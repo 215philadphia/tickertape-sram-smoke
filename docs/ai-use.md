@@ -25,6 +25,7 @@ Work done this way (each change goes to the author for review before it is merge
 | 2026-11-13 | "At a glance" overview in the README | Each claim linked to the test or document that supports it |
 | 2026-11-13 | `docs/design-evolution.md`, comparing the author's original pitch with the built design | Each difference checked against the RTL, compiler and tests; reasons not stated in the source are marked as our reading |
 | 2026-11-13 | `docs/applications.md`: realistic uses of the chip and where its ideas apply in trading hardware | Claims about the chip linked to the tests and documents behind them; limits stated explicitly |
+| 2026-11-14 | `formal/`: SymbiYosys proofs of the core and of pin safety, the run script and the CI job; corrected the LOAD-from-empty-FIFO documentation they exposed | Core and chip properties proved by induction, the core's cover points all reached; five bugs planted in copies of the RTL, each caught with a counterexample |
 
 ## Earlier work
 

@@ -120,16 +120,19 @@ which the RTL tests load directly.
 ### Verification: from a plan to what was built
 
 The pitch planned formal verification with SymbiYosys through a Hardcaml wrapper, and ASCII-waveform
-expect tests with Hardcaml Waveterm. **Neither exists in this repository.** What was built instead
+expect tests with Hardcaml Waveterm. **The Waveterm tests were not built. The formal proofs were,** with
+SymbiYosys and plain SystemVerilog properties instead of a Hardcaml wrapper. What was built
 ([verification.md](verification.md)):
 
+- formal proofs of the core's exact timing, FIFO, flags and reset behaviour, and of pin safety, for every
+  program ([formal/](../formal/README.md))
 - an independent OCaml golden model, bit-exact against an earlier Python model
 - protocol references written from the specs (UART, SPI, I2C with a timing checker)
 - compile-time checks with must-reject programs
 - deliberately broken tables that the tests must catch
 - cocotb tests running every compiled program on the chip RTL, also at gate level after place and route
 
-The verification write-up lists the gaps this leaves, including the absence of formal proofs.
+The verification write-up lists the gaps this leaves, including what the formal proofs do not cover.
 
 ### Nano-Tick: 10BASE-T Ethernet became UART
 
@@ -153,6 +156,6 @@ never the physical layer: it is two cores reacting to each other with no host, a
 | Pin direction | Every row sets every pin | Per-pin mode; row `dir` for row-controlled pins |
 | Area | 6x4 tiles, ~0.7 mm² | 8x4 tiles, 1.21 mm² core |
 | Compiler | Monadic combinators, hex output | Applicative data with compile-time checks, JSON output |
-| Verification | Formal (planned), Hardcaml Waveterm (planned) | Golden model, references, negative controls, RTL and gate-level tests |
+| Verification | Formal (planned), Hardcaml Waveterm (planned) | Formal proofs (SymbiYosys), golden model, references, negative controls, RTL and gate-level tests |
 | Nano-Tick feed | 10BASE-T Ethernet | UART |
 | Protocols | UART baseline | UART, SPI, I2C, half-duplex UART, PS/2, two-core Nano-Tick |
