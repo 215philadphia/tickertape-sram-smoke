@@ -19,7 +19,7 @@ only against a stub of the SDK's port API. Treat the timing numbers in the examp
 | `ttpfst/programs.py` | Configurations (`conf`) for each program: `SIM` (equal to `test/test_programs.py`) and `*_BOARD` |
 | `ttpfst/runner.py` | `run(gen, io)`: executes a generator against the board or any io object |
 | `ttpfst/board.py` | `BoardIO` and `open_board()` for the demo board (MicroPython SDK) |
-| `examples/` | `uart_tx.py`, `uart_rx.py`, `spi_tx.py`, `i2c_write.py`, `ps2_rx.py`, `nano_tick.py` (both cores) |
+| `examples/` | `uart_tx.py`, `uart_rx.py`, `spi_tx.py`, `spi_target.py`, `i2c_write.py`, `ps2_rx.py`, `nano_tick.py` (both cores) |
 | `tests/` | cocotb tests on the RTL, fast protocol-model tests, and `mutate.sh` (planted bugs) |
 
 ### How one code base runs on the board and in simulation
@@ -80,6 +80,7 @@ then in the REPL: `import examples.uart_tx as e; e.main()`. Use a fresh `compile
 | `i2c_write` | `uio[0]` SDA, `uio[1]` SCL | **Pull-ups required**: 2.2 to 4.7 kOhm from SDA and SCL to 3.3 V (the chip only pulls low). Target must be a 3.3 V device |
 | `uart_rx` | none (the RP drives the line on `uio[0]`) | none |
 | `spi_tx` | `uio[2]` CS_n, `uio[1]` SCK, `uio[0]` MOSI | logic analyzer or an SPI device (3.3 V) |
+| `spi_target` | none (the RP plays the master on `ui_in[2:0]`); MISO on `uio[0]` | for a real master: its MOSI, SCK, CS_n to `ui_in[0]`, `ui_in[1]`, `ui_in[2]`, MISO from `uio[0]`, all 3.3 V |
 | `ps2_rx` | none (the RP plays a keyboard on `uio[1:0]`) | a real keyboard needs level shifting and pull-ups: untested |
 | `nano_tick` | none for the price line (the RP drives `uio[0]` itself); orders on `uio[6:4]` (CS, SCK, MOSI) | Optional: logic analyzer on `uio[6:4]` |
 
@@ -98,6 +99,7 @@ the start (RESTART flushes the FIFO).
 | `i2c_write` | 50 MHz | P = 1 | ACK from the target, `DONE` in STATUS; wrong address gives NACK and still `DONE` |
 | `uart_rx` | 1 MHz | P = 1 | each byte read back with `READ_SCR`, no `RX_OVR`; tolerant of +-1% baud error in simulation |
 | `spi_tx` | 1 MHz | P = 4 | each pushed byte appears as one mode 0 frame (SCK rate not measured) |
+| `spi_target` | 1 MHz | P = 1, half period 100 cycles | the pushed reply bytes come back on MISO and each MOSI byte is read with `READ_SCR` |
 | `ps2_rx` | 100 kHz | P = 1 | good frames received; bad parity or stop bit saves nothing and raises `FLAG` |
 | `nano_tick` | 10 MHz | RX P = 26, trader P = 256 | prices 120, 90, 80, 130, 99, 150, 100, 60, 101 with threshold 100 give 3 orders `BUY` |
 
