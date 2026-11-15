@@ -13,7 +13,7 @@
   "RUN_LINTER": 1,
   "LINTER_INCLUDE_PDK_MODELS": 1,
   "CLOCK_PORT": "clk",
-  "// MACROS": "Variant B: sram0 at the exact Gate 0 position (432.0, 302.4); sram1 beside it at x=912.0 (63.36 um gap). 8x4 only.",
+  "// MACROS": "Variant B: sram0 at the exact Gate 0 position (432.0, 302.4); sram1 beside it at x=912.0 (63.36 um gap). 8x4 only. Both macros are MX: their signal pins are on the macro's y=0 edge, and MX turns that edge up toward the TT I/O pins on the die's top edge, so nets no longer wrap around the macro (R0 gave 21 max-cap violations on A_DOUT; sram0 alone at MX removed all of sram0's).",
   "MACROS": {
     "RM_IHPSG13_1P_256x32_c2_bm_bist": {
       "instances": {
@@ -22,14 +22,14 @@
             432.0,
             302.4
           ],
-          "orientation": "R0"
+          "orientation": "MX"
         },
         "sram1": {
           "location": [
             912.0,
             302.4
           ],
-          "orientation": "R0"
+          "orientation": "MX"
         }
       },
       "gds": [
@@ -100,7 +100,7 @@
   "RUN_CTS": 1,
   "//CTS_SINK_CLUSTERING_SIZE": "At most 10 flip-flops per clock-tree leaf buffer, matching MAX_FANOUT_CONSTRAINT (10). Unset, OpenROAD grows leaves to as many as 30 sinks.",
   "CTS_SINK_CLUSTERING_SIZE": 10,
-  "//DESIGN_REPAIR_MAX_CAP_PCT": "Repair to 40% of each cap limit and 60% of each slew limit (defaults 80%/80%), to absorb post-route growth over placement estimates.",
+  "//DESIGN_REPAIR_MAX_CAP_PCT": "Repair margins of 60% on cap limits and 40% on slew limits (passed to repair_design as -cap_margin 60 -slew_margin 40), to absorb post-route growth over placement estimates.",
   "DESIGN_REPAIR_MAX_CAP_PCT": 60,
   "DESIGN_REPAIR_MAX_SLEW_PCT": 40,
   "PDN_MULTILAYER": 0,
