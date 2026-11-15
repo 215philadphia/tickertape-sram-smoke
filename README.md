@@ -137,9 +137,9 @@ program; the whole suite takes about a minute.
 
 ## Signoff status
 
-From [gds run #55](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43600506291) on `main`
-(commit `2ac893a`); reports are on the `results-2ac893a-43607814542` branch published by the collector. The chip
-design and flow configuration are unchanged since the earlier signoff run (#28), and the numbers are identical.
+From [gds run #73](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43741632141) on `main`
+(commit `13cfbba`); reports are on the `results-13cfbba-43748376549` branch published by the collector. The RTL
+and flow configuration are unchanged since the earlier signoff runs (#28 and #55), and the numbers are identical.
 
 | Check | Result |
 |---|---|
