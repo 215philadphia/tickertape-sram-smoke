@@ -22,6 +22,7 @@ SIM = {
     "ps2_rx_dsl": dict(p=1, out_init=0, pinmode=0, cfg=0b10, inmap01=(UIO | 1) << 4 | (UIO | 0),
                        inmap23=(UIO | 0) << 4 | 0x2),
 }
+SIM["spi_tgt_dsl"] = dict(p=1, out_init=0, pinmode=0b11, inmap01=0x10, inmap23=0x22)   # IN0 MOSI, IN1 SCK, IN3 CS_n
 SIM["uart_rx_core1"] = dict(p=1, out_init=0, pinmode=0, inmap01=0x10 | (UIO | 4))   # test_compiled_uart_rx
 
 # ---- board configs ----
@@ -39,6 +40,7 @@ NANO_TRADER_BOARD = dict(p=256, out_init=0b100, pinmode=0b010101)
 UART_RX_BOARD = dict(p=1, out_init=0, pinmode=0, inmap01=0x10 | (UIO | 0))            # core 0, line on uio[0]
 SPI_TX_BOARD = dict(p=4, out_init=0b100, pinmode=0b010101)
 PS2_BOARD = SIM["ps2_rx_dsl"]
+SPI_TGT_BOARD = SIM["spi_tgt_dsl"]
 
 
 def read_tables(path):

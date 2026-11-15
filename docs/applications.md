@@ -12,7 +12,7 @@ The competition's own motivation is the primary use. Engineers bringing up and d
 constantly need to talk to low-speed interfaces: UART consoles, SPI flash, I2C sensors, PS/2 devices, and
 debug ports such as SWD and JTAG. TickerTape-Out is a tool for that:
 
-- **Emulate either side of a protocol** by loading a table, without new hardware. Seven programs are
+- **Emulate either side of a protocol** by loading a table, without new hardware. Eight programs are
   demonstrated on the chip RTL, including a PS/2 receiver the design was not built around
   ([toolchain.md](toolchain.md#example-programs)).
 - **Observe a live line while passing it through.** Any output can forward an input pin, directly or

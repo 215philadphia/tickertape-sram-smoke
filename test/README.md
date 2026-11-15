@@ -7,13 +7,13 @@ from the pins. They run on open-source tools: Icarus Verilog 12 and cocotb 2.0.1
 | File | Tests |
 |---|---|
 | `test_pfst.py` (5) | Register reset values and read-back; table write and read through the SRAM macro; a UART transmitter; UOMAP pass-through (direct and synchronized); PINMODE 3 row-controlled pins |
-| `test_programs.py` (7) | Every program the OCaml compiler produces, loaded onto the chip and decoded from the pins: UART TX, UART RX at -1%, 0 and +1% baud error, SPI TX, I2C write against a reactive open-drain target (ACK and NACK), the two-core Nano-Tick trader, half-duplex UART on one PINMODE 3 wire, and a PS/2 receiver |
+| `test_programs.py` (8) | Every program the OCaml compiler produces, loaded onto the chip and decoded from the pins: UART TX, UART RX at -1%, 0 and +1% baud error, SPI TX, I2C write against a reactive open-drain target (ACK and NACK), the two-core Nano-Tick trader, half-duplex UART on one PINMODE 3 wire, a PS/2 receiver, and an SPI target (MISO released when CS is high) |
 
 ## Run them
 
 ```bash
 pip install -r requirements.txt     # cocotb 2.0.1 (and pytest)
-make -B                              # 12 tests, a minute or two
+make -B                              # 13 tests, a minute or two
 ```
 
 `test_programs.py` loads its tables from `compiled_tables.json`, a snapshot of what the compiler produces.

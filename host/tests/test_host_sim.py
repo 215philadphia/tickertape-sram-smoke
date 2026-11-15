@@ -24,6 +24,7 @@ import uart_tx as ex_uart                                                # noqa:
 import uart_rx as ex_urx                                                 # noqa: E402
 import spi_tx as ex_spi                                                  # noqa: E402
 import ps2_rx as ex_ps2                                                  # noqa: E402
+import spi_target as ex_tgt                                              # noqa: E402
 
 LAB = [0x00000000, 0x1FFFFFFF, 0x12345678, 0x0A5A5A5A, 0x15555555, 0x0AAAAAAA, 0x00000001, 0x10000000]
 
@@ -213,3 +214,17 @@ async def test_ps2_rx(dut):
         assert not await io.run(driver.status(0)) & driver.STATUS_FLAG
     await io.run(ex_ps2.play(ex_ps2.frame(0x29)))
     assert await io.run(ex_ps2.poll_byte(0)) == 0x29
+
+
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
+async def test_spi_target(dut):
+    """examples/spi_target on core 0: the host plays the master through ui_in[2:0] while its own SPI port keeps
+    working. Each MISO byte is the pushed reply and each MOSI byte is read back with READ_SCR, at several SCK rates
+    (as test_compiled_spi_target)."""
+    ref, io = await setup(dut)
+    await io.run(ex_tgt.setup(PROGS, programs.SIM["spi_tgt_dsl"]))
+    for half in (40, 12, 8, 6):
+        for tx, rx in ((0xA5, 0x00), (0x3C, 0xFF), (0x81, 0x55), (0x7E, 0xC3)):
+            got, saved = await io.run(ex_tgt.exchange([tx], [rx], half))
+            assert got == [tx], f"half={half}: MISO {got[0]:#x}, expected {tx:#x}"
+            assert saved == rx, f"half={half}: saved {saved:#x}, expected {rx:#x}"

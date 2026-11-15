@@ -194,6 +194,58 @@ let test_ps2_rx () =
       if got <> good @ [0x29] then
         failwith (Printf.sprintf "saved %s" (String.concat " " (List.map (Printf.sprintf "%02x") got))))
 
+(* SPI target (new role of an existing protocol): an independent mode 0 master drives CS_n/SCK/MOSI, samples MISO
+   just before each rising edge, and checks MISO is released while CS_n is high. *)
+let spi_master ?(half = 10) core frames =
+  let mosi = ref 0 and sck = ref 0 and cs = ref 1 in
+  let step () = ignore (Pfst.step core ~raw_in:[| !mosi; !sck; 0; !cs |] ~cmp:0) in
+  let wait n = for _ = 1 to n do step () done in
+  let driven () = core.Pfst.dir land 1 = 1 and miso () = core.Pfst.out land 1 in
+  wait 30;
+  if driven () then failwith "MISO driven while idle with CS_n high";
+  let got = ref [] in
+  List.iter (fun (tx, bytes) ->
+      List.iter (fun b -> if not (Pfst.host_write core b) then failwith "TX FIFO full") tx;
+      cs := 0; wait 20;
+      List.iter (fun b ->
+          let v = ref 0 in
+          for i = 7 downto 0 do
+            mosi := (b lsr i) land 1; wait half;
+            if not (driven ()) then failwith "MISO not driven during the frame";
+            v := (!v lsl 1) lor miso ();
+            sck := 1; wait half; sck := 0
+          done;
+          got := !v :: !got) bytes;
+      wait half; cs := 1; wait 40;
+      if driven () then failwith "MISO still driven after CS_n rose")
+    frames;
+  List.rev !got
+
+let test_spi_target () =
+  check "DSL SPI target (new role): MOSI saved, MISO returns the TX bytes, MISO released at CS_n high" (fun () ->
+      let c = Compiler.compile (Dsl_programs.spi_tgt_dsl ()) in
+      let new_core () = Pfst.create ~table:c.table ~p:1 ~msb_first:true ~reset_sel:c.reset_sel in
+      let frames = [ ([0xA5; 0x3C; 0x81], [0x00; 0xFF; 0x55]); ([0x7E], [0xC3; 0x18]) ] in
+      List.iter (fun half ->
+          let core = new_core () in
+          let miso = spi_master ~half core frames in
+          let want_miso = [0xA5; 0x3C; 0x81; 0x7E; 0x7E] in
+          if miso <> want_miso then
+            failwith (Printf.sprintf "half=%d MISO bytes %s" half (String.concat " " (List.map (Printf.sprintf "%02x") miso)));
+          let want_mosi = [0x00; 0xFF; 0x55; 0xC3; 0x18] in
+          if Pfst.rx_bytes_in_order core <> want_mosi then
+            failwith (Printf.sprintf "half=%d saved %s" half
+                        (String.concat " " (List.map (Printf.sprintf "%02x") (Pfst.rx_bytes_in_order core)))))
+        [10; 6]);
+  (* the limit is measured, not assumed: between bytes the reload (sync 2 + SAVE + LOAD + pre-SHIFT + output
+     register) needs about 6 cycles after SCK falls, so a half period of 4 cycles is too fast *)
+  check "DSL SPI target: a half period of 4 cycles is beyond the limit (must fail)" (fun () ->
+      let c = Compiler.compile (Dsl_programs.spi_tgt_dsl ()) in
+      let core = Pfst.create ~table:c.table ~p:1 ~msb_first:true ~reset_sel:c.reset_sel in
+      match spi_master ~half:4 core [ ([0xA5; 0x3C; 0x81], [0x00; 0xFF; 0x55]); ([0x7E], [0xC3; 0x18]) ] with
+      | [0xA5; 0x3C; 0x81; 0x7E; 0x7E] -> failwith "half=4 unexpectedly works: update the documented limit"
+      | _ -> ())
+
 let expect_error name prog needle =
   check (Printf.sprintf "neg: %-46s (must be rejected)" name) (fun () ->
       match Compiler.compile (prog ()) with
@@ -213,6 +265,7 @@ let () =
   test_nanotick_dsl ();
   test_half_duplex ();
   test_ps2_rx ();
+  test_spi_target ();
   print_endline "";
   print_endline "-- static checks: each control must be rejected at compile time,";
   print_endline "   before ever running --";

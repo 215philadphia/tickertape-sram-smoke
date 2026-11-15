@@ -33,10 +33,10 @@ The chip is powered down when its design is deselected and loses its tables and 
 them each time the design is selected, and after any reset (rst_n). Tables come from the OCaml toolchain in model/ (run
 model/run_tests.sh to produce compiled_tables.json; see docs/toolchain.md).
 
-The cocotb tests in test/ (12 in all) drive the chip only through these pins, as the demo board's microcontroller
+The cocotb tests in test/ (13 in all) drive the chip only through these pins, as the demo board's microcontroller
 would. test_pfst.py checks the chip's features. test_programs.py loads each program compiled by the toolchain onto the
 chip and decodes the pins: UART transmit and receive, SPI transmit, I2C write, half-duplex UART on one wire, a PS/2
-receiver, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
+receiver, an SPI target, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
 below a threshold.
 
 ## External hardware
