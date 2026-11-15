@@ -124,4 +124,5 @@ request description. What each level does and does not show:
 | `make -B` (RTL) | The host's bytes are accepted by the chip RTL; tables and registers read back through the independent reference `Host` (so a symmetric byte-order bug cannot hide); UART TX, I2C write and Nano-Tick behave as in `test_programs.py` | Anything about real clocks, MicroPython speed or the board |
 | `make pure` | The effect layer and the board adapter drive the documented pins in the documented order against a model of *our reading* of the protocol | That the RTL or the SDK agrees (the model is not evidence about either) |
 | `mutate.sh` | The tests are able to fail on the planted faults listed in the script | That no other bug exists |
+| (gap found by `mutate.sh`) | `start()` without RESTART is caught only by `make pure`, not by the RTL tests: `loader.load` already RESTARTs the core, so the RTL examples never need `start` to do it | An RTL test for a re-run without reload |
 | Hardware | Not done | Everything marked unverified above |
