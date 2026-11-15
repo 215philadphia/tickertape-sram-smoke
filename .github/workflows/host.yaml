@@ -1,0 +1,39 @@
+name: host
+on: [push, workflow_dispatch]
+jobs:
+  host:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Install iverilog
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+
+      - name: Install Python packages
+        run: pip install -r test/requirements.txt
+
+      - name: Host tests without a simulator
+        run: cd host/tests && make pure
+
+      - name: Host software against the chip RTL
+        run: |
+          cd host/tests
+          make clean
+          make
+          # make can return success even if a test fails, so check results.xml too
+          ! grep failure results.xml
+
+      - name: Planted bugs must be caught
+        run: host/tests/mutate.sh
+
+      - name: Test Summary
+        uses: test-summary/action@v2.4
+        with:
+          paths: "host/tests/results.xml"
+        if: always()
