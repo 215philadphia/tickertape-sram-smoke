@@ -137,15 +137,16 @@ program; the whole suite takes about a minute.
 
 ## Signoff status
 
-From [gds run #55](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43600506291) on `main`
-(commit `2ac893a`); reports are on the `results-2ac893a-43607814542` branch published by the collector. The chip
-design and flow configuration are unchanged since the earlier signoff run (#28), and the numbers are identical.
+From [gds run #79](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43758521649) on commit
+`fa0fd32`; reports are on the `results-fa0fd32-43762985107` branch published by the collector. The RTL is unchanged
+from the earlier signoff runs (#28, #55, #73). Two flow changes since run #73 are described below: both SRAM macros
+are at orientation MX, and each timing corner now loads the matching SRAM timing library.
 
 | Check | Result |
 |---|---|
-| `gds` job | Pass. Die 1724.16 x 710.64 um (8x4), core area 1.208 mm², utilization 15.1% (standard cells 7.6%) |
-| Setup, slow corner (1.08 V, 125 C) | Met. Worst slack 4.17 ns (`rst_n` input to `sram1`); worst register-to-register slack 10.89 ns, which bounds the `A_DOUT -> A_ADDR` loop |
-| Hold | Met. Worst slack 0.107 ns (fast corner) |
+| `gds` job | Pass. Die 1724.16 x 710.64 um (8x4), core area 1.208 mm², utilization 14.9% (standard cells 7.3%) |
+| Setup, slow corner (1.08 V, 125 C) | Met. Worst slack 6.20 ns (`rst_n` input to a flip-flop); worst register-to-register slack 9.01 ns, which bounds the `A_DOUT -> A_ADDR` loop |
+| Hold | Met. Worst slack 0.059 ns (fast corner) |
 | KLayout DRC | Clean (precheck: SG13CMOS5L DRC, pin labels, zero area) |
 | LVS | Clean (0 errors, 0 unmatched nets, devices or pins); this is the power-hookup signoff |
 | Antenna | 0 violations |
@@ -154,8 +155,22 @@ design and flow configuration are unchanged since the earlier signoff run (#28),
 
 Open items:
 
-- **Electrical rule violations** in post-route STA: 21 max-capacitance, up to 11 max-slew and 3 max-fanout
-  violations (all corners report them). They do not fail the flow, but should be fixed or explained before submission.
+- **Electrical rule violations** in post-route STA: 0 max-capacitance, 2 max-slew and 1 max-fanout violation. The
+  slew violators are two SRAM address inputs driven by hold-fix delay cells: `sram1/A_ADDR[1]` (0.904 ns against a
+  0.595 ns limit at the slow corner, 0.584 against 0.476 ns at the typical corner) and `sram1/A_ADDR[0]` (0.720 ns,
+  slow corner only); the fast corner has none. The fanout violator is the clock root buffer `clkbuf_0_clk_regs` (16
+  against a limit of 8). They do not fail the flow, but should be fixed or explained before submission.
+- **Why the macros are MX:** each SRAM's signal pins sit on its y=0 edge. At R0 that edge faced away from the TT I/O
+  pins on the die's top edge, so nets wrapped around the macros. With both macros at R0 (run #73) the flow left 21
+  max-cap, 11 max-slew and 3 max-fanout violations (setup slack 4.17 ns); flipping only `sram0` gave 2/19/1; flipping
+  both (run #77) gave 0/7/1 and halved the routed wirelength (490k to 263k um). DRC, LVS, precheck and gl_test pass in
+  all three.
+- **SRAM timing libraries per corner:** up to run #77 every corner loaded the typical SRAM library, because the
+  `lib` keys in `src/config.json` (`nom_*`, `min_*`, `max_*`) were matched against corner names that all start with
+  `nom_`. The keys are now `*_typ_*`, `*_fast_*` and `*_slow_*`, so the slow corner uses the slow SRAM library
+  (1.08 V, 125 C) and the fast corner the fast one (1.32 V, -55 C; the closest available to the corner's -40 C).
+  Earlier slow- and fast-corner numbers therefore used typical SRAM timing. With the right libraries (run #79)
+  register-to-register setup slack went from 11.35 to 9.01 ns and hold slack from 0.106 to 0.059 ns, both still met.
 - Expected and accepted by config: 16264 pdngen power-grid warnings (the SRAM stripes are bridged after that check;
   LVS is the connectivity signoff) and 182 Magic illegal-overlap reports (false positive on the macro's LEF Metal4
   obstruction; Magic DRC is off and KLayout DRC is the physical signoff).
