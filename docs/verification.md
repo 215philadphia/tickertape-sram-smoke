@@ -10,7 +10,7 @@ level below runs in CI on each push; the commands are given so anyone can rerun 
 | 3. Compiler | Static checks reject bad programs; good programs compile and decode correctly | `model/compile_test.ml` | `model` workflow |
 | 4. RTL and gate level | cocotb tests drive the real top level through the host SPI port, including every compiled program | `test/test_pfst.py`, `test/test_programs.py` | `test` and `gds` (`gl_test`) workflows |
 | 5. Physical signoff | Tiny Tapeout flow: STA, KLayout DRC, LVS, precheck | `.github/workflows/gds.yaml` | `gds` workflow |
-| 6. Formal proofs | SymbiYosys proofs of the core's timing, FIFO, flags and reset behaviour, and of pin safety, for every program | `formal/` | `formal` workflow |
+| 6. Formal proofs | SymbiYosys proofs of the core's timing, FIFO, flags and reset behaviour, of pin safety, and of the comparator and pin pass-through, for every program | `formal/` | `formal` workflow |
 
 ## 1. Golden model: an independent second implementation
 
@@ -123,12 +123,17 @@ Proved for the core, for every prescaler `P` and every `wait`:
 - The table SRAM is never written while the core runs.
 
 Proved at chip level: an open-drain pin never drives high, an input pin is never driven, a stopped core has
-released its row-controlled pins, and no bidirectional pin is driven out of reset.
+released its row-controlled pins, and no bidirectional pin is driven out of reset. Also at chip level, with the expected
+values computed independently of the RTL (C1 to C4 in the [formal README](../formal/README.md)): the comparator `CMP`
+is `VALID[0]` AND `SCR[0] < THRESH` from the previous cycle; a direct UOMAP pass-through follows its input pin in
+the same cycle; a synchronized one shows the pin exactly two clock edges later; an unmapped output is held low.
 
 The proofs are unbounded (k-induction); a bounded check from reset runs alongside, and for the core, cover points show
 the interesting cases are reachable, so those properties are not vacuous. To show the proofs can fail, five bugs were
 planted in copies of the RTL, one at a time (a prescaler off by one, a wait off by one, table writes while
-running, the FIFO overflow flag removed, RESTART clearing `SCR`), and each is caught with a counterexample.
+running, the FIFO overflow flag removed, RESTART clearing `SCR`), and each is caught with a counterexample. Five more
+were planted against the comparator and pass-through properties (`<=` instead of `<`, `VALID` ignored, one
+synchronizer flop instead of two, direct mode ignored, the ui and uio banks swapped), each caught by its property.
 
 The proofs assume `P` is not changed while a core runs; the RTL does not enforce this, and the host contract
 is documented in [architecture.md](architecture.md#host-interface). They found one documentation error: a `LOAD`
@@ -140,7 +145,8 @@ from an empty FIFO returns the byte last loaded, not 0.
   `TX_OVR` or `OUT_INIT`.
 - Cycle alignment between the model and the RTL's read-ahead is not cross-checked automatically.
 - The formal proofs do not cover the datapath results (`SR`, `CNT`) beyond `SAVE` and the FIFO, address formation, the
-  SPI protocol beyond its effect on pin safety, the comparator, UOMAP pass-through, or the SRAM timing contract
+  SPI protocol beyond its effect on pin safety, that `CMP` reaches core 1 and not core 0 (a static connection the Nano-Tick
+  tests exercise), or the SRAM timing contract
   (see [formal/README.md](../formal/README.md#what-is-not-proved)).
 - The OCaml model keeps the last loaded TX byte across RESTART, while the RTL clears it to 0 (visible only if a
   program reads `SR` after a `LOAD` from an empty FIFO).
