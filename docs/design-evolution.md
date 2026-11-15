@@ -158,4 +158,4 @@ never the physical layer: it is two cores reacting to each other with no host, a
 | Compiler | Monadic combinators, hex output | Applicative data with compile-time checks, JSON output |
 | Verification | Formal (planned), Hardcaml Waveterm (planned) | Formal proofs (SymbiYosys), golden model, references, negative controls, RTL and gate-level tests |
 | Nano-Tick feed | 10BASE-T Ethernet | UART |
-| Protocols | UART baseline | UART, SPI, I2C, half-duplex UART, PS/2, two-core Nano-Tick |
+| Protocols | UART baseline | UART, SPI controller and target, I2C, half-duplex UART, PS/2, two-core Nano-Tick |

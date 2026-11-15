@@ -66,6 +66,10 @@ class BoardIO:
             now = time.ticks_us() if hasattr(time, "ticks_us") else int(time.time() * 1e6)
             self._sleep_us(self.t0 + target - now)
             return None
+        if k == spi.UI_LOW:
+            self.ui = (self.ui & ~0x07) | (eff[1] & 0x07)
+            self.tt.ui_in.value = self.ui
+            return None
         if k == spi.ELAPSED:
             now = time.ticks_us() if hasattr(time, "ticks_us") else int(time.time() * 1e6)
             return (now - self.t0) * self.clock_hz // 1000000

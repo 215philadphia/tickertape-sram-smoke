@@ -122,6 +122,8 @@ class BoardAdapter(unittest.TestCase):
         self.assertEqual(tt.ui_in.value, 0x08 | 1 << 4 | 1 << 5)           # SCK=ui_in[4], MOSI=ui_in[5], CS_n=ui_in[6]
         io.do((spi.SPI, 0, 0, 1, 1, False))
         self.assertEqual(tt.ui_in.value, 0x08 | 1 << 6)
+        io.do((spi.UI_LOW, 0b101))
+        self.assertEqual(tt.ui_in.value, 0x08 | 1 << 6 | 0b101)               # ui_in[2:0] set, CS_n of the host port kept
         io.do((spi.UIO_IN, 0x01, 0x01))
         self.assertEqual((tt.uio_oe_pico.value, tt.uio_in.value), (1, 1))
 

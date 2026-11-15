@@ -20,7 +20,7 @@ are not part of the synthesized design.
 ## Why these proofs cover every program
 
 The IHP SRAM macros are outside the core. In the proofs their outputs are free inputs, so every property holds
-for **every possible table contents**, that is, for every program, not just the seven we have written and tested.
+for **every possible table contents**, that is, for every program, not just the eight we have written and tested.
 
 ## What is proved
 

@@ -26,7 +26,7 @@ class CocoIO:
         k = eff[0]
         if k == spi.SPI:
             _, sck, mosi, cs_n, n, strict = eff
-            self.dut.ui_in.value = 0x08 | sck << 4 | mosi << 5 | cs_n << 6 | self.ref.ui7 << 7
+            self.ref.drive(sck, mosi, cs_n)              # keeps ui7 and ui_in[2:0] as set
             await self.cycles(H * n)
             v = self.dut.uo_out.value
             if not v.is_resolvable:
@@ -52,6 +52,9 @@ class CocoIO:
             return None
         if k == spi.UNTIL:
             await self.cycles(max(0, self.t0 + eff[1] - self.now))
+            return None
+        if k == spi.UI_LOW:
+            self.ref.set_low(eff[1] & 7)
             return None
         if k == spi.ELAPSED:
             return self.now - self.t0

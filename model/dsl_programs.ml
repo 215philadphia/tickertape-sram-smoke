@@ -266,6 +266,43 @@ let bad_undeclared_target () =
   let states = [ st "IDLE" [] (fun _ -> hold "NOWHERE") ] in
   { pname = "bad_undeclared_target"; start = "IDLE"; states; msb_first = false; terminals = [] }
 
+(* ------------------------------------------------------------- SPI target *)
+(* The other side of spi_tx_dsl: a mode 0, MSB-first SPI TARGET (slave), full duplex.
+   Pins: IN0 = MOSI, IN1 = SCK, IN3 = CS_n (active low); MISO = out[0] in PINMODE 3, so it is driven only in
+   rows whose dir[0] = 1 and is released while CS_n is high, as a shared bus needs.
+   Host side: push the reply bytes into the TX FIFO BEFORE CS_n falls; read each received byte with READ_SCR.
+   How the byte is exchanged: SHIFT samples MOSI and, in the same op, moves the next outgoing bit onto OBIT.
+   So the byte is pre-shifted once when CS_n falls (LOAD, then one SHIFT that shows bit 7 on MISO before the first
+   clock edge). After that every rising SCK edge samples MOSI and puts the next MISO bit on the wire right after
+   the edge, which a mode 0 master samples correctly at the following edge. Nine shifts per byte in total: the one
+   junk bit sampled by the pre-shift is pushed out of SR by the eighth, so SR then holds exactly the received
+   byte. The eight bit positions are unrolled (two states each), so no bit counter is needed and every state
+   can watch CS_n: dropping CS_n in mid-byte returns to IDLE. After the last bit the byte is SAVEd and the next
+   one is loaded for another byte in the same CS_n frame. An empty FIFO repeats the last byte sent. *)
+let spi_tgt_dsl () =
+  let sck = In1 and csn = In3 in
+  let act = 0b0001 in                          (* dir[0]: drive MISO *)
+  let wh i = Printf.sprintf "WH%d" i and wl i = Printf.sprintf "WL%d" i in
+  let bit_states = List.concat_map (fun i -> [
+      (* wait for the rising edge: sample MOSI and update MISO *)
+      st (wh i) [sck; csn] (fun c ->
+          if c.(0) then shift ~osel:1 ~dir:act (wl i)
+          else if c.(1) then hold "IDLE"
+          else hold ~osel:1 ~dir:act (wh i));
+      (* wait for the falling edge; after the last bit, save the byte *)
+      st (wl i) [sck; csn] (fun c ->
+          if not c.(0) then
+            (if i = 7 then save ~osel:1 ~dir:act "NEXT" else hold ~osel:1 ~dir:act (wh (i + 1)))
+          else if c.(1) then hold "IDLE"
+          else hold ~osel:1 ~dir:act (wl i));
+    ]) (List.init 8 Fun.id) in
+  let states = [
+    st "IDLE" [csn] (fun c -> if c.(0) then hold "IDLE" else load ~dir:act "PRE");
+    st "PRE" [] (fun _ -> shift ~osel:1 ~dir:act "WH0");
+    st "NEXT" [csn] (fun c -> if c.(0) then hold "IDLE" else load ~osel:1 ~dir:act "PRE");
+  ] @ bit_states in
+  { pname = "spi_tgt_dsl"; start = "IDLE"; states; msb_first = true; terminals = [] }
+
 (* A wait field out of range. *)
 (* ------------------------------------------- half-duplex single-wire UART (v1.1) *)
 (* One wire: out[0] on a PINMODE 3 pin, read back through IN0. Send one request

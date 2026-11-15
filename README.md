@@ -23,6 +23,7 @@ at gate level after place and route):
 | SPI controller | 4 | Mode 0, MSB first |
 | I2C write | 14 | Open drain, clock-stretch aware, ACK and NACK, against a reactive target |
 | Half-duplex UART | 6 | One wire: the program itself turns the line around each row (`dir` bits), zero contention cycles |
+| SPI target | 19 | **The other side of SPI:** mode 0, MSB first, full duplex; MISO is released when CS is high (`dir` bits), tested down to a 12-cycle SCK period |
 | PS/2 receiver | 39 | **A protocol the chip was not designed around**, with parity checked by carrying it in the state number |
 | Nano-Tick trader | 4 + 9 | **Two cores, no host:** core 0 receives prices over UART, a comparator fires, core 1 sends an SPI order |
 
@@ -55,11 +56,12 @@ ones trading firms use at full scale in FPGAs, for example in hardware pre-trade
 | Document | Contents |
 |---|---|
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
-| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, seven example programs, loading a program |
+| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, eight example programs, loading a program |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
 | [Formal proofs](formal/README.md) | What is proved for every program, the assumptions, what is not proved, and how to rerun them |
 | [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
 | [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
+| [Host software](host/README.md) | Loading programs from the Tiny Tapeout demo board: driver, loader, examples, what is and is not verified |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
 | [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
 
@@ -94,6 +96,7 @@ The pinout is in [`info.yaml`](info.yaml).
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
 | `test/` | cocotb tests: chip features (`test_pfst.py`) and every compiled program on the chip (`test_programs.py`), with the IHP SRAM simulation models in `test/models` |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
+| `host/` | Demo-board host software (MicroPython): loader, examples and simulation tests, see [`host/README.md`](host/README.md) |
 | `docs/` | Datasheet text (`info.md`) and the documents listed above |
 | `.github/workflows/` | `gds`, `test`, `model`, `fpga`, `docs` CI jobs |
 
@@ -105,11 +108,11 @@ RTL testbench (needs Icarus Verilog 12 and cocotb 2.0.1):
 cd test && make -B
 ```
 
-12/12 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
+13/13 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
 a UART transmitter, UOMAP pass-through and PINMODE 3 row-controlled pins. `test_programs.py` runs every
 program the OCaml compiler produces on the chip and decodes the pins: UART TX, UART RX at ±1% baud error,
-SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire, and
-a PS/2 receiver with parity checking.
+SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire,
+a PS/2 receiver with parity checking, and an SPI target answering a master.
 
 Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`. More in
 [`test/README.md`](test/README.md).
@@ -121,7 +124,7 @@ cd model && ./run_tests.sh
 ```
 
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
-static checks and must-reject controls; it also exports the seven compiled programs to `compiled_tables.json`.
+static checks and must-reject controls; it also exports the eight compiled programs to `compiled_tables.json`.
 
 Formal proofs (needs `yosys`, `cvc5` and SymbiYosys; see [`formal/README.md`](formal/README.md)):
 

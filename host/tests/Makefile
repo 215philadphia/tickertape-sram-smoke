@@ -17,6 +17,7 @@ VERILOG_SOURCES += $(TEST_DIR)/tb.v
 TOPLEVEL = tb
 
 COCOTB_TEST_MODULES = test_host_sim
+export HOST_DIR
 export PYTHONPATH := $(HOST_DIR):$(CURDIR):$(TEST_DIR):$(PYTHONPATH)
 
 include $(shell cocotb-config --makefiles)/Makefile.sim

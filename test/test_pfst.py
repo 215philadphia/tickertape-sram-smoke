@@ -25,13 +25,25 @@ class Host:
     def __init__(self, dut):
         self.dut = dut
         self.ui7 = 0                                              # ui_in[7], a general input pin
+        self.ui_low = 0                                           # ui_in[2:0], extra protocol inputs (SPI target test)
+        self.hp = (0, 0, 1)                                       # last host-port levels (sck, mosi, cs_n)
 
     async def cycles(self, n):
         for _ in range(n):
             await FallingEdge(self.dut.clk)
 
     def drive(self, sck, mosi, cs_n):
-        self.dut.ui_in.value = 0x08 | sck << 4 | mosi << 5 | cs_n << 6 | self.ui7 << 7
+        self.hp = (sck, mosi, cs_n)
+        self._write()
+
+    def _write(self):
+        sck, mosi, cs_n = self.hp
+        self.dut.ui_in.value = 0x08 | sck << 4 | mosi << 5 | cs_n << 6 | self.ui7 << 7 | self.ui_low
+
+    def set_low(self, v):
+        """Drive ui_in[2:0] without disturbing the host SPI port bits."""
+        self.ui_low = v
+        self._write()
 
     async def xfer(self, data):
         self.drive(0, 0, 0)

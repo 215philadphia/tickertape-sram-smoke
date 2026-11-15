@@ -33,10 +33,10 @@ The chip is powered down when its design is deselected and loses its tables and 
 them each time the design is selected, and after any reset (rst_n). Tables come from the OCaml toolchain in model/ (run
 model/run_tests.sh to produce compiled_tables.json; see docs/toolchain.md).
 
-The cocotb tests in test/ (12 in all) drive the chip only through these pins, as the demo board's microcontroller
+The cocotb tests in test/ (13 in all) drive the chip only through these pins, as the demo board's microcontroller
 would. test_pfst.py checks the chip's features. test_programs.py loads each program compiled by the toolchain onto the
 chip and decodes the pins: UART transmit and receive, SPI transmit, I2C write, half-duplex UART on one wire, a PS/2
-receiver, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
+receiver, an SPI target, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
 below a threshold.
 
 ## External hardware
@@ -44,3 +44,17 @@ below a threshold.
 None required for the tests: the demo board's RP2350 can act as the SPI host. Protocol pins are uio[3:0] for
 core 0 and uio[7:4] for core 1; open-drain lines (I2C) need pull-ups, and a CS line should have a pull-up so it
 idles high before the chip is configured.
+
+Pins used by each demonstrated program (all I/O is 3.3 V; the tests drive these pins directly, nothing here has been
+connected to a real device yet):
+
+| Program | Chip pins | External parts |
+|---|---|---|
+| UART TX | TX on uio[0] (core 0) | USB-UART adapter RX to uio[0], common ground |
+| UART RX | RX on any input chosen by INMAP; the tests use uio[4] and uio[0] | USB-UART adapter TX, 3.3 V |
+| SPI controller | CS_n uio[2], SCK uio[1], MOSI uio[0] | A 3.3 V SPI device; a pull-up on CS_n |
+| SPI target | MOSI ui_in[0], SCK ui_in[1], CS_n ui_in[2] in; MISO uio[0] out, released while CS_n is high | A 3.3 V SPI master; MISO shares a bus, so no pull-down on it; SCK at or below about 4 MHz with a 50 MHz clock |
+| I2C write | SDA uio[0], SCL uio[1], both open drain (the chip only pulls low) | **Pull-ups to 3.3 V on SDA and SCL, 2.2 to 4.7 kOhm**; a 3.3 V target |
+| PS/2 receiver | DATA uio[0], CLK uio[1], both inputs; the chip only receives | A PS/2 keyboard or mouse uses 5 V open-collector lines: a **level shifter to 3.3 V and pull-ups** are needed. Untested on a real device |
+| Half-duplex UART | One wire on uio[0] in PINMODE 3 (driven only while transmitting) | Pull-up on the wire; the far end must release it when the chip transmits |
+| Nano-Tick (both cores) | Prices in on uio[0] (UART); SPI order out on uio[6:4] (CS_n, SCK, MOSI) | USB-UART or the RP2350 as the price source; optional logic analyzer on uio[6:4] |

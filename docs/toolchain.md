@@ -59,7 +59,26 @@ All are in [`model/dsl_programs.ml`](../model/dsl_programs.ml), compiled and che
 | `i2c_wr_dsl` | 14 | I2C controller write, fast mode (400 kHz at 50 MHz), open drain, ends in a `DONE` terminal |
 | `nt_trader_dsl` | 9 | "Nano-Tick" trader on core 1: when core 0's received price drops below `THRESH` (`CMP`), send a fixed 3-byte SPI order, then wait for `CMP` to clear before re-arming |
 | `hd_uart_dsl` | 6 | Half-duplex single-wire UART: send a request, release the wire (`dir`), receive and save the reply |
+| `spi_tgt_dsl` | 19 | SPI **target** (the other side of `spi_tx_dsl`): mode 0, MSB first, full duplex, MISO released while CS is high (`dir`), several bytes per CS frame |
 | `ps2_rx_dsl` | 39 | PS/2 device-to-host receiver (keyboard/mouse), a protocol the chip was not designed around: follows the device's clock edge by edge, checks start, odd parity and stop bits, raises `FLAG` on an error |
+
+### Taking part in a protocol from the other side: `spi_tgt_dsl`
+
+The SPI controller drives the clock; the target has to follow it. `SHIFT` samples MOSI and, in the same
+operation, moves the next outgoing bit onto `OBIT`, so a naive target answers one bit late. The program
+**pre-shifts** once when CS falls (a `LOAD`, then one `SHIFT` that puts bit 7 on MISO before the first clock
+edge). After that every rising SCK edge samples MOSI and updates MISO just after the edge, which a mode 0
+master samples correctly at the next edge. The one junk bit the pre-shift samples is pushed out of the shift
+register by the eighth shift, so it then holds exactly the received byte. The eight bit positions are unrolled
+(two states each), so no bit counter is needed and every state can watch CS: dropping CS mid-byte returns to
+`IDLE`. MISO sits on a PINMODE 3 pin and is driven only in rows with `dir[0] = 1`, so it is released while the
+target is not selected, as a shared bus needs.
+
+Measured limits: the RTL test passes from an 80-cycle down to a 12-cycle SCK period (4.2 MHz at 50 MHz).
+In the golden model an 8-cycle period fails: the reload between bytes is too late and the first bit of a
+second byte is wrong (recorded there as a must-fail control). The RTL was not run at 8 cycles. The host must push the reply bytes before CS falls;
+an empty FIFO repeats the last byte; only the last received byte of a multi-byte frame is still in `SCR` when
+the frame ends, so a host that needs every byte reads `SCR` between frames or lets frames be one byte long.
 
 ### Parity without parity hardware: `ps2_rx_dsl`
 

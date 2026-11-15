@@ -370,3 +370,62 @@ async def test_compiled_ps2_rx(dut):
         assert not await status(h, 0) & 0x10
     await send(ps2_frame(0x29))                                 # still in sync afterwards
     assert await receive() == 0x29
+
+
+async def spi_master_frame(h, dut, tx_unused, bytes_out, half, miso_log, oe_log):
+    """Mode 0 master on ui_in[0] MOSI, ui_in[1] SCK, ui_in[2] CS_n (all through h.set_low, so the host port keeps
+    working). MISO = uio[0], read as uio_out[0] when uio_oe[0] is set. MISO is sampled just before each rising
+    edge, as a real master would. Returns the MISO bytes."""
+    def low(mosi, sck, cs):
+        h.set_low(mosi | sck << 1 | cs << 2)
+
+    def miso():
+        oe = bit(dut.uio_oe, 0)
+        oe_log.append(oe)
+        return bit(dut.uio_out, 0) if oe else None
+    low(0, 0, 0)
+    await h.cycles(30)
+    got = []
+    for b in bytes_out:
+        v = 0
+        for i in range(7, -1, -1):
+            low((b >> i) & 1, 0, 0)
+            await h.cycles(half)
+            m = miso()
+            assert m is not None, "MISO not driven during the frame"
+            v = v << 1 | m
+            low((b >> i) & 1, 1, 0)
+            await h.cycles(half)
+            low((b >> i) & 1, 0, 0)
+        got.append(v)
+    await h.cycles(half)
+    low(0, 0, 1)
+    await h.cycles(40)
+    assert not bit(dut.uio_oe, 0), "MISO still driven after CS_n rose"
+    return got
+
+
+@cocotb.test()
+async def test_compiled_spi_target(dut):
+    """spi_tgt_dsl (the other side of spi_tx_dsl) on core 0: mode 0 target, MISO on uio[0] in PINMODE 3 (released when
+    CS_n is high). MOSI is saved (READ_SCR) and MISO returns the pushed TX bytes, down to a 12-cycle SCK period."""
+    h = await start(dut)
+    h.set_low(0b100)                                            # CS_n high, MOSI and SCK low
+    await load(h, 0, "spi_tgt_dsl", p=1, out_init=0, pinmode=0b11, inmap01=0x10, inmap23=0x22)
+    await run(h, 0)
+    assert not bit(dut.uio_oe, 0), "MISO driven while idle"
+    oe_log = []
+    # single-byte frames at several clock rates; every received byte read back with READ_SCR
+    for half in (40, 12, 8, 6):
+        for tx, rx in ((0xA5, 0x00), (0x3C, 0xFF), (0x81, 0x55), (0x7E, 0xC3)):
+            await h.xfer([0x30, tx])
+            got = await spi_master_frame(h, dut, None, [rx], half, [], oe_log)
+            assert got == [tx], f"half={half}: MISO {got[0]:#x}, expected {tx:#x}"
+            saved = (await h.xfer([0x50, 0]))[1]
+            assert saved == rx, f"half={half}: saved {saved:#x}, expected {rx:#x}"
+    assert 1 in oe_log, "MISO was never driven"
+    # a three-byte frame: all three MISO bytes come back in order, the last MOSI byte is in SCR
+    await h.xfer([0x30, 0xA5, 0x3C, 0x81])
+    got = await spi_master_frame(h, dut, None, [0x12, 0x34, 0x56], 40, [], oe_log)
+    assert got == [0xA5, 0x3C, 0x81], f"3-byte frame MISO {[hex(x) for x in got]}"
+    assert (await h.xfer([0x50, 0]))[1] == 0x56

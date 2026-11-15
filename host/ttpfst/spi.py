@@ -14,6 +14,8 @@ Effects (first element is the kind):
   (MARK,)                            remember "now" as a time origin
   (UNTIL, cycles)                    wait until this many chip cycles after the last MARK (absolute, no drift)
   (ELAPSED,)                         return the chip cycles since the last MARK (for polling with a timeout)
+  (UI_LOW, value)                    drive ui_in[2:0] (extra protocol inputs, e.g. an SPI master for the chip's
+                                     SPI target); the host port bits ui_in[6:4] are left alone
 
 The chip's host port (spec section 6): mode 0, MSB first, ui_in[4] SCK, ui_in[5] MOSI, ui_in[6] CS_n, MISO on
 uo_out[7]. It samples MOSI at SCK rising edges and drives MISO at SCK falling edges, so MISO is read just before
@@ -29,6 +31,7 @@ UO_OUT = 4
 MARK = 5
 UNTIL = 6
 ELAPSED = 7
+UI_LOW = 8
 
 CPOL = 0   # idle level of SCK. The chip is SPI mode 0; changing this breaks every transfer (tests plant it as a bug).
 CS_IDLE_HALVES = 2   # CS_n high for at least this many half periods between frames (chip needs >= 8 chip cycles)

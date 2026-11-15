@@ -45,6 +45,11 @@ mutant rsel-nibbles-swap ttpfst/loader.py 's/ra | rb << 2/rb | ra << 2/'
 mutant msb-first-dropped ttpfst/loader.py 's/cfg = int(prog\["msb_first"\]) | conf/cfg = 0 | conf/'
 mutant start-without-restart ttpfst/driver.py 's/CTRL_RUN | CTRL_RESTART)$/CTRL_RUN)/'
 
+mutant read-scr-wrong-byte  ttpfst/driver.py 's/    return rx\[1\]$/    return rx[0]/'
+mutant rx-valid-wrong-bit   ttpfst/driver.py 's/^STATUS_RX_VALID = 0x04/STATUS_RX_VALID = 0x08/'
+mutant ps2-parity-inverted  examples/ps2_rx.py 's/par = (1 - sum(data) % 2)/par = (sum(data) % 2)/'
+mutant spi-target-miso-ignored examples/spi_target.py 's/miso = (yield (spi.UIO_OUT,)) \& 1            # sample before the rising edge/miso = 0/'
+
 # the real tree was not touched
 git diff --quiet -- ../ttpfst ../examples || { echo "real tree modified"; fail=1; }
 [ $fail -eq 0 ] && echo "ALL MUTANTS CAUGHT" || echo "SOME MUTANT SURVIVED OR HARNESS ERROR"
