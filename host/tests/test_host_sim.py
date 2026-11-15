@@ -10,7 +10,8 @@ import sys
 import cocotb
 from cocotb.triggers import FallingEdge
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "examples"))
+HOST_DIR = os.environ.get("HOST_DIR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+sys.path.insert(0, os.path.join(HOST_DIR, "examples"))   # same tree as ttpfst, so mutate.sh can mutate examples
 
 from cocotb_io import CocoIO                                             # noqa: E402
 from test_pfst import Host, bit, start                                   # noqa: E402
