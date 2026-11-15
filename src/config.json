@@ -104,6 +104,9 @@
   "//DESIGN_REPAIR_MAX_CAP_PCT": "Repair margins of 60% on cap limits and 40% on slew limits (passed to repair_design as -cap_margin 60 -slew_margin 40), to absorb post-route growth over placement estimates.",
   "DESIGN_REPAIR_MAX_CAP_PCT": 60,
   "DESIGN_REPAIR_MAX_SLEW_PCT": 40,
+  "//RUN_POST_GRT_DESIGN_REPAIR": "Experiment: a second design-repair pass on global-route parasitics, after post-CTS hold fixing. The two remaining max-slew violators (sram1/A_ADDR[1], A_ADDR[0]) are SRAM inputs driven by hold-fix delay cells, which the post-placement repair pass never sees. Slew margin 30% (default 10%) for detailed-route growth; the cap margin stays at its default.",
+  "RUN_POST_GRT_DESIGN_REPAIR": 1,
+  "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 30,
   "PDN_MULTILAYER": 0,
   "MAGIC_DEF_LABELS": 0,
   "MAGIC_WRITE_LEF_PINONLY": 1
