@@ -33,7 +33,7 @@ jobs:
           # GDS_logs (~100 MB) is too big to keep whole: keep only signoff STA violator/timing reports,
           # the CTS and design-repair logs, and the Magic extraction logs (illegal-overlap locations).
           KEEP = re.compile(r'stapostpnr/(summary\.rpt|[^/]+/(checks|skew\.max|skew\.min|ws\.max|ws\.min)\.rpt)$'
-                            r'|stapostpnr/nom_slow[^/]*/(max|min)\.rpt$|stamidpnr[^/]*/(summary\.rpt|nom_slow[^/]*/checks\.rpt)$|openroad-resizertimingpostcts/.*\.log$|openroad-cts/.*\.log$|openroad-repairdesignpostgpl/.*\.log$|magic-(spiceextraction|drc)/.*\.(log|rpt)$', re.I)
+                            r'|stapostpnr/nom_slow[^/]*/(max|min)\.rpt$|stamidpnr[^/]*/(summary\.rpt|nom_slow[^/]*/checks\.rpt)$|openroad-(resizertimingpostcts|repairdesignpostgrt|resizertimingpostgrt)/.*\.log$|openroad-cts/.*\.log$|openroad-repairdesignpostgpl/.*\.log$|magic-(spiceextraction|drc)/.*\.(log|rpt)$', re.I)
           LOGHITS = re.compile(r'overlap|CTS-|RSZ-|sink|cluster|buffer|fanout|slew|capacitance|violat|error|warn', re.I)
           def data(endpoint):
               return json.loads(api(endpoint))
