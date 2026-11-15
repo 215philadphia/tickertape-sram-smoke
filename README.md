@@ -60,6 +60,7 @@ ones trading firms use at full scale in FPGAs, for example in hardware pre-trade
 | [Formal proofs](formal/README.md) | What is proved for every program, the assumptions, what is not proved, and how to rerun them |
 | [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
 | [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
+| [Host software](host/README.md) | Loading programs from the Tiny Tapeout demo board: driver, loader, examples, what is and is not verified |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
 | [Datasheet text](docs/info.md) | Tiny Tapeout datasheet: how it works, how to test, external hardware |
 
@@ -94,6 +95,7 @@ The pinout is in [`info.yaml`](info.yaml).
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
 | `test/` | cocotb tests: chip features (`test_pfst.py`) and every compiled program on the chip (`test_programs.py`), with the IHP SRAM simulation models in `test/models` |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
+| `host/` | Demo-board host software (MicroPython): loader, examples and simulation tests, see [`host/README.md`](host/README.md) |
 | `docs/` | Datasheet text (`info.md`) and the documents listed above |
 | `.github/workflows/` | `gds`, `test`, `model`, `fpga`, `docs` CI jobs |
 

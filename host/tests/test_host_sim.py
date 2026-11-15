@@ -14,12 +14,15 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 
 from cocotb_io import CocoIO                                             # noqa: E402
 from test_pfst import Host, bit, start                                   # noqa: E402
-from test_programs import (BP, PROGS, I2cTarget, SpiMonitor, uart_decode,   # noqa: E402
+from test_programs import (BP, PROGS, I2cTarget, SpiMonitor, uart_decode, uart_frames, ps2_frame,   # noqa: E402
                            load as ref_load)
 from ttpfst import driver, loader, programs                              # noqa: E402
 import i2c_write as ex_i2c                                               # noqa: E402
 import nano_tick as ex_nano                                              # noqa: E402
 import uart_tx as ex_uart                                                # noqa: E402
+import uart_rx as ex_urx                                                 # noqa: E402
+import spi_tx as ex_spi                                                  # noqa: E402
+import ps2_rx as ex_ps2                                                  # noqa: E402
 
 LAB = [0x00000000, 0x1FFFFFFF, 0x12345678, 0x0A5A5A5A, 0x15555555, 0x0AAAAAAA, 0x00000001, 0x10000000]
 
@@ -123,3 +126,89 @@ async def test_nano_tick(dut):
     assert len(frames) == 3, f"{len(frames)} orders on the wire, expected 3: {mon.frames}"
     assert all(f == ex_nano.ORDER for f in frames), frames
     assert orders == frames, f"example saw {orders}, independent monitor {frames}"
+
+
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
+async def test_restart_semantics(dut):
+    """driver.start is RESTART + RUN: it clears DONE and flushes the TX FIFO of a core that already ran.
+    (Without RESTART the second run would start with DONE set and stale bytes queued.)"""
+    ref, io = await setup(dut)
+    tgt = I2cTarget(dut, 0x50)
+    done, st = await io.run(ex_i2c.write(PROGS, 0x50, [0x12], programs.SIM["i2c_wr_dsl"]))
+    assert done and st & driver.STATUS_DONE
+    await io.run(driver.tx_push(0, [1, 2]))
+    assert await io.run(driver.status(0)) >> 6 == 2, "pushed bytes not queued"
+    await io.run(driver.start(0))
+    st = await io.run(driver.status(0))
+    assert not st & driver.STATUS_DONE, f"DONE survived start(): STATUS {st:#x}"
+    assert st >> 6 == 0, f"TX FIFO not flushed by start(): STATUS {st:#x}"
+    await io.run(driver.stop(0))
+    assert not await io.run(driver.status(0)) & driver.STATUS_RUN, "stop() left the core running"
+
+
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
+async def test_uart_rx(dut):
+    """examples/uart_rx on core 1 (line uio[4]) at -1%, 0 and +1% baud error: every byte read with READ_SCR,
+    no overrun. Same data and expectation as test_compiled_uart_rx."""
+    ref, io = await setup(dut)
+    data = [0x00, 0xFF, 0x55, 0xAA, 0x81, 0x42]
+    for err in (-0.01, 0.0, 0.01):
+        got, st = await io.run(ex_urx.receive(PROGS, data, programs.SIM["uart_rx_core1"], 1, 4, BP, err))
+        assert got == data, f"err={err}: received {[None if x is None else hex(x) for x in got]}"
+        assert not st & driver.STATUS_RX_OVR, f"RX overrun, STATUS {st:#x}"
+
+
+@cocotb.test()
+async def test_uart_rx_frames_match_reference(dut):
+    """The example's UART waveform equals the reference generator's, edge for edge (it is the test's stimulus)."""
+    for err in (-0.01, 0.0, 0.01):
+        for b in (0x00, 0xFF, 0x55, 0xA5):
+            edges, end = ex_urx.frame_edges(b, BP, err)
+            wave = uart_frames([b], BP, gap_bits=1, err=err)[10:]     # reference starts its start bit at cycle 10
+            lvl, j = 1, 0
+            for n in range(end):
+                while j < len(edges) and edges[j][0] <= n:
+                    lvl, j = edges[j][1], j + 1
+                assert lvl == wave[n], f"b={b:#x} err={err}: cycle {n}"
+
+
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
+async def test_spi_tx(dut):
+    """examples/spi_tx on core 0, P=4: the bytes pushed come out as mode 0 frames on uio[2:0]."""
+    ref, io = await setup(dut)
+    mon = SpiMonitor(dut, cs=2, sck=1, mosi=0)
+    data = [0x00, 0xFF, 0x55, 0xAA, 0x81, 0x42]
+    await io.run(ex_spi.send(PROGS, data, programs.SIM["spi_tx_dsl"]))
+    assert [b for f in mon.frames if f for b in f] == data, f"frames {mon.frames}"
+
+
+@cocotb.test()
+async def test_ps2_frames_match_reference(dut):
+    """The example's PS/2 frame generator equals test_programs.ps2_frame for good and bad frames."""
+    for b in (0x00, 0xFF, 0x1C, 0xF0, 0x5A, 0x81):
+        assert ex_ps2.frame(b) == ps2_frame(b), hex(b)
+        assert ex_ps2.frame(b, bad_parity=True) == ps2_frame(b, bad_parity=True)
+        assert ex_ps2.frame(b, bad_stop=True) == ps2_frame(b, bad_stop=True)
+
+
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
+async def test_ps2_rx(dut):
+    """examples/ps2_rx, a protocol the chip was not designed for: good frames received; bad parity and a bad stop bit
+    save nothing and raise FLAG; start() clears FLAG; still in sync afterwards (as test_compiled_ps2_rx)."""
+    ref, io = await setup(dut)
+    await io.run(ex_ps2.start_keyboard(PROGS, programs.SIM["ps2_rx_dsl"]))
+    good = [0x00, 0xFF, 0x1C, 0xF0, 0x5A, 0x81]
+    got = []
+    for b in good:
+        await io.run(ex_ps2.play(ex_ps2.frame(b)))
+        got.append(await io.run(ex_ps2.poll_byte(0)))
+    assert got == good, f"received {got}"
+    assert not await io.run(driver.status(0)) & driver.STATUS_FLAG, "FLAG set by a good frame"
+    for kind in ({"bad_parity": True}, {"bad_stop": True}):
+        await io.run(ex_ps2.play(ex_ps2.frame(0x33, **kind)))
+        assert await io.run(ex_ps2.poll_byte(0, max_polls=10)) is None, f"{kind}: a bad frame was saved"
+        assert await io.run(driver.status(0)) & driver.STATUS_FLAG, f"{kind}: FLAG not raised"
+        await io.run(driver.start(0))
+        assert not await io.run(driver.status(0)) & driver.STATUS_FLAG
+    await io.run(ex_ps2.play(ex_ps2.frame(0x29)))
+    assert await io.run(ex_ps2.poll_byte(0)) == 0x29
