@@ -1,0 +1,373 @@
+Original log: gds/3_Build GDS.txt
+2026-11-15T02:23:54.2810097Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:23:54.2980981Z   empty_packages_behavior: error
+2026-11-15T02:23:54.3029930Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:23:54.3031256Z   EMPTY_PACKAGES_BEHAVIOR: error
+2026-11-15T02:24:01.7743520Z   fail-on-cache-miss: false
+2026-11-15T02:24:02.4458957Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:02.6212196Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:06.6839358Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:16.1199157Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:25.7576614Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:38.3705801Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:24:43.0212446Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T02:25:45.6732517Z ────────────────────────── Lint Timing Errors Checker ──────────────────────────
+2026-11-15T02:25:45.6753061Z [02:25:45] INFO     Check for Lint Timing Errors clear.           checker.py:412
+2026-11-15T02:25:45.6772078Z ───────────────────────────── Lint Errors Checker ──────────────────────────────
+2026-11-15T02:25:45.6779866Z [02:25:45] VERBOSE  Running 'Checker.LintErrors' at                 step.py:1138
+2026-11-15T02:25:45.6780479Z                     'runs/wokwi/03-checker-linterrors'…                         
+2026-11-15T02:25:45.6790421Z [02:25:45] INFO     Check for Lint errors clear.                  checker.py:131
+2026-11-15T02:25:52.1451833Z ABC: Error: The network is combinational.                                       
+2026-11-15T02:25:52.4995590Z [02:25:52] INFO     Check for Yosys check errors clear.           checker.py:131
+2026-11-15T02:25:53.9858368Z [INFO IFP-0104] Effective utilization:                0.132                     
+2026-11-15T02:25:57.6228930Z [02:25:57] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-15T02:25:57.6235763Z [02:25:57] WARNING  Grid check for VPWR failed: PSM-0069         openroad.py:321
+2026-11-15T02:25:57.6890731Z [02:25:57] ERROR    [PSM-0069] Check connectivity failed on      openroad.py:319
+2026-11-15T02:25:57.6897243Z [02:25:57] WARNING  Grid check for VGND failed: PSM-0069         openroad.py:321
+2026-11-15T02:25:59.8323807Z [INFO GPL-0019] Utilization:                     6.002 %                        
+2026-11-15T02:26:08.5077564Z [INFO GPL-1002] Placed Cell Area            74051.3044                          
+2026-11-15T02:26:08.5087306Z [INFO GPL-1004] Minimum Feasible Density        0.0700 (cell_area / free_area)  
+2026-11-15T02:26:09.4042220Z                     OpenROAD PSM- you may ignore these if LVS                   
+2026-11-15T02:27:57.1413682Z                     the DRC Viewer.                                             
+2026-11-15T02:28:11.8801423Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-15T02:28:11.8802310Z road-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc                        
+2026-11-15T02:57:21.0848572Z + detailed_route -droute_end_iter 64 -or_seed 42 -verbose 1 -output_drc         
+2026-11-15T02:57:21.0849493Z road-detailedrouting/drt-run-1/tt_um_tickertape_pfst.drc                        
+2026-11-15T02:59:19.7655397Z [02:59:19] VERBOSE  Running 'Checker.TrDRC' at                      step.py:1138
+2026-11-15T02:59:19.7656116Z                     'runs/wokwi/48-checker-trdrc'…                              
+2026-11-15T02:59:19.7668608Z [02:59:19] INFO     Check for Routing DRC errors clear.           checker.py:131
+2026-11-15T03:00:17.0478956Z Reading "lvsres_db_0x02834b9a".                                                 
+2026-11-15T03:00:17.0482243Z Reading "lvsres_db_0x0283509a".                                                 
+2026-11-15T03:00:17.0513854Z Reading "lvsres_db_0x04007e9a".                                                 
+2026-11-15T03:00:17.0523495Z Reading "lvsres_db_0x0400b71a".                                                 
+2026-11-15T03:00:17.0858841Z Reading "lvsres_db_0x0283151a".                                                 
+2026-11-15T03:00:36.6620379Z    Copying output for cell lvsres_db_0x0283151a from                            
+2026-11-15T03:00:36.6885486Z    Copying output for cell lvsres_db_0x02834b9a from                            
+2026-11-15T03:00:36.6889455Z    Copying output for cell lvsres_db_0x0283509a from                            
+2026-11-15T03:00:36.6913887Z    Copying output for cell lvsres_db_0x04007e9a from                            
+2026-11-15T03:00:36.7083203Z    Copying output for cell lvsres_db_0x0400b71a from                            
+2026-11-15T03:00:44.1174928Z Reading "lvsres_db_0x02834b9a".                                                 
+2026-11-15T03:00:44.1178165Z Reading "lvsres_db_0x0283509a".                                                 
+2026-11-15T03:00:44.1210757Z Reading "lvsres_db_0x04007e9a".                                                 
+2026-11-15T03:00:44.1220587Z Reading "lvsres_db_0x0400b71a".                                                 
+2026-11-15T03:00:44.1603144Z Reading "lvsres_db_0x0283151a".                                                 
+2026-11-15T03:01:57.2903499Z [03:01:57] INFO     Gating variable for step 'Magic.DRC' set   sequential.py:362
+2026-11-15T03:01:57.2910557Z [03:01:57] INFO     Skipping step 'DRC'…                       sequential.py:370
+2026-11-15T03:01:57.2935125Z [03:01:57] VERBOSE  Running 'KLayout.DRC' at                        step.py:1138
+2026-11-15T03:01:57.2935578Z                     'runs/wokwi/63-klayout-drc'…                                
+2026-11-15T03:01:57.2950817Z [03:01:57] INFO     Running KLayout DRC with 4 threads…           klayout.py:738
+2026-11-15T03:01:57.2960759Z                     'runs/wokwi/63-klayout-drc/klayout-drc.log'…                
+2026-11-15T03:01:58.2942256Z IHP-SG13CMOS5L KLayout DRC runset on                                            
+2026-11-15T03:01:58.3601208Z 2026-11-15 03:01:58 +0000: Memory Usage (432536K) : IHP-SG13CMOS5L KLayout DRC  
+2026-11-15T03:01:58.3603442Z out-drc/reports/drc.klayout.lyrdb                                               
+2026-11-15T03:01:58.3651581Z 2026-11-15 03:01:58 +0000: Memory Usage (432536K) : PreCheck DRC enabled: false 
+2026-11-15T03:02:00.5503376Z 2026-11-15 03:02:00 +0000: Memory Usage (442776K) : nodrc_drw has 0 polygons    
+2026-11-15T03:02:02.1423595Z 2026-11-15 03:02:02 +0000: Memory Usage (442776K) : Loaded TECH DRC rules values
+2026-11-15T03:02:02.1424648Z /home/runner/pdk/ihp-sg13cmos5l/libs.tech/klayout/tech/drc/../../python/sg13cmos
+2026-11-15T03:02:02.1429054Z 2026-11-15 03:02:02 +0000: Memory Usage (442776K) : Loaded default DRC rules    
+2026-11-15T03:02:02.1430493Z /home/runner/pdk/ihp-sg13cmos5l/libs.tech/klayout/tech/drc/../../../../../ihp-sg
+2026-11-15T03:02:02.1431066Z 13g2/libs.tech/klayout/tech/drc/rule_decks/sg13g2_tech_default.json             
+2026-11-15T03:02:15.9690823Z 2026-11-15 03:02:15 +0000: Memory Usage (1143804K) : Starting IHP-SG13CMOS5L DRC
+2026-11-15T03:02:17.0760679Z 2026-11-15 03:02:17 +0000: Memory Usage (1152380K) : Starting IHP-SG13CMOS5L DRC
+2026-11-15T03:02:22.7009499Z 2026-11-15 03:02:22 +0000: Memory Usage (1153148K) : Starting IHP-SG13CMOS5L DRC
+2026-11-15T03:06:36.0839128Z forbidden.nodrc                                                                 
+2026-11-15T03:06:36.2958367Z 2026-11-15 03:06:36 +0000: Memory Usage (3109020K) : KLayout DRC run for tables 
+2026-11-15T03:06:36.9504582Z                     'runs/wokwi/63-klayout-drc/xml_drc_report_to_js             
+2026-11-15T03:06:37.1554938Z                     'Checker.MagicDRC' set to 'False'- the                      
+2026-11-15T03:06:37.1560463Z [03:06:37] INFO     Skipping step 'Magic DRC Checker'…         sequential.py:370
+2026-11-15T03:06:37.1584565Z [03:06:37] VERBOSE  Running 'Checker.KLayoutDRC' at                 step.py:1138
+2026-11-15T03:06:37.1585148Z                     'runs/wokwi/64-checker-klayoutdrc'…                         
+2026-11-15T03:06:37.1598866Z [03:06:37] INFO     Check for KLayout DRC errors clear.           checker.py:131
+2026-11-15T03:06:50.5513188Z tt_um_tickertape_pfst: 182 errors                                               
+2026-11-15T03:06:50.5515847Z Total of 182 errors (check feedback entries).                                   
+2026-11-15T03:06:51.9368135Z [03:06:51] WARNING  182 Magic Illegal Overlap errors found.       checker.py:122
+2026-11-15T03:06:51.9390032Z ────────────────────────────────── Netgen LVS ──────────────────────────────────
+2026-11-15T03:06:51.9397020Z [03:06:51] VERBOSE  Running 'Netgen.LVS' at                         step.py:1138
+2026-11-15T03:06:51.9397582Z                     'runs/wokwi/67-netgen-lvs'…                                 
+2026-11-15T03:06:51.9423538Z                     'runs/wokwi/67-netgen-lvs/netgen-lvs.log'…                  
+2026-11-15T03:06:52.5786838Z en-lvs/reports/lvs.netgen.rpt                                                   
+2026-11-15T03:06:52.5790595Z gen-lvs/reports/lvs.netgen.rpt" enabled                                         
+2026-11-15T03:06:53.9272266Z gen-lvs/reports/lvs.netgen.rpt" disabled                                        
+2026-11-15T03:06:53.9273851Z LVS Done.                                                                       
+2026-11-15T03:06:54.0637508Z ────────────────────── Layout vs. Schematic Error Checker ──────────────────────
+2026-11-15T03:06:54.0644600Z [03:06:54] VERBOSE  Running 'Checker.LVS' at                        step.py:1138
+2026-11-15T03:06:54.0645175Z                     'runs/wokwi/68-checker-lvs'…                                
+2026-11-15T03:06:54.0658524Z [03:06:54] INFO     Check for LVS errors clear.                   checker.py:131
+2026-11-15T03:06:54.0896006Z ───────────────── Report Manufacturability (DRC, LVS, Antenna) ─────────────────
+2026-11-15T03:06:54.0917734Z [03:06:54] WARNING  magic__drc_error__count not reported. Magic.DRC  misc.py:110
+2026-11-15T03:06:54.0932490Z * LVS
+2026-11-15T03:06:54.0932846Z * DRC
+2026-11-15T03:06:54.1529408Z                     failed: PSM-0069 (and 4 similar warnings)                   
+2026-11-15T03:06:54.1538012Z                     ignore these if LVS passes) found.                          
+2026-11-15T03:06:54.1567332Z                     congestion regions in the DRC Viewer.                       
+2026-11-15T03:06:54.1603429Z                     Overlap errors found.                                       
+2026-11-15T03:06:54.1627467Z                     magic__drc_error__count not reported. Magic.DRC             
+2026-11-15T03:06:54.4036356Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:54.4140402Z runs/wokwi/03-checker-linterrors
+2026-11-15T03:06:54.4140626Z runs/wokwi/03-checker-linterrors/state_out.json
+2026-11-15T03:06:54.4140877Z runs/wokwi/03-checker-linterrors/runtime.txt
+2026-11-15T03:06:54.4141112Z runs/wokwi/03-checker-linterrors/state_in.json
+2026-11-15T03:06:54.4141385Z runs/wokwi/03-checker-linterrors/config.json
+2026-11-15T03:06:54.4205302Z runs/wokwi/64-checker-klayoutdrc
+2026-11-15T03:06:54.4205531Z runs/wokwi/64-checker-klayoutdrc/state_out.json
+2026-11-15T03:06:54.4205772Z runs/wokwi/64-checker-klayoutdrc/runtime.txt
+2026-11-15T03:06:54.4206013Z runs/wokwi/64-checker-klayoutdrc/state_in.json
+2026-11-15T03:06:54.4206256Z runs/wokwi/64-checker-klayoutdrc/config.json
+2026-11-15T03:06:54.4214441Z runs/wokwi/67-netgen-lvs
+2026-11-15T03:06:54.4214663Z runs/wokwi/67-netgen-lvs/netgen-lvs.process_stats.json
+2026-11-15T03:06:54.4214919Z runs/wokwi/67-netgen-lvs/state_out.json
+2026-11-15T03:06:54.4215136Z runs/wokwi/67-netgen-lvs/netgen-lvs.log
+2026-11-15T03:06:54.4215353Z runs/wokwi/67-netgen-lvs/runtime.txt
+2026-11-15T03:06:54.4215571Z runs/wokwi/67-netgen-lvs/_env.tcl
+2026-11-15T03:06:54.4215779Z runs/wokwi/67-netgen-lvs/reports
+2026-11-15T03:06:54.4216002Z runs/wokwi/67-netgen-lvs/reports/lvs.netgen.rpt
+2026-11-15T03:06:54.4216282Z runs/wokwi/67-netgen-lvs/reports/lvs.netgen.json
+2026-11-15T03:06:54.4216518Z runs/wokwi/67-netgen-lvs/lvs_script.lvs
+2026-11-15T03:06:54.4216742Z runs/wokwi/67-netgen-lvs/state_in.json
+2026-11-15T03:06:54.4216949Z runs/wokwi/67-netgen-lvs/COMMANDS
+2026-11-15T03:06:54.4217144Z runs/wokwi/67-netgen-lvs/config.json
+2026-11-15T03:06:54.4218609Z runs/wokwi/68-checker-lvs
+2026-11-15T03:06:54.4218803Z runs/wokwi/68-checker-lvs/state_out.json
+2026-11-15T03:06:54.4219015Z runs/wokwi/68-checker-lvs/runtime.txt
+2026-11-15T03:06:54.4219230Z runs/wokwi/68-checker-lvs/state_in.json
+2026-11-15T03:06:54.4219441Z runs/wokwi/68-checker-lvs/config.json
+2026-11-15T03:06:54.4235404Z runs/wokwi/error.log
+2026-11-15T03:06:54.4257945Z runs/wokwi/21-openroad-generatepdn/VPWR-grid-errors.rpt
+2026-11-15T03:06:54.4259066Z runs/wokwi/21-openroad-generatepdn/VGND-grid-errors.rpt
+2026-11-15T03:06:54.4303555Z runs/wokwi/63-klayout-drc
+2026-11-15T03:06:54.4303755Z runs/wokwi/63-klayout-drc/state_out.json
+2026-11-15T03:06:54.4303985Z runs/wokwi/63-klayout-drc/klayout-drc.log
+2026-11-15T03:06:54.4304195Z runs/wokwi/63-klayout-drc/runtime.txt
+2026-11-15T03:06:54.4304435Z runs/wokwi/63-klayout-drc/xml_drc_report_to_json.log
+2026-11-15T03:06:54.4304666Z runs/wokwi/63-klayout-drc/reports
+2026-11-15T03:06:54.4304895Z runs/wokwi/63-klayout-drc/reports/drc.klayout.lyrdb
+2026-11-15T03:06:54.4305261Z runs/wokwi/63-klayout-drc/reports/drc.klayout.json
+2026-11-15T03:06:54.4305513Z runs/wokwi/63-klayout-drc/state_in.json
+2026-11-15T03:06:54.4305742Z runs/wokwi/63-klayout-drc/COMMANDS
+2026-11-15T03:06:54.4305950Z runs/wokwi/63-klayout-drc/config.json
+2026-11-15T03:06:54.4306217Z runs/wokwi/63-klayout-drc/xml_drc_report_to_json.process_stats.json
+2026-11-15T03:06:54.4306538Z runs/wokwi/63-klayout-drc/klayout-drc.process_stats.json
+2026-11-15T03:06:54.4355227Z runs/wokwi/48-checker-trdrc
+2026-11-15T03:06:54.4355313Z runs/wokwi/48-checker-trdrc/state_out.json
+2026-11-15T03:06:54.4355401Z runs/wokwi/48-checker-trdrc/runtime.txt
+2026-11-15T03:06:54.4355493Z runs/wokwi/48-checker-trdrc/state_in.json
+2026-11-15T03:06:54.4355582Z runs/wokwi/48-checker-trdrc/config.json
+2026-11-15T03:06:54.4368155Z runs/wokwi/45-openroad-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc
+2026-11-15T03:06:54.4368325Z runs/wokwi/45-openroad-detailedrouting/drt-run-0/tt_um_tickertape_pfst.drc.xml
+2026-11-15T03:06:54.4369153Z runs/wokwi/45-openroad-detailedrouting/drt-run-1/tt_um_tickertape_pfst.drc
+2026-11-15T03:06:54.4369320Z runs/wokwi/45-openroad-detailedrouting/drt-run-1/tt_um_tickertape_pfst.drc.xml
+2026-11-15T03:06:54.4370171Z runs/wokwi/45-openroad-detailedrouting/tt_um_tickertape_pfst.drc
+2026-11-15T03:06:54.4370319Z runs/wokwi/45-openroad-detailedrouting/tt_um_tickertape_pfst.drc.xml
+2026-11-15T03:06:54.4389749Z [36;1m  count_error=$(egrep -i "^%Error"   $LINTER_LOG | wc -l)[0m
+2026-11-15T03:06:54.4390052Z [36;1m  count_other=$(egrep -i "^%"        $LINTER_LOG | egrep -v "%(Warning|Error)" | wc -l)[0m
+2026-11-15T03:06:54.4391199Z [36;1m  if [ $count_error -gt 0 ]; then[0m
+2026-11-15T03:06:54.4391292Z [36;1m    summary="$count_error error(s)"[0m
+2026-11-15T03:06:54.4414636Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:54.4596259Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:54.9522985Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:55.4338602Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:07:07.5565459Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:07:09.3376304Z ##[group]Run ./tt/tt_tool.py --create-png $TT_ARGS 2>&1 || echo "WARNING: Failed to render PNG preview from GDS; error $?"
+2026-11-15T03:07:09.3376925Z [36;1m./tt/tt_tool.py --create-png $TT_ARGS 2>&1 || echo "WARNING: Failed to render PNG preview from GDS; error $?"[0m
+2026-11-15T03:07:09.3405797Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+--- LAST 200 LINES ---
+2026-11-15T03:06:54.9482372Z ##[start-action display=Routing summary;id=__TinyTapeout_tt-gds-action.__run_10]
+2026-11-15T03:06:54.9493840Z ##[group]Run ./tt/tt_tool.py --print-stats $TT_ARGS >> $GITHUB_STEP_SUMMARY
+2026-11-15T03:06:54.9494216Z [36;1m./tt/tt_tool.py --print-stats $TT_ARGS >> $GITHUB_STEP_SUMMARY[0m
+2026-11-15T03:06:54.9522985Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:54.9523351Z env:
+2026-11-15T03:06:54.9523537Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:06:54.9523727Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:06:54.9523917Z   TT_ARGS: --ihp
+2026-11-15T03:06:54.9524118Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:06:54.9524389Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:54.9524719Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:06:54.9525042Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:54.9525329Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:54.9525621Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:54.9525908Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:06:54.9526166Z ##[endgroup]
+2026-11-15T03:06:55.4297636Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_10;outcome=success;conclusion=success;duration_ms=481]
+2026-11-15T03:06:55.4299876Z ##[start-action display=Cell usage summary;id=__TinyTapeout_tt-gds-action.__run_11]
+2026-11-15T03:06:55.4311817Z ##[group]Run ./tt/tt_tool.py --print-cell-category $TT_ARGS >> $GITHUB_STEP_SUMMARY
+2026-11-15T03:06:55.4312234Z [36;1m./tt/tt_tool.py --print-cell-category $TT_ARGS >> $GITHUB_STEP_SUMMARY[0m
+2026-11-15T03:06:55.4338602Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:06:55.4338891Z env:
+2026-11-15T03:06:55.4339063Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:06:55.4339250Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:06:55.4339449Z   TT_ARGS: --ihp
+2026-11-15T03:06:55.4339784Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:06:55.4340094Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.4340417Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:06:55.4340735Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.4341035Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.4341320Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.4341607Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:06:55.4341849Z ##[endgroup]
+2026-11-15T03:06:55.9958321Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_11;outcome=success;conclusion=success;duration_ms=565]
+2026-11-15T03:06:55.9961139Z ##[start-action display=Publish build logs;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-15T03:06:55.9989352Z ##[group]Run actions/upload-artifact@v7
+2026-11-15T03:06:55.9989759Z with:
+2026-11-15T03:06:55.9989935Z   name: GDS_logs
+2026-11-15T03:06:55.9990102Z   path: src/*
+runs/wokwi/*
+
+2026-11-15T03:06:55.9990292Z   if-no-files-found: warn
+2026-11-15T03:06:55.9990488Z   compression-level: 6
+2026-11-15T03:06:55.9990661Z   overwrite: false
+2026-11-15T03:06:55.9990842Z   include-hidden-files: false
+2026-11-15T03:06:55.9991112Z   archive: true
+2026-11-15T03:06:55.9991293Z env:
+2026-11-15T03:06:55.9991454Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:06:55.9991634Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:06:55.9991836Z   TT_ARGS: --ihp
+2026-11-15T03:06:55.9992020Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:06:55.9992289Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.9992608Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:06:55.9992922Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.9993254Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.9993534Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:06:55.9993833Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:06:55.9994073Z ##[endgroup]
+2026-11-15T03:06:56.1864044Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-15T03:06:56.1865678Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke. This will be the root directory of the artifact
+2026-11-15T03:06:56.1867115Z With the provided path, there will be 913 files uploaded
+2026-11-15T03:06:56.1867755Z Artifact name is valid!
+2026-11-15T03:06:56.1868056Z Root directory input is valid!
+2026-11-15T03:06:56.3486839Z Uploading artifact: GDS_logs.zip
+2026-11-15T03:06:56.3514527Z Beginning upload of artifact content to blob storage
+2026-11-15T03:06:57.5272970Z Uploaded bytes 8388608
+2026-11-15T03:06:58.4710777Z Uploaded bytes 16777216
+2026-11-15T03:06:59.3704713Z Uploaded bytes 25165824
+2026-11-15T03:07:00.3642947Z Uploaded bytes 33554432
+2026-11-15T03:07:01.0525028Z Uploaded bytes 41943040
+2026-11-15T03:07:02.0699384Z Uploaded bytes 50331648
+2026-11-15T03:07:03.1338249Z Uploaded bytes 58720256
+2026-11-15T03:07:04.0071825Z Uploaded bytes 67108864
+2026-11-15T03:07:04.9702457Z Uploaded bytes 75497472
+2026-11-15T03:07:05.8323450Z Uploaded bytes 83886080
+2026-11-15T03:07:06.6844989Z Uploaded bytes 92274688
+2026-11-15T03:07:07.1861141Z Uploaded bytes 96665317
+2026-11-15T03:07:07.1990006Z Finished uploading artifact content to blob storage!
+2026-11-15T03:07:07.1990705Z SHA256 digest of uploaded artifact is ed0fec09a573d749b3fcc3d11f778b56696a0e737e22d529ee0de83580adea09
+2026-11-15T03:07:07.1992906Z Finalizing artifact upload
+2026-11-15T03:07:07.5385193Z Artifact GDS_logs successfully finalized. Artifact ID 14144390791
+2026-11-15T03:07:07.5385749Z Artifact GDS_logs has been successfully uploaded! Final size is 96665317 bytes. Artifact ID is 14144390791
+2026-11-15T03:07:07.5389408Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43667577862/artifacts/14144390791
+2026-11-15T03:07:07.5524000Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=success;conclusion=success;duration_ms=11556]
+2026-11-15T03:07:07.5526043Z ##[start-action display=Prepare tt_submission artifact;id=__TinyTapeout_tt-gds-action.__run_12]
+2026-11-15T03:07:07.5537802Z ##[group]Run ./tt/tt_tool.py --create-tt-submission $TT_ARGS
+2026-11-15T03:07:07.5538158Z [36;1m./tt/tt_tool.py --create-tt-submission $TT_ARGS[0m
+2026-11-15T03:07:07.5565459Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:07:07.5565735Z env:
+2026-11-15T03:07:07.5565921Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:07:07.5566111Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:07:07.5566421Z   TT_ARGS: --ihp
+2026-11-15T03:07:07.5566618Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:07:07.5566911Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:07.5567238Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:07:07.5567568Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:07.5567858Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:07.5568158Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:07.5568502Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:07:07.5568760Z ##[endgroup]
+2026-11-15T03:07:07.9720370Z 2026-11-15 03:07:07,971 - project    - INFO     - Creating TT submission for tt_um_tickertape_pfst
+2026-11-15T03:07:08.1756606Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_12;outcome=success;conclusion=success;duration_ms=622]
+2026-11-15T03:07:08.1759313Z ##[start-action display=Publish tt_submission artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2]
+2026-11-15T03:07:08.1798088Z ##[group]Run actions/upload-artifact@v7
+2026-11-15T03:07:08.1798443Z with:
+2026-11-15T03:07:08.1798678Z   name: tt_submission
+2026-11-15T03:07:08.1799007Z   path: src/*
+docs/*
+tt_submission/*
+info.yaml
+LICENSE
+
+2026-11-15T03:07:08.1799410Z   if-no-files-found: warn
+2026-11-15T03:07:08.1800004Z   compression-level: 6
+2026-11-15T03:07:08.1800284Z   overwrite: false
+2026-11-15T03:07:08.1800563Z   include-hidden-files: false
+2026-11-15T03:07:08.1800851Z   archive: true
+2026-11-15T03:07:08.1801115Z env:
+2026-11-15T03:07:08.1801346Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:07:08.1801802Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:07:08.1802100Z   TT_ARGS: --ihp
+2026-11-15T03:07:08.1802481Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:07:08.1802937Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:08.1803377Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:07:08.1803810Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:08.1804264Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:08.1804684Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:08.1805117Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:07:08.1805481Z ##[endgroup]
+2026-11-15T03:07:08.2933155Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-15T03:07:08.2934771Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke. This will be the root directory of the artifact
+2026-11-15T03:07:08.2935328Z With the provided path, there will be 27 files uploaded
+2026-11-15T03:07:08.2938710Z Artifact name is valid!
+2026-11-15T03:07:08.2938931Z Root directory input is valid!
+2026-11-15T03:07:08.4620175Z Uploading artifact: tt_submission.zip
+2026-11-15T03:07:08.4645817Z Beginning upload of artifact content to blob storage
+2026-11-15T03:07:08.9960615Z Uploaded bytes 3926470
+2026-11-15T03:07:09.0110173Z Finished uploading artifact content to blob storage!
+2026-11-15T03:07:09.0110852Z SHA256 digest of uploaded artifact is e2cc9eb7c33f161c0cd6eb5118614843e2a5569292bd136124502998dab275dc
+2026-11-15T03:07:09.0111382Z Finalizing artifact upload
+2026-11-15T03:07:09.3280447Z Artifact tt_submission successfully finalized. Artifact ID 14144191624
+2026-11-15T03:07:09.3281072Z Artifact tt_submission has been successfully uploaded! Final size is 3926470 bytes. Artifact ID is 14144191624
+2026-11-15T03:07:09.3281703Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43667577862/artifacts/14144191624
+2026-11-15T03:07:09.3361785Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_2;outcome=success;conclusion=success;duration_ms=1160]
+2026-11-15T03:07:09.3363911Z ##[start-action display=Render PNG from GDS;id=__TinyTapeout_tt-gds-action.__run_13]
+2026-11-15T03:07:09.3376304Z ##[group]Run ./tt/tt_tool.py --create-png $TT_ARGS 2>&1 || echo "WARNING: Failed to render PNG preview from GDS; error $?"
+2026-11-15T03:07:09.3376925Z [36;1m./tt/tt_tool.py --create-png $TT_ARGS 2>&1 || echo "WARNING: Failed to render PNG preview from GDS; error $?"[0m
+2026-11-15T03:07:09.3405797Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-15T03:07:09.3406081Z env:
+2026-11-15T03:07:09.3406270Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:07:09.3406473Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:07:09.3406676Z   TT_ARGS: --ihp
+2026-11-15T03:07:09.3406876Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:07:09.3407271Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:09.3407606Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:07:09.3407946Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:09.3408259Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:09.3408559Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:07:09.3408871Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:07:09.3409179Z ##[endgroup]
+2026-11-15T03:07:09.7537117Z 2026-11-15 03:07:09,753 - render_utils - INFO     - Rendering SVG without text labels: gds_render_preview.svg
+2026-11-15T03:07:10.1819534Z 2026-11-15 03:07:10,181 - render_utils - INFO     - Converting to PNG using rsvg-convert: gds_render_preview.png
+2026-11-15T03:07:53.4443216Z 2026-11-15 03:07:53,443 - render_utils - INFO     - Compressing PNG further with pngquant to: gds_render.png
+2026-11-15T03:08:01.5149255Z 2026-11-15 03:08:01,514 - render_utils - INFO     - Final PNG is gds_render.png (7,792,922 bytes)
+2026-11-15T03:08:01.5909712Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_13;outcome=success;conclusion=success;duration_ms=52254]
+2026-11-15T03:08:01.5911955Z ##[start-action display=Upload gds_render (png) artifact;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3]
+2026-11-15T03:08:01.5937897Z ##[group]Run actions/upload-artifact@v7
+2026-11-15T03:08:01.5938153Z with:
+2026-11-15T03:08:01.5938314Z   name: gds_render
+2026-11-15T03:08:01.5938493Z   path: gds_render.png
+2026-11-15T03:08:01.5938684Z   if-no-files-found: warn
+2026-11-15T03:08:01.5938880Z   compression-level: 6
+2026-11-15T03:08:01.5939069Z   overwrite: false
+2026-11-15T03:08:01.5939250Z   include-hidden-files: false
+2026-11-15T03:08:01.5939458Z   archive: true
+2026-11-15T03:08:01.5939816Z env:
+2026-11-15T03:08:01.5939987Z   PDK: ihp-sg13cmos5l
+2026-11-15T03:08:01.5940184Z   PDK_ROOT: /home/runner/pdk
+2026-11-15T03:08:01.5940402Z   TT_ARGS: --ihp
+2026-11-15T03:08:01.5940596Z   CACHE_KEY: c64598ebb40a937a93d97cceb7dfde03
+2026-11-15T03:08:01.5940884Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:08:01.5941223Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T03:08:01.5941552Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:08:01.5941858Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:08:01.5942166Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T03:08:01.5942472Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T03:08:01.5942720Z ##[endgroup]
+2026-11-15T03:08:01.7063127Z With the provided path, there will be 1 file uploaded
+2026-11-15T03:08:01.7066634Z Artifact name is valid!
+2026-11-15T03:08:01.7067142Z Root directory input is valid!
+2026-11-15T03:08:01.8846388Z Uploading artifact: gds_render.zip
+2026-11-15T03:08:01.8873859Z Beginning upload of artifact content to blob storage
+2026-11-15T03:08:02.2634570Z Uploaded bytes 7687144
+2026-11-15T03:08:02.2760917Z Finished uploading artifact content to blob storage!
+2026-11-15T03:08:02.2761644Z SHA256 digest of uploaded artifact is 1743abdd2f2400123d1ad0cde70b43bbdd2482b59fe5d520b876c949d9454723
+2026-11-15T03:08:02.2762158Z Finalizing artifact upload
+2026-11-15T03:08:02.6197916Z Artifact gds_render successfully finalized. Artifact ID 14143444863
+2026-11-15T03:08:02.6198892Z Artifact gds_render has been successfully uploaded! Final size is 7687144 bytes. Artifact ID is 14143444863
+2026-11-15T03:08:02.6201665Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43667577862/artifacts/14143444863
+2026-11-15T03:08:02.6281145Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact_3;outcome=success;conclusion=success;duration_ms=1036]
