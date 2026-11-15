@@ -29,7 +29,7 @@ async def setup(dut):
     return ref, CocoIO(dut, ref)
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_table_bytes_match_reference(dut):
     """Tables written by the host library read back identically through the reference Host, and the reverse.
     (Same-code write + read-back would pass with a wrong byte order; the reference read does not.)"""
@@ -42,7 +42,7 @@ async def test_table_bytes_match_reference(dut):
         assert await io.run(driver.read_table(core, 40, len(other))) == other, f"core {core}: library read differs"
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_registers_match_reference(dut):
     """Library register writes read back through the reference Host; reset values as in test_registers."""
     ref, io = await setup(dut)
@@ -53,7 +53,7 @@ async def test_registers_match_reference(dut):
     assert await io.run(driver.rreg(0x20, 2)) == [0x80, 0x77]
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_loader_equals_reference_load(dut):
     """loader.load leaves the chip in exactly the state test_programs.load does: table and registers, read via the
     reference Host, for every program with its simulation config."""
@@ -76,7 +76,7 @@ async def test_loader_equals_reference_load(dut):
     assert await ref.rreg(0, 8) == ref_regs, "library registers differ from reference load()"
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_uart_tx(dut):
     """examples/uart_tx on core 0: same expectation as test_compiled_uart_tx (decoded 8N1 frames on uio[0])."""
     ref, io = await setup(dut)
@@ -93,7 +93,7 @@ async def test_uart_tx(dut):
     assert uart_decode(line, BP) == data
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_i2c_write(dut):
     """examples/i2c_write against the reactive I2cTarget: a 6-byte write to 0x50, then a NACKed address."""
     ref, io = await setup(dut)
@@ -107,7 +107,7 @@ async def test_i2c_write(dut):
     assert (tgt.starts, tgt.stops, tgt.nacked) == (2, 2, 1), (tgt.starts, tgt.stops, tgt.nacked)
 
 
-@cocotb.test()
+@cocotb.test(timeout_time=30, timeout_unit="ms")   # sim time: a hung host loop fails instead of stalling
 async def test_nano_tick(dut):
     """examples/nano_tick, both cores: same prices and expectation as test_compiled_nanotick (3 orders)."""
     ref, io = await setup(dut)

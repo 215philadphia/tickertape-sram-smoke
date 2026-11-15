@@ -12,21 +12,27 @@ PROGRAM = "uart_tx_dsl"
 BIT_CYCLES = 40          # cycles per bit at P = 1 (model/dsl_programs.ml)
 
 
-def send(tables, data, conf, settle_bits=12):
+def send(tables, data, conf, settle_bits=12, max_polls=2000):
     """Load core 0, start it, stream `data` through the 3-byte TX FIFO, wait for the last frame to leave."""
     yield from loader.load(0, tables[PROGRAM], conf, PROGRAM)
     yield from driver.start(0)                  # RESTART flushes the FIFO: push after it
     queue = list(data)
-    while queue:
+    for _ in range(max_polls):
+        if not queue:
+            break
         room = yield from driver.tx_room(0)
         if room:
             yield from driver.tx_push(0, queue[:room])
             queue = queue[room:]
     # FIFO empty means the last byte was popped, not finished: wait out its frame
-    while True:
+    for _ in range(max_polls):
         st = yield from driver.status(0)
         if (st >> 6) == 0:
             break
+    else:
+        raise RuntimeError("TX FIFO never drained")
+    if queue:
+        raise RuntimeError("TX FIFO never had room for %d bytes" % len(queue))
     yield (spi.WAIT, settle_bits * BIT_CYCLES * conf["p"])
 
 
