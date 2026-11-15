@@ -137,15 +137,16 @@ program; the whole suite takes about a minute.
 
 ## Signoff status
 
-From [gds run #73](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43741632141) on `main`
-(commit `13cfbba`); reports are on the `results-13cfbba-43748376549` branch published by the collector. The RTL
-and flow configuration are unchanged since the earlier signoff runs (#28 and #55), and the numbers are identical.
+From [gds run #77](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43751686079) on commit
+`3a97f5b` (both SRAM macros at orientation MX); reports are on the `results-3a97f5b-43755780845` branch published by
+the collector. The RTL is unchanged from the earlier signoff runs (#28, #55, #73); the only flow change is the macro
+orientation, described below.
 
 | Check | Result |
 |---|---|
 | `gds` job | Pass. Die 1724.16 x 710.64 um (8x4), core area 1.208 mm², utilization 15.1% (standard cells 7.6%) |
-| Setup, slow corner (1.08 V, 125 C) | Met. Worst slack 4.17 ns (`rst_n` input to `sram1`); worst register-to-register slack 10.89 ns, which bounds the `A_DOUT -> A_ADDR` loop |
-| Hold | Met. Worst slack 0.107 ns (fast corner) |
+| Setup, slow corner (1.08 V, 125 C) | Met. Worst slack 6.20 ns (`rst_n` input to a flip-flop); worst register-to-register slack 11.35 ns, which bounds the `A_DOUT -> A_ADDR` loop |
+| Hold | Met. Worst slack 0.106 ns (fast corner) |
 | KLayout DRC | Clean (precheck: SG13CMOS5L DRC, pin labels, zero area) |
 | LVS | Clean (0 errors, 0 unmatched nets, devices or pins); this is the power-hookup signoff |
 | Antenna | 0 violations |
@@ -154,8 +155,15 @@ and flow configuration are unchanged since the earlier signoff runs (#28 and #55
 
 Open items:
 
-- **Electrical rule violations** in post-route STA: 21 max-capacitance, up to 11 max-slew and 3 max-fanout
-  violations (all corners report them). They do not fail the flow, but should be fixed or explained before submission.
+- **Electrical rule violations** in post-route STA: 0 max-capacitance, 7 max-slew (slow corner only; 0 at the
+  typical and fast corners) and 1 max-fanout violation. The slew violators are SRAM data/address inputs (`A_DIN`,
+  `A_ADDR[0]`, worst 0.602 ns against a 0.476 ns limit); the fanout violator is the clock root buffer
+  `clkbuf_0_clk_regs` (16 against a limit of 8). They do not fail the flow, but should be fixed or explained before
+  submission.
+- **Why the macros are MX:** each SRAM's signal pins sit on its y=0 edge. At R0 that edge faced away from the TT I/O
+  pins on the die's top edge, so nets wrapped around the macros. With both macros at R0 (run #73) the flow left 21
+  max-cap, 11 max-slew and 3 max-fanout violations (setup slack 4.17 ns); flipping only `sram0` gave 2/19/1; flipping
+  both gave the 0/7/1 above. DRC, LVS, precheck and gl_test pass in all three.
 - Expected and accepted by config: 16264 pdngen power-grid warnings (the SRAM stripes are bridged after that check;
   LVS is the connectivity signoff) and 182 Magic illegal-overlap reports (false positive on the macro's LEF Metal4
   obstruction; Magic DRC is off and KLayout DRC is the physical signoff).
