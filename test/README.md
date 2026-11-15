@@ -38,3 +38,18 @@ gtkwave tb.fst tb.gtkw
 or `surfer tb.fst`. Use `make -B FST=` and edit `tb.v` to write `tb.vcd` instead.
 
 The formal proofs are separate: see [`../formal/README.md`](../formal/README.md).
+
+## Stress tests (not in the default run)
+
+`test_stress.py` runs seeded random tests on the RTL: the SPI target with random frame lengths, SCK periods down to 12
+cycles, random data, frames aborted by CS_n mid-byte (the target must resynchronise without a RESTART) and host-port
+register reads in the background; random full 256-word tables on both cores; and table writes while a core runs.
+
+```bash
+make -B COCOTB_TEST_MODULES=test_stress                              # seed 1, about 2 minutes
+SEED=7 STRESS_FRAMES=200 make -B COCOTB_TEST_MODULES=test_stress COCOTB_TEST_FILTER=test_stress_spi_target
+```
+
+Results so far (RTL, Icarus): seeds 1, 2 and 3 pass (60, 200 and 200 SPI-target frames, 134 of them aborted; 3 rounds
+of random tables on both cores). With the target's pre-shift removed from its table, the stress test fails on the first
+frame. Not run at gate level, and not run for other seeds or longer.
