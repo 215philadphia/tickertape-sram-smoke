@@ -255,6 +255,35 @@ let expect_error name prog needle =
                 with Not_found -> false) then
           failwith (Printf.sprintf "rejected, but for the wrong reason: %s" msg))
 
+(* 10BASE-T programs (docs/ethernet.md). Their protocol checks are on the chip RTL (test/test_ethernet.py), where
+   the two cores and the comparator between them exist; here: they compile, with the expected number of states,
+   and the transmitter is run on the golden-model core with CMP driven as the gate core would drive it. *)
+let test_ethernet () =
+  List.iter (fun (name, prog, n) ->
+      check (Printf.sprintf "DSL 10BASE-T %s: compiles, %d states" name n) (fun () ->
+          let c = Compiler.compile (prog ()) in
+          if c.num_states <> n then failwith (Printf.sprintf "expected %d states, got %d" n c.num_states)))
+    Dsl_programs.[ ("link pulse timer", nlp_timer_dsl, 4); ("link pulse generator", nlp_pulse_dsl, 2);
+                   ("frame gate", eth_gate_dsl, 4); ("Manchester transmitter", eth_tx_dsl, 24);
+                   ("frame-start detector", eth_sfd_dsl, 27) ];
+  check "DSL 10BASE-T transmitter on the golden model: preamble, SFD, 3 bytes LSB first" (fun () ->
+      let data = [0x12; 0x34; 0xA5] in
+      let c = Compiler.compile (Dsl_programs.eth_tx_dsl ()) in
+      let core = Pfst.create ~table:c.table ~p:1 ~msb_first:false ~reset_sel:c.reset_sel in
+      List.iter (fun b -> ignore (Pfst.host_write core b)) data;
+      let gate = Dsl_programs.eth_gate_w + 2 in
+      let wave = Array.init 600 (fun k -> Pfst.step core ~raw_in:[| 0; 0; 0; 0 |] ~cmp:(if k >= 10 && k < 10 + gate then 1 else 0)) in
+      (* TD+ = out[0], TD- = out[1]; the frame starts where the pair leaves idle; a half bit is 2 cycles *)
+      let start = ref 0 in
+      while !start < 600 && wave.(!start) land 3 = 0 do incr start done;
+      let half k = match wave.(!start + 2 * k) land 3, wave.(!start + 2 * k + 1) land 3 with
+        | 1, 1 -> 1 | 2, 2 -> 0 | _ -> -1 in
+      let bit k = match half (2 * k), half (2 * k + 1) with 0, 1 -> 1 | 1, 0 -> 0 | _ -> -1 in
+      let expect = List.init 56 (fun k -> 1 - k mod 2) @ [1; 0; 1; 0; 1; 0; 1; 1]
+                   @ List.concat_map (fun b -> List.init 8 (fun i -> (b lsr i) land 1)) data in
+      List.iteri (fun k e -> if bit k <> e then failwith (Printf.sprintf "bit %d is %d, expected %d" k (bit k) e)) expect;
+      if bit (List.length expect) <> -1 then failwith "no code violation after the last bit")
+
 let () =
   print_endline "-- DSL programs: compile, then run + independently decode on the";
   print_endline "   already-validated golden-model core --";
@@ -266,6 +295,7 @@ let () =
   test_half_duplex ();
   test_ps2_rx ();
   test_spi_target ();
+  test_ethernet ();
   print_endline "";
   print_endline "-- static checks: each control must be rejected at compile time,";
   print_endline "   before ever running --";

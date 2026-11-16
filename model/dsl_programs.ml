@@ -379,3 +379,133 @@ let bad_too_many_inputs () =
     st "IDLE" [In0; In1; In2] (fun _ -> hold "IDLE");
   ] in
   { pname = "bad_too_many_inputs"; start = "IDLE"; states; msb_first = false; terminals = [] }
+
+(* ================================================== 10BASE-T Ethernet (docs/ethernet.md) *)
+(* All of these assume a 40 MHz chip clock: one bit time is 100 ns = 4 cycles and one Manchester half bit is
+   50 ns = 2 cycles. At the 50 MHz signoff clock a half bit would be 2.5 cycles, which whole rows cannot make.
+   Line pins of the transmitting core: out[0] = TD+, out[1] = TD-. "HI" is TD+ above TD- (IEEE 802.3 7.3.1.1). *)
+let eth_hi = 0b01 and eth_lo = 0b10 and eth_idle = 0b00
+
+(* Core 0 as a timer for core 1. The cores are linked by the comparator CMP = VALID0 & (SCR0 < THRESH), which only
+   core 1 can branch on, so the core that needs a counter (core 1) borrows core 0 as one. Core 0 raises CMP by
+   SAVEing a byte below THRESH and drops it by SHIFTing that byte left once (MSB first) and SAVEing again:
+   with THRESH = 0x80 and a byte in 0x40..0x7F the shifted value is >= 0x80 whatever IN0 reads. *)
+
+(* ---- link pulse timer (core 0, P = 256, MSB first, THRESH = 0x80, one byte 0x40..0x7F pushed at setup) ----
+   CMP is high for the S and D rows and low for the rest of the period. The period is fixed by the table:
+   (196 + 256 + 255 + 1) + 7 x 256 = 2500 rows-units of P = 256 cycles = 640 000 cycles = 16.000 ms at 40 MHz.
+   The seven long rows are one state looping on the bit counter (LOAD sets it to 8, the D row and each W row
+   shift once). The start state is W with the counter at 0, so the first row is the LOAD. After the setup byte
+   is popped the FIFO is empty and LOAD reloads the same byte for ever, so nothing further is needed from the
+   host. Until that byte is pushed LOAD returns 0, CMP stays high and no pulse is made. (A separate "wait for
+   the byte" state would never be re-entered; the compiler rejects that as a deadlock trap.) *)
+let nlp_timer_dsl () =
+  let states = [
+    st "S" [] (fun _ -> save ~wait:255 "D");
+    st "D" [] (fun _ -> shift ~wait:254 "E");
+    st "E" [] (fun _ -> save "W");
+    st "W" [CntZero] (fun c -> if c.(0) then load ~wait:195 "S" else shift ~wait:255 "W");
+  ] in
+  { pname = "nlp_timer_dsl"; start = "W"; states; msb_first = true; terminals = [] }
+
+(* ---- link pulse generator (core 1, P = 1): one 4-cycle (100 ns) HI pulse per rising edge of CMP ---- *)
+let nlp_pulse_dsl () =
+  let states = [
+    st "IDLE" [Cmp] (fun c -> if c.(0) then hold ~out:eth_hi ~wait:3 "REL" else hold ~out:eth_idle "IDLE");
+    st "REL" [Cmp] (fun c -> if c.(0) then hold ~out:eth_idle "REL" else hold ~out:eth_idle "IDLE");
+  ] in
+  { pname = "nlp_pulse_dsl"; start = "IDLE"; states; msb_first = false; terminals = [] }
+
+(* ---- frame gate (core 0, P = 1, MSB first, THRESH = 0x80): CMP high for a fixed time per pushed byte ----
+   The transmitter has no counter that could count the 62 bits of preamble, so core 0 times them: one byte
+   0x40..0x7F pushed into core 0's FIFO raises CMP for eth_gate_w + 2 = 242 cycles (the ARM row and one more). The transmitter loops on its
+   preamble square wave while CMP is high; it samples CMP every 8 cycles, so the gate edge has +-4 cycles of
+   margin and is placed in the middle. *)
+let eth_gate_w = 240
+let eth_gate_dsl () =
+  let states = [
+    st "IDLE" [TxFull] (fun c -> if c.(0) then load "ARM" else hold "IDLE");
+    st "ARM" [] (fun _ -> save ~wait:eth_gate_w "DROP");
+    st "DROP" [] (fun _ -> shift "END");
+    st "END" [] (fun _ -> save "IDLE");
+  ] in
+  { pname = "eth_gate_dsl"; start = "IDLE"; states; msb_first = true; terminals = [] }
+
+(* ---- Manchester transmitter at 10 Mb/s (core 1, P = 1, LSB first) ----
+   Frame: preamble and SFD (IEEE 802.3 3.2.1, 3.2.2: 62 bits 1010...10 then 11), the bytes in the TX FIFO LSB
+   first (3.3), then the start of idle: HI for eth_etd cycles (14.3.1.2.1). A 1 is LO then HI, a 0 is HI then LO
+   (7.3.1.1). Every row is 2 or 4 cycles, so every edge falls on a 50 ns grid.
+   The preamble 1010...10 is a square wave of 4-cycle rows (PH, PL), repeated while CMP is high: 31 times.
+   The last two bits (1, 1) are the rows T1..T3; T2 LOADs the first byte and T3 SHIFTs its first bit out.
+   Data: a bit needs a row per half, and each row's level depends on the bit, so a state reads OBIT (slot B).
+   CNT_ZERO is in slot B too, so the same state cannot also ask "was that the last bit?". The eight bit positions
+   are therefore unrolled (F0/S0 .. F7/S7) and no counter is used; F7 reads OBIT with TX_FULL (slot A) to load the
+   next byte or end the frame. F rows LOAD (bit 7 is already in OBIT), S rows SHIFT the next bit out. *)
+let eth_etd = 12                           (* start of idle: 12 cycles = 300 ns HI *)
+let eth_tx_dsl () =
+  let first b = if b then eth_lo else eth_hi and second b = if b then eth_hi else eth_lo in
+  let f i = Printf.sprintf "F%d" i and s i = Printf.sprintf "S%d" i in
+  let bit_states = List.concat_map (fun i -> [
+      st (f i) [Obit] (fun c -> hold ~out:(first c.(0)) ~wait:1 (s i));
+      st (s i) [Obit] (fun c -> shift ~out:(second c.(0)) ~wait:1 (f (i + 1)));
+    ]) (List.init 7 Fun.id) in
+  let states = [
+    st "IDLE" [Cmp] (fun c -> if c.(0) then hold ~out:eth_lo ~wait:1 "PH" else hold ~out:eth_idle "IDLE");
+    st "PH" [] (fun _ -> hold ~out:eth_hi ~wait:3 "PL");
+    st "PL" [Cmp] (fun c -> hold ~out:eth_lo ~wait:3 (if c.(0) then "PH" else "T1"));
+    st "T1" [] (fun _ -> hold ~out:eth_hi ~wait:1 "T2");
+    st "T2" [] (fun _ -> load ~out:eth_lo ~wait:1 "T3");
+    st "T3" [] (fun _ -> shift ~out:eth_hi ~wait:1 "F0");
+  ] @ bit_states @ [
+    st "F7" [TxFull; Obit] (fun c ->
+        if c.(0) then load ~out:(first c.(1)) ~wait:1 "S7" else hold ~out:(first c.(1)) ~wait:1 "S7E");
+    st "S7" [Obit] (fun c -> shift ~out:(second c.(0)) ~wait:1 "F0");
+    st "S7E" [Obit] (fun c -> hold ~out:(second c.(0)) ~wait:1 "ETD");
+    st "ETD" [] (fun _ -> hold ~out:eth_hi ~wait:(eth_etd - 1) "IDLE");
+  ] in
+  { pname = "eth_tx_dsl"; start = "IDLE"; states; msb_first = false; terminals = [] }
+
+(* ---- frame-start (SFD) detector (one core, P = 1): IN0 = the receive line as a logic level, out[0] = pulse ----
+   Every row is one cycle, so the core samples the line every 25 ns: 4 samples per bit. It measures runs of equal
+   samples. In the preamble every run is one bit time (nominally 4 samples); the SFD ends ...L(100 ns) H(50) L(50)
+   H(50), so the first short LOW run marks the frame start. With edges anywhere against the sample clock a 100 ns
+   run reads 3..5 samples and a 50 ns run 1..3, so a run of 3 is ambiguous on its own. The pair is not: two shorts
+   span 100 ns (3..5 samples in total), two longs 200 ns (7..9). The rule, applied when a LOW run ends:
+       frame start  <=>  low <= 2,  or  low = 3 and the HIGH run before it was <= 2.
+   It only applies when "locked": 8 valid long runs in a row since the last violation, counted with the bit
+   counter (LOAD = 8, one SHIFT per long run, CNT_ZERO = locked). The state number holds the run length; the HIGH
+   run's class is kept by entering one of three LOW chains (L: after a long, LA: after a 3, LS: after a short).
+   After the pulse the core skips the rest of the frame (FH/FL) until the line has been low for 8 samples. *)
+let eth_sfd_delay = 2                      (* DET row: cycles between the decision and the pulse row *)
+let eth_sfd_dsl () =
+  let h n = Printf.sprintf "H%d" n and l n = Printf.sprintf "L%d" n in
+  let ls n = Printf.sprintf "LS%d" n and la n = Printf.sprintf "LA%d" n and fl n = Printf.sprintf "FL%d" n in
+  let hi_states = List.map (fun n ->
+      st (h n) [In0; CntZero] (fun c ->
+          if c.(0) then (if n < 5 then hold (h (n + 1)) else load "HO")      (* still high; 6 highs: not preamble *)
+          else if n <= 2 then (if c.(1) then hold (ls 1) else load (l 1))     (* short high: SFD candidate if locked *)
+          else if n = 3 then shift (if c.(1) then la 1 else l 1)              (* 3: long, or short if a short low follows *)
+          else shift (l 1))) [1; 2; 3; 4; 5] in
+  let lo_states = List.map (fun n ->
+      st (l n) [In0] (fun c ->
+          if not c.(0) then (if n < 5 then hold (l (n + 1)) else load "LI")   (* 6 lows: idle *)
+          else if n >= 3 then shift (h 1) else load (h 1))) [1; 2; 3; 4; 5] in  (* a short low after a long high: violation *)
+  let ls_states = List.map (fun n ->
+      st (ls n) [In0] (fun c ->
+          if c.(0) then hold "DET" else if n < 3 then hold (ls (n + 1)) else load (l 4))) [1; 2; 3] in
+  let la_states = List.map (fun n ->
+      st (la n) [In0] (fun c ->
+          if c.(0) then hold "DET" else if n < 2 then hold (la (n + 1)) else hold (l 3))) [1; 2] in
+  let fl_states = List.map (fun n ->
+      st (fl n) [In0] (fun c ->
+          if c.(0) then hold "FH" else if n < 7 then hold (fl (n + 1)) else load "LI")) [1; 2; 3; 4; 5; 6; 7] in
+  let states = [
+    (* idle, and the start state: LOAD on every row keeps CNT at 8 (not locked); the counter is 0 after RUN *)
+    st "LI" [In0] (fun c -> if c.(0) then load (h 1) else load "LI");
+    st "HO" [In0] (fun c -> if c.(0) then hold "HO" else hold (l 1));
+  ] @ hi_states @ lo_states @ ls_states @ la_states @ [
+    st "DET" [] (fun _ -> hold ~wait:(eth_sfd_delay - 1) "PUL");
+    st "PUL" [] (fun _ -> hold ~out:1 ~wait:3 "FH");
+    st "FH" [In0] (fun c -> if c.(0) then hold "FH" else hold (fl 1));
+  ] @ fl_states in
+  { pname = "eth_sfd_dsl"; start = "LI"; states; msb_first = false; terminals = [] }

@@ -88,6 +88,11 @@ decoder written in the test:
 | `test_compiled_ps2_rx` | `ps2_rx_dsl` | A new protocol: PS/2 frames received; a parity error and a stop-bit error each save nothing and raise `FLAG`; the receiver stays in sync afterwards |
 | `test_compiled_spi_target` | `spi_tgt_dsl` | The other side of SPI: an independent mode 0 master gets the pushed TX bytes back on MISO and each MOSI byte is saved (READ_SCR), at SCK periods from 80 down to 12 chip cycles; MISO is released (`uio_oe` low) while CS is high; a 3-byte frame returns all three bytes |
 
+[`test/test_ethernet.py`](../test/test_ethernet.py) adds four tests of the 10BASE-T programs at a 40 MHz clock
+(link test pulses, a Manchester frame, the frame-start detector under jitter with the line passed through, and
+eleven planted bugs that the checkers must catch). Its results, including where the detector fails, are in
+[ethernet.md](ethernet.md).
+
 The tables come from `test/compiled_tables.json`, a snapshot of the compiler output.
 `model/run_tests.sh` fails if the snapshot differs from what the compiler produces, so the RTL tests
 cannot silently run stale tables. These tests were themselves checked by breaking tables on purpose: an
