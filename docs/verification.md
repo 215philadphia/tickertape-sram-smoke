@@ -91,7 +91,8 @@ decoder written in the test:
 [`test/test_ethernet.py`](../test/test_ethernet.py) adds four tests of the 10BASE-T programs at a 40 MHz clock
 (link test pulses, a Manchester frame, the frame-start detector under jitter with the line passed through, and
 eleven planted bugs that the checkers must catch). Its results, including where the detector fails, are in
-[ethernet.md](ethernet.md).
+[ethernet.md](ethernet.md). [`test/test_mii.py`](../test/test_mii.py) adds four more: the chip sends complete Ethernet
+frames over MII to a model of a PHY chip, which checks them against frames built independently in the test.
 
 The tables come from `test/compiled_tables.json`, a snapshot of the compiler output.
 `model/run_tests.sh` fails if the snapshot differs from what the compiler produces, so the RTL tests

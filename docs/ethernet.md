@@ -1,23 +1,117 @@
-# 10BASE-T Ethernet: what the chip can do, and what it cannot
+# 10 Mbit Ethernet: what the chip can do, and what it cannot
 
 10 Mbit Ethernet is one of the competition's stretch protocols. This page reports how far the fabricated
 design reaches into it **without any change to the chip**, measures where it stops, and sketches what a
-second version would need. The demonstrations are new programs for the existing compiler; `src/`,
+second version would need. Everything here is new programs for the existing compiler; `src/`,
 `src/config.json` and `info.yaml` are untouched, so the signed-off layout is the same.
 
-**The short version.** The chip cannot send or receive a real Ethernet frame. It can do three real pieces of
-10BASE-T, at the true line rate:
+**The short version.** There are two ways to attach the chip to Ethernet, and they come out very differently.
 
-| Demonstration | Programs (states) | Result on the chip RTL |
-|---|---|---|
-| Link test pulses | `nlp_timer_dsl` (4) on core 0 + `nlp_pulse_dsl` (2) on core 1 | 100 ns pulses exactly 16.000 ms apart, from the tables alone |
-| Manchester transmit at 10 Mb/s | `eth_gate_dsl` (4) on core 0 + `eth_tx_dsl` (24) on core 1 | Preamble, SFD, 1 to 3 host-pushed bytes, start of idle; every edge on the 50 ns grid |
-| Frame-start detector | `eth_sfd_dsl` (27) on one core | Pulse 150 to 175 ns after the SFD's last edge; correct for all frames up to ±12.5 ns of edge jitter |
+1. **Through a standard PHY chip, the chip is an Ethernet MAC transmitter and sends real frames.** This is how
+   every Ethernet controller is built: the MAC hands nibbles to a PHY over MII and the PHY does the line. A
+   complete, valid 64-byte frame (a gratuitous ARP request, or a UDP datagram) is compiled into the table and
+   sent at 10 Mb/s, at the 50 MHz signoff clock. Verified on the chip RTL against a model of the PHY's side of
+   the interface. **No PHY hardware has been connected**, and it transmits only.
+2. **Driving the 10BASE-T line directly, the chip cannot send or receive a real frame**, but it can do three
+   real pieces of the physical layer at the true line rate, with a 40 MHz clock.
+
+| Demonstration | Programs (states) | Clock | Result on the chip RTL |
+|---|---|---|---|
+| **MAC transmitter over MII** | `mii_arp_dsl` (20) or `mii_udp_dsl` (30) on core 0 + `mii_txen_dsl` (1) on core 1 | 50 MHz | **A whole valid frame**: preamble, SFD, 64 bytes, correct FCS; at least 170 ns of setup and 196 ns of hold in a 400 ns nibble |
+| Link test pulses | `nlp_timer_dsl` (4) on core 0 + `nlp_pulse_dsl` (2) on core 1 | 40 MHz | 100 ns pulses exactly 16.000 ms apart, from the tables alone |
+| Manchester transmit at 10 Mb/s | `eth_gate_dsl` (4) on core 0 + `eth_tx_dsl` (24) on core 1 | 40 MHz | Preamble, SFD, 1 to 3 host-pushed bytes, start of idle; every edge on the 50 ns grid |
+| Frame-start detector | `eth_sfd_dsl` (27) on one core | 40 MHz | Pulse 150 to 175 ns after the SFD's last edge; correct for all frames up to ±12.5 ns of edge jitter |
 
 Everything in the "Measured" sections below was run. Everything in "Judgment" and "Untested" was not, and
 says so.
 
-## The clock: 40 MHz, not 50
+## Measured: a MAC transmitter over MII
+
+**The idea.** IEEE 802.3 splits Ethernet into a MAC and a PHY joined by the media-independent interface
+(MII, clause 22). The PHY does everything that is hard for this chip: Manchester coding, link pulses, the line
+driver and clock recovery. What is left for the MAC at 10 Mb/s is slow: 4 bits at a time on `TXD[3:0]` with
+`TX_EN`, sampled by the PHY on the rising edge of its 2.5 MHz `TX_CLK`. One nibble lasts 400 ns, which is 20
+cycles of the 50 MHz signoff clock. No special clock is needed.
+
+**The frame lives in the table.** The 3-byte FIFO cannot hold a frame, and the host cannot feed one at line
+rate. But a program is plain OCaml data, so a function (`mii_tx_dsl` in
+[`model/dsl_programs.ml`](../model/dsl_programs.ml)) turns a frame into a program: one row per nibble, with
+equal nibbles in a row sharing one row with a longer wait. The host sends a different frame by loading a
+different table. The frame check sequence is computed by the generator and stored like any other bytes.
+
+**Using all four rows of a state.** A state that reads no inputs wastes three of its four rows, and a random
+64-byte frame needs about 120 rows. So the sequence states read `TX_FULL` and `CNT_ZERO`, two flags that the
+program itself moves with its own operations, as two extra state bits:
+
+| Page | `TX_FULL` | `CNT_ZERO` | Entered by |
+|---|---|---|---|
+| 0 | 1 | 0 | The first `LOAD` (counter set to 8) |
+| 1 | 1 | 1 | Eight `SHIFT`s, done in the last eight rows of page 0 |
+| 2 | 0 | 0 | A second `LOAD`, in the last row of page 1 |
+
+One state then serves three steps of the frame. The host pushes two bytes (`0x40`, `0xFF`) while the core is
+stopped and sets RUN; nothing loops back through a pin.
+
+**`TX_EN` and the PHY's clock.**
+
+- A core has four outputs and MII transmit needs five signals, so core 1 makes `TX_EN`: a one-state program
+  that copies the comparator to a pin. Core 0 raises and lowers the comparator with a `SAVE` placed three
+  cycles early each time, which makes `TX_EN` and `TXD` change in the same cycle.
+- `TX_CLK` comes from the PHY and is not synchronous to the chip. The program waits for one rising edge of it
+  and then free-runs, placing every change of `TXD` about 200 ns from the sampling edges.
+
+**Result** (`test/test_mii.py`). The test plays the PHY: it drives `TX_CLK` at 2.5 MHz with a random phase and
+a frequency offset, samples `TXD` and `TX_EN` on each rising edge, and checks what it received against a
+frame it builds itself with Python's `struct` and `zlib.crc32`.
+
+| Check | Result |
+|---|---|
+| Gratuitous ARP request, 20 frames at random clock phases, ±200 ppm | All correct: preamble and SFD, every ARP field, 64 bytes, FCS |
+| UDP datagram to 255.255.255.255:5000 carrying `TickerTape-Out` (a different table) | Correct, IPv4 header checksum valid |
+| Timing against the sampling edge | Worst setup 170 ns, worst hold 196 ns (required here: 100 ns each) |
+| `TX_EN` | Rises in the same cycle as the first preamble nibble, falls in the same cycle `TXD` returns to idle |
+| PHY clock off by ±1000 ppm | All frames correct, smallest margin 124 ns |
+| PHY clock off by ±3000 ppm (beyond any real crystal; recorded, not required) | Margin falls to 12 ns: the single alignment per frame is used up |
+| Planted bugs (4): a wrong nibble bit, `TX_EN` two cycles late, no wait for `TX_CLK`, wrong page byte | All caught |
+
+On the golden model (`model/run_tests.sh`): both frames and a random 64-byte frame come out nibble for nibble.
+
+**How much fits.**
+
+| Frame | States used (of 64) |
+|---|---|
+| Gratuitous ARP, MAC `02:00:00:00:00:01`, IP `10.0.0.1` | 20 |
+| UDP datagram with a 15-byte payload | 30 |
+| Random 64-byte frame | 46 |
+| Largest random frame the generator accepts | 94 bytes |
+
+Longer frames are rejected at compile time by the existing 64-state check. Frames with repeated bytes go
+further than random ones.
+
+**What this is not.**
+
+- **It has not been connected to a PHY.** The PHY is a model of clause 22's transmit signals written for the
+  test. A real PHY board, its mode pins and its reset are untested.
+- **It transmits only.** Received nibbles arrive at 10 Mb/s and the chip has nowhere to store them. A core
+  could match a pattern in them and raise the IRQ; that has not been built. So the chip can announce itself
+  and send datagrams, but it cannot answer a ping.
+- **The frame is fixed when the table is compiled.** The generator is in the OCaml toolchain; a host that wants
+  to build frames at run time needs the same short function in its own language.
+- The line itself (Manchester code, link pulses, auto-negotiation) is the PHY's work here, not the chip's.
+  The sections below are about what the chip can do on the line by itself.
+
+MII facts used: `TX_CLK` is 2.5 MHz at 10 Mb/s with a nibble-wide `TXD[3:0]` and `TX_EN`
+([TI DP83848 datasheet](https://ti.com/document-viewer/DP83848H/datasheet)); `TX_EN` is asserted with the
+first preamble nibble and stays asserted for every nibble
+([ST reference manual quoting the MII signal definitions](https://www.manualslib.com/manual/3287447/St-Stm32f405.html?page=1130)).
+The nibble order (low nibble first) and the sampling edge are from memory of clause 22. All were read as
+search-result excerpts, like the facts in the table further down.
+
+## Driving the 10BASE-T line directly
+
+The rest of this page is the second route: no PHY chip, the chip's own pins on the line through a transformer.
+
+### The clock: 40 MHz, not 50
 
 A 10BASE-T bit lasts 100 ns and Manchester code puts an edge in the middle of every bit, so a transmitter
 needs 50 ns steps. A row of the PFST lasts a whole number of clock cycles (exactly P x (1 + wait), proved as
@@ -235,7 +329,10 @@ Gate level: the four tests are in the default test list, so the Tiny Tapeout `gl
 placed-and-routed netlist. There the detector uses 10 frames per point, the link test uses 2 pulses, and the
 planted-bug test is skipped because it tests the checkers, not the netlist.
 
-## The limits, quantified
+## The limits of the direct route, quantified
+
+These apply when the chip drives the line and takes the frame from the FIFO. The MII route above avoids the
+first three: the frame is in the table, the PHY does the line coding, and the generator computes the FCS.
 
 | Limit | Number | Consequence |
 |---|---|---|
@@ -250,6 +347,9 @@ planted-bug test is skipped because it tests the checkers, not the netlist.
 ## Judgment: what a version 2 would need
 
 **This section is a study. Nothing in it is part of the chip, of `src/`, or of the Tiny Tapeout flow.**
+
+With a PHY chip, sending frames of up to about 94 bytes needs no second version (see the MII section). What a
+second version would add is longer frames, frames built by the host at run time, receive, and the direct route.
 
 To send real frames a second version needs three blocks the present one lacks:
 
@@ -295,6 +395,14 @@ duplex. We have no estimate for it.
 **Nothing in this section has been built or measured.** The chip's pins are 3.3 V digital; 10BASE-T is a
 transformer-coupled differential line, so a board test needs parts on a Pmod.
 
+For the MII route:
+
+| Part | Purpose | Notes |
+|---|---|---|
+| An Ethernet PHY board with an MII interface, RJ45 and magnetics (for example one built on the DP83848), 3.3 V | Everything on the line side | Must be set to MII (not RMII) and limited to 10 Mb/s by its mode pins or over its management interface; which pins was not confirmed. `TX_CLK` to `ui_in[7]`, `TXD[3:0]` from `uio[3:0]`, `TX_EN` from `uio[4]` |
+
+For the direct route:
+
 | Part | Purpose | Notes |
 |---|---|---|
 | 10BASE-T transformer (1:1) or an RJ45 jack with integrated magnetics | Isolation and the differential line | Required by the standard |
@@ -314,6 +422,10 @@ cd model && ./run_tests.sh
 ```
 
 ```bash
+cd test && make -B COCOTB_TEST_MODULES=test_mii
+```
+
+```bash
 cd test && make -B COCOTB_TEST_MODULES=test_ethernet
 ```
 
@@ -329,4 +441,4 @@ study/run.sh
 study/area.sh /path/to/sg13g2_stdcell_typ_1p20V_25C.lib
 ```
 
-The RTL tests take about 5 minutes; the link-pulse test alone simulates 34 ms.
+The MII tests take about a minute. The direct-route tests take about 5 minutes; the link-pulse test alone simulates 34 ms.

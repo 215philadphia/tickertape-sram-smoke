@@ -284,6 +284,48 @@ let test_ethernet () =
       List.iteri (fun k e -> if bit k <> e then failwith (Printf.sprintf "bit %d is %d, expected %d" k (bit k) e)) expect;
       if bit (List.length expect) <> -1 then failwith "no code violation after the last bit")
 
+(* Ethernet MAC transmitter over MII: frames compiled into the table (docs/ethernet.md). The PHY-side protocol
+   check is on the chip RTL (test/test_mii.py); here the generator and its paging are run on the golden model. *)
+let test_mii () =
+  check "CRC-32 of \"123456789\" is the standard check value 0xCBF43926" (fun () ->
+      let s = "123456789" in
+      let c = Dsl_programs.crc32 (List.init (String.length s) (fun i -> Char.code s.[i])) in
+      if c <> 0xCBF43926 then failwith (Printf.sprintf "got %08x" c));
+  let run_frame name prog frame states =
+    check (Printf.sprintf "DSL MII %s: %d states, all nibbles in order on the golden model" name states) (fun () ->
+        let c = Compiler.compile (prog ()) in
+        if c.num_states <> states then failwith (Printf.sprintf "expected %d states, got %d" states c.num_states);
+        if List.length frame < 64 then failwith "frame shorter than 64 bytes";
+        let core = Pfst.create ~table:c.table ~p:1 ~msb_first:true ~reset_sel:c.reset_sel in
+        ignore (Pfst.host_write core 0x40); ignore (Pfst.host_write core 0xFF);
+        let nib = Dsl_programs.mii_nib in
+        let n = (List.length frame + 8) * 2 in
+        let wave = Array.init (nib * (n + 12)) (fun k ->
+            Pfst.step core ~raw_in:[| 0; (if (k / (nib / 2)) land 1 = 1 then 1 else 0); 0; 0 |] ~cmp:0) in
+        let start = ref 0 in
+        while !start < Array.length wave && wave.(!start) land 15 = 0 do incr start done;
+        let got = List.init n (fun k -> wave.(!start + nib / 2 + nib * k) land 15) in
+        let want = List.concat_map (fun b -> [b land 15; b lsr 4]) ([0x55; 0x55; 0x55; 0x55; 0x55; 0x55; 0x55; 0xD5] @ frame) in
+        List.iteri (fun k (g, w) -> if g <> w then failwith (Printf.sprintf "nibble %d is %x, expected %x" k g w))
+          (List.combine got want);
+        if wave.(!start + nib * n + nib / 2) land 15 <> 0 then failwith "TXD not idle after the frame") in
+  run_frame "gratuitous ARP" Dsl_programs.mii_arp_dsl (Dsl_programs.eth_arp_frame ()) 20;
+  run_frame "UDP datagram" Dsl_programs.mii_udp_dsl (Dsl_programs.eth_udp_frame ()) 30;
+  (* any minimum-size frame fits: 60 pseudo-random bytes *)
+  let rnd n = let s = ref 12345 in List.init n (fun _ -> s := (!s * 1103515245 + 12345) land 0x7FFFFFFF; (!s lsr 16) land 255) in
+  let random_frame n = Dsl_programs.eth_frame ~dst:(rnd 6) ~src:(rnd 6) ~ethertype:0x88B5 (rnd (n - 14)) in
+  let f64 = random_frame 60 in
+  let s64 = (Compiler.compile (Dsl_programs.mii_tx_dsl "r" f64 ())).num_states in
+  run_frame "random 64-byte frame" (Dsl_programs.mii_tx_dsl "r" f64) f64 s64;
+  Printf.printf "   (a random 64-byte frame needs %d of the 64 states)\n" s64;
+  check "DSL MII: the largest random frame that fits" (fun () ->
+      let fits n = try ignore (Compiler.compile (Dsl_programs.mii_tx_dsl "r" (random_frame n) ())); true
+        with Compiler.Compile_error _ -> false in
+      let n = ref 60 in
+      while fits (!n + 1) do incr n done;
+      Printf.printf "   (random frames fit up to %d bytes including the FCS; longer ones are rejected at compile time)\n" (!n + 4);
+      if !n < 60 then failwith "a minimum frame does not fit")
+
 let () =
   print_endline "-- DSL programs: compile, then run + independently decode on the";
   print_endline "   already-validated golden-model core --";
@@ -296,6 +338,7 @@ let () =
   test_ps2_rx ();
   test_spi_target ();
   test_ethernet ();
+  test_mii ();
   print_endline "";
   print_endline "-- static checks: each control must be rejected at compile time,";
   print_endline "   before ever running --";

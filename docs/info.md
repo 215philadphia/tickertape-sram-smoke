@@ -33,12 +33,13 @@ The chip is powered down when its design is deselected and loses its tables and 
 them each time the design is selected, and after any reset (rst_n). Tables come from the OCaml toolchain in model/ (run
 model/run_tests.sh to produce compiled_tables.json; see docs/toolchain.md).
 
-The cocotb tests in test/ (17 in all) drive the chip only through these pins, as the demo board's microcontroller
+The cocotb tests in test/ (21 in all) drive the chip only through these pins, as the demo board's microcontroller
 would. test_pfst.py checks the chip's features. test_programs.py loads each program compiled by the toolchain onto the
 chip and decodes the pins: UART transmit and receive, SPI transmit, I2C write, half-duplex UART on one wire, a PS/2
 receiver, an SPI target, and a two-core price watcher in which core 0 receives prices and core 1 sends an SPI order when a price falls
 below a threshold. test_ethernet.py runs parts of 10BASE-T Ethernet with a 40 MHz clock: link test pulses, a Manchester
-transmitter and a frame-start detector (docs/ethernet.md); the chip cannot send or receive a full Ethernet frame.
+transmitter and a frame-start detector. test_mii.py sends complete Ethernet frames as MII nibbles to a model of a PHY
+chip. Driving the line itself the chip cannot send a full frame; through a PHY chip it can (docs/ethernet.md).
 
 ## External hardware
 
@@ -58,4 +59,5 @@ connected to a real device yet):
 | I2C write | SDA uio[0], SCL uio[1], both open drain (the chip only pulls low) | **Pull-ups to 3.3 V on SDA and SCL, 2.2 to 4.7 kOhm**; a 3.3 V target |
 | PS/2 receiver | DATA uio[0], CLK uio[1], both inputs; the chip only receives | A PS/2 keyboard or mouse uses 5 V open-collector lines: a **level shifter to 3.3 V and pull-ups** are needed. Untested on a real device |
 | Half-duplex UART | One wire on uio[0] in PINMODE 3 (driven only while transmitting) | Pull-up on the wire; the far end must release it when the chip transmits |
+| Ethernet MAC transmitter (both cores) | TXD[3:0] on uio[3:0], TX_EN on uio[4], TX_CLK in on ui_in[7] | **An Ethernet PHY board with an MII interface** (3.3 V, RJ45 and magnetics on the board), set to MII and 10 Mb/s. Untested on hardware: verified only against a model of the PHY in simulation |
 | Nano-Tick (both cores) | Prices in on uio[0] (UART); SPI order out on uio[6:4] (CS_n, SCK, MOSI) | USB-UART or the RP2350 as the price source; optional logic analyzer on uio[6:4] |

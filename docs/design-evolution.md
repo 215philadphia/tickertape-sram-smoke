@@ -153,6 +153,10 @@ Why not Ethernet was at first only our reading. It has since been measured ([eth
   13.5 ns. A UDP price feed was out of reach for this chip; the study estimates what a second version would
   add.
 - It would also need an external transformer and line receiver for the differential pair (untested).
+- **A different route does send real frames.** Through a standard PHY chip over MII, the chip is the MAC: a
+  whole 64-byte frame is compiled into the table and sent as nibbles at the 50 MHz signoff clock. It is
+  transmit only, and verified against a model of the PHY, not a real one. A price feed needs receive, so the
+  pitch's Nano-Tick over Ethernet is still out of reach.
 
 ## Summary
 
@@ -168,4 +172,4 @@ Why not Ethernet was at first only our reading. It has since been measured ([eth
 | Compiler | Monadic combinators, hex output | Applicative data with compile-time checks, JSON output |
 | Verification | Formal (planned), Hardcaml Waveterm (planned) | Formal proofs (SymbiYosys), golden model, references, negative controls, RTL and gate-level tests |
 | Nano-Tick feed | 10BASE-T Ethernet | UART (parts of 10BASE-T demonstrated separately at 40 MHz) |
-| Protocols | UART baseline | UART, SPI controller and target, I2C, half-duplex UART, PS/2, two-core Nano-Tick; 10BASE-T link pulses, Manchester transmit and frame-start detection |
+| Protocols | UART baseline | UART, SPI controller and target, I2C, half-duplex UART, PS/2, two-core Nano-Tick; 10BASE-T link pulses, Manchester transmit and frame-start detection; Ethernet frames to a PHY chip over MII |

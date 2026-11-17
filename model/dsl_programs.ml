@@ -509,3 +509,118 @@ let eth_sfd_dsl () =
     st "FH" [In0] (fun c -> if c.(0) then hold "FH" else hold (fl 1));
   ] @ fl_states in
   { pname = "eth_sfd_dsl"; start = "LI"; states; msb_first = false; terminals = [] }
+
+(* ============================================= Ethernet MAC transmitter over MII (docs/ethernet.md) *)
+(* The standard split: a PHY chip does the line (Manchester code, link pulses, drive); the MAC hands it the frame
+   as 4-bit nibbles on TXD[3:0] with TX_EN, sampled by the PHY on the rising edge of its TX_CLK, 2.5 MHz at
+   10 Mb/s (IEEE 802.3 clause 22). A nibble lasts 400 ns = 20 cycles of the 50 MHz signoff clock.
+
+   The frame is not sent from the FIFO (3 bytes) but compiled INTO THE TABLE: a program is plain OCaml data, so a
+   function turns a frame into states. Equal nibbles in a row share one row with a longer wait, and the host
+   loads a new frame by loading a new table.
+
+   One core, P = 1: IN1 = TX_CLK, out[3:0] = TXD[3:0]. TX_EN comes from the other core, which copies CMP to a pin
+   (mii_txen_dsl): this core raises CMP with a SAVE three cycles before the first nibble and lowers it three
+   cycles before the end of the last, which makes TX_EN and TXD change in the same cycle.
+
+   Using all four rows of a state. A state with no inputs wastes three of its four rows. Here the sequence
+   states read TX_FULL (slot A) and CNT_ZERO (slot B), which the program itself moves by its own operations, so
+   they act as two extra state bits ("pages") and one state serves up to three steps of the frame:
+     page 0: TX_FULL = 1, CNT_ZERO = 0   from the start (the first LOAD set the counter to 8)
+     page 1: TX_FULL = 1, CNT_ZERO = 1   after 8 SHIFTs, done in the last 8 rows of page 0
+     page 2: TX_FULL = 0, CNT_ZERO = 0   after a second LOAD, in the last row of page 1
+   The host pushes two bytes, 0x40 then 0xFF, while the core is stopped, and then sets RUN. THRESH = 0x80: the
+   first SAVE stores 0x40 (CMP high), the last stores 0xFF (CMP low). *)
+let mii_nib = 20                           (* cycles per nibble at 50 MHz *)
+let mii_align = 4                          (* cycles between seeing TX_CLK rise and the SAVE row *)
+let mii_skew = 3                           (* a SAVE reaches the TX_EN pin 3 cycles after a row's own outputs *)
+
+let crc32 bytes =
+  let c = List.fold_left (fun c b ->
+      let c = ref (c lxor b) in
+      for _ = 1 to 8 do c := if !c land 1 = 1 then (!c lsr 1) lxor 0xEDB88320 else !c lsr 1 done; !c)
+      0xFFFFFFFF bytes in
+  c lxor 0xFFFFFFFF
+
+(* destination .. payload, padded to 60 bytes, with the frame check sequence appended (least significant byte first) *)
+let eth_frame ~dst ~src ~ethertype payload =
+  let body = dst @ src @ [ethertype lsr 8; ethertype land 255] @ payload in
+  let body = body @ List.init (max 0 (60 - List.length body)) (fun _ -> 0) in
+  let c = crc32 body in
+  body @ List.init 4 (fun i -> (c lsr (8 * i)) land 255)
+
+let eth_mac = [0x02; 0; 0; 0; 0; 0x01] and eth_ip = [10; 0; 0; 1]
+let eth_bcast = [0xFF; 0xFF; 0xFF; 0xFF; 0xFF; 0xFF]
+
+(* a gratuitous ARP request: "10.0.0.1 is at 02:00:00:00:00:01", to everyone *)
+let eth_arp_frame () =
+  eth_frame ~dst:eth_bcast ~src:eth_mac ~ethertype:0x0806
+    ([0; 1; 8; 0; 6; 4; 0; 1] @ eth_mac @ eth_ip @ [0; 0; 0; 0; 0; 0] @ eth_ip)
+
+(* a UDP datagram to 255.255.255.255:5000 carrying a line of text *)
+let eth_udp_text = "TickerTape-Out\n"
+let eth_udp_frame () =
+  let text = List.init (String.length eth_udp_text) (fun i -> Char.code eth_udp_text.[i]) in
+  let be16 v = [v lsr 8; v land 255] in
+  let udp = be16 5000 @ be16 5000 @ be16 (8 + List.length text) @ [0; 0] @ text in
+  let hdr sum = [0x45; 0] @ be16 (20 + List.length udp) @ [0; 0; 0; 0; 64; 17] @ be16 sum @ eth_ip @ [255; 255; 255; 255] in
+  let rec words = function a :: b :: tl -> (a lsl 8 + b) :: words tl | _ -> [] in
+  let s = List.fold_left (+) 0 (words (hdr 0)) in
+  let s = (s land 0xFFFF) + (s lsr 16) in
+  let s = (s land 0xFFFF) + (s lsr 16) in
+  eth_frame ~dst:eth_bcast ~src:eth_mac ~ethertype:0x0800 (hdr (s lxor 0xFFFF) @ udp)
+
+let mii_tx_dsl name frame () =
+  let octets = [0x55; 0x55; 0x55; 0x55; 0x55; 0x55; 0x55; 0xD5] @ frame in       (* preamble and SFD (22.2.3.2) *)
+  let nibbles = List.concat_map (fun b -> [b land 15; b lsr 4]) octets in        (* low nibble first *)
+  (* runs of equal nibbles, as (value, cycles) *)
+  let runs = List.fold_left (fun acc n -> match acc with
+      | (v, c) :: tl when v = n -> (v, c + mii_nib) :: tl
+      | _ -> (n, mii_nib) :: acc) [] nibbles |> List.rev in
+  (* the last mii_skew cycles are a row of their own (it carries the SAVE that drops TX_EN) *)
+  let runs = match List.rev runs with
+    | (v, c) :: tl -> List.rev ((v, mii_skew) :: (v, c - mii_skew) :: tl) | [] -> [] in
+  (* a row lasts at most 256 cycles *)
+  let steps = List.concat_map (fun (v, c) ->
+      let rec split c = if c > 256 then (v, 256) :: split (c - 256) else [(v, c)] in split c) runs in
+  let n = List.length steps in
+  let n0 = max 8 ((n + 2) / 3) in
+  let n1 = (n - n0 + 1) / 2 in
+  let n2 = n - n0 - n1 in
+  if n1 < 1 || n2 < 1 then raise (Compile_error "mii_tx_dsl: frame too short to page");
+  let q i = Printf.sprintf "Q%d" i in
+  let arr = Array.of_list steps in
+  (* the row of step k (page p, position j) *)
+  let step_row p j =
+    let k = (match p with 0 -> 0 | 1 -> n0 | _ -> n0 + n1) + j in
+    let len = (match p with 0 -> n0 | 1 -> n1 | _ -> n2) in
+    let v, c = arr.(k) in
+    let next = if j < len - 1 then q (j + 1) else if p < 2 then q 0 else "IDLE" in
+    let mk = if p = 0 && j >= n0 - 8 then shift
+      else if p = 1 && j = n1 - 1 then load
+      else if p = 2 && j = n2 - 1 then save else hold in
+    mk ~out:v ~wait:(c - 1) next in
+  let m = max n0 (max n1 n2) in
+  let seq = List.init m (fun j ->
+      st (q j) [TxFull; CntZero] (fun c ->
+          match c.(0), c.(1) with
+          | true, false when j < n0 -> step_row 0 j
+          | true, true when j < n1 -> step_row 1 j
+          | false, false when j < n2 -> step_row 2 j
+          | _ -> hold "IDLE")) in
+  let states = [
+    st "IDLE" [TxFull] (fun c -> if c.(0) then load "W0" else hold "IDLE");
+    (* line up with the PHY's clock once: wait for TX_CLK low, then high *)
+    st "W0" [In1] (fun c -> if c.(0) then hold "W0" else hold "W1");
+    st "W1" [In1] (fun c -> if c.(0) then hold ~wait:(mii_align - 1) "A" else hold "W1");
+    st "A" [] (fun _ -> save ~wait:(mii_skew - 1) (q 0));
+  ] @ seq in
+  { pname = name; start = "IDLE"; states; msb_first = true; terminals = [] }
+
+let mii_arp_dsl = mii_tx_dsl "mii_arp_dsl" (eth_arp_frame ())
+let mii_udp_dsl = mii_tx_dsl "mii_udp_dsl" (eth_udp_frame ())
+
+(* ---- TX_EN (the other core, P = 1): out[0] follows CMP ---- *)
+let mii_txen_dsl () =
+  let states = [ st "IDLE" [Cmp] (fun c -> if c.(0) then hold ~out:1 "IDLE" else hold ~out:0 "IDLE") ] in
+  { pname = "mii_txen_dsl"; start = "IDLE"; states; msb_first = false; terminals = [] }
