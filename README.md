@@ -184,7 +184,7 @@ Open items:
   register-to-register setup slack went from 11.35 to 9.01 ns and hold slack from 0.106 to 0.059 ns, both still met.
 - **Second repair and routing pass** (`RUN_POST_GRT_DESIGN_REPAIR`): with it, max-slew violations went from 2 to 1
   (`sram1/A_ADDR[0]` cleared, `sram1/A_ADDR[1]` from 0.904 to 0.740 ns) and hold slack from 0.059 to 0.069 ns, in two
-  runs with different repair margins (#82 at 30%, #83 at 50%) that gave bit-identical results. The repair step's log
+  runs with different repair margins (#82 at 30%, #83 at 50%) that gave identical signoff numbers (every slack and violation the same to the picosecond). The repair step's log
   shows it resized no cells and added no buffers, so the gain most likely comes from the global route that runs
   again after it, not from repair. It is reproducible for this design, but a later change may undo it. Two other
   attempts at the remaining violations were dropped: a 100 um maximum wire length for repair (run #20, on the
