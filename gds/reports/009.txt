@@ -1,0 +1,19 @@
+Artifact: tt_submission
+Original path: docs/info.md
+
+## How it works
+
+A single IHP 256x32 single-port SRAM macro behind a small self-test FSM. Mode pins select
+self-test (write/read/compare all 256 words, two patterns), chase (the SRAM output's low
+byte is fed straight back as the next address every cycle), or manual read.
+
+## How to test
+
+1. Reset. Set `uio_in[1:0] = 01`. After about 1100 cycles `uo_out[7]` (done) and
+   `uo_out[6]` (pass) go high; `uo_out[5:0]` is the error count.
+2. Set `uio_in[1:0] = 10`. `uo_out` counts 0..255 at the clock rate.
+3. Set `uio_in[1:0] = 11`, put an address on `ui_in`, pick a byte with `uio_in[3:2]`.
+
+## External hardware
+
+None.
