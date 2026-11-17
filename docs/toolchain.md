@@ -60,6 +60,10 @@ All are in [`model/dsl_programs.ml`](../model/dsl_programs.ml), compiled and che
 | `nt_trader_dsl` | 9 | "Nano-Tick" trader on core 1: when core 0's received price drops below `THRESH` (`CMP`), send a fixed 3-byte SPI order, then wait for `CMP` to clear before re-arming |
 | `hd_uart_dsl` | 6 | Half-duplex single-wire UART: send a request, release the wire (`dir`), receive and save the reply |
 | `spi_tgt_dsl` | 19 | SPI **target** (the other side of `spi_tx_dsl`): mode 0, MSB first, full duplex, MISO released while CS is high (`dir`), several bytes per CS frame |
+| `mii_arp_dsl`, `mii_udp_dsl` + `mii_txen_dsl` | 20, 30 + 1 | Ethernet MAC transmitter over MII: a whole frame compiled into the table by `mii_tx_dsl`, a function from a frame to a program. The sequence states read `TX_FULL` and `CNT_ZERO`, which the program moves itself, so each state serves three steps ([ethernet.md](ethernet.md)) |
+| `nlp_timer_dsl` + `nlp_pulse_dsl` | 4 + 2 | 10BASE-T link test pulses at a 40 MHz clock: core 0 times 16 ms, core 1 makes the 100 ns pulse ([ethernet.md](ethernet.md)) |
+| `eth_gate_dsl` + `eth_tx_dsl` | 4 + 24 | 10BASE-T Manchester transmitter at 10 Mb/s: preamble, SFD, up to 3 bytes, start of idle. The bit positions are unrolled because `OBIT` and `CNT_ZERO` share slot B; core 0 times the preamble |
+| `eth_sfd_dsl` | 27 | 10BASE-T frame-start detector: measures runs of samples, 4 per bit, and pulses when the SFD ends |
 | `ps2_rx_dsl` | 39 | PS/2 device-to-host receiver (keyboard/mouse), a protocol the chip was not designed around: follows the device's clock edge by edge, checks start, odd parity and stop bits, raises `FLAG` on an error |
 
 ### Taking part in a protocol from the other side: `spi_tgt_dsl`

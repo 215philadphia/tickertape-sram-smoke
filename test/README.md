@@ -8,12 +8,14 @@ from the pins. They run on open-source tools: Icarus Verilog 12 and cocotb 2.0.1
 |---|---|
 | `test_pfst.py` (5) | Register reset values and read-back; table write and read through the SRAM macro; a UART transmitter; UOMAP pass-through (direct and synchronized); PINMODE 3 row-controlled pins |
 | `test_programs.py` (8) | Every program the OCaml compiler produces, loaded onto the chip and decoded from the pins: UART TX, UART RX at -1%, 0 and +1% baud error, SPI TX, I2C write against a reactive open-drain target (ACK and NACK), the two-core Nano-Tick trader, half-duplex UART on one PINMODE 3 wire, a PS/2 receiver, and an SPI target (MISO released when CS is high) |
+| `test_mii.py` (4) | The chip as an Ethernet MAC transmitter over MII at 50 MHz ([docs/ethernet.md](../docs/ethernet.md)): the test plays the PHY chip (it supplies `TX_CLK` and samples `TXD` and `TX_EN` on its rising edges) and checks a whole ARP frame and a UDP frame, their FCS, the timing margins, tolerance to an off-frequency PHY clock, and four planted bugs |
+| `test_ethernet.py` (4) | 10BASE-T at a 40 MHz clock ([docs/ethernet.md](../docs/ethernet.md)): link test pulses 16 ms apart, a Manchester frame at 10 Mb/s, the frame-start detector under jitter and duty-cycle distortion with the line passed through, and eleven planted bugs the checkers must catch. `eth_model.py` holds the waveform generator, the decoder and a Python model of one core that the test compares with the RTL frame by frame |
 
 ## Run them
 
 ```bash
 pip install -r requirements.txt     # cocotb 2.0.1 (and pytest)
-make -B                              # 13 tests, a minute or two
+make -B                              # 21 tests, about 6 minutes (the first 13 take under a minute)
 ```
 
 `test_programs.py` loads its tables from `compiled_tables.json`, a snapshot of what the compiler produces.
