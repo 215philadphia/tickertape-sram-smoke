@@ -26,7 +26,7 @@ at gate level after place and route):
 | SPI target | 19 | **The other side of SPI:** mode 0, MSB first, full duplex; MISO is released when CS is high (`dir` bits), tested down to a 12-cycle SCK period |
 | PS/2 receiver | 39 | **A protocol the chip was not designed around**, with parity checked by carrying it in the state number |
 | Nano-Tick trader | 4 + 9 | **Two cores, no host:** core 0 receives prices over UART, a comparator fires, core 1 sends an SPI order |
-| Ethernet MAC transmitter (MII) | 20 to 46 + 1 | **A whole valid Ethernet frame** ([study](docs/ethernet.md)): an ARP request or UDP datagram compiled into the table and sent as MII nibbles to a standard PHY chip at 10 Mb/s, 50 MHz clock. Checked against a PHY model in simulation; no PHY hardware connected; transmit only |
+| Ethernet MAC transmitter (MII) | 20 to 46 + 1 | **A whole valid Ethernet frame** ([study](docs/ethernet.md)): an ARP request or UDP datagram compiled into the table and sent as MII nibbles to a standard PHY chip at 10 Mb/s, 50 MHz clock. Checked against a PHY model in RTL and gate-level simulation; no PHY hardware connected; transmit only |
 | 10BASE-T link pulses | 4 + 2 | **The 10BASE-T line itself, in part**, at a 40 MHz clock: 100 ns pulses exactly 16 ms apart, core 0 timing core 1 through the comparator |
 | 10BASE-T Manchester transmit | 4 + 24 | Preamble, SFD and up to 3 bytes at the true 10 Mb/s, every edge on the 50 ns grid. Not a full frame: the FIFO holds 3 bytes |
 | 10BASE-T frame-start detector | 27 | Marks the end of the SFD while passing the line through; correct up to ±12.5 ns of edge jitter with 4 samples per bit |

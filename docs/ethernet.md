@@ -10,8 +10,8 @@ second version would need. Everything here is new programs for the existing comp
 1. **Through a standard PHY chip, the chip is an Ethernet MAC transmitter and sends real frames.** This is how
    every Ethernet controller is built: the MAC hands nibbles to a PHY over MII and the PHY does the line. A
    complete, valid 64-byte frame (a gratuitous ARP request, or a UDP datagram) is compiled into the table and
-   sent at 10 Mb/s, at the 50 MHz signoff clock. Verified on the chip RTL against a model of the PHY's side of
-   the interface. **No PHY hardware has been connected**, and it transmits only.
+   sent at 10 Mb/s, at the 50 MHz signoff clock. Verified on the chip RTL and on the gate-level netlist, against
+   a model of the PHY's side of the interface. **No PHY hardware has been connected**, and it transmits only.
 2. **Driving the 10BASE-T line directly, the chip cannot send or receive a real frame**, but it can do three
    real pieces of the physical layer at the true line rate, with a 40 MHz clock.
 
@@ -75,6 +75,8 @@ frame it builds itself with Python's `struct` and `zlib.crc32`.
 | Planted bugs (4): a wrong nibble bit, `TX_EN` two cycles late, no wait for `TX_CLK`, wrong page byte | All caught |
 
 On the golden model (`model/run_tests.sh`): both frames and a random 64-byte frame come out nibble for nibble.
+On the gate-level netlist after place and route (`gl_test`, gds run #85): the same, with worst setup 185 ns and
+worst hold 197 ns (table under "the tests can fail" below).
 
 **How much fits.**
 
@@ -325,9 +327,21 @@ front of the pin (see external hardware).
 Every Ethernet test also fails if any output pin (`uo_out`, `uio_out`, `uio_oe`) shows X or Z once the cores
 run.
 
-Gate level: the four tests are in the default test list, so the Tiny Tapeout `gl_test` job runs them on the
-placed-and-routed netlist. There the detector uses 10 frames per point, the link test uses 2 pulses, and the
-planted-bug test is skipped because it tests the checkers, not the netlist.
+**Gate level.** The Ethernet and MII tests are in the default test list, so the Tiny Tapeout `gl_test` job runs
+them on the placed-and-routed netlist. There the detector uses 10 frames per point, the link test 2 pulses and
+the MII tests fewer frames; the two planted-bug tests are skipped because they test the checkers, not the
+netlist. In [gds run #85](https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/43986672541)
+(commit `9470988`) all 21 tests ran: 19 passed, 0 failed, 2 skipped. The netlist gave the same results as the
+RTL:
+
+| Test on the gate-level netlist | Result |
+|---|---|
+| Link test pulses | 100 ns wide, exactly 16.000 ms apart |
+| Manchester transmit | All 5 frames correct, 0 ps edge error, start of idle 300 ns |
+| Frame-start detector | 10/10 correct at every required point up to ±11 ns jitter; ±16 ns 10/10, ±20 ns 6/10 (beyond the limit) |
+| MII: ARP frames | 6/6 correct, worst setup 185 ns, worst hold 197 ns |
+| MII: UDP frame | Correct, IPv4 checksum valid |
+| MII: PHY clock offset | Correct at ±200 and ±1000 ppm; fails at ±3000 ppm, as on RTL |
 
 ## The limits of the direct route, quantified
 
