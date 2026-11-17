@@ -26,6 +26,10 @@ at gate level after place and route):
 | SPI target | 19 | **The other side of SPI:** mode 0, MSB first, full duplex; MISO is released when CS is high (`dir` bits), tested down to a 12-cycle SCK period |
 | PS/2 receiver | 39 | **A protocol the chip was not designed around**, with parity checked by carrying it in the state number |
 | Nano-Tick trader | 4 + 9 | **Two cores, no host:** core 0 receives prices over UART, a comparator fires, core 1 sends an SPI order |
+| Ethernet MAC transmitter (MII) | 20 to 46 + 1 | **A whole valid Ethernet frame** ([study](docs/ethernet.md)): an ARP request or UDP datagram compiled into the table and sent as MII nibbles to a standard PHY chip at 10 Mb/s, 50 MHz clock. Checked against a PHY model in RTL and gate-level simulation; no PHY hardware connected; transmit only |
+| 10BASE-T link pulses | 4 + 2 | **The 10BASE-T line itself, in part**, at a 40 MHz clock: 100 ns pulses exactly 16 ms apart, core 0 timing core 1 through the comparator |
+| 10BASE-T Manchester transmit | 4 + 24 | Preamble, SFD and up to 3 bytes at the true 10 Mb/s, every edge on the 50 ns grid. Not a full frame: the FIFO holds 3 bytes |
+| 10BASE-T frame-start detector | 27 | Marks the end of the SFD while passing the line through; correct up to ±12.5 ns of edge jitter with 4 samples per bit |
 
 **What the architecture makes possible:**
 
@@ -56,7 +60,8 @@ ones trading firms use at full scale in FPGAs, for example in hardware pre-trade
 | Document | Contents |
 |---|---|
 | [Architecture and instruction set](docs/architecture.md) | Core, table word format, timing, comparator, pins, host commands, register map |
-| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, eight example programs, loading a program |
+| [Toolchain and example programs](docs/toolchain.md) | The OCaml DSL and compiler, its static checks, the example programs, loading a program |
+| [10 Mbit Ethernet study](docs/ethernet.md) | Real frames through a PHY chip over MII; three measured pieces of the 10BASE-T line driven directly; the exact limits; what a version 2 would need |
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
 | [Formal proofs](formal/README.md) | What is proved for every program, the assumptions, what is not proved, and how to rerun them |
 | [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
@@ -94,7 +99,8 @@ The pinout is in [`info.yaml`](info.yaml).
 | `src/` | RTL: `tt_um_tickertape_pfst.v` (top, two SRAM macros), `pfst_chip.v`, `pfst_core_sram.v`; flow config `config.json`, `pdn_cfg.tcl` |
 | `macro/` | IHP 256x32 SRAM macro LEF |
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
-| `test/` | cocotb tests: chip features (`test_pfst.py`) and every compiled program on the chip (`test_programs.py`), with the IHP SRAM simulation models in `test/models` |
+| `test/` | cocotb tests: chip features (`test_pfst.py`), every compiled program on the chip (`test_programs.py`) the Ethernet MAC transmitter over MII (`test_mii.py`) and the 10BASE-T programs at 40 MHz (`test_ethernet.py`), with the IHP SRAM simulation models in `test/models` |
+| `study/` | Version-2 Ethernet transmit sketch for an area estimate. A study, not part of the chip |
 | `model/` | OCaml golden model and PFST compiler, see [`model/README.md`](model/README.md) |
 | `host/` | Demo-board host software (MicroPython): loader, examples and simulation tests, see [`host/README.md`](host/README.md) |
 | `docs/` | Datasheet text (`info.md`) and the documents listed above |
@@ -108,11 +114,15 @@ RTL testbench (needs Icarus Verilog 12 and cocotb 2.0.1):
 cd test && make -B
 ```
 
-13/13 pass. `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
+21/21 pass (about 6 minutes; the 13 that are not Ethernet take under a minute). `test_pfst.py` covers the chip's features: registers, table write/read through the SRAM macro,
 a UART transmitter, UOMAP pass-through and PINMODE 3 row-controlled pins. `test_programs.py` runs every
 program the OCaml compiler produces on the chip and decodes the pins: UART TX, UART RX at ±1% baud error,
 SPI TX, I2C write against a reactive target, the two-core Nano-Tick trader, half-duplex UART on one wire,
-a PS/2 receiver with parity checking, and an SPI target answering a master.
+a PS/2 receiver with parity checking, and an SPI target answering a master. `test_ethernet.py` runs the 10BASE-T
+programs with a 40 MHz clock: link test pulses, a Manchester frame, the frame-start detector under jitter, and
+eleven planted bugs that its checkers must catch. `test_mii.py` sends complete Ethernet frames as MII nibbles to a
+model of a PHY chip and checks every field, the frame check sequence and the signal timing
+([docs/ethernet.md](docs/ethernet.md)).
 
 Gate-level: after hardening, copy the netlist to `test/gate_level_netlist.v` and run `make -B GATES=yes`. More in
 [`test/README.md`](test/README.md).
@@ -124,7 +134,7 @@ cd model && ./run_tests.sh
 ```
 
 All checks pass: cross-checks against Python reference vectors, I2C and Nano-Tick system tests, compiler
-static checks and must-reject controls; it also exports the eight compiled programs to `compiled_tables.json`.
+static checks and must-reject controls; it also exports the sixteen compiled programs to `compiled_tables.json`.
 
 Formal proofs (needs `yosys`, `cvc5` and SymbiYosys; see [`formal/README.md`](formal/README.md)):
 

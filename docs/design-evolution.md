@@ -137,12 +137,26 @@ The verification write-up lists the gaps this leaves, including what the formal 
 ### Nano-Tick: 10BASE-T Ethernet became UART
 
 The pitch's Nano-Tick received prices as a 10BASE-T Ethernet UDP feed. The built demo receives them over
-UART. Our reading of why Ethernet does not fit this architecture: 10BASE-T is Manchester-coded at
-10 Mb/s, so a bit lasts 5 clock cycles at 50 MHz and mid-bit transitions are 2.5 cycles apart. Inputs pass
-a 2-flop synchronizer and the engine takes one row per cycle, which leaves no margin to recover the clock
-reliably. It would also need an external line receiver for the differential pair. The demo's point was
-never the physical layer: it is two cores reacting to each other with no host, and that works today
-([test](../test/test_programs.py), `test_compiled_nanotick`).
+UART. The demo's point was never the physical layer: it is two cores reacting to each other with no host,
+and that works today ([test](../test/test_programs.py), `test_compiled_nanotick`).
+
+Why not Ethernet was at first only our reading. It has since been measured ([ethernet.md](ethernet.md)):
+
+- **The clock.** 10BASE-T is Manchester-coded at 10 Mb/s, so edges are 50 ns apart: 2.5 cycles at 50 MHz,
+  which whole rows cannot make. At 40 MHz it is exactly 2 cycles, and the demo board can supply that.
+- **What then works, on the unchanged chip:** link test pulses exactly 16 ms apart, a Manchester transmitter
+  at the true line rate (preamble, SFD and up to 3 bytes), and a detector that marks the start of a frame
+  while passing the line through.
+- **What does not:** a real frame. The host port is at least 3 times too slow to feed one, the FIFO holds 3
+  bytes of the 72 a minimum frame needs, the table is 9 to 18 times too small to hold one, and there is no
+  CRC. On receive, 4 samples per bit tolerate ±12.5 ns of edge jitter where the standard asks a receiver for
+  13.5 ns. A UDP price feed was out of reach for this chip; the study estimates what a second version would
+  add.
+- It would also need an external transformer and line receiver for the differential pair (untested).
+- **A different route does send real frames.** Through a standard PHY chip over MII, the chip is the MAC: a
+  whole 64-byte frame is compiled into the table and sent as nibbles at the 50 MHz signoff clock. It is
+  transmit only, and verified against a model of the PHY, not a real one. A price feed needs receive, so the
+  pitch's Nano-Tick over Ethernet is still out of reach.
 
 ## Summary
 
@@ -157,5 +171,5 @@ never the physical layer: it is two cores reacting to each other with no host, a
 | Area | 6x4 tiles, ~0.7 mm² | 8x4 tiles, 1.21 mm² core |
 | Compiler | Monadic combinators, hex output | Applicative data with compile-time checks, JSON output |
 | Verification | Formal (planned), Hardcaml Waveterm (planned) | Formal proofs (SymbiYosys), golden model, references, negative controls, RTL and gate-level tests |
-| Nano-Tick feed | 10BASE-T Ethernet | UART |
-| Protocols | UART baseline | UART, SPI controller and target, I2C, half-duplex UART, PS/2, two-core Nano-Tick |
+| Nano-Tick feed | 10BASE-T Ethernet | UART (parts of 10BASE-T demonstrated separately at 40 MHz) |
+| Protocols | UART baseline | UART, SPI controller and target, I2C, half-duplex UART, PS/2, two-core Nano-Tick; 10BASE-T link pulses, Manchester transmit and frame-start detection; Ethernet frames to a PHY chip over MII |
