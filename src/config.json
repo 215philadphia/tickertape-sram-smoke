@@ -104,7 +104,7 @@
   "//DESIGN_REPAIR_MAX_CAP_PCT": "Repair margins of 60% on cap limits and 40% on slew limits (passed to repair_design as -cap_margin 60 -slew_margin 40), to absorb post-route growth over placement estimates.",
   "DESIGN_REPAIR_MAX_CAP_PCT": 60,
   "DESIGN_REPAIR_MAX_SLEW_PCT": 40,
-  "//RUN_POST_GRT_DESIGN_REPAIR": "A second design-repair pass on global-route parasitics, after post-CTS hold fixing. The two remaining max-slew violators (sram1/A_ADDR[1], A_ADDR[0]) are SRAM inputs driven by hold-fix delay cells, which the post-placement repair pass never sees. Slew margin 50% (default 10%) for detailed-route growth: with 30% (gds run 43767877082) the step cleared sram1/A_ADDR[0] but left sram1/A_ADDR[1] at 0.740 ns against 0.595 ns. The cap margin stays at its default.",
+  "//RUN_POST_GRT_DESIGN_REPAIR": "Adds a design-repair pass on global-route parasitics after post-CTS hold fixing, followed by another global route. Measured (gds runs #82 and #83, slew margins 30% and 50%, bit-identical results): max-slew violations 2 -> 1 (sram1/A_ADDR[0] cleared; sram1/A_ADDR[1] 0.904 -> 0.740 ns against 0.595 ns), hold slack 0.059 -> 0.069 ns, setup unchanged. The repair step itself resized no cells and added no buffers (run #83 log), so the gain most likely comes from the extra global-route pass re-routing the SRAM address nets, not from repair. It is reproducible for this netlist but may not survive a later RTL or flow change.",
   "RUN_POST_GRT_DESIGN_REPAIR": 1,
   "GRT_DESIGN_REPAIR_MAX_SLEW_PCT": 50,
   "PDN_MULTILAYER": 0,
