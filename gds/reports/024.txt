@@ -1,0 +1,154 @@
+Artifact: GDS_logs
+Original path: runs/wokwi/38-openroad-resizertimingpostcts/openroad-resizertimingpostcts.log
+
+[WARNING ORD-0032] Invalid thread number specification: None.
++ repair_timing -verbose -setup -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -max_buffer_percent 50.0
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
++ repair_timing -verbose -hold -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -hold_margin 0.1 -max_buffer_percent 50.0
+[INFO RSZ-0046] Found 640 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+[INFO RSZ-0032] Inserted 887 hold buffers.
+  Buffer                                   18     130.64
+  Clock buffer                            106    2500.24
+  Timing Repair Buffer                   1422   18456.08
+--- LAST 150 LINES ---
+[WARNING ORD-0032] Invalid thread number specification: None.
+Reading timing models for corner nom_fast_1p32V_m40C…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/lib/sg13cmos5l_stdcell_fast_1p32V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/lib/sg13cmos5l_io_fast_1p32V_3p6V_m40C.lib'…
+Reading timing library for the 'nom_fast_1p32V_m40C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_fast_1p32V_m55C.lib'…
+Reading timing models for corner nom_slow_1p08V_125C…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/lib/sg13cmos5l_stdcell_slow_1p08V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/lib/sg13cmos5l_io_slow_1p08V_3p0V_125C.lib'…
+Reading timing library for the 'nom_slow_1p08V_125C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_slow_1p08V_125C.lib'…
+Reading timing models for corner nom_typ_1p20V_25C…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_stdcell/lib/sg13cmos5l_stdcell_typ_1p20V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_io/lib/sg13cmos5l_io_typ_1p2V_3p3V_25C.lib'…
+Reading timing library for the 'nom_typ_1p20V_25C' corner at '/home/runner/pdk/ihp-sg13cmos5l/libs.ref/sg13cmos5l_sram/lib/RM_IHPSG13_1P_256x32_c2_bm_bist_typ_1p20V_25C.lib'…
+Reading OpenROAD database at '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/36-openroad-cts/tt_um_tickertape_pfst.odb'…
+Reading design constraints file at '/nix/store/6a08ghhhzl5a07nr0ly762yh1ah6m5bj-python3-3.13.13-env/lib/python3.13/site-packages/librelane/scripts/base.sdc'…
+[INFO] Using clock clk…
+[INFO] Setting output delay to: 4.0
+[INFO] Setting input delay to: 4.0
+[INFO] Setting load to: 0.006
+[INFO] Setting clock uncertainty to: 0.25
+[INFO] Setting clock transition to: 0.15
+[INFO] Setting timing derate to: 5.0%
++ repair_timing -verbose -setup -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -max_buffer_percent 50.0
+[INFO RSZ-0100] Repair move sequence: UnbufferMove SizeUpMove SwapPinsMove BufferMove CloneMove SplitLoadMove 
+[INFO RSZ-0098] No setup violations found
++ repair_timing -verbose -hold -setup_margin 0.05000000000000000277555756156289135105907917022705078125 -hold_margin 0.1 -max_buffer_percent 50.0
+[INFO RSZ-0046] Found 640 endpoints with hold violations.
+Iteration | Resized | Buffers | Cloned Gates |   Area   |   WNS   |   TNS   | Endpoint
+--------------------------------------------------------------------------------------
+        0 |       0 |       0 |            0 |    +0.0% |  -0.550 | -44.983 | sram0/A_ADDR[1]
+       10 |       2 |      22 |            0 |    +0.2% |  -0.698 | -42.203 | sram0/A_DIN[1]
+       20 |      12 |      37 |            0 |    +0.4% |  -0.688 | -40.440 | sram0/A_DIN[2]
+       30 |      21 |      54 |            0 |    +0.5% |  -0.666 | -38.172 | sram0/A_DIN[30]
+       40 |      31 |      69 |            0 |    +0.6% |  -0.607 | -36.416 | sram0/A_DIN[18]
+       50 |      41 |      84 |            0 |    +0.8% |  -0.625 | -34.737 | sram0/A_DIN[27]
+       60 |      51 |      99 |            0 |    +0.9% |  -0.590 | -33.036 | sram0/A_DIN[17]
+       70 |      60 |     115 |            0 |    +1.1% |  -0.245 | -30.821 | sram0/A_DIN[16]
+       80 |      64 |     131 |            0 |    +1.2% |  -0.217 | -29.752 | sram0/A_REN
+       90 |      64 |     145 |            0 |    +1.4% |  -0.127 | -28.038 | _6719_/D
+      100 |      64 |     160 |            0 |    +1.5% |  -0.123 | -26.968 | sram0/A_DIN[1]
+      110 |      64 |     173 |            0 |    +1.6% |  -0.123 | -26.069 | sram0/A_DIN[1]
+      120 |      64 |     183 |            0 |    +1.7% |  -0.123 | -25.165 | sram0/A_DIN[1]
+      130 |      64 |     193 |            0 |    +1.8% |  -0.123 | -24.235 | sram0/A_DIN[1]
+      140 |      64 |     211 |            0 |    +2.0% |  -0.123 | -23.198 | sram0/A_DIN[1]
+      150 |      64 |     227 |            0 |    +2.2% |  -0.123 | -22.539 | sram0/A_DIN[1]
+      160 |      64 |     244 |            0 |    +2.3% |  -0.123 | -21.655 | sram0/A_DIN[1]
+      170 |      64 |     262 |            0 |    +2.5% |  -0.123 | -20.896 | sram0/A_DIN[1]
+      180 |      64 |     278 |            0 |    +2.7% |  -0.123 | -20.035 | sram0/A_DIN[1]
+      190 |      64 |     295 |            0 |    +2.8% |  -0.123 | -19.402 | sram0/A_DIN[1]
+      200 |      64 |     308 |            0 |    +3.0% |  -0.123 | -18.522 | sram0/A_DIN[1]
+      210 |      64 |     324 |            0 |    +3.1% |  -0.123 | -17.919 | sram0/A_DIN[1]
+      220 |      64 |     339 |            0 |    +3.3% |  -0.123 | -17.260 | sram0/A_DIN[1]
+      230 |      64 |     354 |            0 |    +3.4% |  -0.123 | -16.666 | sram0/A_DIN[1]
+      240 |      64 |     366 |            0 |    +3.5% |  -0.123 | -16.167 | sram0/A_DIN[1]
+      250 |      64 |     374 |            0 |    +3.6% |  -0.123 | -15.740 | sram0/A_DIN[1]
+      260 |      64 |     387 |            0 |    +3.7% |  -0.123 | -15.285 | sram0/A_DIN[1]
+      270 |      64 |     403 |            0 |    +3.9% |  -0.123 | -14.804 | sram0/A_DIN[1]
+      280 |      64 |     417 |            0 |    +4.0% |  -0.123 | -14.309 | sram0/A_DIN[1]
+      290 |      64 |     433 |            0 |    +4.2% |  -0.123 | -13.800 | sram0/A_DIN[1]
+      300 |      64 |     453 |            0 |    +4.4% |  -0.123 | -13.305 | sram0/A_DIN[1]
+      310 |      64 |     470 |            0 |    +4.6% |  -0.123 | -12.796 | sram0/A_DIN[1]
+      320 |      64 |     488 |            0 |    +4.7% |  -0.123 | -12.353 | sram0/A_DIN[1]
+      330 |      64 |     508 |            0 |    +4.9% |  -0.123 | -11.885 | sram0/A_DIN[1]
+      340 |      64 |     520 |            0 |    +5.0% |  -0.123 | -11.423 | sram0/A_DIN[1]
+      350 |      64 |     539 |            0 |    +5.2% |  -0.123 | -10.979 | sram0/A_DIN[1]
+      360 |      64 |     553 |            0 |    +5.4% |  -0.123 | -10.599 | sram0/A_DIN[1]
+      370 |      64 |     566 |            0 |    +5.5% |  -0.123 | -10.184 | sram0/A_DIN[1]
+      380 |      64 |     575 |            0 |    +5.6% |  -0.123 |  -9.853 | sram0/A_DIN[1]
+      390 |      64 |     590 |            0 |    +5.7% |  -0.123 |  -9.432 | sram0/A_DIN[1]
+      400 |      64 |     602 |            0 |    +5.9% |  -0.123 |  -9.175 | sram0/A_DIN[1]
+      410 |      64 |     614 |            0 |    +6.0% |  -0.123 |  -8.822 | sram0/A_DIN[1]
+      420 |      64 |     625 |            0 |    +6.1% |  -0.123 |  -8.566 | sram0/A_DIN[1]
+      430 |      64 |     637 |            0 |    +6.2% |  -0.123 |  -8.244 | sram0/A_DIN[1]
+      440 |      64 |     648 |            0 |    +6.3% |  -0.123 |  -7.998 | sram0/A_DIN[1]
+      450 |      64 |     658 |            0 |    +6.4% |  -0.123 |  -7.739 | sram0/A_DIN[1]
+      460 |      64 |     666 |            0 |    +6.5% |  -0.123 |  -7.518 | sram0/A_DIN[1]
+      470 |      64 |     675 |            0 |    +6.6% |  -0.123 |  -7.263 | sram0/A_DIN[1]
+      480 |      64 |     686 |            0 |    +6.7% |  -0.123 |  -7.025 | sram0/A_DIN[1]
+      490 |      64 |     698 |            0 |    +6.8% |  -0.123 |  -6.871 | sram0/A_DIN[1]
+      500 |      64 |     707 |            0 |    +6.9% |  -0.123 |  -6.734 | sram0/A_DIN[1]
+      510 |      64 |     717 |            0 |    +7.0% |  -0.123 |  -6.662 | sram0/A_DIN[1]
+      520 |      64 |     727 |            0 |    +7.1% |  -0.123 |  -6.591 | sram0/A_DIN[1]
+      530 |      64 |     742 |            0 |    +7.2% |  -0.123 |  -6.505 | sram0/A_DIN[1]
+      540 |      64 |     756 |            0 |    +7.4% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      550 |      64 |     775 |            0 |    +7.6% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      560 |      64 |     788 |            0 |    +7.7% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      570 |      64 |     803 |            0 |    +7.8% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      580 |      64 |     813 |            0 |    +7.9% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      590 |      64 |     823 |            0 |    +8.0% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      600 |      64 |     834 |            0 |    +8.1% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      610 |      64 |     842 |            0 |    +8.2% |  -0.123 |  -6.488 | sram0/A_DIN[1]
+      620 |      64 |     849 |            0 |    +8.3% |  -0.123 |  -5.760 | sram0/A_DIN[5]
+      630 |      64 |     856 |            0 |    +8.4% |  -0.120 |  -4.553 | sram0/A_DIN[28]
+      640 |      64 |     857 |            0 |    +8.4% |  -0.120 |  -4.553 | sram0/A_DIN[28]
+      650 |      64 |     863 |            0 |    +8.4% |  -0.109 |  -3.413 | sram0/A_DIN[21]
+      660 |      64 |     868 |            0 |    +8.5% |  -0.096 |  -2.360 | sram0/A_DIN[15]
+      670 |      64 |     873 |            0 |    +8.5% |  -0.089 |  -1.428 | sram0/A_DIN[19]
+      680 |      64 |     878 |            0 |    +8.6% |  -0.077 |  -0.577 | sram0/A_DIN[9]
+      690 |      64 |     884 |            0 |    +8.6% |   0.084 |   0.000 | _6720_/D
+    final |      64 |     887 |            0 |    +8.7% |   0.102 |   0.000 | _6471_/D
+--------------------------------------------------------------------------------------
+[INFO RSZ-0032] Inserted 887 hold buffers.
++ detailed_placement -max_displacement  500 100 
+Placement Analysis
+---------------------------------
+total displacement       5525.7 u
+average displacement        1.0 u
+max displacement           10.1 u
+original HPWL          226330.1 u
+legalized HPWL         232804.7 u
+delta HPWL                    3 %
+
+[INFO DPL-0020] Mirrored 2925 instances
+[INFO DPL-0021] HPWL before          232804.7 u
+[INFO DPL-0022] HPWL after           228071.9 u
+[INFO DPL-0023] HPWL delta               -2.0 %
+Setting global connections for newly added cells…
+[INFO] Setting global connections...
+sram0 matched with sram0
+sram0 matched with sram0
+sram1 matched with sram1
+sram1 matched with sram1
+[INFO ODB-0403] 1774 connections made, 0 conflicts skipped.
+Updating metrics…
+Cell type report:                       Count       Area
+  Macro                                     2   98977.00
+  Buffer                                   18     130.64
+  Clock buffer                            106    2500.24
+  Timing Repair Buffer                   1422   18456.08
+  Inverter                                253    1377.13
+  Clock inverter                           22     203.21
+  Sequential cell                         559   27384.74
+  Multi-Input combinational cell         3234   31233.08
+  Total                                  5616  180262.12
+Writing OpenROAD database to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/38-openroad-resizertimingpostcts/tt_um_tickertape_pfst.odb'…
+Writing netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/38-openroad-resizertimingpostcts/tt_um_tickertape_pfst.nl.v'…
+Writing powered netlist to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/38-openroad-resizertimingpostcts/tt_um_tickertape_pfst.pnl.v'…
+Writing layout to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/38-openroad-resizertimingpostcts/tt_um_tickertape_pfst.def'…
+Writing timing constraints to '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/runs/wokwi/38-openroad-resizertimingpostcts/tt_um_tickertape_pfst.sdc'…

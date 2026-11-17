@@ -1,0 +1,106 @@
+Original log: docs/2_Checkout repo.txt
+--- LAST 200 LINES ---
+﻿2026-11-17T00:19:25.7314134Z ##[group]Run actions/checkout@v6
+2026-11-17T00:19:25.7315496Z with:
+2026-11-17T00:19:25.7316238Z   submodules: recursive
+2026-11-17T00:19:25.7317138Z   repository: 215philadphia/tickertape-sram-smoke
+2026-11-17T00:19:25.7323647Z   token: ***
+2026-11-17T00:19:25.7324403Z   ssh-strict: true
+2026-11-17T00:19:25.7325156Z   ssh-user: git
+2026-11-17T00:19:25.7325939Z   persist-credentials: true
+2026-11-17T00:19:25.7326760Z   clean: true
+2026-11-17T00:19:25.7327546Z   sparse-checkout-cone-mode: true
+2026-11-17T00:19:25.7328427Z   fetch-depth: 1
+2026-11-17T00:19:25.7329332Z   fetch-tags: false
+2026-11-17T00:19:25.7330115Z   show-progress: true
+2026-11-17T00:19:25.7330878Z   lfs: false
+2026-11-17T00:19:25.7331667Z   set-safe-directory: true
+2026-11-17T00:19:25.7332517Z   allow-unsafe-pr-checkout: false
+2026-11-17T00:19:25.7333739Z ##[endgroup]
+2026-11-17T00:19:26.0079008Z Syncing repository: 215philadphia/tickertape-sram-smoke
+2026-11-17T00:19:26.0080588Z ##[group]Getting Git version info
+2026-11-17T00:19:26.0081097Z Working directory is '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke'
+2026-11-17T00:19:26.0081983Z [command]/usr/bin/git version
+2026-11-17T00:19:26.0172689Z git version 2.56.1
+2026-11-17T00:19:26.0190002Z ##[endgroup]
+2026-11-17T00:19:26.0206114Z Temporarily overriding HOME='/home/runner/work/_temp/2e1e402e-271c-4166-a597-13c8f5810f6b' before making global git config changes
+2026-11-17T00:19:26.0207581Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T00:19:26.0210097Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-17T00:19:26.0262487Z Deleting the contents of '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke'
+2026-11-17T00:19:26.0267697Z ##[group]Determining repository object format
+2026-11-17T00:19:26.0269787Z ##[endgroup]
+2026-11-17T00:19:26.0275361Z ##[group]Initializing the repository
+2026-11-17T00:19:26.0275877Z [command]/usr/bin/git init /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-17T00:19:26.0375808Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T00:19:26.0376527Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T00:19:26.0377384Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T00:19:26.0377882Z hint: call:
+2026-11-17T00:19:26.0378172Z hint:
+2026-11-17T00:19:26.0378743Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T00:19:26.0379298Z hint:
+2026-11-17T00:19:26.0379824Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T00:19:26.0380543Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T00:19:26.0381041Z hint:
+2026-11-17T00:19:26.0381407Z hint: 	git branch -m <name>
+2026-11-17T00:19:26.0381767Z hint:
+2026-11-17T00:19:26.0382192Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T00:19:26.0383652Z Initialized empty Git repository in /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/
+2026-11-17T00:19:26.0395259Z [command]/usr/bin/git remote add origin https://github.com/215philadphia/tickertape-sram-smoke
+2026-11-17T00:19:26.0449530Z ##[endgroup]
+2026-11-17T00:19:26.0450605Z ##[group]Disabling automatic garbage collection
+2026-11-17T00:19:26.0451846Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T00:19:26.0480718Z ##[endgroup]
+2026-11-17T00:19:26.0481918Z ##[group]Setting up auth
+2026-11-17T00:19:26.0482525Z Removing SSH command configuration
+2026-11-17T00:19:26.0485906Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T00:19:26.0519326Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T00:19:26.0880465Z Removing HTTP extra header
+2026-11-17T00:19:26.0881543Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T00:19:26.0900905Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T00:19:26.1067738Z Removing includeIf entries pointing to credentials config files
+2026-11-17T00:19:26.1074227Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T00:19:26.1102405Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T00:19:26.1267422Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T00:19:26.1303888Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config
+2026-11-17T00:19:26.1331951Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config
+2026-11-17T00:19:26.1366055Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config
+2026-11-17T00:19:26.1391675Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config
+2026-11-17T00:19:26.1414733Z ##[endgroup]
+2026-11-17T00:19:26.1415329Z ##[group]Fetching the repository
+2026-11-17T00:19:26.1422472Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +94709882b290abe57ce1f9c4aedca9747b4a1652:refs/remotes/origin/ethernet-10baset
+2026-11-17T00:19:26.5697391Z From https://github.com/215philadphia/tickertape-sram-smoke
+2026-11-17T00:19:26.5698338Z  * [new ref]         94709882b290abe57ce1f9c4aedca9747b4a1652 -> origin/ethernet-10baset
+2026-11-17T00:19:26.5708087Z [command]/usr/bin/git branch --list --remote origin/ethernet-10baset
+2026-11-17T00:19:26.5739669Z   origin/ethernet-10baset
+2026-11-17T00:19:26.5746799Z [command]/usr/bin/git rev-parse refs/remotes/origin/ethernet-10baset
+2026-11-17T00:19:26.5768176Z 94709882b290abe57ce1f9c4aedca9747b4a1652
+2026-11-17T00:19:26.5771801Z ##[endgroup]
+2026-11-17T00:19:26.5772641Z ##[group]Determining the checkout info
+2026-11-17T00:19:26.5773596Z ##[endgroup]
+2026-11-17T00:19:26.5777924Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T00:19:26.5826542Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T00:19:26.5852746Z ##[group]Checking out the ref
+2026-11-17T00:19:26.5855532Z [command]/usr/bin/git checkout --progress --force -B ethernet-10baset refs/remotes/origin/ethernet-10baset
+2026-11-17T00:19:26.5948329Z Switched to a new branch 'ethernet-10baset'
+2026-11-17T00:19:26.5953159Z branch 'ethernet-10baset' set up to track 'origin/ethernet-10baset'.
+2026-11-17T00:19:26.5956593Z ##[endgroup]
+2026-11-17T00:19:26.5957239Z ##[group]Setting up auth for fetching submodules
+2026-11-17T00:19:26.5961350Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T00:19:26.5997499Z [command]/usr/bin/git config --global include.path /home/runner/work/_temp/git-credentials-ea7a0ac7-0855-4f17-b7de-a6437fb88465.config
+2026-11-17T00:19:26.6025828Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2026-11-17T00:19:26.6052689Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2026-11-17T00:19:26.6083197Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-223137305@github.com:
+2026-11-17T00:19:26.6108720Z ##[endgroup]
+2026-11-17T00:19:26.6109799Z ##[group]Fetching submodules
+2026-11-17T00:19:26.6113578Z [command]/usr/bin/git submodule sync --recursive
+2026-11-17T00:19:26.6289148Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+2026-11-17T00:19:26.6468401Z [command]/usr/bin/git submodule foreach --recursive git config --local gc.auto 0
+2026-11-17T00:19:26.6638673Z ##[endgroup]
+2026-11-17T00:19:26.6639557Z ##[group]Persisting credentials for submodules
+2026-11-17T00:19:26.6645695Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2026-11-17T00:19:26.6820853Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T00:19:26.6993184Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2026-11-17T00:19:26.7177986Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'org-223137305@github.com:'
+2026-11-17T00:19:26.7338197Z ##[endgroup]
+2026-11-17T00:19:26.7374547Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T00:19:26.7394864Z 94709882b290abe57ce1f9c4aedca9747b4a1652
