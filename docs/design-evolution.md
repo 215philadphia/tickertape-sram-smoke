@@ -92,7 +92,8 @@ The pitch targeted 6x4 tiles (about 0.7 mm²). The competition raised the alloca
 for the March 2027 shuttle, and the design uses it: core area 1.21 mm², two SRAM macros side by side,
 15% utilization ([signoff](../README.md#signoff-status)). Before any PFST RTL existed, the project's first
 step was a single-macro smoke test, which proved an IHP SRAM of this size survives the full Tiny Tapeout
-flow.
+flow ([Gate 0](gate0.md): DRC, LVS, precheck and gate-level tests all passed, and the SRAM's output-to-address
+loop had about 13.8 ns of slack in a 20 ns cycle).
 
 ### The compiler: monadic combinators became plain data
 

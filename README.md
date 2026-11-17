@@ -65,6 +65,7 @@ ones trading firms use at full scale in FPGAs, for example in hardware pre-trade
 | [Verification approach](docs/verification.md) | Golden model, independent protocol references, negative controls, RTL and gate-level tests, signoff, known gaps |
 | [Formal proofs](formal/README.md) | What is proved for every program, the assumptions, what is not proved, and how to rerun them |
 | [Applications](docs/applications.md) | What the chip is for (hardware debugging), and where its ideas apply in trading hardware |
+| [Gate 0](docs/gate0.md) | The smoke test that proved the SRAM macro on this flow before the design was written, with its signoff results |
 | [Design evolution](docs/design-evolution.md) | From the original pitch to the built design: what changed and why |
 | [Host software](host/README.md) | Loading programs from the Tiny Tapeout demo board: driver, loader, examples, what is and is not verified |
 | [Use of AI tools](docs/ai-use.md) | What AI tools were used for and how their output was checked |
@@ -97,6 +98,7 @@ The pinout is in [`info.yaml`](info.yaml).
 | Path | Contents |
 |---|---|
 | `src/` | RTL: `tt_um_tickertape_pfst.v` (top, two SRAM macros), `pfst_chip.v`, `pfst_core_sram.v`; flow config `config.json`, `pdn_cfg.tcl` |
+| `tools/` | `sdf_paths.py`: the timing-path tracer used to measure Gate 0's SRAM loop |
 | `macro/` | IHP 256x32 SRAM macro LEF |
 | `librelane_plugin_sram_pdn.py`, `odb_sram_stripes.py` | Macro power hookup for the LibreLane flow |
 | `test/` | cocotb tests: chip features (`test_pfst.py`), every compiled program on the chip (`test_programs.py`) the Ethernet MAC transmitter over MII (`test_mii.py`) and the 10BASE-T programs at 40 MHz (`test_ethernet.py`), with the IHP SRAM simulation models in `test/models` |
@@ -190,7 +192,8 @@ If KLayout DRC ever reports `M3.f` at a macro edge, add a Metal3 `ROUTING_OBSTRU
 ## History
 
 This repo started as Gate 0, a single-macro smoke test that checked whether a user SRAM of this size survives
-GDS, precheck, LVS and gate-level test on the CMOS5L flow. The PFST design replaced that test design.
+GDS, precheck, LVS and gate-level test on the CMOS5L flow. It passed all five checks; the PFST design replaced
+that test design. Results: [docs/gate0.md](docs/gate0.md).
 
 ## Credits and provenance
 
