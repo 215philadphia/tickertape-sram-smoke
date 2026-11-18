@@ -1,0 +1,216 @@
+Original log: 2_gl_test.txt
+2026-11-18T00:12:54.4526807Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-18T00:12:54.4762646Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-18T00:13:07.2030224Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-18T00:13:15.6640842Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-18T00:13:51.8388773Z [36;1m# `make` will return success even if the tests fail, so check for failure in results.xml[0m
+2026-11-18T00:13:51.8389495Z [36;1m! grep failure results.xml[0m
+2026-11-18T00:13:51.8416586Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-18T00:14:00.8077751Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-18T00:16:27.4226536Z 30612835.01ns INFO     cocotb.tb                          TX ['0x0', '0xff', '0xa5']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.5977939Z 30650535.01ns INFO     cocotb.tb                          TX ['0x12', '0x34', '0x56']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.7397579Z 30681035.01ns INFO     cocotb.tb                          TX ['0x81']: 72 bits, 7500 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.8975079Z 30715135.01ns INFO     cocotb.tb                          TX ['0xfe', '0x1']: 80 bits, 8300 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:28.0725517Z 30752835.01ns INFO     cocotb.tb                          TX ['0x55', '0xaa', '0xf']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:17:28.1092524Z                                                           ** TESTS=21 PASS=19 FAIL=0 SKIP=2                    41539443.34         212.80     195204.59  **
+--- LAST 200 LINES ---
+2026-11-18T00:13:59.1415129Z                                                             v1.1 UOMAP pass-through: uo_out[0] <- ui_in[7] direct (same cycle), uo_out[1] <- ui_in[7] synchronized.
+2026-11-18T00:13:59.1974469Z 687200.00ns INFO     cocotb.regression                  test_pfst.test_passthrough passed
+2026-11-18T00:13:59.1976856Z 687200.00ns INFO     cocotb.regression                  running test_pfst.test_row_controlled_pins (5/21)
+2026-11-18T00:13:59.1977518Z                                                             v1.1 PINMODE 3: a row's dir bits decide which of core 0's pins drive; released while stopped.
+2026-11-18T00:13:59.5674486Z 755250.00ns INFO     cocotb.regression                  test_pfst.test_row_controlled_pins passed
+2026-11-18T00:13:59.5679125Z 755250.00ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_tx (6/21)
+2026-11-18T00:13:59.5680527Z                                                             uart_tx_dsl (2 states) on core 0: bytes pushed over SPI appear as 8N1 frames on uio[0].
+2026-11-18T00:14:00.8073318Z 982660.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_tx passed
+2026-11-18T00:14:00.8076972Z 982660.01ns INFO     cocotb.regression                  running test_programs.test_compiled_uart_rx (7/21)
+2026-11-18T00:14:00.8077751Z                                                             uart_rx_dsl (4 states) on core 1: frames at -1%, 0 and +1% baud error, each read back with READ_SCR.
+2026-11-18T00:14:05.3157358Z 1622390.01ns INFO     cocotb.regression                  test_programs.test_compiled_uart_rx passed
+2026-11-18T00:14:05.3164210Z 1622390.01ns INFO     cocotb.regression                  running test_programs.test_compiled_spi_tx (8/21)
+2026-11-18T00:14:05.3165008Z                                                              spi_tx_dsl (4 states) on core 0, P=4: mode 0 frames (CS, SCK, MOSI on uio[2:0]).
+2026-11-18T00:14:07.3281540Z 1987680.01ns INFO     cocotb.regression                  test_programs.test_compiled_spi_tx passed
+2026-11-18T00:14:07.3287230Z 1987680.01ns INFO     cocotb.regression                  running test_programs.test_compiled_i2c_write (9/21)
+2026-11-18T00:14:07.3288352Z                                                              i2c_wr_dsl (14 states) on core 0, open drain: write 6 bytes to 0x50, then a NACKed address; DONE each time.
+2026-11-18T00:14:15.4217336Z 3256410.01ns INFO     cocotb.regression                  test_programs.test_compiled_i2c_write passed
+2026-11-18T00:14:15.4223255Z 3256410.01ns INFO     cocotb.regression                  running test_programs.test_compiled_nanotick (10/21)
+2026-11-18T00:14:15.4224012Z                                                              Both cores, no host in the loop: core 0 receives prices over UART (uart_rx_dsl), the comparator
+2026-11-18T00:14:21.9508127Z 4406020.01ns INFO     cocotb.regression                  test_programs.test_compiled_nanotick passed
+2026-11-18T00:14:21.9512171Z 4406020.01ns INFO     cocotb.regression                  running test_programs.test_compiled_half_duplex (11/21)
+2026-11-18T00:14:21.9512852Z                                                              hd_uart_dsl (6 states) on one wire, uio[0] in PINMODE 3: send a request, release the wire,
+2026-11-18T00:14:26.4362233Z 5030310.01ns INFO     cocotb.regression                  test_programs.test_compiled_half_duplex passed
+2026-11-18T00:14:26.4371318Z 5030310.01ns INFO     cocotb.regression                  running test_programs.test_compiled_ps2_rx (12/21)
+2026-11-18T00:14:26.4372498Z                                                              ps2_rx_dsl (39 states, a protocol the chip was not designed for) on core 0: CLK on uio[1],
+2026-11-18T00:14:44.6031054Z 8116920.01ns INFO     cocotb.regression                  test_programs.test_compiled_ps2_rx passed
+2026-11-18T00:14:44.6037261Z 8116920.01ns INFO     cocotb.regression                  running test_programs.test_compiled_spi_target (13/21)
+2026-11-18T00:14:44.6037996Z                                                              spi_tgt_dsl (the other side of spi_tx_dsl) on core 0: mode 0 target, MISO on uio[0] in PINMODE 3 (released when
+2026-11-18T00:14:54.6758008Z 9848410.01ns INFO     cocotb.regression                  test_programs.test_compiled_spi_target passed
+2026-11-18T00:14:54.6762261Z 9848410.01ns INFO     cocotb.regression                  running test_ethernet.test_eth_nlp (14/21)
+2026-11-18T00:14:54.6763156Z                                                              Link test pulses from the tables alone: 100 ns wide, 16.000 ms apart, positive only, host idle.
+2026-11-18T00:16:15.0043556Z 27941772.51ns INFO     cocotb.tb                          NLP: 2 pulses, widths [100000] ps, gaps [16000000000] ps
+2026-11-18T00:16:15.0044200Z 27941772.51ns INFO     cocotb.regression                  test_ethernet.test_eth_nlp passed
+2026-11-18T00:16:15.0048008Z 27941772.51ns INFO     cocotb.regression                  running test_ethernet.test_eth_tx (15/21)
+2026-11-18T00:16:15.0048613Z                                                               Preamble, SFD and 1 to 3 host-pushed bytes as Manchester code at 10 Mb/s, then the start of idle.
+2026-11-18T00:16:27.4226536Z 30612835.01ns INFO     cocotb.tb                          TX ['0x0', '0xff', '0xa5']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.5977939Z 30650535.01ns INFO     cocotb.tb                          TX ['0x12', '0x34', '0x56']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.7397579Z 30681035.01ns INFO     cocotb.tb                          TX ['0x81']: 72 bits, 7500 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:27.8975079Z 30715135.01ns INFO     cocotb.tb                          TX ['0xfe', '0x1']: 80 bits, 8300 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:28.0725517Z 30752835.01ns INFO     cocotb.tb                          TX ['0x55', '0xaa', '0xf']: 88 bits, 9100 ns on the wire, worst edge error 0 ps, start of idle 300 ns after the last bit
+2026-11-18T00:16:28.1123149Z 30761785.01ns INFO     cocotb.regression                  test_ethernet.test_eth_tx passed
+2026-11-18T00:16:28.1123908Z 30761785.01ns INFO     cocotb.regression                  running test_ethernet.test_eth_sfd (16/21)
+2026-11-18T00:16:28.1124534Z                                                               Frame-start pulse 150..175 ns after the SFD's last edge, with up to +-11 ns of jitter; line passed through.
+2026-11-18T00:16:44.1645326Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-0 ns (uniform), dcd +0 ns: 10/10 ok
+2026-11-18T00:16:44.1646165Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-4 ns (uniform), dcd +0 ns: 10/10 ok
+2026-11-18T00:16:44.1646669Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-8 ns (uniform), dcd +0 ns: 10/10 ok
+2026-11-18T00:16:44.1647616Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-11 ns (uniform), dcd +0 ns: 10/10 ok
+2026-11-18T00:16:44.1648075Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-0 ns (uniform), dcd +8 ns: 10/10 ok
+2026-11-18T00:16:44.1648558Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-0 ns (uniform), dcd -8 ns: 10/10 ok
+2026-11-18T00:16:44.1649012Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-6 ns (gauss), dcd +4 ns: 10/10 ok
+2026-11-18T00:16:44.1649470Z 34057688.20ns INFO     cocotb.tb                          SFD jitter +-6 ns (gauss), dcd -4 ns: 10/10 ok
+2026-11-18T00:16:45.1417401Z 34259304.84ns INFO     cocotb.tb                          SFD beyond the limit, jitter +-16 ns: 10/10 ok ([])
+2026-11-18T00:16:45.1418227Z 34259304.84ns INFO     cocotb.tb                          SFD beyond the limit, jitter +-20 ns: 6/10 ok (['miss', 'wrong'])
+2026-11-18T00:16:45.2277164Z 34277873.34ns INFO     cocotb.regression                  test_ethernet.test_eth_sfd passed
+2026-11-18T00:16:45.2284503Z 34277873.34ns INFO     cocotb.regression                  skipping test_ethernet.test_eth_planted_bugs (17/21)
+2026-11-18T00:16:45.2285355Z                                                               Each program broken in at least two ways; every break must be reported by the checker of its test.
+2026-11-18T00:16:45.2296952Z 34277873.34ns INFO     cocotb.regression                  running test_mii.test_mii_arp (18/21)
+2026-11-18T00:16:45.2297594Z                                                               A gratuitous ARP request sent over MII: every field, the FCS and the signal timing as a PHY sees them.
+2026-11-18T00:16:57.5197251Z 36402023.34ns INFO     cocotb.tb                          MII ARP: 6 frames of 64 bytes correct; worst setup 185 ns, worst hold 197 ns against a 400 ns nibble
+2026-11-18T00:16:57.5197923Z 36402023.34ns INFO     cocotb.regression                  test_mii.test_mii_arp passed
+2026-11-18T00:16:57.5202776Z 36402023.34ns INFO     cocotb.regression                  running test_mii.test_mii_udp (19/21)
+2026-11-18T00:16:57.5203407Z                                                               A different frame by loading a different table: a UDP datagram with a valid IPv4 header checksum.
+2026-11-18T00:17:12.5274684Z 38898333.34ns INFO     cocotb.tb                          MII UDP: payload b'TickerTape-Out\n' in a 64-byte frame, IPv4 checksum valid
+2026-11-18T00:17:12.5275631Z 38898333.34ns INFO     cocotb.regression                  test_mii.test_mii_udp passed
+2026-11-18T00:17:12.5280398Z 38898333.34ns INFO     cocotb.regression                  running test_mii.test_mii_clock_tolerance (20/21)
+2026-11-18T00:17:12.5281206Z                                                               The PHY clock is only lined up once per frame; show how far off-frequency it may be.
+2026-11-18T00:17:22.8191582Z 40677843.34ns INFO     cocotb.tb                          MII clock offset  -200 ppm: 2/2 frames correct, smallest margin 171 ns
+2026-11-18T00:17:23.6992809Z 40850163.34ns INFO     cocotb.tb                          MII clock offset  +200 ppm: 2/2 frames correct, smallest margin 187 ns
+2026-11-18T00:17:24.5779377Z 41022483.34ns INFO     cocotb.tb                          MII clock offset -1000 ppm: 2/2 frames correct, smallest margin 134 ns
+2026-11-18T00:17:26.3478283Z 41194803.34ns INFO     cocotb.tb                          MII clock offset +1000 ppm: 2/2 frames correct, smallest margin 145 ns
+2026-11-18T00:17:27.2256350Z 41367123.34ns INFO     cocotb.tb                          MII clock offset -3000 ppm: 0/2 frames correct, smallest margin 12 ns
+2026-11-18T00:17:28.1049400Z 41539443.34ns INFO     cocotb.tb                          MII clock offset +3000 ppm: 0/2 frames correct, smallest margin 32 ns
+2026-11-18T00:17:28.1050412Z 41539443.34ns INFO     cocotb.regression                  test_mii.test_mii_clock_tolerance passed
+2026-11-18T00:17:28.1056624Z 41539443.34ns INFO     cocotb.regression                  skipping test_mii.test_mii_planted_bugs (21/21)
+2026-11-18T00:17:28.1057470Z                                                               Four ways to break the transmitter; the PHY-side checker must object to each.
+2026-11-18T00:17:28.1063098Z 41539443.34ns INFO     cocotb.regression                  *************************************************************************************************
+2026-11-18T00:17:28.1063888Z                                                           ** TEST                                     STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+2026-11-18T00:17:28.1064653Z                                                           *************************************************************************************************
+2026-11-18T00:17:28.1065411Z                                                           ** test_pfst.test_registers                  PASS       94330.00           0.62     152421.73  **
+2026-11-18T00:17:28.1066187Z                                                           ** test_pfst.test_table                      PASS      288770.00           1.58     182746.58  **
+2026-11-18T00:17:28.1066926Z                                                           ** test_pfst.test_uart_tx                    PASS      294170.00           1.63     180327.57  **
+2026-11-18T00:17:28.1067801Z                                                           ** test_pfst.test_passthrough                PASS        9930.00           0.06     179011.87  **
+2026-11-18T00:17:28.1069059Z                                                           ** test_pfst.test_row_controlled_pins        PASS       68050.00           0.37     184335.18  **
+2026-11-18T00:17:28.1070678Z                                                           ** test_programs.test_compiled_uart_tx       PASS      227410.00           1.24     183548.18  **
+2026-11-18T00:17:28.1072083Z                                                           ** test_programs.test_compiled_uart_rx       PASS      639730.00           4.51     141920.59  **
+2026-11-18T00:17:28.1073434Z                                                           ** test_programs.test_compiled_spi_tx        PASS      365290.00           2.01     181616.65  **
+2026-11-18T00:17:28.1074758Z                                                           ** test_programs.test_compiled_i2c_write     PASS     1268730.00           8.09     156770.11  **
+2026-11-18T00:17:28.1076108Z                                                           ** test_programs.test_compiled_nanotick      PASS     1149610.00           6.53     176108.10  **
+2026-11-18T00:17:28.1077457Z                                                           ** test_programs.test_compiled_half_duplex   PASS      624290.00           4.48     139214.15  **
+2026-11-18T00:17:28.1078801Z                                                           ** test_programs.test_compiled_ps2_rx        PASS     3086610.00          18.17     169916.56  **
+2026-11-18T00:17:28.1080329Z                                                           ** test_programs.test_compiled_spi_target    PASS     1731490.00          10.07     171915.67  **
+2026-11-18T00:17:28.1081665Z                                                           ** test_ethernet.test_eth_nlp                PASS    18093362.50          80.33     225244.29  **
+2026-11-18T00:17:28.1082980Z                                                           ** test_ethernet.test_eth_tx                 PASS     2820012.50          13.11     215153.38  **
+2026-11-18T00:17:28.1084521Z                                                           ** test_ethernet.test_eth_sfd                PASS     3516088.32          17.11     205440.21  **
+2026-11-18T00:17:28.1085852Z                                                           ** test_ethernet.test_eth_planted_bugs       SKIP           0.00           0.00          -.--  **
+2026-11-18T00:17:28.1087066Z                                                           ** test_mii.test_mii_arp                     PASS     2124150.00          12.29     172839.61  **
+2026-11-18T00:17:28.1088403Z                                                           ** test_mii.test_mii_udp                     PASS     2496310.00          15.01     166344.33  **
+2026-11-18T00:17:28.1089637Z                                                           ** test_mii.test_mii_clock_tolerance         PASS     2641110.00          15.58     169552.58  **
+2026-11-18T00:17:28.1091131Z                                                           ** test_mii.test_mii_planted_bugs            SKIP           0.00           0.00          -.--  **
+2026-11-18T00:17:28.1091846Z                                                           *************************************************************************************************
+2026-11-18T00:17:28.1092524Z                                                           ** TESTS=21 PASS=19 FAIL=0 SKIP=2                    41539443.34         212.80     195204.59  **
+2026-11-18T00:17:28.1093142Z                                                           *************************************************************************************************
+2026-11-18T00:17:28.1402325Z FST info: dumpfile tb.fst opened for output.
+2026-11-18T00:17:28.3958739Z make[1]: Leaving directory '/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test'
+2026-11-18T00:17:28.3979831Z ##[end-action id=__TinyTapeout_tt-gds-action.__run_6;outcome=success;conclusion=success;duration_ms=216560]
+2026-11-18T00:17:28.3982557Z ##[start-action display=Upload Waveform and Test Results;id=__TinyTapeout_tt-gds-action.__actions_upload-artifact]
+2026-11-18T00:17:28.4139836Z ##[group]Run actions/upload-artifact@v7
+2026-11-18T00:17:28.4140394Z with:
+2026-11-18T00:17:28.4140612Z   name: gatelevel_test_results
+2026-11-18T00:17:28.4140974Z   path: test/tb.vcd
+test/tb.fst
+test/results.xml
+test/output/*
+
+2026-11-18T00:17:28.4141331Z   if-no-files-found: warn
+2026-11-18T00:17:28.4141591Z   compression-level: 6
+2026-11-18T00:17:28.4141827Z   overwrite: false
+2026-11-18T00:17:28.4142058Z   include-hidden-files: false
+2026-11-18T00:17:28.4142319Z   archive: true
+2026-11-18T00:17:28.4142529Z env:
+2026-11-18T00:17:28.4142713Z   PDK: ihp-sg13cmos5l
+2026-11-18T00:17:28.4142942Z   PDK_ROOT: /home/runner/pdk
+2026-11-18T00:17:28.4143200Z   PDK_SOURCE: IHP-Open-PDK
+2026-11-18T00:17:28.4143500Z   PDK_VERSION: 2bbec755dc67ca3db0261c3d6163e15735d66710
+2026-11-18T00:17:28.4143918Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:28.4144524Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-18T00:17:28.4145053Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:28.4145527Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:28.4146008Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:28.4146512Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-18T00:17:28.4146929Z ##[endgroup]
+2026-11-18T00:17:28.5260948Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-18T00:17:28.5262542Z The least common ancestor is /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/test. This will be the root directory of the artifact
+2026-11-18T00:17:28.5263255Z With the provided path, there will be 2 files uploaded
+2026-11-18T00:17:28.5265539Z Artifact name is valid!
+2026-11-18T00:17:28.5265914Z Root directory input is valid!
+2026-11-18T00:17:28.6835666Z Uploading artifact: gatelevel_test_results.zip
+2026-11-18T00:17:28.6859871Z Beginning upload of artifact content to blob storage
+2026-11-18T00:17:29.0570618Z Uploaded bytes 2842636
+2026-11-18T00:17:29.0871004Z Finished uploading artifact content to blob storage!
+2026-11-18T00:17:29.0871593Z SHA256 digest of uploaded artifact is 5b45f61ab47dbf9d8e2d72ad3f16ed793d9452f2089ebbd282e549c30909a81b
+2026-11-18T00:17:29.0872058Z Finalizing artifact upload
+2026-11-18T00:17:29.4576003Z Artifact gatelevel_test_results successfully finalized. Artifact ID 14383582663
+2026-11-18T00:17:29.4577062Z Artifact gatelevel_test_results has been successfully uploaded! Final size is 2842636 bytes. Artifact ID is 14383582663
+2026-11-18T00:17:29.4578969Z Artifact download URL: https://github.com/215philadphia/tickertape-sram-smoke/actions/runs/44202959188/artifacts/14383582663
+2026-11-18T00:17:29.4652300Z ##[end-action id=__TinyTapeout_tt-gds-action.__actions_upload-artifact;outcome=success;conclusion=success;duration_ms=1066]
+2026-11-18T00:17:29.4654512Z ##[start-action display=Test Summary;id=__TinyTapeout_tt-gds-action.__test-summary_action]
+2026-11-18T00:17:29.4676859Z ##[group]Run test-summary/action@v2.6
+2026-11-18T00:17:29.4677071Z with:
+2026-11-18T00:17:29.4677241Z   paths: test/results.xml
+2026-11-18T00:17:29.4677417Z env:
+2026-11-18T00:17:29.4677570Z   PDK: ihp-sg13cmos5l
+2026-11-18T00:17:29.4677758Z   PDK_ROOT: /home/runner/pdk
+2026-11-18T00:17:29.4677952Z   PDK_SOURCE: IHP-Open-PDK
+2026-11-18T00:17:29.4678180Z   PDK_VERSION: 2bbec755dc67ca3db0261c3d6163e15735d66710
+2026-11-18T00:17:29.4678482Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:29.4678798Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-18T00:17:29.4679115Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:29.4679402Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:29.4679695Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-18T00:17:29.4680003Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-18T00:17:29.4680528Z ##[endgroup]
+2026-11-18T00:17:29.5146210Z ##[end-action id=__TinyTapeout_tt-gds-action.__test-summary_action;outcome=success;conclusion=success;duration_ms=49]
+2026-11-18T00:17:29.5233331Z Post job cleanup.
+2026-11-18T00:17:29.5236532Z ##[start-action display=Setup python;id=__86450a72-1bab-4e05-90f0-8cae9c32f013.__actions_setup-python]
+2026-11-18T00:17:29.5266607Z Post job cleanup.
+2026-11-18T00:17:29.6214163Z ##[end-action id=__86450a72-1bab-4e05-90f0-8cae9c32f013.__actions_setup-python;outcome=success;conclusion=success;duration_ms=97]
+2026-11-18T00:17:29.6260898Z Post job cleanup.
+2026-11-18T00:17:29.6946814Z [command]/usr/bin/git version
+2026-11-18T00:17:29.7001017Z git version 2.56.1
+2026-11-18T00:17:29.7025291Z Temporarily overriding HOME='/home/runner/work/_temp/08556f22-685e-44c2-90c7-54b744161eb8' before making global git config changes
+2026-11-18T00:17:29.7026203Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-18T00:17:29.7031622Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke
+2026-11-18T00:17:29.7076263Z Removing SSH command configuration
+2026-11-18T00:17:29.7076847Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-18T00:17:29.7108617Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-18T00:17:29.7320793Z Removing HTTP extra header
+2026-11-18T00:17:29.7332698Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-18T00:17:29.7356785Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-18T00:17:29.7536028Z Removing includeIf entries pointing to credentials config files
+2026-11-18T00:17:29.7550935Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-18T00:17:29.7564391Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-18T00:17:29.7565286Z includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-18T00:17:29.7566045Z includeif.gitdir:/github/workspace/.git.path
+2026-11-18T00:17:29.7566563Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-18T00:17:29.7571038Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path
+2026-11-18T00:17:29.7586268Z /home/runner/work/_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7593260Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git.path /home/runner/work/_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7615808Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path
+2026-11-18T00:17:29.7631581Z /home/runner/work/_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7637512Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/tickertape-sram-smoke/tickertape-sram-smoke/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7659559Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-11-18T00:17:29.7675244Z /github/runner_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7680691Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7705155Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-11-18T00:17:29.7723026Z /github/runner_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7727784Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config
+2026-11-18T00:17:29.7757906Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-18T00:17:29.7903662Z Removing credentials config '/home/runner/work/_temp/git-credentials-af4fac8a-3085-4eb2-be64-71e1d356339e.config'
+2026-11-18T00:17:29.8021758Z Cleaning up orphan processes
